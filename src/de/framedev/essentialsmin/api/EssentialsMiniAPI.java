@@ -45,13 +45,10 @@ public class EssentialsMiniAPI {
 
     public boolean hasPlayerKey(OfflinePlayer player) {
         if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-            if (plugin.getBackendManager().exists(player, "key", "test")) {
-                return true;
-            }
+            return plugin.getBackendManager().exists(player, "key", "test");
         } else {
             return new KeyGenerator().hasPlayerKey(player);
         }
-        return false;
     }
 
     public boolean canPlayerFly(Player player) {
@@ -152,9 +149,7 @@ public class EssentialsMiniAPI {
 
     public void printAllHomesFromPlayers() {
         for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-            getPlayerHomes(offlinePlayer).forEach((s, location) -> {
-                Bukkit.getConsoleSender().sendMessage(plugin.getPrefix() + "§7" + offlinePlayer.getName() + " Homes : " + s + " = " +  new LocationsManager().locationToString(location));
-            });
+            getPlayerHomes(offlinePlayer).forEach((s, location) -> Bukkit.getConsoleSender().sendMessage(plugin.getPrefix() + "§7" + offlinePlayer.getName() + " Homes : " + s + " = " +  new LocationsManager().locationToString(location)));
         }
     }
 
@@ -238,40 +233,37 @@ public class EssentialsMiniAPI {
         bossBarManager.create();
         bossBarManager.setProgress(progress);
         Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§cServer Restart wird eingeführt!");
-        Bukkit.getScheduler().runTaskTimer(Main.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                if (time <= 0) {
-                    Bukkit.spigot().restart();
-                } else {
-                    switch (time) {
-                        case 60:
-                            Bukkit.broadcastMessage(Main.getInstance().getPrefix() + "§cServer Restartet in §61 Minute§4§l!");
-                            Bukkit.getOnlinePlayers().forEach(players -> {
-                                bossBarManager.addPlayer(players);
-                                bossBarManager.update();
-                            });
-                            break;
-                        case 30:
-                        case 3:
-                        case 15:
-                        case 10:
-                        case 5:
-                        case 2:
-                            Bukkit.broadcastMessage(Main.getInstance().getPrefix() + "§cServer Restartet in §6" + time + " Sekunden§4§l!");
-                            bossBarManager.setProgress(1.0);
-                            break;
-                        case 1:
-                            Bukkit.broadcastMessage(Main.getInstance().getPrefix() + "§cServer Restartet in §6einer Sekunde§4§l!");
-                            bossBarManager.setProgress(1.0);
-                            break;
-                    }
-                    time--;
-                    if (progress != 0.00) {
-                        progress = progress - 0.01;
-                        bossBarManager.setProgress(progress);
-                        bossBarManager.update();
-                    }
+        Bukkit.getScheduler().runTaskTimer(Main.getInstance(), () -> {
+            if (time <= 0) {
+                Bukkit.spigot().restart();
+            } else {
+                switch (time) {
+                    case 60:
+                        Bukkit.broadcastMessage(Main.getInstance().getPrefix() + "§cServer Restartet in §61 Minute§4§l!");
+                        Bukkit.getOnlinePlayers().forEach(players -> {
+                            bossBarManager.addPlayer(players);
+                            bossBarManager.update();
+                        });
+                        break;
+                    case 30:
+                    case 3:
+                    case 15:
+                    case 10:
+                    case 5:
+                    case 2:
+                        Bukkit.broadcastMessage(Main.getInstance().getPrefix() + "§cServer Restartet in §6" + time + " Sekunden§4§l!");
+                        bossBarManager.setProgress(1.0);
+                        break;
+                    case 1:
+                        Bukkit.broadcastMessage(Main.getInstance().getPrefix() + "§cServer Restartet in §6einer Sekunde§4§l!");
+                        bossBarManager.setProgress(1.0);
+                        break;
+                }
+                time--;
+                if (progress != 0.00) {
+                    progress = progress - 0.01;
+                    bossBarManager.setProgress(progress);
+                    bossBarManager.update();
                 }
             }
         }, 0, 20);
