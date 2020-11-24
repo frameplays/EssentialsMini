@@ -9,7 +9,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sun.istack.internal.NotNull;
 import de.framedev.essentialsmin.api.EssentialsMiniAPI;
-import de.framedev.essentialsmin.api.TestAPI;
 import de.framedev.essentialsmin.api.VaultAPI;
 import de.framedev.essentialsmin.commands.*;
 import de.framedev.essentialsmin.managers.*;
@@ -245,7 +244,6 @@ public class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
         checkUpdate();
         new SaveLists().setVanished();
-        new TestAPI(this);
         /*KitManager kit = new KitManager();
         kit.saveKit("Stone");*/
         //EssentialsMiniAPI.getInstance().printAllHomesFromPlayers();
