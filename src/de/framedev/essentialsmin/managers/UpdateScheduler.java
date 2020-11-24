@@ -21,9 +21,6 @@ import java.util.Map;
 
 public class UpdateScheduler {
 
-    int time = 100;
-    double progress = 1.0;
-
     public void run() {
         new BukkitRunnable() {
             @Override
