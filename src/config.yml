@@ -1,0 +1,75 @@
+Prefix: '&6[&aEssentials&bMini&6] &c>> &f'
+Back: true
+
+JoinBoolean: true
+JoinMessage: '&aHerzlich Willkommen &6%Player% &aauf dem Server!'
+LeaveBoolean: true
+LeaveMessage: '&6%Player% &ahat den Server verlassen!'
+SaveInventory: false
+Backpack: false
+SpawnTP: false
+SkipNight: false
+
+LocationsBackup: false
+# minutes
+BackupTime: 5
+LocationsBackupMessage: false
+
+IgnoreJoinLeave: false
+
+# LimtedHomes
+Limited: false
+LimitedHomes:
+  Default: 4
+  Medium: 8
+  Admin: 12
+LimitedHomesPermission:
+  Default: essentialsmini.sethome.default
+  Medium: essentialsmini.sethome.medium
+  Admin: essentialsmini.sethome.admin
+HomeTP: true
+
+ShowItem: false
+ShowCrafting: false
+ShowLocation: false
+
+# activates the Command /position (/pos)
+Position: true
+
+# Sets the Json Format for the DataSave from Players
+JsonFormat: false
+
+# Send to the Console updates from PlayerData
+BackupMessages: false
+SendPlayerUpdateMessage: true
+ZeitgesteuerterRestart: 30
+ZeitGesteuerterRestartBoolean: false
+StartBalance:
+  Amount: 1000.0
+  Boolean: false
+
+Money:
+  MSG:
+    Balance: '&aYour money is &b[Money]'
+    Pay: '&aYou gave &b[Target] &b[Money]'
+    Set: '&aYour money has been set to &b[Money]'
+  MoneyBalance:
+    Other:
+      MSG: '&aThe money from &b[Target] &ais &b[Money]'
+  MoneySet:
+    Other:
+      MSG: '&aThe money from &b[Target] &ahas been set to &b[Money]'
+MoneySign:
+  Balance: '&b[Bank Balance]'
+  Buy: '&aBuy'
+  Sell: '&aSell'
+  Free: '&aFree'
+Economy:
+  MaxBalance: 1000000
+
+# Require ==MySQLAPI== https://github.com/TrAxMC/MySQLAPI/releases
+MySQL: false
+
+PlayerInfoSave: false
+OnlineMode: true
+Currency: '$'
