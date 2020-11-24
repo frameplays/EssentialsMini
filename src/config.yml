@@ -9,11 +9,14 @@ SaveInventory: false
 Backpack: false
 SpawnTP: false
 SkipNight: false
+
 LocationsBackup: false
 # minutes
 BackupTime: 5
 LocationsBackupMessage: false
+
 IgnoreJoinLeave: false
+
 # LimtedHomes
 Limited: false
 LimitedHomes:
@@ -25,15 +28,22 @@ LimitedHomesPermission:
   Medium: essentialsmini.sethome.medium
   Admin: essentialsmini.sethome.admin
 HomeTP: true
-ShowItem: true
-ShowCrafting: true
-ShowLocation: true
+
+ShowItem: false
+ShowCrafting: false
+ShowLocation: false
+
+# activates the Command /position (/pos)
 Position: true
-JsonFormat: true
-BackupMessages: true
+
+# Sets the Json Format for the DataSave from Players
+JsonFormat: false
+
+# Send to the Console updates from PlayerData
+BackupMessages: false
 SendPlayerUpdateMessage: true
 ZeitgesteuerterRestart: 30
-ZeitGesteuerterRestartBoolean: true
+ZeitGesteuerterRestartBoolean: false
 StartBalance:
   Amount: 1000.0
   Boolean: false
