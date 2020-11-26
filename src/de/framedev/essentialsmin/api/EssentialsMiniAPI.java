@@ -47,6 +47,10 @@ public class EssentialsMiniAPI {
         if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
             return plugin.getBackendManager().exists(player, "key", "test");
         } else {
+            System.out.println("test");
+            if(player.isOnline()) {
+                player.setWhitelisted(false);
+            }
             return new KeyGenerator().hasPlayerKey(player);
         }
     }

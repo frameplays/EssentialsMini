@@ -102,9 +102,9 @@ public class Main extends JavaPlugin {
 
         new EssentialsMiniAPI();
         createCustomMessagesConfig();
-        getConfig().options().copyHeader(true);
-        getConfig().options().copyDefaults();
+        getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+        saveCfg();
         Config.loadConfig();
         Config.updateConfig();
 
@@ -275,18 +275,6 @@ public class Main extends JavaPlugin {
             currencySymbol = "\\u20ac";
         }
         return currencySymbol;
-    }
-
-    protected static class Test {
-        private String name;
-        private int age;
-        private String work;
-
-        public Test(String name, int age, String work) {
-            this.name = name;
-            this.age = age;
-            this.work = work;
-        }
     }
 
     public boolean isMongoDb() {

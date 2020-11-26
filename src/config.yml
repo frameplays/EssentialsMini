@@ -60,10 +60,10 @@ Money:
     Other:
       MSG: '&aThe money from &b[Target] &ahas been set to &b[Money]'
 MoneySign:
-  Balance: '&b[Bank Balance]'
-  Buy: '&aBuy'
-  Sell: '&aSell'
-  Free: '&aFree'
+  Balance: '&b[§6Balance§b]'
+  Buy: '&a[§6Buy§a]'
+  Sell: '&a[§6Sell§a]'
+  Free: '&a[§6Free§a]'
 Economy:
   MaxBalance: 1000000
 
