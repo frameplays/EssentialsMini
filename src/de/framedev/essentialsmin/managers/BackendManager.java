@@ -29,6 +29,7 @@ public class BackendManager {
         KEY("key"),
         ENTITYTYPES("entityTypes"),
         OFFLINE("offline"),
+        SLEEPTIMES("sleepTimes"),
         CREATEDATE("createDate"),
         LASTLOGIN("lastLogin"),
         LASTLOGOUT("lastLogout");
@@ -68,6 +69,7 @@ public class BackendManager {
                         .append("key", null)
                         .append("entityTypes", new ArrayList<String>())
                         .append("offline", false)
+                        .append(DATA.SLEEPTIMES.getName(),0)
                         .append("createDate", System.currentTimeMillis() + "")
                         .append("lastLogin", 0L + "")
                         .append("lastLogout", 0L + "");
@@ -92,6 +94,7 @@ public class BackendManager {
                         .append("key", null)
                         .append("entityTypes", new ArrayList<String>())
                         .append("offline", false)
+                        .append(DATA.SLEEPTIMES.getName(),0)
                         .append("createDate", System.currentTimeMillis())
                         .append("lastLogin", 0L)
                         .append("lastLogout", 0L);
@@ -109,7 +112,12 @@ public class BackendManager {
             if (document != null) {
                 Document document1 = new Document(where, data);
                 Document document2 = new Document("$set", document1);
-                collections.updateOne(document, document2);
+                if(document.get(where) != null) {
+                    collections.updateOne(document, document2);
+                } else {
+                    document.put(where,data);
+                    collections.updateOne(collections.find(new Document("uuid", uuid)).first(), document);
+                }
             }
         } else {
             String uuid = player.getUniqueId().toString();

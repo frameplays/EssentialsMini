@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +18,7 @@ import java.util.UUID;
  * Project: EssentialsMini
  * Copyrighted by FrameDev
  */
+
 public class PlayerManagerMongoDB {
 
     private UUID uuid;

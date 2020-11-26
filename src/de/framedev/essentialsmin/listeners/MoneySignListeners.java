@@ -88,9 +88,7 @@ public class MoneySignListeners implements Listener {
                     e.setLine(2, amount + "");
                     e.setLine(3, money + "");
                 }
-
             } else {
-
                 e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
             }
         }
@@ -111,9 +109,7 @@ public class MoneySignListeners implements Listener {
                     e.setLine(1, name.name());
                     e.setLine(2, amount + "");
                 }
-
             } else {
-
                 e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
             }
         }
@@ -134,11 +130,9 @@ public class MoneySignListeners implements Listener {
                         if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
                             String[] args = s.getLines();
                             Material name = Material.getMaterial(args[1].toUpperCase());
-
                             int amount = Integer.parseInt(args[2]);
                             if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "")) {
                                 e.getPlayer().getInventory().addItem(new ItemStack(name, amount));
-
                                 return;
                             }
                         } else {
