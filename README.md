@@ -1,9 +1,4 @@
----
-layout: default
-title: EssentialsMini
-description: This is an Minecraft Plugin like Essentials!
----
-This is an Minecraft Plugin like Essentials!
+This is an Minecraft Plugin like Essentials!\
 **EssentialsMini!**
 
 ## ChangeLogs
