@@ -7,6 +7,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import javax.annotation.Nonnull;
+
 /**
  * This Plugin was Created by FrameDev
  * Package : de.framedev.essentialsmin.commands
@@ -14,7 +16,7 @@ import org.bukkit.command.CommandSender;
  * Project: EssentialsMini
  * Copyrighted by FrameDev
  */
-public class ClearChatCMD extends CommandBase implements CommandExecutor {
+public class ClearChatCMD extends CommandBase {
 
     private final Main plugin;
 
@@ -25,13 +27,13 @@ public class ClearChatCMD extends CommandBase implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if(sender.hasPermission(plugin.getPermissionName() + "chatclear")) {
             clearChat(sender);
         } else {
             sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
         }
-        return false;
+        return super.onCommand(sender, command, label, args);
     }
 
     public void clearChat(CommandSender sender) {

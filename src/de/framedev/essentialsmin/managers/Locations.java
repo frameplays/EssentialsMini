@@ -47,7 +47,7 @@ public class Locations {
     }
 
     private String name;
-    private World world;
+    private String world;
     private double x;
     private double y;
     private double z;
@@ -68,7 +68,7 @@ public class Locations {
         this.z = location.getZ();
         this.yaw = location.getYaw();
         this.pitch = location.getPitch();
-        this.world = location.getWorld();
+        this.world = location.getWorld().getName();
     }
 
     public String getName() {
@@ -79,11 +79,11 @@ public class Locations {
         this.name = name;
     }
 
-    public World getWorld() {
+    public String getWorld() {
         return world;
     }
 
-    public void setWorld(World world) {
+    public void setWorld(String world) {
         this.world = world;
     }
 
@@ -128,7 +128,7 @@ public class Locations {
     }
 
     public void setLocation() {
-        json.set(name, new Utils().locationToString(new Location(world,x,y,z,yaw,pitch)));
+        json.set(name, new Utils().locationToString(new Location(Bukkit.getWorld(world),x,y,z,yaw,pitch)));
         json.saveConfig();
     }
 

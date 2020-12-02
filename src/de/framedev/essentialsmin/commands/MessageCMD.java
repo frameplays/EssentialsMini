@@ -49,7 +49,7 @@ public class MessageCMD implements CommandExecutor {
                             for(Player opPlayer : Bukkit.getOnlinePlayers()) {
                                 if(opPlayer.hasPermission("essentialsmini.spy")) {
                                     if(spy.contains(opPlayer)) {
-                                        opPlayer.sendMessage("§6" + player.getName() + " §ahat eine Nachricht an §6" + target.getName() + " §agesendet mit dem Text §6: " + message);
+                                        opPlayer.sendMessage("§6" + player.getName() + " §ahat eine Nachricht an §6" + target.getName() + " §agesendet mit dem Text §6: §c" + message);
                                     }
                                 }
                             }
@@ -84,7 +84,7 @@ public class MessageCMD implements CommandExecutor {
                                     for(Player opPlayer : Bukkit.getOnlinePlayers()) {
                                         if(opPlayer.hasPermission("essentialsmini.spy")) {
                                             if(spy.contains(opPlayer)) {
-                                                opPlayer.sendMessage("§6" + player.getName() + " §ahat eine Nachricht an §6" + target.getName() + " §agesendet mit dem Text §6: " + message);
+                                                opPlayer.sendMessage("§6" + player.getName() + " §ahat eine Nachricht an §6" + target.getName() + " §agesendet mit dem Text §6: §c" + message);
                                             }
                                         }
                                     }
