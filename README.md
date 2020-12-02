@@ -9,9 +9,13 @@ This is an Minecraft Plugin like Essentials!\
 `- Dec 2, 2020` GitHub Pages added and Bug Fixes in Project \
 ## Download
 <html>
+<link rel="stylesheet" href="styles\index.css">
 <body>
     <div class="download">
-        <a href="downloads\EssentialsMini.jar" download>Download Latest Version</a>
+        <h1>Latest</h1>
+        <a href="downloads\EssentialsMini-Latest.jar" download>Download Latest</a>
+        <h2>1.0.8-SNAPSHOT</h2>
+        <a href="downloads\EssentialsMini-Latest.jar" download>Download 1.0.8-SNAPSHOT</a>
     </div>
 </body>
 </html>
