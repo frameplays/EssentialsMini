@@ -11,7 +11,7 @@ This is an Minecraft Plugin like Essentials!\
 <html>
 <link rel="stylesheet" href="styles\index.css">
     <header>
-        <h3>Downloads</h3>
+        <h3 id="downloadHeader">Downloads</h3>
     </header>
 <body>
     <div class="download">
