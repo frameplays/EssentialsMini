@@ -8,4 +8,4 @@ This is an Minecraft Plugin like Essentials!\
 `- Nov 26, 2020` MongoDB Updated and Bug Fixes \
 `- Dec 2, 2020` GitHub Pages added and Bug Fixes in Project \
 
-<a href="downloads\EssentialsMini.jar">Download Latest Version</a>
+<a href="downloads\EssentialsMini.jar" download>Download Latest Version</a>
