@@ -9,10 +9,7 @@ This is an Minecraft Plugin like Essentials!\
 `- Dec 2, 2020` GitHub Pages added and Bug Fixes in Project \
 <!DOCTYPE html>
 <html>
-<header>
-    <h1>This is an Minecraft Spigot Plugin. It's Like Essentials!</h1>
-</header>
-<body>
+<head>
     <style>
         .download {
             color: blue;
@@ -20,6 +17,11 @@ This is an Minecraft Plugin like Essentials!\
             margin: auto;
         }
     </style>
+</head>
+<header>
+    <h1>This is an Minecraft Spigot Plugin. It's Like Essentials!</h1>
+</header>
+<body>
     <div class="download">
         <a href="downloads\EssentialsMini.jar" download>Download Latest Version</a>
     </div>
