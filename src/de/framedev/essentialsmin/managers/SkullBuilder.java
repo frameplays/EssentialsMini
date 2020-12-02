@@ -1,4 +1,4 @@
-package de.framedev.essentialsmin.utils;
+package de.framedev.essentialsmin.managers;
 
 /*
  * ===================================================
