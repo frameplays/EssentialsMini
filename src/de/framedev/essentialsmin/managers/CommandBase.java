@@ -12,13 +12,20 @@ import lombok.NonNull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 
-public abstract class CommandBase implements CommandExecutor {
+import java.util.List;
+
+public abstract class CommandBase implements CommandExecutor, TabCompleter {
 
     private final Main plugin;
 
     public void setup(@NonNull String cmdName,@NonNull CommandExecutor executor) {
         plugin.getCommands().put(cmdName,executor);
+    }
+
+    public void setupTabCompleter(@NonNull String cmdName,@NonNull TabCompleter tabCompleter) {
+        plugin.getTabCompleters().put(cmdName,tabCompleter);
     }
 
     public CommandBase(Main plugin) {
@@ -32,5 +39,10 @@ public abstract class CommandBase implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return null;
     }
 }

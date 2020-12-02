@@ -32,7 +32,7 @@ public class InventoryManager {
     }
 
     public int getSize() {
-        return size;
+        return size * 9;
     }
 
     public void setSize(int size) {
@@ -65,7 +65,7 @@ public class InventoryManager {
     }
 
     public InventoryManager create() {
-        this.inventory = Bukkit.createInventory(null, 9* getSize(), getTitle());
+        this.inventory = Bukkit.createInventory(null, getSize(), getTitle());
         return this;
     }
 

@@ -10,7 +10,7 @@ package de.framedev.essentialsmin.commands;
  */
 
 import de.framedev.essentialsmin.main.Main;
-import de.framedev.essentialsmin.utils.SkullBuilder;
+import de.framedev.essentialsmin.managers.SkullBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;

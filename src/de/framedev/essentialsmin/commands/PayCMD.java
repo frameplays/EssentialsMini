@@ -2,18 +2,14 @@ package de.framedev.essentialsmin.commands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.CommandBase;
-import de.framedev.essentialsmin.utils.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * This Plugin was Created by FrameDev
@@ -22,34 +18,34 @@ import java.util.UUID;
  * Project: EssentialsMini
  * Copyrighted by FrameDev
  */
-public class PayCMD extends CommandBase implements TabCompleter {
+public class PayCMD extends CommandBase {
 
     private final Main plugin;
 
     public PayCMD(Main plugin) {
         super(plugin);
         this.plugin = plugin;
-        setup("pay",this);
-        setup("balance",this);
-        setup("eco",this);
-        plugin.getTabCompleters().put("pay",this);
+        setup("pay", this);
+        setup("balance", this);
+        setup("eco", this);
+        setupTabCompleter("pay", this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(command.getName().equalsIgnoreCase("pay")) {
-            if(sender instanceof Player) {
+        if (command.getName().equalsIgnoreCase("pay")) {
+            if (sender instanceof Player) {
                 if (sender.hasPermission(plugin.getPermissionName() + "pay")) {
                     if (args.length == 2) {
                         Player p = (Player) sender;
-                        if(isDouble(args[0])) {
+                        if (isDouble(args[0])) {
                             double amount = Double.parseDouble(args[0]);
                             Player player = Bukkit.getPlayer(args[1]);
                             if (player != null) {
                                 if (plugin.getEco().has(p, amount)) {
                                     plugin.getEco().withdrawPlayer(p, amount);
                                     plugin.getEco().depositPlayer(player, amount);
-                                    player.sendMessage(plugin.getPrefix() + "§6" + sender.getName() + " §ahat dir §6" + amount + plugin.getCurrencySymbol() +"§a gegeben!");
+                                    player.sendMessage(plugin.getPrefix() + "§6" + sender.getName() + " §ahat dir §6" + amount + plugin.getCurrencySymbol() + "§a gegeben!");
                                     sender.sendMessage(plugin.getPrefix() + "§aDu hast an §6" + player.getName() + "§a, §6" + amount + plugin.getCurrencySymbol() + " §agegeben!");
                                 } else {
                                     sender.sendMessage(plugin.getPrefix() + "§cNicht genug Geld! §aBalance §6: " + plugin.getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
@@ -66,20 +62,24 @@ public class PayCMD extends CommandBase implements TabCompleter {
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
+            } else {
+                sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
             }
         }
-        if(command.getName().equalsIgnoreCase("balance")) {
-            if(args.length == 0) {
-                if(sender.hasPermission(plugin.getPermissionName()+ "balance")) {
-                    if(sender instanceof Player) {
+        if (command.getName().equalsIgnoreCase("balance")) {
+            if (args.length == 0) {
+                if (sender.hasPermission(plugin.getPermissionName() + "balance")) {
+                    if (sender instanceof Player) {
                         Player player = (Player) sender;
                         player.sendMessage(plugin.getPrefix() + "§aDein Geld : §6" + plugin.getEco().getBalance(player) + plugin.getCurrencySymbol());
+                    } else {
+                        sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
-            } else if(args.length == 1) {
-                if(sender.hasPermission(plugin.getPermissionName() + "balance.others")) {
+            } else if (args.length == 1) {
+                if (sender.hasPermission(plugin.getPermissionName() + "balance.others")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
                     sender.sendMessage(plugin.getPrefix() + "§aDas Geld von §6" + player.getName() + " §abeträgt §6" + plugin.getEco().getBalance(player) + plugin.getCurrencySymbol());
                 } else {
@@ -87,7 +87,7 @@ public class PayCMD extends CommandBase implements TabCompleter {
                 }
             }
         }
-        if(command.getName().equalsIgnoreCase("eco")) {
+        if (command.getName().equalsIgnoreCase("eco")) {
             try {
                 if (args[0].equalsIgnoreCase("set")) {
                     if (args.length == 2) {
@@ -150,12 +150,12 @@ public class PayCMD extends CommandBase implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(command.getName().equalsIgnoreCase("pay")) {
-            if(args.length == 1) {
+        if (command.getName().equalsIgnoreCase("pay")) {
+            if (args.length == 1) {
                 ArrayList<String> list = new ArrayList<>();
-                if(sender instanceof Player) {
-                    if(sender.hasPermission(plugin.getPermissionName() + "pay")) {
-                        list.add(String.valueOf(plugin.getEco().getBalance((Player)sender)));
+                if (sender instanceof Player) {
+                    if (sender.hasPermission(plugin.getPermissionName() + "pay")) {
+                        list.add(String.valueOf(plugin.getEco().getBalance((Player) sender)));
                     }
                     return list;
                 }

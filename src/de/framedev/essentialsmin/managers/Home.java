@@ -10,6 +10,7 @@ package de.framedev.essentialsmin.managers;
  * This Class was created at 28.09.2020 17:11
  */
 
+@SuppressWarnings("Unused")
 public class Home {
 
     private String name;

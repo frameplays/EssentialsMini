@@ -1,7 +1,6 @@
 package de.framedev.essentialsmin.managers;
 
 import de.framedev.essentialsmin.main.Main;
-import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -32,7 +31,7 @@ public class PlayerManager implements Serializable {
     private String name;
     private UUID uuid;
     private OfflinePlayer player;
-    private Long lastlogin;
+    private Long lastLogin;
     private Long lastLogout;
     private double damage;
     private int kills;
@@ -305,7 +304,7 @@ public class PlayerManager implements Serializable {
     }
 
     public void setLastLogin(Long lastlogin) {
-        this.lastlogin = lastlogin;
+        this.lastLogin = lastlogin;
         cfg.set("LastLogin", lastlogin);
         try {
             cfg.save(file);
@@ -324,12 +323,12 @@ public class PlayerManager implements Serializable {
         }
     }
 
-    public Long getLastlogin() {
+    public Long getLastLogin() {
         if (cfg.contains("LastLogin") && cfg.isLong("LastLogin")) {
             return cfg.getLong("LastLogin");
         } else {
-            if (lastlogin != null) {
-                return lastlogin;
+            if (lastLogin != null) {
+                return lastLogin;
             } else {
                 return 0L;
             }
@@ -340,7 +339,7 @@ public class PlayerManager implements Serializable {
         if (cfg.contains("LastLogout") && cfg.isLong("LastLogout")) {
             return cfg.getLong("LastLogout");
         } else {
-            if (lastlogin != null) {
+            if (lastLogin != null) {
                 return lastLogout;
             } else {
                 return 0L;

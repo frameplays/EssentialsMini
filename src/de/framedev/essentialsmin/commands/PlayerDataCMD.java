@@ -9,7 +9,6 @@ package de.framedev.essentialsmin.commands;
  * This Class was created at 10.08.2020 19:21
  */
 
-import com.google.gson.*;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.PlayerManager;
 import de.framedev.essentialsmin.managers.PlayerManagerCfgLoss;
@@ -48,7 +47,7 @@ public class PlayerDataCMD implements CommandExecutor {
                 if(!isJsonFormat()) {
                     final PlayerManager playerManager = new PlayerManager(args[0]);
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                    long login = playerManager.getLastlogin();
+                    long login = playerManager.getLastLogin();
                     sender.sendMessage("§6Info About §a" + player.getName());
                     sender.sendMessage(
                             "§aLast Login : §6" + new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss").format(new Date(login)));

@@ -7,7 +7,7 @@ import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.*;
 import de.framedev.essentialsmin.managers.ItemBuilder;
 import de.framedev.essentialsmin.utils.KeyGenerator;
-import de.framedev.essentialsmin.utils.SkullBuilder;
+import de.framedev.essentialsmin.managers.SkullBuilder;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -46,13 +46,7 @@ public class EssentialsMiniAPI {
     public boolean hasPlayerKey(OfflinePlayer player) {
         if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
             return plugin.getBackendManager().exists(player, "key", "test");
-        } else {
-            System.out.println("test");
-            if(player.isOnline()) {
-                player.setWhitelisted(false);
-            }
-            return new KeyGenerator().hasPlayerKey(player);
-        }
+        } else return new KeyGenerator().hasPlayerKey(player);
     }
 
     public boolean canPlayerFly(Player player) {
@@ -161,7 +155,7 @@ public class EssentialsMiniAPI {
     public void printPlayerDataFromPlayer(ConsoleCommandSender sender, OfflinePlayer player) {
         if(!isJsonFormat()) {
             final PlayerManager playerManager = new PlayerManager(player);
-            long login = playerManager.getLastlogin();
+            long login = playerManager.getLastLogin();
             sender.sendMessage("§6Info About §a" + player.getName());
             sender.sendMessage(
                     "§aLast Login : §6" + new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss").format(new Date(login)));
