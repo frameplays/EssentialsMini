@@ -47,18 +47,6 @@ ZeitGesteuerterRestartBoolean: false
 StartBalance:
   Amount: 1000.0
   Boolean: false
-
-Money:
-  MSG:
-    Balance: '&aYour money is &b[Money]'
-    Pay: '&aYou gave &b[Target] &b[Money]'
-    Set: '&aYour money has been set to &b[Money]'
-  MoneyBalance:
-    Other:
-      MSG: '&aThe money from &b[Target] &ais &b[Money]'
-  MoneySet:
-    Other:
-      MSG: '&aThe money from &b[Target] &ahas been set to &b[Money]'
 MoneySign:
   Balance: '&b[§6Balance§b]'
   Buy: '&a[§6Buy§a]'

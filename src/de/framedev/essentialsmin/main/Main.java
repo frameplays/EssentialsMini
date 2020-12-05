@@ -99,6 +99,11 @@ public class Main extends JavaPlugin {
 
         new EssentialsMiniAPI();
         createCustomMessagesConfig();
+        try {
+            reloadCustomConfig();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
         Config.loadConfig();
