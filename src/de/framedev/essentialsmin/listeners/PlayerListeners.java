@@ -64,8 +64,8 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if(plugin.getEco() != null) {
-            plugin.getEco().createPlayerAccount(event.getPlayer());
+        if(plugin.getVaultManager().getEco() != null) {
+            plugin.getVaultManager().getEco().createPlayerAccount(event.getPlayer());
         }
         if (plugin.getConfig()
                 .getBoolean("JoinBoolean")) {
@@ -152,8 +152,8 @@ public class PlayerListeners implements Listener {
                     plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogin", System.currentTimeMillis() + "", "test");
                     plugin.getBackendManager().updateUser(event.getPlayer(), "offline", false, "test");
                     if(Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-                        if(plugin.getEco().hasAccount(event.getPlayer())) {
-                            plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getEco().getBalance(event.getPlayer()), "test");
+                        if(plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
+                            plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), "test");
                         }
                     }
                 }
@@ -168,7 +168,7 @@ public class PlayerListeners implements Listener {
         if (!event.getPlayer().hasPlayedBefore()) {
             if (plugin.getConfig().getBoolean("StartBalance.Boolean")) {
                 double startBalance = plugin.getConfig().getDouble("StartBalance.Amount");
-                plugin.getEco().depositPlayer(event.getPlayer(), startBalance);
+                plugin.getVaultManager().getEco().depositPlayer(event.getPlayer(), startBalance);
             }
         }
     }

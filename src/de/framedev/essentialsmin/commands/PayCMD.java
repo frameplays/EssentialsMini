@@ -42,13 +42,13 @@ public class PayCMD extends CommandBase {
                             double amount = Double.parseDouble(args[0]);
                             Player player = Bukkit.getPlayer(args[1]);
                             if (player != null) {
-                                if (plugin.getEco().has(p, amount)) {
-                                    plugin.getEco().withdrawPlayer(p, amount);
-                                    plugin.getEco().depositPlayer(player, amount);
+                                if (plugin.getVaultManager().getEco().has(p, amount)) {
+                                    plugin.getVaultManager().getEco().withdrawPlayer(p, amount);
+                                    plugin.getVaultManager().getEco().depositPlayer(player, amount);
                                     player.sendMessage(plugin.getPrefix() + "§6" + sender.getName() + " §ahat dir §6" + amount + plugin.getCurrencySymbol() + "§a gegeben!");
                                     sender.sendMessage(plugin.getPrefix() + "§aDu hast an §6" + player.getName() + "§a, §6" + amount + plugin.getCurrencySymbol() + " §agegeben!");
                                 } else {
-                                    sender.sendMessage(plugin.getPrefix() + "§cNicht genug Geld! §aBalance §6: " + plugin.getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
+                                    sender.sendMessage(plugin.getPrefix() + "§cNicht genug Geld! §aBalance §6: " + plugin.getVaultManager().getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
                                 }
                             } else {
                                 sender.sendMessage(plugin.getPrefix() + "§c Dieser Spieler ist nicht Online!");
@@ -71,7 +71,7 @@ public class PayCMD extends CommandBase {
                 if (sender.hasPermission(plugin.getPermissionName() + "balance")) {
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
-                        player.sendMessage(plugin.getPrefix() + "§aDein Geld : §6" + plugin.getEco().getBalance(player) + plugin.getCurrencySymbol());
+                        player.sendMessage(plugin.getPrefix() + "§aDein Geld : §6" + plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                     }
@@ -81,7 +81,7 @@ public class PayCMD extends CommandBase {
             } else if (args.length == 1) {
                 if (sender.hasPermission(plugin.getPermissionName() + "balance.others")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                    sender.sendMessage(plugin.getPrefix() + "§aDas Geld von §6" + player.getName() + " §abeträgt §6" + plugin.getEco().getBalance(player) + plugin.getCurrencySymbol());
+                    sender.sendMessage(plugin.getPrefix() + "§aDas Geld von §6" + player.getName() + " §abeträgt §6" + plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
@@ -96,8 +96,8 @@ public class PayCMD extends CommandBase {
                             if (sender.hasPermission(plugin.getPermissionName() + "eco.set")) {
                                 if (sender instanceof Player) {
                                     Player player = (Player) sender;
-                                    plugin.getEco().withdrawPlayer(player, plugin.getEco().getBalance(player));
-                                    plugin.getEco().depositPlayer(player, amount);
+                                    plugin.getVaultManager().getEco().withdrawPlayer(player, plugin.getVaultManager().getEco().getBalance(player));
+                                    plugin.getVaultManager().getEco().depositPlayer(player, amount);
                                     player.sendMessage(plugin.getPrefix() + "§aDein Geld wurde auf §6" + amount + plugin.getCurrencySymbol() + " §agesetzt!");
                                 } else {
                                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -117,8 +117,8 @@ public class PayCMD extends CommandBase {
                                     sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler existiert nicht!");
                                     return true;
                                 }
-                                plugin.getEco().withdrawPlayer(player, plugin.getEco().getBalance(player));
-                                plugin.getEco().depositPlayer(player, amount);
+                                plugin.getVaultManager().getEco().withdrawPlayer(player, plugin.getVaultManager().getEco().getBalance(player));
+                                plugin.getVaultManager().getEco().depositPlayer(player, amount);
                                 sender.sendMessage(plugin.getPrefix() + "§aDas Geld von §6" + args[2] + " §awurde auf §6" + amount + plugin.getCurrencySymbol() + " §agesetzt!");
                                 if (player.isOnline()) {
                                     Player online = (Player) player;
@@ -155,7 +155,7 @@ public class PayCMD extends CommandBase {
                 ArrayList<String> list = new ArrayList<>();
                 if (sender instanceof Player) {
                     if (sender.hasPermission(plugin.getPermissionName() + "pay")) {
-                        list.add(String.valueOf(plugin.getEco().getBalance((Player) sender)));
+                        list.add(String.valueOf(plugin.getVaultManager().getEco().getBalance((Player) sender)));
                     }
                     return list;
                 }

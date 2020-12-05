@@ -22,11 +22,13 @@ import org.bukkit.inventory.ItemStack;
  */
 public class MoneySignListeners implements Listener {
 
-    private final Economy eco;
+    private Economy eco;
 
     public MoneySignListeners(Main plugin) {
         plugin.getListeners().add(this);
-        eco = plugin.getEco();
+        if(plugin.getConfig().getBoolean("Economy.Activate")) {
+            eco = plugin.getVaultManager().getEco();
+        }
     }
 
     @EventHandler

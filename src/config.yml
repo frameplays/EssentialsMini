@@ -64,8 +64,6 @@ MoneySign:
   Buy: '&a[§6Buy§a]'
   Sell: '&a[§6Sell§a]'
   Free: '&a[§6Free§a]'
-Economy:
-  MaxBalance: 1000000
 
 # Require ==MySQLAPI== https://github.com/TrAxMC/MySQLAPI/releases
 MySQL: false
@@ -73,3 +71,6 @@ MySQL: false
 PlayerInfoSave: false
 OnlineMode: true
 Currency: '$'
+Economy:
+  Activate: false
+  MaxBalance: 1000000

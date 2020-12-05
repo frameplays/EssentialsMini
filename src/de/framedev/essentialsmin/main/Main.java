@@ -9,12 +9,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sun.istack.internal.NotNull;
 import de.framedev.essentialsmin.api.EssentialsMiniAPI;
-import de.framedev.essentialsmin.api.VaultAPI;
 import de.framedev.essentialsmin.commands.*;
 import de.framedev.essentialsmin.managers.*;
 import de.framedev.essentialsmin.utils.*;
 import net.md_5.bungee.api.chat.*;
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -27,7 +25,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -58,6 +55,8 @@ public class Main extends JavaPlugin {
     private MaterialManager materialManager;
     private Variables variables;
 
+    private VaultManager vaultManager;
+
     /* Custom Config File */
     private File customConfigFile;
     private FileConfiguration customConfig;
@@ -86,8 +85,6 @@ public class Main extends JavaPlugin {
 
     private Map<String, Object> limitedHomes;
 
-    private Economy eco;
-
     private boolean mysql;
 
     private boolean mongoDb = false;
@@ -104,7 +101,6 @@ public class Main extends JavaPlugin {
         createCustomMessagesConfig();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-        saveCfg();
         Config.loadConfig();
         Config.updateConfig();
 
@@ -248,13 +244,15 @@ public class Main extends JavaPlugin {
         kit.saveKit("Stone");*/
         //EssentialsMiniAPI.getInstance().printAllHomesFromPlayers();
         new CustomJson("TestAPI").saveConfig();
-        if(Bukkit.getPluginManager().getPlugin("Vault") != null) {
-            setup();
-        }
         this.mysql = getConfig().getBoolean("MySQL");
         if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
             if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
                 this.mongoDb = true;
+            }
+        }
+        if(getConfig().getBoolean("Economy.Activate")) {
+            if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
+                this.vaultManager = new VaultManager(this);
             }
         }
         this.registerManager = new RegisterManager(this);
@@ -267,7 +265,12 @@ public class Main extends JavaPlugin {
                 BackpackCMD.restore(onlinePlayer);
             }
         }
+        saveCfg();
         this.currencySymbol = (String) getConfig().get("Currency");
+    }
+
+    public VaultManager getVaultManager() {
+        return vaultManager;
     }
 
     public String getCurrencySymbol() {
@@ -285,48 +288,6 @@ public class Main extends JavaPlugin {
         return mysql;
     }
 
-    public void setup() {
-        File filedata = new File(Main.getInstance().getDataFolder() + "/money","eco.yml");
-        FileConfiguration cfgdata = YamlConfiguration.loadConfiguration(filedata);
-        if(!filedata.exists()) {
-            filedata.getParentFile().mkdirs();
-            try {
-                filedata.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(Bukkit.getServer().getOnlineMode()) {
-            if(!cfgdata.contains("accounts")) {
-                ArrayList<String> accounts = new ArrayList<>();
-                accounts.add("14555508-6819-4434-aa6a-e5ce1509ea35");
-                cfgdata.set("accounts",accounts);
-                try {
-                    cfgdata.save(filedata);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            if(!cfgdata.contains("accounts")) {
-                ArrayList<String> accounts = new ArrayList<>();
-                accounts.add("sambakuchen");
-                cfgdata.set("accounts",accounts);
-                try {
-                    cfgdata.save(filedata);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        getServer().getServicesManager().register(Economy.class,new VaultAPI(),this, ServicePriority.Normal);
-        eco = new VaultAPI();
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!eco.hasAccount(p.getName()))
-                eco.createPlayerAccount(p.getName());
-        }
-    }
-
     private boolean setupEconomy() {
         /*if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -340,10 +301,6 @@ public class Main extends JavaPlugin {
         */
         //
         return true;
-    }
-
-    public Economy getEco() {
-        return eco;
     }
 
     public FileConfiguration getCfg() {
