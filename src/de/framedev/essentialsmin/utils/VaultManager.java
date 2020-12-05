@@ -50,7 +50,7 @@ public class VaultManager {
                 }
             }
         }
-        plugin.getServer().getServicesManager().register(Economy.class,new VaultAPI(),plugin, ServicePriority.Normal);
+        plugin.getServer().getServicesManager().register(Economy.class,new VaultAPI(),plugin, ServicePriority.High);
         eco = new VaultAPI();
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (!eco.hasAccount(p.getName()))

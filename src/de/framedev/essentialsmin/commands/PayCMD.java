@@ -2,6 +2,7 @@ package de.framedev.essentialsmin.commands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.CommandBase;
+import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -45,8 +46,18 @@ public class PayCMD extends CommandBase {
                                 if (plugin.getVaultManager().getEco().has(p, amount)) {
                                     plugin.getVaultManager().getEco().withdrawPlayer(p, amount);
                                     plugin.getVaultManager().getEco().depositPlayer(player, amount);
-                                    player.sendMessage(plugin.getPrefix() + "§6" + sender.getName() + " §ahat dir §6" + amount + plugin.getCurrencySymbol() + "§a gegeben!");
-                                    sender.sendMessage(plugin.getPrefix() + "§aDu hast an §6" + player.getName() + "§a, §6" + amount + plugin.getCurrencySymbol() + " §agegeben!");
+                                    String send = plugin.getCustomMessagesConfig().getString("Money.MSG.Pay");
+                                    send = send.replace('&','§');
+                                    send = send.replace("[Target]",player.getName());
+                                    send = send.replace("[Money]",String.valueOf(amount) + plugin.getCurrencySymbol());
+                                    String got = plugin.getCustomMessagesConfig().getString("Money.MSG.GotPay");
+                                    if(got != null) {
+                                        got = new TextUtils().replaceAndToParagraph(got);
+                                        got = new TextUtils().replaceObject(got, "[Player]", sender.getName());
+                                        got = new TextUtils().replaceObject(got, "[Money]", amount + plugin.getCurrencySymbol());
+                                    }
+                                    player.sendMessage(plugin.getPrefix() + got);
+                                    sender.sendMessage(plugin.getPrefix() + send);
                                 } else {
                                     sender.sendMessage(plugin.getPrefix() + "§cNicht genug Geld! §aBalance §6: " + plugin.getVaultManager().getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
                                 }
@@ -71,7 +82,10 @@ public class PayCMD extends CommandBase {
                 if (sender.hasPermission(plugin.getPermissionName() + "balance")) {
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
-                        player.sendMessage(plugin.getPrefix() + "§aDein Geld : §6" + plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                        String balance = plugin.getCustomMessagesConfig().getString("Money.MSG.Balance");
+                        balance = new TextUtils().replaceAndToParagraph(balance);
+                        balance = new TextUtils().replaceObject(balance,"[Money]",plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                        player.sendMessage(plugin.getPrefix() + balance);
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                     }
@@ -81,7 +95,11 @@ public class PayCMD extends CommandBase {
             } else if (args.length == 1) {
                 if (sender.hasPermission(plugin.getPermissionName() + "balance.others")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                    sender.sendMessage(plugin.getPrefix() + "§aDas Geld von §6" + player.getName() + " §abeträgt §6" + plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                    String balance = plugin.getCustomMessagesConfig().getString("Money.MoneyBalance.Other.MSG");
+                    balance = new TextUtils().replaceAndToParagraph(balance);
+                    balance = new TextUtils().replaceObject(balance,"[Target]",player.getName());
+                    balance = new TextUtils().replaceObject(balance,"[Money]",plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                    sender.sendMessage(plugin.getPrefix() + balance);
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
@@ -98,7 +116,12 @@ public class PayCMD extends CommandBase {
                                     Player player = (Player) sender;
                                     plugin.getVaultManager().getEco().withdrawPlayer(player, plugin.getVaultManager().getEco().getBalance(player));
                                     plugin.getVaultManager().getEco().depositPlayer(player, amount);
-                                    player.sendMessage(plugin.getPrefix() + "§aDein Geld wurde auf §6" + amount + plugin.getCurrencySymbol() + " §agesetzt!");
+                                    String set = plugin.getCustomMessagesConfig().getString("Money.MSG.Set");
+                                    if(set != null) {
+                                        set = new TextUtils().replaceAndToParagraph(set);
+                                        set = new TextUtils().replaceObject(set,"[Money]",amount + plugin.getCurrencySymbol());
+                                    }
+                                    player.sendMessage(plugin.getPrefix() + set);
                                 } else {
                                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                                 }
@@ -119,10 +142,21 @@ public class PayCMD extends CommandBase {
                                 }
                                 plugin.getVaultManager().getEco().withdrawPlayer(player, plugin.getVaultManager().getEco().getBalance(player));
                                 plugin.getVaultManager().getEco().depositPlayer(player, amount);
-                                sender.sendMessage(plugin.getPrefix() + "§aDas Geld von §6" + args[2] + " §awurde auf §6" + amount + plugin.getCurrencySymbol() + " §agesetzt!");
+                                String setOther = plugin.getCustomMessagesConfig().getString("MoneySet.Other.MSG");
+                                if(setOther != null) {
+                                    setOther = new TextUtils().replaceAndToParagraph(setOther);
+                                    setOther = new TextUtils().replaceObject(setOther,"[Target]",player.getName());
+                                    setOther = new TextUtils().replaceObject(setOther,"[Money]", amount + plugin.getCurrencySymbol());
+                                }
+                                String set = plugin.getCustomMessagesConfig().getString("Money.MSG.Set");
+                                if(set != null) {
+                                    set = new TextUtils().replaceAndToParagraph(set);
+                                    set = new TextUtils().replaceObject(set,"[Money]",amount + plugin.getCurrencySymbol());
+                                }
+                                sender.sendMessage(plugin.getPrefix() + setOther);
                                 if (player.isOnline()) {
                                     Player online = (Player) player;
-                                    online.sendMessage(plugin.getPrefix() + "§aDein Geld wurde auf §6" + amount + plugin.getCurrencySymbol() + " §agesetzt!");
+                                    online.sendMessage(plugin.getPrefix() + set);
                                 }
                             } else {
                                 sender.sendMessage(plugin.getPrefix() + "§6" + args[1] + " §cist keine Zahl!");

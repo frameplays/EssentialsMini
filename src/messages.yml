@@ -1,0 +1,23 @@
+NoPermissions: '&6Keine Permissions&4&l!'
+WrongArgs: '&cBitte benutze &6%cmdUsage%&4&l!'
+UnkownCommand: '&cDieser Befehl existiert nicht &6%CMD%&4&l!'
+OnlyPlayer: '&cDieser Befehl kann nur ein Spieler ausführen!'
+PlayerNotOnline: '&cDieser Spieler ist nicht Online!'
+TpaMessages:
+  TeleportSend: '&aDu hast an &6%Target% &aeine Teleportier Anfrage gesendet!'
+  TeleportGot: '&aDu hast von &6%Player% &aeine Teleportier Anfrage bekommen!'
+  TeleportToPlayer: '&aDu wurdest zu &6%Player% &aTeleportiert!'
+  TargetMessage: '&6%Target% &awurde zu dir Teleportiert!'
+
+Money:
+  MSG:
+    Balance: '&aYour money is &b[Money]'
+    Pay: '&aYou gave &b[Target] &b[Money]'
+    GotPay: '&aYou got &b[Money] &afrom &b[Player]'
+    Set: '&aYour money has been set to &b[Money]'
+  MoneyBalance:
+    Other:
+      MSG: '&aThe money from &b[Target] &ais &b[Money]'
+  MoneySet:
+    Other:
+      MSG: '&aThe money from &b[Target] &ahas been set to &b[Money]'
