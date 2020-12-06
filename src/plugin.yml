@@ -1,7 +1,7 @@
 name: EssentialsMini
 author: FrameDev
 api-version: 1.13
-version: 1.0.9-SNAPSHOT
+version: 1.1.0-SNAPSHOT
 main: de.framedev.essentialsmin.main.Main
 softdepend:
   - Vault
@@ -170,6 +170,10 @@ commands:
   fuck:
   lag:
   delwarp:
+  msgtoggle:
+    description: This will allow or deny messages from other players
+  tptoggle:
+    description: This will allow or deny Teleports from other players
 permissions:
   essentialsmini.*:
     children:
@@ -229,6 +233,10 @@ permissions:
       essentialsmini.eco.set: true
       essentialsmini.eco.set.others: true
       essentialsmini.pay: true
+      essentialsmini.msgtoggle: true
+      essentialsmini.msgtoggle.bypass: true
+      essentialsmini.tptoggle: true
+      essentialsmini.tptoggle.bypass: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -367,3 +375,15 @@ permissions:
       essentialsmini.eco.set: true
   essentialsmini.pay:
     default: op
+  essentialsmini.msgtoggle:
+    default: op
+  essentialsmini.msgtoggle.bypass:
+    default: op
+    children:
+      essentialsmini.msgtoggle: true
+  essentialsmini.tptoggle:
+    default: op
+  essentialsmini.tptoggle.bypass:
+    default: op
+    children:
+      essentialsmini.tptoggle: true
