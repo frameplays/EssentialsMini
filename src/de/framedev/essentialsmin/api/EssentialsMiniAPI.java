@@ -71,7 +71,7 @@ public class EssentialsMiniAPI {
         return null;
     }
 
-    public HashMap<String,Location> getPositions() throws NullPointerException {
+    public HashMap<String,Location> getPositions() {
         HashMap<String,Location> positions = new HashMap<>();
         ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("position");
         if (cs != null) {
@@ -84,7 +84,7 @@ public class EssentialsMiniAPI {
             }
             return positions;
         }
-        return null;
+        return positions;
     }
 
     public SkullBuilder createSkullBuilder(OfflinePlayer player) {
@@ -209,6 +209,14 @@ public class EssentialsMiniAPI {
         } else {
             player.sendMessage(plugin.getPrefix() + "§cDieser Spieler hat noch kein BackPack!");
         }
+    }
+
+    public Inventory getPlayersBackPack(OfflinePlayer target) {
+        Inventory inventory = Bukkit.createInventory(null, 3 * 9, target.getName() + "'s Inventory");
+        if (BackpackCMD.itemsStringHashMap.containsKey(target.getUniqueId().toString())) {
+            inventory.setContents(BackpackCMD.itemsStringHashMap.get(target.getUniqueId().toString()));
+        }
+        return inventory;
     }
 
     public ArrayList<String> getWarps() {
