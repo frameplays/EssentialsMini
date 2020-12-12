@@ -1,12 +1,5 @@
 This is an Minecraft Plugin like Essentials!\
 **EssentialsMini!**
-<!DOCTYPE html>
-<html lang="en-US">
-<link rel="stylesheet" href="styles\index.css">
-    <header>
-        <h3>Downloads</h3>
-    </header>
-<body>
     <section class="page-header">
         <h1 class="project-name">EssentialsMini</h1>
         <h2 class="project-tagline">Minecraft Spigot Plugin, Like Essentials!</h2>
@@ -72,6 +65,3 @@ This is an Minecraft Plugin like Essentials!\
                 maintained by <a href="https://github.com/frame-dev">frame-dev</a>.<br><a href="../impressum.html">Impressum</a></span>
         </footer>
     </section>
-    </section>
-</body>
-</html>
