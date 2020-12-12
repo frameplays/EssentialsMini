@@ -7,6 +7,21 @@ This is an Minecraft Plugin like Essentials!\
         <h3>Downloads</h3>
     </header>
 <body>
+    <section class="page-header">
+        <h1 class="project-name">EssentialsMini</h1>
+        <h2 class="project-tagline">Minecraft Spigot Plugin, Like Essentials!</h2>
+
+        <a href="../../index.html" class="btn">Home</a>
+        <a href="../projects.html" class="btn">Projects</a>
+        <a href="https://github.com/frame-dev/EssentialsMini" class="btn">View on GitHub</a>
+        <a href="../../downloads/EssentialsMini-Latest.jar" class="btn">Download .jar</a>
+        <a href="https://github.com/frame-dev/EssentialsMini/zipball/master" class="btn">Download .zip</a>
+        <a href="https://github.com/frame-dev/EssentialsMini/tarball/master" class="btn">Download .tar.gz</a>
+        <a href="https://www.spigotmc.org/resources/essentialsmini.82775/" class="btn">Spigot Website</a>
+        <!--<a href="about.html" class="btn">About</a>-->
+
+    </section>
+
     <section class="main-content">
         <p>This is an Minecraft Plugin like Essentials!<br />
             <strong>EssentialsMini!</strong>
@@ -56,6 +71,7 @@ This is an Minecraft Plugin like Essentials!\
             <span class="footer"><a href="https://github.com/frame-dev/EssentialsMini">EssentialsMini</a> is
                 maintained by <a href="https://github.com/frame-dev">frame-dev</a>.<br><a href="../impressum.html">Impressum</a></span>
         </footer>
+    </section>
     </section>
 </body>
 </html>
