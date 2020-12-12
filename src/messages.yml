@@ -3,6 +3,7 @@ WrongArgs: '&cBitte benutze &6%cmdUsage%&4&l!'
 UnkownCommand: '&cDieser Befehl existiert nicht &6%CMD%&4&l!'
 OnlyPlayer: '&cDieser Befehl kann nur ein Spieler ausführen!'
 PlayerNotOnline: '&cDieser Spieler ist nicht Online!'
+
 TpaMessages:
   TeleportSend: '&aDu hast an &6%Target% &aeine Teleportier Anfrage gesendet!'
   TeleportGot: '&aDu hast von &6%Player% &aeine Teleportier Anfrage bekommen!'
@@ -21,3 +22,16 @@ Money:
   MoneySet:
     Other:
       MSG: '&aThe money from &b[Target] &ahas been set to &b[Money]'
+
+DeathTeleport: '&aDu wurdest zu deinem Todespunkt Teleportiert!'
+NoDeathLocationFound: '&cEs ist kein Todespunkt gespeichert!'
+DeathCommandUsage: '&aBitte gib &6/back &aein damit du zu deinem Todespunkt zurückkehren kannst!'
+
+NoBackPackFound: '&cDieser Spieler hat noch kein BackPack!'
+ChatClear: '&aDer Chat wurde von &6%Player% &ageleert!'
+
+Day: '&aDie Zeit wurde auf &6Tag &agestellt!'
+Night: '&aDie Zeit wurde auf &6Nacht &agestellt!'
+
+EnchantNotExist: '&cDieses Enchantment existiert nicht!'
+NoItemFoundInHand: '&cKein Item in der Hand gefunden!'

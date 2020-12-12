@@ -10,6 +10,7 @@ package de.framedev.essentialsmin.commands;
  */
 
 import de.framedev.essentialsmin.main.Main;
+import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -66,23 +67,35 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
                             meta.addEnchant(Enchantments.getByName(args[0]), Integer.parseInt(args[1]), true);
                             target.getInventory().getItemInMainHand().setItemMeta(meta);
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + "§cDieses Enchantment existiert nicht!");
+                            String message = plugin.getCustomMessagesConfig().getString("EnchantNotExist");
+                            if (message != null) {
+                                message = new TextUtils().replaceAndToParagraph(message);
+                            }
+                            sender.sendMessage(plugin.getPrefix() + message);
                         }
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + "§cKein Item in der Hand gefunden! bei §6" + target.getName());
+                        String message = plugin.getCustomMessagesConfig().getString("NoItemFoundInHand");
+                        if (message != null) {
+                            message = new TextUtils().replaceAndToParagraph(message);
+                        }
+                        sender.sendMessage(plugin.getPrefix() + message);
                     }
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online! §6" + args[2]);
+                    String message = plugin.getCustomMessagesConfig().getString("PlayerNotOnline");
+                    if(message != null) {
+                        message = new TextUtils().replaceAndToParagraph(message);
+                    }
+                    sender.sendMessage(plugin.getPrefix() + message);
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
             }
         } else {
             if (sender.hasPermission(plugin.getPermissionName() + "enchant")) {
-                sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/enchant <Enchantment Name> <Stärke>"));
+                sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/enchant <Enchantment Name> <Level>"));
             }
             if (sender.hasPermission(plugin.getPermissionName() + "enchant.others")) {
-                sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/enchant <Enchantment Name> <Stärke> <Spieler Name>"));
+                sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/enchant <Enchantment Name> <Level> <Player Name>"));
             }
 
         }

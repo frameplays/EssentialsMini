@@ -1,6 +1,7 @@
 package de.framedev.essentialsmin.commands;
 
 import de.framedev.essentialsmin.main.Main;
+import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -44,11 +45,19 @@ public class BackCMD implements Listener, CommandExecutor {
 
                         /*  Player Teleports to the Death Location */
                         player.teleport(deaths.get(player));
-                        player.sendMessage(plugin.getPrefix() + "§aDu wurdest zu deinem Todespunkt Teleportiert!");
+                        String message = plugin.getCustomMessagesConfig().getString("DeathTeleport");
+                        if(message != null) {
+                            message = new TextUtils().replaceAndToParagraph(message);
+                        }
+                        player.sendMessage(plugin.getPrefix() + message);
                         /* Death Point remove */
                         deaths.remove(player);
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cEs ist kein Todespunkt gespeichert!");
+                        String message = plugin.getCustomMessagesConfig().getString("NoDeathLocationFound");
+                        if(message != null) {
+                            message = new TextUtils().replaceAndToParagraph(message);
+                        }
+                        player.sendMessage(plugin.getPrefix() + message);
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -63,7 +72,11 @@ public class BackCMD implements Listener, CommandExecutor {
         if(plugin.getConfig().getBoolean("Back")) {
             Player player = event.getEntity();
             deaths.put(player, player.getLocation());
-            player.sendMessage(plugin.getPrefix() + "§aBitte gib §6/back §aein damit du zu deinem Todespunkt zurückkehren kannst!");
+            String message = plugin.getCustomMessagesConfig().getString("DeathCommandUsage");
+            if(message != null) {
+                message = new TextUtils().replaceAndToParagraph(message);
+            }
+            player.sendMessage(plugin.getPrefix() + message);
         }
     }
 

@@ -1,10 +1,13 @@
 package de.framedev.essentialsmin.commands;
 
 import de.framedev.essentialsmin.main.Main;
+import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import javax.xml.soap.Text;
 
 /*
  * ===================================================
@@ -33,7 +36,11 @@ public class DayNightCMD implements CommandExecutor {
                     Player player = (Player) sender;
                     if (player.hasPermission("essentialsmini.day")) {
                         player.getWorld().setTime(1000);
-                        player.sendMessage(plugin.getPrefix() + "§aDie Zeit wurde auf §6Tag §agestellt!");
+                        String message = plugin.getCustomMessagesConfig().getString("Day");
+                        if (message != null) {
+                            message = new TextUtils().replaceAndToParagraph(message);
+                        }
+                        player.sendMessage(plugin.getPrefix() + message);
                         return true;
                     } else {
                         player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -48,7 +55,11 @@ public class DayNightCMD implements CommandExecutor {
                 if (args.length == 0) {
                     Player player = (Player) sender;
                     if (player.hasPermission("essentialsmini.night")) {
-                        player.sendMessage(plugin.getPrefix() + "§aDie Zeit wurde auf §6Nacht §agestellt!");
+                        String message = plugin.getCustomMessagesConfig().getString("Night");
+                        if (message != null) {
+                            message = new TextUtils().replaceAndToParagraph(message);
+                        }
+                        player.sendMessage(plugin.getPrefix() + message);
                         player.getWorld().setTime(13000);
                         return true;
                     } else {

@@ -10,6 +10,7 @@ package de.framedev.essentialsmin.commands;
  */
 
 import de.framedev.essentialsmin.main.Main;
+import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -111,7 +112,11 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
                                 inventory.setContents(itemsStringHashMap.get(targetPlayer.getUniqueId().toString()));
                                 player.openInventory(inventory);
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§cDieser Spieler hat noch kein BackPack");
+                                String message = plugin.getCustomMessagesConfig().getString("NoBackPackFound");
+                                if(message != null) {
+                                    message = new TextUtils().replaceAndToParagraph(message);
+                                }
+                                player.sendMessage(plugin.getPrefix() + message);
                             }
                         }
                     } else {

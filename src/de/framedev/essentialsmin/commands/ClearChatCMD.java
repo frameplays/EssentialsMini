@@ -2,6 +2,7 @@ package de.framedev.essentialsmin.commands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.CommandBase;
+import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -40,6 +41,11 @@ public class ClearChatCMD extends CommandBase {
         for(int i = 0; i <= 500; i++) {
             Bukkit.broadcastMessage(" ");
         }
-        Bukkit.broadcastMessage(plugin.getPrefix() + "§aDer Chat wurde von §6" + sender.getName() + " §ageleert!");
+        String message = plugin.getCustomMessagesConfig().getString("ChatClear");
+        if (message != null) {
+            message = new TextUtils().replaceAndToParagraph(message);
+            message = new TextUtils().replaceObject(message,"%Player%",sender.getName());
+        }
+        Bukkit.broadcastMessage(plugin.getPrefix() + message);
     }
 }
