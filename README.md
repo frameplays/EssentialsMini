@@ -1,5 +1,40 @@
-This is an Minecraft Plugin like Essentials!\
-**EssentialsMini!**
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+    <title>EssentialsMini | Minecraft Spigot Plugin, Like Essentials!</title>
+    <meta name="generator" content="Jekyll v3.9.0" />
+    <meta property="og:title" content="EssentialsMini" />
+    <link rel="icon" type="image/jpg" href="../../logo.jpg">
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Minecraft Spigot Plugin, Like Essentials!" />
+    <meta property="og:description" content="Minecraft Spigot Plugin, Like Essentials!" />
+    <link rel="canonical" href="https://frame-dev.github.io/EssentialsMini/" />
+    <meta property="og:url" content="https://frame-dev.github.io/EssentialsMini/" />
+    <meta property="og:site_name" content="EssentialsMini" />
+    <script type="application/ld+json">
+        {
+            "description": "Minecraft Spigot Plugin, Like Essentials!",
+            "@type": "WebSite",
+            "headline": "EssentialsMini",
+            "url": "https://https://framedev.stream",
+            "name": "EssentialsMini",
+            "@context": "https://schema.org"
+        }
+    </script>
+    <!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/projects.css"/>
+</head>
+
+<body>
     <section class="page-header">
         <h1 class="project-name">EssentialsMini</h1>
         <h2 class="project-tagline">Minecraft Spigot Plugin, Like Essentials!</h2>
@@ -65,3 +100,4 @@ This is an Minecraft Plugin like Essentials!\
                 maintained by <a href="https://github.com/frame-dev">frame-dev</a>.<br><a href="../impressum.html">Impressum</a></span>
         </footer>
     </section>
+</body></html>
