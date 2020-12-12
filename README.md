@@ -1,6 +1,7 @@
 This is an Minecraft Plugin like Essentials!\
 **EssentialsMini!**
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 <link rel="stylesheet" href="styles\index.css">
     <header>
         <h3>Downloads</h3>
