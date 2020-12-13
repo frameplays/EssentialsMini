@@ -47,6 +47,7 @@ public class WorldTPCMD implements CommandExecutor, Listener {
                                 if (EssentialsMiniAPI.getInstance().hasPlayerKey(player)) {
                                     player.teleport(Bukkit.getWorld(worldName).getSpawnLocation());
                                     player.sendMessage(plugin.getPrefix() + "§aDu wurdest in die Welt §6" + worldName + " §aTeleportiert!");
+
                                 } else {
                                     player.sendMessage(plugin.getPrefix() + "§cDu hast keinen Key damit du diese Welt betreten kannst!");
                                 }

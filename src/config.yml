@@ -64,3 +64,6 @@ Economy:
   MaxBalance: 1000000
 
 TeleportInOtherWorld: true
+WorldBackup: false
+# Minutes
+BackupWorldTime: 60

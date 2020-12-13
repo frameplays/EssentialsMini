@@ -40,6 +40,7 @@ commands:
     description: show your enderchest or from other Players
   back:
     description: Teleports to your last death location
+  backup:
   gamemode:
     aliases:
       - gm

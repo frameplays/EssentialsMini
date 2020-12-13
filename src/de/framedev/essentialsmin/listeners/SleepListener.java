@@ -10,6 +10,7 @@ package de.framedev.essentialsmin.listeners;
  */
 
 import de.framedev.essentialsmin.main.Main;
+import de.framedev.essentialsmin.managers.BackendManager;
 import de.framedev.essentialsmin.managers.PlayerManager;
 import de.framedev.essentialsmin.managers.PlayerManagerCfgLoss;
 import org.bukkit.Bukkit;
@@ -36,6 +37,11 @@ public class SleepListener implements Listener {
                 event.getPlayer().getWorld().setTime(0);
                 event.getPlayer().getWorld().setThundering(false);
                 event.getPlayer().getWorld().setStorm(false);
+                if(plugin.isMongoDb()) {
+                    int sleepTimes = (int) plugin.getBackendManager().get(event.getPlayer(),BackendManager.DATA.SLEEPTIMES.getName(),"test");
+                    sleepTimes++;
+                    plugin.getBackendManager().updateUser(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(),sleepTimes,"test");
+                }
                 if(plugin.getConfig().getBoolean("JsonFormat")) {
                     try {
                         PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()).setSleepTimes(PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()).getSleepTimes() + 1);

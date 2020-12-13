@@ -237,8 +237,6 @@ public class Main extends JavaPlugin {
         }
 
         getJsonConfig().saveConfig();
-        this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
-        this.limitedHomes = getJsonConfig().getHashMap("LimitedHomes");
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             Bukkit.getOnlinePlayers().forEach(this::hasNewUpdate);
         }
@@ -248,7 +246,6 @@ public class Main extends JavaPlugin {
         /*KitManager kit = new KitManager();
         kit.saveKit("Stone");*/
         //EssentialsMiniAPI.getInstance().printAllHomesFromPlayers();
-        new CustomJson("TestAPI").saveConfig();
         this.mysql = getConfig().getBoolean("MySQL");
         if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
             if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
@@ -261,6 +258,7 @@ public class Main extends JavaPlugin {
             }
         }
         this.registerManager = new RegisterManager(this);
+        registerManager.getBackup().makeBackups();
         // BackPack restore
         if (getConfig().getBoolean("Backpack")) {
             for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
@@ -272,6 +270,14 @@ public class Main extends JavaPlugin {
         }
         saveCfg();
         this.currencySymbol = (String) getConfig().get("Currency");
+        try {
+            reloadCustomConfig();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        saveCustomMessagesConfig();
+        this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
+        this.limitedHomes = getJsonConfig().getHashMap("LimitedHomes");
     }
 
     public VaultManager getVaultManager() {

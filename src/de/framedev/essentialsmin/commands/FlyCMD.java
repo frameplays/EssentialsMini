@@ -18,7 +18,7 @@ import de.framedev.essentialsmin.main.Main;
  */
 public class FlyCMD implements CommandExecutor {
 
-	private Main plugin;
+	private final Main plugin;
 
 	public FlyCMD(Main plugin) {
 		this.plugin = plugin;
@@ -70,5 +70,4 @@ public class FlyCMD implements CommandExecutor {
 		}
 		return false;
 	}
-
 }

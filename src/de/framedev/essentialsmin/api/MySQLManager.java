@@ -132,8 +132,8 @@ public class MySQLManager {
             while (resultSet.next()) {
                 resultSet.updateDouble("BankBalance", amount);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -142,7 +142,7 @@ public class MySQLManager {
             Statement statement = MySQL.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE BankName ='" + name + "';");
             return resultSet.getDouble("BankBalance");
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
         return 0.0;
     }
