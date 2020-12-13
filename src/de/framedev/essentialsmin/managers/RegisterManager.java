@@ -22,6 +22,7 @@ public class RegisterManager {
 
 
     private final Main plugin;
+    private BackUpCMD backup;
 
     public RegisterManager(Main plugin) {
         registerCommands(plugin);
@@ -103,6 +104,7 @@ public class RegisterManager {
         this.thunderCMD = new ThunderCMD(plugin);
         new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
+        this.backup = new BackUpCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate"))
             new PayCMD(plugin);
         for (Entry<String, CommandExecutor> command : plugin.getCommands().entrySet()) {
@@ -112,6 +114,10 @@ public class RegisterManager {
                 }
             }
         }
+    }
+
+    public BackUpCMD getBackup() {
+        return backup;
     }
 
     public ThunderCMD getThunderCMD() {

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class VaultManager {
 
-    private Economy eco;
+    private final Economy eco;
     public VaultManager(Main plugin) {
         File filedata = new File(Main.getInstance().getDataFolder() + "/money","eco.yml");
         FileConfiguration cfgdata = YamlConfiguration.loadConfiguration(filedata);
