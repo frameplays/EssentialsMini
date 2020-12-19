@@ -220,21 +220,20 @@ public class PayCMD extends CommandBase {
                     return list;
                 }
             } else if (args.length == 2) {
-                if (sender.hasPermission(plugin.getPermissionName() + "pay")) {
-                    ArrayList<String> players = new ArrayList<>();
-                    ArrayList<String> empty = new ArrayList<>();
-                    players.add("**");
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        players.add(player.getName());
-                    }
-                    for (String s : players) {
-                        if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
-                            empty.add(s);
-                        }
-                    }
-                    Collections.sort(empty);
-                    return empty;
+                ArrayList<String> players = new ArrayList<>();
+                ArrayList<String> empty = new ArrayList<>();
+                players.add("**");
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    players.add(player.getName());
                 }
+                for (String s : players) {
+                    if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
+                        empty.add(s);
+                    }
+                }
+                System.out.println(empty);
+                Collections.sort(empty);
+                return empty;
             }
         }
         return null;
