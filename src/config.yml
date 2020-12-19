@@ -58,12 +58,15 @@ MySQL: false
 
 PlayerInfoSave: false
 OnlineMode: true
+
 Currency: '$'
 Economy:
   Activate: false
   MaxBalance: 1000000
 
 TeleportInOtherWorld: true
+
+
 WorldBackup: false
-# Minutes
+# Minutes 60 = 1 Hour
 BackupWorldTime: 60
