@@ -1,6 +1,9 @@
 package de.framedev.essentialsmin.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmin.commands.BackpackCMD;
+import de.framedev.essentialsmin.commands.GameModeCMD;
 import de.framedev.essentialsmin.commands.RegisterCMD;
 import de.framedev.essentialsmin.commands.WorldTPCMD;
 import de.framedev.essentialsmin.main.Main;
@@ -22,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class EssentialsMiniAPI {
 
@@ -109,6 +113,10 @@ public class EssentialsMiniAPI {
             return new PlayerManager(player);
         }
         return null;
+    }
+
+    public Location getLocation(String locationName) {
+        return new LocationsManager(locationName).getLocation();
     }
 
     public PlayerManagerCfgLoss getPlayerManagerJson(OfflinePlayer player) {
@@ -302,8 +310,20 @@ public class EssentialsMiniAPI {
 
     public boolean isPlayerRegistered(OfflinePlayer player) {
         if(!plugin.getVariables().isOnlineMode()) {
-            return RegisterCMD.getCfg().contains(player.getName());
+            return RegisterCMD.getCfg().contains(Objects.requireNonNull(player.getName()));
         }
-        return false;
+        return true;
+    }
+
+    public BackupManager getBackupManager() {
+        return new BackupManager();
+    }
+
+    public GameMode getGameModeById(int id) {
+        return GameModeCMD.getGameModeById(id);
+    }
+
+    public String toJson(Object obj) {
+        return new GsonBuilder().setPrettyPrinting().create().toJson(obj);
     }
 }

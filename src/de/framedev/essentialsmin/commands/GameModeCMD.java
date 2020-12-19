@@ -190,6 +190,20 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
         return false;
     }
 
+    public static GameMode getGameModeById(int id) {
+        switch (id) {
+            case 0:
+                return GameMode.SURVIVAL;
+            case 1:
+                return GameMode.CREATIVE;
+            case 2:
+                return GameMode.ADVENTURE;
+            case 3:
+                return GameMode.SPECTATOR;
+            default:
+                return null;
+        }
+    }
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if(args.length == 1) {

@@ -22,7 +22,7 @@ import org.bukkit.inventory.Inventory;
 
 public class TrashInventory implements CommandExecutor, Listener {
 
-    private Inventory inventory = Bukkit.createInventory(null, 9 * 6, "Trash");
+    private final Inventory inventory = Bukkit.createInventory(null, 9 * 6, "Trash");
     private final Main plugin;
 
     public TrashInventory(Main plugin) {

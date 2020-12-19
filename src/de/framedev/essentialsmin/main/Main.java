@@ -237,11 +237,6 @@ public class Main extends JavaPlugin {
         }
 
         getJsonConfig().saveConfig();
-        if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
-            Bukkit.getOnlinePlayers().forEach(this::hasNewUpdate);
-        }
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
-        checkUpdate();
         new SaveLists().setVanished();
         /*KitManager kit = new KitManager();
         kit.saveKit("Stone");*/
@@ -278,6 +273,11 @@ public class Main extends JavaPlugin {
         saveCustomMessagesConfig();
         this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
         this.limitedHomes = getJsonConfig().getHashMap("LimitedHomes");
+        if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
+            Bukkit.getOnlinePlayers().forEach(this::hasNewUpdate);
+        }
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
+        checkUpdate();
     }
 
     public VaultManager getVaultManager() {
@@ -285,9 +285,6 @@ public class Main extends JavaPlugin {
     }
 
     public String getCurrencySymbol() {
-        if(currencySymbol.equalsIgnoreCase("€")) {
-            currencySymbol = "\\u20ac";
-        }
         return currencySymbol;
     }
 
@@ -460,8 +457,7 @@ public class Main extends JavaPlugin {
     }
 
     public String getPermissionName() {
-        String permissionName = "essentialsmini.";
-        return permissionName;
+        return "essentialsmini.";
     }
 
     @Override
@@ -555,6 +551,18 @@ public class Main extends JavaPlugin {
                         saveConfig();
                         sender.sendMessage(getPrefix() + "§6Auto Restart §awurde auf §6" + isSet + " §agesetzt!");
                     }
+                    if(args[0].equalsIgnoreCase("worldbackup")) {
+                        boolean isSet = Boolean.parseBoolean(args[1]);
+                        getConfig().set("WorldBackup", isSet);
+                        saveConfig();
+                        sender.sendMessage(getPrefix() + "§6WorldBackup §awurde auf §6" + isSet + " §agesetzt!");
+                    }
+                    if(args[0].equalsIgnoreCase("economy")) {
+                        boolean isSet = Boolean.parseBoolean(args[1]);
+                        getConfig().set("Economy.Activate", isSet);
+                        saveConfig();
+                        sender.sendMessage(getPrefix() + "§6Economy §awurde auf §6" + isSet + " §agesetzt!");
+                    }
                 }
             }
         }
@@ -581,6 +589,8 @@ public class Main extends JavaPlugin {
                     cmds.add("showitem");
                     cmds.add("position");
                     cmds.add("jsonformat");
+                    cmds.add("worldbackup");
+                    cmds.add("economy");
                     for (String s : cmds) {
                         if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
                             empty.add(s);

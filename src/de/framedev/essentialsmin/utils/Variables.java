@@ -14,7 +14,7 @@ import de.framedev.essentialsmin.main.Main;
 
 public class Variables {
 
-    private final Main instance;
+    transient private final Main instance;
     private final String prefix;
     private final String onlyPlayer;
     private final String noPermission;
