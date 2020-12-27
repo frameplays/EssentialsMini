@@ -31,8 +31,8 @@ public class SummonCMD implements CommandExecutor, TabCompleter {
 
     public SummonCMD(Main plugin) {
         this.plugin = plugin;
-        plugin.getCommands().put("summon",this);
-        plugin.getTabCompleters().put("summon",this);
+        plugin.getCommands().put("spawnmob",this);
+        plugin.getTabCompleters().put("spawnmob",this);
     }
 
     @SuppressWarnings("deprecation")
