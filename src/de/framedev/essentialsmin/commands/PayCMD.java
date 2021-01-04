@@ -33,8 +33,6 @@ public class PayCMD extends CommandBase {
         setupTabCompleter("pay", this);
     }
 
-    /* Nope */
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("pay")) {
