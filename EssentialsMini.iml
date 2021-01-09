@@ -25,17 +25,6 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../Developer/Plugins/BungeeCord/spigot-1.16.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../Developer/Plugins/BungeeCord/spigot-1.16.1.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
           <root url="jar://$USER_HOME$/OneDrive/llel/gson-2.8.2.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -60,19 +49,30 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="" scope="PROVIDED">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../Developer/Plugins/Vault.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Minecraft Server/spigot-1.16.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../Minecraft Server/spigot-1.16.1.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Programmieren/Developer/Plugins/MySQLAPI.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../Developer/Plugins/MySQLAPI.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Programmieren/Developer/Plugins/Vault.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

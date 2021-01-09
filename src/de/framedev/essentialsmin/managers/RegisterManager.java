@@ -105,6 +105,7 @@ public class RegisterManager {
         new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
+        new MySQLCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate"))
             new PayCMD(plugin);
         for (Entry<String, CommandExecutor> command : plugin.getCommands().entrySet()) {
