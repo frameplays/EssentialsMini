@@ -27,7 +27,7 @@ public class BankCMD extends CommandBase {
         if(command.getName().equalsIgnoreCase("bank")) {
             if(args.length == 1) {
                 if(args[0].equalsIgnoreCase("balance")) {
-
+                    sender.sendMessage(plugin.getPrefix() + "§cNot yeet avaible!");
                 }
             }
         }
