@@ -1,5 +1,6 @@
 package de.framedev.essentialsmin.managers;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.utils.NotFoundException;
@@ -14,13 +15,11 @@ import org.bukkit.entity.Player;
 
 import javax.naming.spi.ObjectFactory;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /*
  * ===================================================
@@ -39,12 +38,15 @@ public class LocationsManager {
     private final FileConfiguration cfgBackup = YamlConfiguration.loadConfiguration(fileBackup);
 
     private final Main instance = Main.getInstance();
+    private boolean jsonFormat;
 
     public LocationsManager(String name) {
+        this.jsonFormat = Main.getInstance().getConfig().getBoolean("JsonFormat");
         this.name = name;
     }
 
     public LocationsManager() {
+        this.jsonFormat = Main.getInstance().getConfig().getBoolean("JsonFormat");
     }
 
     public void saveCfg() {
@@ -60,25 +62,57 @@ public class LocationsManager {
     }
 
     public void setLocation(String name, Location location) {
-        cfg.set(name + ".world", location.getWorld().getName());
-        cfg.set(name + ".x", location.getX());
-        cfg.set(name + ".y", location.getY());
-        cfg.set(name + ".z", location.getZ());
-        cfg.set(name + ".yaw", location.getYaw());
-        cfg.set(name + ".pitch", location.getPitch());
-        cfg.set(name + ".createdAt", System.currentTimeMillis());
-        saveCfg();
+        if(jsonFormat) {
+            List<LocationJson> locs = getLocations();
+            List<LocationJson> updated = new ArrayList<>(getLocations());
+            final boolean[] success = {false};
+            locs.forEach(locationJson -> {
+                if(locationJson.getLocationName().equalsIgnoreCase(name)) {
+                    updated.remove(locationJson);
+                    updated.add(new LocationJson(name,location));
+                    success[0] = true;
+                }
+            });
+            if(!success[0])
+                updated.add(new LocationJson(name,location));
+            saveLocations(updated);
+        } else {
+            cfg.set(name + ".world", location.getWorld().getName());
+            cfg.set(name + ".x", location.getX());
+            cfg.set(name + ".y", location.getY());
+            cfg.set(name + ".z", location.getZ());
+            cfg.set(name + ".yaw", location.getYaw());
+            cfg.set(name + ".pitch", location.getPitch());
+            cfg.set(name + ".createdAt", System.currentTimeMillis());
+            saveCfg();
+        }
     }
 
     public void setLocation(Location location) {
-        cfg.set(name + ".world", location.getWorld().getName());
-        cfg.set(name + ".x", location.getX());
-        cfg.set(name + ".y", location.getY());
-        cfg.set(name + ".z", location.getZ());
-        cfg.set(name + ".yaw", location.getYaw());
-        cfg.set(name + ".pitch", location.getPitch());
-        cfg.set(name + ".createdAt", System.currentTimeMillis());
-        saveCfg();
+        if(jsonFormat) {
+            List<LocationJson> locs = getLocations();
+            List<LocationJson> updated = new ArrayList<>(getLocations());
+            final boolean[] success = {false};
+            locs.forEach(locationJson -> {
+                if(locationJson.getLocationName().equalsIgnoreCase(name)) {
+                    updated.remove(locationJson);
+                    updated.add(new LocationJson(name,location));
+                    success[0] = true;
+                }
+            });
+            if(!success[0])
+                updated.add(new LocationJson(name,location));
+            saveLocations(updated);
+        } else {
+            cfg.set(name + ".world", location.getWorld().getName());
+            cfg.set(name + ".x", location.getX());
+            cfg.set(name + ".y", location.getY());
+            cfg.set(name + ".z", location.getZ());
+            cfg.set(name + ".yaw", location.getYaw());
+            cfg.set(name + ".pitch", location.getPitch());
+            cfg.set(name + ".createdAt", System.currentTimeMillis());
+            saveCfg();
+        }
     }
 
     public String getCreatedAt(String name) {
@@ -91,31 +125,74 @@ public class LocationsManager {
         return "";
     }
 
-    public Location getLocation(String s) throws NullPointerException, IllegalArgumentException {
+    public void saveLocations(List<LocationJson> locs) {
+        File file = new File(Main.getInstance().getDataFolder(),"locations.json");
         try {
-            World world = Bukkit.getWorld(cfg.getString(s + ".world"));
-            double x = cfg.getDouble(s + ".x");
-            double y = cfg.getDouble(s + ".y");
-            double z = cfg.getDouble(s + ".z");
-            float yaw = cfg.getInt(s + ".yaw");
-            float pitch = cfg.getInt(s + ".pitch");
-            if (world != null) {
+            if(!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            FileWriter writer = new FileWriter(file);
+            writer.write(new GsonBuilder().setPrettyPrinting().serializeNulls().create().toJson(locs));
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-            } else {
-                System.out.println("world is null");
+    public List<LocationJson> getLocations() {
+        File file = new File(Main.getInstance().getDataFolder(),"locations.json");
+        LocationJson[] locs = new LocationJson[0];
+        try {
+            if(file.exists()) {
+                FileReader reader = new FileReader(file);
+                locs = new Gson().fromJson(reader,LocationJson[].class);
+                reader.close();
+            }
+        } catch (Exception ignored) {
+
+        }
+        return Arrays.asList(locs);
+    }
+
+    public Location getLocation(String s) throws NullPointerException {
+        if(jsonFormat) {
+            LocationJson locationJson = null;
+            for (LocationJson location : getLocations()) {
+                if(location.getLocationName().equalsIgnoreCase(s))
+                    locationJson = location;
+            }
+            if(locationJson == null)
                 return null;
-            }
-            Location location = new Location(world, x, y, z, yaw, pitch);
-            if (location != null) {
-                return location;
-            }
+            return locationJson.getLocation();
+        } else {
+            if(cfg.contains(s)) {
+                try {
+                    World world = Bukkit.getWorld(cfg.getString(s + ".world"));
+                    double x = cfg.getDouble(s + ".x");
+                    double y = cfg.getDouble(s + ".y");
+                    double z = cfg.getDouble(s + ".z");
+                    float yaw = cfg.getInt(s + ".yaw");
+                    float pitch = cfg.getInt(s + ".pitch");
+                    if (world != null) {
 
-            return null;
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
+                    } else {
+                        throw new NullPointerException("World is Null");
+                    }
+                    Location location = new Location(world, x, y, z, yaw, pitch);
+                    if (location != null) {
+                        return location;
+                    }
+
+                    throw new NullPointerException("Location is Null");
+                } catch (IllegalArgumentException ex) {
+                    ex.printStackTrace();
+                    return null;
+                }
+            }
             return null;
         }
-
     }
 
     public void setWarp(String warpName, Location location) {
@@ -143,30 +220,43 @@ public class LocationsManager {
         return file;
     }
 
-    public Location getLocation() throws NullPointerException, IllegalArgumentException {
-        try {
-            World world = Bukkit.getWorld(cfg.getString(name + ".world"));
-            double x = cfg.getDouble(name + ".x");
-            double y = cfg.getDouble(name + ".y");
-            double z = cfg.getDouble(name + ".z");
-            float yaw = cfg.getInt(name + ".yaw");
-            float pitch = cfg.getInt(name + ".pitch");
-            if (world != null) {
-
-            } else {
-                throw new NullPointerException("World is Null");
+    public Location getLocation() {
+        if(jsonFormat) {
+            LocationJson locationJson = null;
+            for (LocationJson location : getLocations()) {
+                if(location.getLocationName().equalsIgnoreCase(name))
+                    locationJson = location;
             }
-            Location location = new Location(world, x, y, z, yaw, pitch);
-            if (location != null) {
-                return location;
-            }
+            if(locationJson == null)
+                return null;
+            return locationJson.getLocation();
+        } else {
+            if(cfg.contains(name)) {
+                try {
+                    World world = Bukkit.getWorld(cfg.getString(name + ".world"));
+                    double x = cfg.getDouble(name + ".x");
+                    double y = cfg.getDouble(name + ".y");
+                    double z = cfg.getDouble(name + ".z");
+                    float yaw = cfg.getInt(name + ".yaw");
+                    float pitch = cfg.getInt(name + ".pitch");
+                    if (world != null) {
 
-            throw new NullPointerException("Location is Null");
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
+                    } else {
+                        throw new NullPointerException("World is Null");
+                    }
+                    Location location = new Location(world, x, y, z, yaw, pitch);
+                    if (location != null) {
+                        return location;
+                    }
+
+                    throw new NullPointerException("Location is Null");
+                } catch (IllegalArgumentException ex) {
+                    ex.printStackTrace();
+                    return null;
+                }
+            }
             return null;
         }
-
     }
 
     public String locationToString(Location location) {
@@ -241,6 +331,83 @@ public class LocationsManager {
             fileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static class LocationJson {
+
+        private String locationName, worldName;
+        private double x,y,z;
+        private float yaw, pitch;
+
+        public LocationJson(String name, Location location) {
+            this.locationName = name;
+            this.worldName = location.getWorld().getName();
+            this.x = location.getX();
+            this.y = location.getY();
+            this.z = location.getZ();
+            this.yaw = location.getYaw();
+            this.pitch = location.getPitch();
+        }
+
+        public String getLocationName() {
+            return locationName;
+        }
+
+        public void setLocationName(String locationName) {
+            this.locationName = locationName;
+        }
+
+        public String getWorldName() {
+            return worldName;
+        }
+
+        public void setWorldName(String worldName) {
+            this.worldName = worldName;
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public void setX(double x) {
+            this.x = x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public void setY(double y) {
+            this.y = y;
+        }
+
+        public double getZ() {
+            return z;
+        }
+
+        public void setZ(double z) {
+            this.z = z;
+        }
+
+        public float getYaw() {
+            return yaw;
+        }
+
+        public void setYaw(float yaw) {
+            this.yaw = yaw;
+        }
+
+        public float getPitch() {
+            return pitch;
+        }
+
+        public void setPitch(float pitch) {
+            this.pitch = pitch;
+        }
+
+        public Location getLocation() {
+            return new Location(Bukkit.getWorld(worldName),x,y,z,yaw,pitch);
         }
     }
 }

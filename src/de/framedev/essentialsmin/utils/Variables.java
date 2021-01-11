@@ -23,6 +23,7 @@ public class Variables {
     private final String version;
     private final String apiVersion;
     private final boolean onlineMode;
+    private final boolean jsonFormat;
 
     public Variables() {
         this.instance = Main.getInstance();
@@ -34,6 +35,11 @@ public class Variables {
         this.version = instance.getDescription().getVersion();
         this.apiVersion = instance.getDescription().getAPIVersion();
         this.onlineMode = instance.getConfig().getBoolean("OnlineMode");
+        this.jsonFormat = instance.getConfig().getBoolean("JsonFormat");
+    }
+
+    public boolean isJsonFormat() {
+        return jsonFormat;
     }
 
     public String getWrongArgs(String cmdName) {
