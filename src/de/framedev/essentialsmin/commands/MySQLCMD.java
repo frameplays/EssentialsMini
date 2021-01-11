@@ -28,7 +28,7 @@ public class MySQLCMD extends CommandBase {
             if(sender.hasPermission(plugin.getPermissionName() + "status")) {
                 sender.sendMessage(plugin.getPrefix() + "§6" + Bukkit.getPluginManager().isPluginEnabled("MySQLAPI"));
                 enabled = MySQL.con != null;
-                sender.sendMessage(plugin.getPrefix() + "§6Enabled : §a" + enabled);
+                sender.sendMessage(plugin.getPrefix() + "§6Enabled : §a" + isEnabled());
             } else
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
         }

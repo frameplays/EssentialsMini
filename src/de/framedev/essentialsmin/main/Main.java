@@ -32,6 +32,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Main extends JavaPlugin {
@@ -54,6 +55,7 @@ public class Main extends JavaPlugin {
     /* Material Manager */
     private MaterialManager materialManager;
     private Variables variables;
+    private KeyGenerator keyGenerator;
 
     private VaultManager vaultManager;
 
@@ -124,6 +126,8 @@ public class Main extends JavaPlugin {
         this.materialManager.saveMaterialToJson();
 
         this.spigotTimer = new LagCMD.SpigotTimer();
+
+        this.keyGenerator = new KeyGenerator();
 
         new KitManager().createCustomConfig();
 
@@ -280,6 +284,10 @@ public class Main extends JavaPlugin {
         checkUpdate();
     }
 
+    public KeyGenerator getKeyGenerator() {
+        return keyGenerator;
+    }
+
     public VaultManager getVaultManager() {
         return vaultManager;
     }
@@ -416,7 +424,7 @@ public class Main extends JavaPlugin {
         customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 
 
-        Reader defConfigStream = new InputStreamReader(Main.getInstance().getResource("messages.yml"), "UTF8");
+        Reader defConfigStream = new InputStreamReader(Main.getInstance().getResource("messages.yml"), StandardCharsets.UTF_8);
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
             customConfig.setDefaults(defConfig);
@@ -562,6 +570,13 @@ public class Main extends JavaPlugin {
                         getConfig().set("Economy.Activate", isSet);
                         saveConfig();
                         sender.sendMessage(getPrefix() + "§6Economy §awurde auf §6" + isSet + " §agesetzt!");
+                    }
+                    if(args[0].equalsIgnoreCase("info")) {
+                        boolean jsonFormat = getConfig().getBoolean("JsonFormat");
+                        boolean economyEnabled = getConfig().getBoolean("Economy.Activate");
+                        sender.sendMessage(getPrefix());
+                        sender.sendMessage("§ais JsonFormat Enabled §6: " + jsonFormat);
+                        sender.sendMessage("§ais Economy Enabled §6: " + economyEnabled);
                     }
                 }
             }

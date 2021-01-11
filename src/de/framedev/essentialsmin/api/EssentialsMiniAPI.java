@@ -49,7 +49,7 @@ public class EssentialsMiniAPI {
     public boolean hasPlayerKey(OfflinePlayer player) {
         if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
             return plugin.getBackendManager().exists(player, "key", "test");
-        } else return new KeyGenerator().hasPlayerKey(player);
+        } else return plugin.getKeyGenerator().hasPlayerKey(player);
     }
 
     public boolean canPlayerFly(Player player) {
@@ -309,6 +309,8 @@ public class EssentialsMiniAPI {
     public boolean setJsonFormat(boolean jsonFormat) {
         try {
             plugin.getConfig().set("JsonFormat",jsonFormat);
+            Bukkit.getPluginManager().disablePlugin(plugin);
+            Bukkit.getPluginManager().enablePlugin(plugin);
             return true;
         } catch (Exception ex) {
             return false;
