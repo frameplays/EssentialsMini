@@ -42,11 +42,13 @@ public class LocationsManager {
 
     public LocationsManager(String name) {
         this.jsonFormat = Main.getInstance().getConfig().getBoolean("JsonFormat");
+        jsonFormat = false;
         this.name = name;
     }
 
     public LocationsManager() {
         this.jsonFormat = Main.getInstance().getConfig().getBoolean("JsonFormat");
+        jsonFormat = false;
     }
 
     public void saveCfg() {
@@ -115,6 +117,34 @@ public class LocationsManager {
         }
     }
 
+    public void setLocation(String name, LocationJson loc) {
+        this.name = name;
+        if(jsonFormat) {
+            List<LocationJson> locs = getLocations();
+            List<LocationJson> updated = new ArrayList<>(getLocations());
+            final boolean[] success = {false};
+            locs.forEach(locationJson -> {
+                if(locationJson.getLocationName().equalsIgnoreCase(name)) {
+                    updated.remove(locationJson);
+                    success[0] = true;
+                }
+            });
+            if(!success[0]) {
+                System.out.println("not");
+            }
+            saveLocations(updated);
+        } else {
+            cfg.set(name + ".world", loc.getWorldName());
+            cfg.set(name + ".x", loc.getX());
+            cfg.set(name + ".y", loc.getY());
+            cfg.set(name + ".z", loc.getZ());
+            cfg.set(name + ".yaw", loc.getYaw());
+            cfg.set(name + ".pitch", loc.getPitch());
+            cfg.set(name + ".createdAt", System.currentTimeMillis());
+            saveCfg();
+        }
+    }
+
     public String getCreatedAt(String name) {
         if (cfg.contains(name + ".createdAt")) {
             Date date = new Date(cfg.getLong(name + ".createdAt"));
@@ -133,7 +163,7 @@ public class LocationsManager {
                 file.createNewFile();
             }
             FileWriter writer = new FileWriter(file);
-            writer.write(new GsonBuilder().setPrettyPrinting().serializeNulls().create().toJson(locs));
+            writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(locs));
             writer.flush();
             writer.close();
         } catch (Exception e) {
@@ -348,6 +378,9 @@ public class LocationsManager {
             this.z = location.getZ();
             this.yaw = location.getYaw();
             this.pitch = location.getPitch();
+        }
+
+        public LocationJson() {
         }
 
         public String getLocationName() {

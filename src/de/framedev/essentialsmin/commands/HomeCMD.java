@@ -14,12 +14,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author DHZoc
@@ -32,11 +34,11 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
         super(plugin);
         this.plugin = plugin;
         if (plugin.isHomeTP()) {
-            setup("home",this);
-            setup("sethome",this);
-            setup("delhome",this);
-            setup("getlocationfromstring",this);
-            setup("delotherhome",this);
+            setup("home", this);
+            setup("sethome", this);
+            setup("delhome", this);
+            setup("getlocationfromstring", this);
+            setup("delotherhome", this);
             plugin.getTabCompleters().put("home", this);
             plugin.getTabCompleters().put("delhome", this);
             this.locationsManager = new LocationsManager();
@@ -66,7 +68,7 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                     }
-                } catch (IllegalArgumentException  x) {
+                } catch (IllegalArgumentException x) {
                     sender.sendMessage(plugin.getPrefix() + "§cDas §6Home §cwurde noch nicht gesetzt!");
                 }
             }
@@ -340,14 +342,25 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
             if (command.getName().equalsIgnoreCase("delhome")) {
                 if (sender instanceof Player) {
                     String name = args[0].toLowerCase();
-                    try {
-                        this.locationsManager = new LocationsManager(sender.getName() + ".home." + name);
-                        locationsManager.getCfg().set(sender.getName() + ".home." + name, " ");
-                        locationsManager.saveCfg();
-                        sender.sendMessage(plugin.getPrefix() + "§aDein Home mit dem Namen §6" + name + " §awurde §centfernt!");
-                        homes.clear();
-                    } catch (IllegalArgumentException ex) {
-                        sender.sendMessage(plugin.getPrefix() + "§cDein Home mit dem Namen §6" + name + " §cwurde noch nicht gesetzt!");
+                    if(plugin.getConfig().getBoolean("JsonFormat")) {
+                        if (new LocationsManager().getLocation(sender.getName() + ".home." + name) != null) {
+                            new LocationsManager().setLocation(sender.getName() + ".home." + name, new LocationsManager.LocationJson());
+                            sender.sendMessage(plugin.getPrefix() + "§aDein Home mit dem Namen §6" + name + " §awurde §centfernt!");
+                            homes.clear();
+                        } else {
+                            sender.sendMessage(plugin.getPrefix() + "§cDieses Home wurde noch nicht gesetzt!");
+                            sender.sendMessage(plugin.getPrefix() + "§cOder wurde schon entfernt!");
+                        }
+                    } else {
+                        try {
+                            this.locationsManager = new LocationsManager(sender.getName() + ".home." + name);
+                            locationsManager.getCfg().set(sender.getName() + ".home." + name, " ");
+                            locationsManager.saveCfg();
+                            sender.sendMessage(plugin.getPrefix() + "§aDein Home mit dem Namen §6" + name + " §awurde §centfernt!");
+                            homes.clear();
+                        } catch (IllegalArgumentException ex) {
+                            sender.sendMessage(plugin.getPrefix() + "§cDein Home mit dem Namen §6" + name + " §cwurde noch nicht gesetzt!");
+                        }
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -370,17 +383,28 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                 if (sender.hasPermission(new Permission("essentialsmini.deletehome.others", PermissionDefault.OP))) {
                     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
                     String name = args[0];
-                    try {
-                        if (!new LocationsManager().getCfg().getString(target.getName() + ".home." + name).equalsIgnoreCase(" ")) {
-                            this.locationsManager = new LocationsManager(target.getName() + ".home." + name);
-                            locationsManager.getCfg().set(target.getName() + ".home." + name, " ");
-                            locationsManager.saveCfg();
+                    if(plugin.getConfig().getBoolean("JsonFormat")) {
+                        if(new LocationsManager().getLocation(target.getName() + ".home." + name) != null) {
+                            new LocationsManager().setLocation(target.getName() + ".home." + name, new LocationsManager.LocationJson());
                             sender.sendMessage(plugin.getPrefix() + "§aDen Home von §6" + target.getName() + " §amit dem Namen §6" + name + " §awurde §centfernt!");
                             homes.clear();
+                        } else {
+                            sender.sendMessage(plugin.getPrefix() + "§cDieses Home wurde noch nicht gesetzt!");
+                            sender.sendMessage(plugin.getPrefix() + "§cOder wurde schon entfernt!");
                         }
-                    } catch (IllegalArgumentException ex) {
-                        sender.sendMessage(plugin.getPrefix() + "§cDieses Home wurde noch nicht gesetzt!");
-                        sender.sendMessage(plugin.getPrefix() + "§cOder wurde schon entfernt!");
+                    } else {
+                        try {
+                            if (!new LocationsManager().getCfg().getString(target.getName() + ".home." + name).equalsIgnoreCase(" ")) {
+                                this.locationsManager = new LocationsManager(target.getName() + ".home." + name);
+                                locationsManager.getCfg().set(target.getName() + ".home." + name, " ");
+                                locationsManager.saveCfg();
+                                sender.sendMessage(plugin.getPrefix() + "§aDen Home von §6" + target.getName() + " §amit dem Namen §6" + name + " §awurde §centfernt!");
+                                homes.clear();
+                            }
+                        } catch (IllegalArgumentException ex) {
+                            sender.sendMessage(plugin.getPrefix() + "§cDieses Home wurde noch nicht gesetzt!");
+                            sender.sendMessage(plugin.getPrefix() + "§cOder wurde schon entfernt!");
+                        }
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -397,47 +421,77 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (command.getName().equalsIgnoreCase("home")) {
+        if (command.getName().equalsIgnoreCase("home")) {
             ArrayList<String> homes = new ArrayList<>();
             if (args.length == 1) {
-                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                    if (cs != null) {
-                        for (String s : cs.getKeys(false)) {
-                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                    if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
-                                        if (!s.equalsIgnoreCase("home")) {
-                                            homes.add(s);
+                /*if (plugin.getConfig().getBoolean("JsonFormat")) {
+                    List<LocationsManager.LocationJson> locs = new LocationsManager().getLocations();
+                    ArrayList<String> empty = new ArrayList<>();
+                    locs.forEach(loc -> {
+                        empty.add(loc.getLocationName());
+                    });
+
+                    for (String s : empty) {
+                        if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                            s = s.replace(sender.getName() + ".home.","");
+                            homes.add(s);
+                        }
+                    }
+                    Collections.sort(homes);
+                    return homes;
+                } else {*/
+                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                        if (cs != null) {
+                            for (String s : cs.getKeys(false)) {
+                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                        if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                                            if (!s.equalsIgnoreCase("home")) {
+                                                homes.add(s);
+                                            }
                                         }
                                     }
                                 }
                             }
+                            Collections.sort(homes);
+                            return homes;
                         }
-                        Collections.sort(homes);
-                        return homes;
-                    }
                 }
             }
         }
         if (command.getName().equalsIgnoreCase("delhome")) {
             if (args.length == 1) {
-                ArrayList<String> homes = new ArrayList<>();
-                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                    if (cs != null) {
-                        for (String s : cs.getKeys(false)) {
-                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                    if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
-                                        homes.add(s);
+                /*if (plugin.getConfig().getBoolean("JsonFormat")) {
+                    List<LocationsManager.LocationJson> locs = new LocationsManager().getLocations();
+                    ArrayList<String> empty = new ArrayList<>();
+                    locs.forEach(loc -> {
+                        empty.add(loc.getLocationName());
+                    });
+
+                    for (String s : empty) {
+                        if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                            homes.add(s);
+                        }
+                    }
+                    Collections.sort(homes);
+                    return homes;
+                } else {*/
+                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                        if (cs != null) {
+                            for (String s : cs.getKeys(false)) {
+                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                        if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                                            homes.add(s);
+                                        }
                                     }
                                 }
                             }
+                            Collections.sort(homes);
+                            return homes;
                         }
-                        Collections.sort(homes);
-                        return homes;
-                    }
                 }
             }
         }
