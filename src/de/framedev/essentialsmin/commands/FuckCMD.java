@@ -89,6 +89,7 @@ public class FuckCMD extends CommandBase {
                         fireworkMeta.addEffects(effects);
                         firework.setFireworkMeta(fireworkMeta);
                     }
+                    target.sendMessage(plugin.getPrefix() + "§aYou got Fucked!");
                 } else {
                     sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler existiert nicht!");
                 }

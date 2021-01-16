@@ -93,6 +93,8 @@ public class Main extends JavaPlugin {
 
     private String currencySymbol;
 
+    private ArrayList<String> offlinePlayers;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -280,8 +282,22 @@ public class Main extends JavaPlugin {
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             Bukkit.getOnlinePlayers().forEach(this::hasNewUpdate);
         }
+        this.playerJson = new JsonHandler("players");
+        if(playerJson.getStringList("offlineplayers") == null) {
+            ArrayList<String> offlinePlayers = new ArrayList<>();
+            offlinePlayers.add("Kleckser253");
+            this.offlinePlayers = offlinePlayers;
+            playerJson.set("offlineplayers",offlinePlayers);
+            playerJson.saveConfig();
+        } else {
+            this.offlinePlayers = playerJson.getStringList("offlineplayers");
+        }
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
         checkUpdate();
+    }
+
+    public ArrayList<String> getOfflinePlayers() {
+        return offlinePlayers;
     }
 
     public KeyGenerator getKeyGenerator() {
@@ -321,6 +337,16 @@ public class Main extends JavaPlugin {
 
     public FileConfiguration getCfg() {
         return cfg;
+    }
+
+    public void addOfflinePlayer(OfflinePlayer player) {
+        if(!getOfflinePlayers().contains(player.getName()))
+            offlinePlayers.add(player.getName());
+    }
+
+    public void removeOfflinePlayer(OfflinePlayer player) {
+        if(getOfflinePlayers().contains(player.getName()))
+            offlinePlayers.remove(player.getName());
     }
 
     public void saveCfg() {
@@ -666,6 +692,8 @@ public class Main extends JavaPlugin {
             });
         }
         savePlayerHomes();
+        playerJson.set("offlineplayers",offlinePlayers);
+        playerJson.saveConfig();
     }
 
     /**
