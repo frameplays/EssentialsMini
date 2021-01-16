@@ -165,6 +165,8 @@ public class PlayerListeners implements Listener {
             plugin.saveCfg();
         }
 
+        plugin.removeOfflinePlayer(event.getPlayer());
+
         if (!event.getPlayer().hasPlayedBefore()) {
             if (plugin.getConfig().getBoolean("StartBalance.Boolean")) {
                 double startBalance = plugin.getConfig().getDouble("StartBalance.Amount");
@@ -175,6 +177,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
+        plugin.addOfflinePlayer(event.getPlayer());
         if (isEnabled()) {
             if (!isJsonFormat()) {
                 new PlayerManager(event.getPlayer()
@@ -234,6 +237,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onPlayerKick(PlayerKickEvent event) {
+        plugin.addOfflinePlayer(event.getPlayer());
         if (isEnabled()) {
             if (!isJsonFormat()) {
                 new PlayerManager(event.getPlayer()

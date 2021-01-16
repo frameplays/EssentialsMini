@@ -49,7 +49,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../Minecraft Server/spigot-1.16.1.jar!/" />
@@ -60,19 +60,19 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Programmieren/Developer/Plugins/MySQLAPI.jar!/" />
+          <root url="jar://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Programmieren/Developer/Plugins/MySQLAPI.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Programmieren/Developer/Plugins/Vault.jar!/" />
+          <root url="jar://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Programmieren/Developer/Plugins/Vault.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
