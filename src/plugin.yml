@@ -7,6 +7,7 @@ softdepend:
   - Vault
 loadbefore:
   - Vault
+website: https://framedev.stream
 
 commands:
   balance:
