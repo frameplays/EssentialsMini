@@ -43,11 +43,11 @@ public class BackUpCMD extends CommandBase {
 
     public void backup() {
         for(World world : Bukkit.getWorlds()) {
+            if(!world.isAutoSave())
+                world.setAutoSave(true);
             world.save();
-        }
-        for(World world : Bukkit.getWorlds()) {
             try {
-                copyDirectory(world.getWorldFolder(),new File("Backups/Backups_"+ new SimpleDateFormat("yyyy.MM.dd|HH:mm:ss").format(new Date(System.currentTimeMillis())) + "/"+world.getName()));
+                copyDirectory(world.getWorldFolder(),new File("Backups/"+ new SimpleDateFormat("HH:mm:ss|yyyy.MM.dd").format(new Date(System.currentTimeMillis())) + "/"+world.getName()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
