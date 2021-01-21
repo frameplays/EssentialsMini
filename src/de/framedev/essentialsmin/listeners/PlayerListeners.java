@@ -131,21 +131,43 @@ public class PlayerListeners implements Listener {
                         try {
                             if (!plugin.getCfgLossHashMap()
                                     .containsKey(event.getPlayer())) {
-                                plugin.getCfgLossHashMap()
-                                        .put(event.getPlayer(), PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()));
-                                plugin.getCfgLossHashMap()
-                                        .get(event.getPlayer())
-                                        .setLastLogin(System.currentTimeMillis());
+                                if(plugin.isMysql()) {
+                                    if(PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
+                                        plugin.getCfgLossHashMap()
+                                                .put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
+                                        plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
+                                    } else {
+                                        plugin.getCfgLossHashMap()
+                                                .put(event.getPlayer(), new PlayerManagerCfgLoss(event.getPlayer()));
+                                        plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
+                                    }
+                                } else {
+                                    plugin.getCfgLossHashMap()
+                                            .put(event.getPlayer(), PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()));
+                                    plugin.getCfgLossHashMap()
+                                            .get(event.getPlayer())
+                                            .setLastLogin(System.currentTimeMillis());
+                                }
                             }
                         } catch (FileNotFoundException e) {
                             if (!plugin.getCfgLossHashMap()
                                     .containsKey(event.getPlayer())) {
-                                PlayerManagerCfgLoss cfgLoss = new PlayerManagerCfgLoss(event.getPlayer());
-                                plugin.getCfgLossHashMap()
-                                        .put(event.getPlayer(), cfgLoss);
-                                plugin.getCfgLossHashMap()
-                                        .get(event.getPlayer())
-                                        .setLastLogin(System.currentTimeMillis());
+                                if(plugin.isMysql()) {
+                                    if(PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
+                                        plugin.getCfgLossHashMap()
+                                                .put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
+                                    } else {
+                                        plugin.getCfgLossHashMap()
+                                                .put(event.getPlayer(), new PlayerManagerCfgLoss(event.getPlayer()));
+                                    }
+                                } else {
+                                    PlayerManagerCfgLoss cfgLoss = new PlayerManagerCfgLoss(event.getPlayer());
+                                    plugin.getCfgLossHashMap()
+                                            .put(event.getPlayer(), cfgLoss);
+                                    plugin.getCfgLossHashMap()
+                                            .get(event.getPlayer())
+                                            .setLastLogin(System.currentTimeMillis());
+                                }
                             }
                         }
                         cancel();
@@ -199,7 +221,14 @@ public class PlayerListeners implements Listener {
                     plugin.getCfgLossHashMap()
                             .get(event.getPlayer())
                             .savePlayerManager();
-                    plugin.getCfgLossHashMap().get(event.getPlayer()).save();
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
+                    if(plugin.isMysql()) {
+                        plugin.getCfgLossHashMap()
+                                .get(event.getPlayer())
+                                .setLastLogout(System.currentTimeMillis());
+                        plugin.getCfgLossHashMap()
+                                .get(event.getPlayer()).savePlayerData(event.getPlayer());
+                    }
                 }
             }
         }
@@ -260,7 +289,14 @@ public class PlayerListeners implements Listener {
                     plugin.getCfgLossHashMap()
                             .get(event.getPlayer())
                             .savePlayerManager();
-                    plugin.getCfgLossHashMap().get(event.getPlayer()).save();
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
+                    if(plugin.isMysql()) {
+                        plugin.getCfgLossHashMap()
+                                .get(event.getPlayer())
+                                .setLastLogout(System.currentTimeMillis());
+                        plugin.getCfgLossHashMap()
+                                .get(event.getPlayer()).savePlayerData(event.getPlayer());
+                    }
                 }
             }
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {

@@ -11,6 +11,7 @@ import de.framedev.essentialsmin.api.EssentialsMiniAPI;
 import de.framedev.essentialsmin.commands.*;
 import de.framedev.essentialsmin.managers.*;
 import de.framedev.essentialsmin.utils.*;
+import de.framedev.mysqlapi.api.SQL;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -285,6 +286,22 @@ public class Main extends JavaPlugin {
             this.offlinePlayers = new ArrayList<>();
             offlinePlayers.add("Kleckser253");
             savePlayers();
+        }
+        if(isMysql()) {
+            if (!SQL.isTableExists(getName().toLowerCase() + "_data"))
+                SQL.createTable(getName().toLowerCase() + "_data",
+                        "playeruuid VARCHAR(1200)",
+                        "playername TEXT(120)",
+                        "sleeptimes INT",
+                        "damage DOUBLE",
+                        "playerkills INT",
+                        "entitykills INT",
+                        "deaths INT",
+                        "blocksbroken INT",
+                        "blocksplacen INT",
+                        "lastlogin LONG",
+                        "lastlogout LONG",
+                        "commandsused INT");
         }
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
         checkUpdate();
@@ -689,6 +706,8 @@ public class Main extends JavaPlugin {
         if(!getCfgLossHashMap().isEmpty()) {
             getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
                 if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
+                    if(isMysql())
+                        playerManagerCfgLoss.savePlayerData(player);
                     playerManagerCfgLoss.savePlayerManager();
                 }
             });
