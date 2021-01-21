@@ -15,7 +15,6 @@ public class Config {
         Main.getInstance().saveDefaultConfig();
     }
 
-
     public static void updateConfig() {
         try {
             if ((new File(Main.getInstance().getDataFolder() + "/config.yml")).exists()) {

@@ -70,3 +70,5 @@ TeleportInOtherWorld: true
 WorldBackup: false
 # Minutes 60 = 1 Hour
 BackupWorldTime: 60
+
+OnlyEssentialsFeatures: true

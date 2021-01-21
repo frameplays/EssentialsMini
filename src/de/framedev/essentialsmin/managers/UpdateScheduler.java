@@ -22,26 +22,28 @@ import java.util.Map;
 public class UpdateScheduler {
 
     public void run() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if(Main.getInstance().getConfig().getBoolean("LocationsBackup")) {
-                    new LocationsManager().saveBackup();
-                    //Main.getInstance().savePlayerHomes();
-                    if (Main.getInstance().getConfig().getBoolean("LocationsBackupMessage")) {
-                        Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§a" + new LocationsManager().getFileBackup().getName() + " §6LocationBackup gespeichert!");
-                        Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§aDas Backup befindet sich in §6" + new LocationsManager().getFileBackup().getPath());
+        if(Main.getInstance().getConfig().getBoolean("LocationsBackup")) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (Main.getInstance().getConfig().getBoolean("LocationsBackup")) {
+                        new LocationsManager().saveBackup();
+                        //Main.getInstance().savePlayerHomes();
+                        if (Main.getInstance().getConfig().getBoolean("LocationsBackupMessage")) {
+                            Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§a" + new LocationsManager().getFileBackup().getName() + " §6LocationBackup gespeichert!");
+                            Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§aDas Backup befindet sich in §6" + new LocationsManager().getFileBackup().getPath());
+                        }
+                    }
+                    Main.getInstance().getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
+                        if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
+                            playerManagerCfgLoss.savePlayerManager();
+                        }
+                    });
+                    if (Main.getInstance().getConfig().getBoolean("BackupMessages")) {
+                        Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§6User Data §aSaved!");
                     }
                 }
-                Main.getInstance().getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
-                    if(playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
-                        playerManagerCfgLoss.savePlayerManager();
-                    }
-                });
-                if(Main.getInstance().getConfig().getBoolean("BackupMessages")) {
-                    Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§6User Data §aSaved!");
-                }
-            }
-        }.runTaskTimerAsynchronously(Main.getInstance(), 0, 20 * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
+            }.runTaskTimerAsynchronously(Main.getInstance(), 0, 20 * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
+        }
     }
 }
