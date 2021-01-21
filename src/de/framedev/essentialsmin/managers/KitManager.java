@@ -25,6 +25,7 @@ import java.util.Objects;
 
 
 public class KitManager {
+
     private static File customConfigFile;
     private static FileConfiguration customConfig;
     public Inventory kitname = Bukkit.createInventory(null, 36);

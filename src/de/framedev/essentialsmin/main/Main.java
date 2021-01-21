@@ -6,7 +6,6 @@ package de.framedev.essentialsmin.main;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.sun.istack.internal.NotNull;
 import de.framedev.essentialsmin.api.EssentialsMiniAPI;
 import de.framedev.essentialsmin.commands.*;
@@ -19,7 +18,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -29,7 +27,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -45,7 +42,6 @@ public class Main extends JavaPlugin {
 
     private HashMap<OfflinePlayer, PlayerManagerCfgLoss> cfgLossHashMap = new HashMap<>();
     private Map<String, Object> limitedHomesPermission;
-    public static HashMap<String, HashMap<String, Home>> homes;
 
     /* Json Config.json */
     private JsonConfig jsonConfig;
@@ -98,8 +94,6 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        setupEconomy();
-        homes = new HashMap<>();
 
         new EssentialsMiniAPI();
         createCustomMessagesConfig();
@@ -136,7 +130,7 @@ public class Main extends JavaPlugin {
         /* JsonConfig */
         this.jsonConfig = new JsonConfig();
 
-        this.file = new File(getDataFolder(), "offline.yml");
+        /*this.file = new File(getDataFolder(), "offline.yml");
         this.cfg = YamlConfiguration.loadConfiguration(file);
         if (!cfg.contains("players")) {
             players = new ArrayList<>();
@@ -154,7 +148,7 @@ public class Main extends JavaPlugin {
             }
         }
         cfg.set("players", players);
-        saveCfg();
+        saveCfg();*/
 
         /* Variables */
         this.variables = new Variables();
@@ -190,14 +184,15 @@ public class Main extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups werden gemacht!");
         }
         /* Thread for the Schedulers for save restart and .... */
-        new UpdateScheduler().run();
+        if(!getConfig().getBoolean("OnlyEssentialsFeatures"))
+            new UpdateScheduler().run();
 
         if (this.getConfig().getBoolean("SaveInventory")) {
             SaveInventoryCMD.restore();
         }
 
         /* Json Config at Key's and Value's */
-        HashMap<String, Object> json = new HashMap<>();
+        /*HashMap<String, Object> json = new HashMap<>();
         json.put("Backpack", true);
         json.put("SpawnTP", false);
         json.put("SkipNight", false);
@@ -242,7 +237,7 @@ public class Main extends JavaPlugin {
             getJsonConfig().set("SaveInventory", false);
         }
 
-        getJsonConfig().saveConfig();
+        getJsonConfig().saveConfig();*/
         new SaveLists().setVanished();
         /*KitManager kit = new KitManager();
         kit.saveKit("Stone");*/
@@ -269,7 +264,7 @@ public class Main extends JavaPlugin {
                 BackpackCMD.restore(onlinePlayer);
             }
         }
-        saveCfg();
+        //saveCfg();
         this.currencySymbol = (String) getConfig().get("Currency");
         try {
             reloadCustomConfig();
@@ -282,15 +277,14 @@ public class Main extends JavaPlugin {
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             Bukkit.getOnlinePlayers().forEach(this::hasNewUpdate);
         }
-        this.playerJson = new JsonHandler("players");
-        if(playerJson.getStringList("offlineplayers") == null) {
-            ArrayList<String> offlinePlayers = new ArrayList<>();
-            offlinePlayers.add("Kleckser253");
-            this.offlinePlayers = offlinePlayers;
-            playerJson.set("offlineplayers",offlinePlayers);
-            playerJson.saveConfig();
+
+        this.offlinePlayers = new ArrayList<>();
+        if(getJson() != null) {
+            this.offlinePlayers = getJson();
         } else {
-            this.offlinePlayers = playerJson.getStringList("offlineplayers");
+            this.offlinePlayers = new ArrayList<>();
+            offlinePlayers.add("Kleckser253");
+            savePlayers();
         }
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
         checkUpdate();
@@ -298,6 +292,35 @@ public class Main extends JavaPlugin {
 
     public ArrayList<String> getOfflinePlayers() {
         return offlinePlayers;
+    }
+
+    public void savePlayers() {
+        File file = new File(getDataFolder(),"players.json");
+        try {
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter writer = new FileWriter(file);
+            writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(offlinePlayers));
+            writer.flush();
+            writer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> getJson() {
+        File file = new File(getDataFolder(),"players.json");
+        String[] players = null;
+        try {
+            if(file.exists()) {
+                FileReader reader = new FileReader(file);
+                players = new Gson().fromJson(reader, String[].class);
+                reader.close();
+                return new ArrayList<>(Arrays.asList(players));
+            }
+        } catch (Exception ignored) {}
+        return null;
     }
 
     public KeyGenerator getKeyGenerator() {
@@ -318,21 +341,6 @@ public class Main extends JavaPlugin {
 
     public boolean isMysql() {
         return mysql;
-    }
-
-    private boolean setupEconomy() {
-        /*if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        eco = rsp.getProvider();
-        */
-        //
-        return true;
     }
 
     public FileConfiguration getCfg() {
@@ -678,11 +686,13 @@ public class Main extends JavaPlugin {
             new LocationsManager().saveBackup();
         }
         new LocationsManager().deleteLocations();
-        getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
-            if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
-                playerManagerCfgLoss.savePlayerManager();
-            }
-        });
+        if(!getCfgLossHashMap().isEmpty()) {
+            getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
+                if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
+                    playerManagerCfgLoss.savePlayerManager();
+                }
+            });
+        }
         new SaveLists().saveVanishList();
         if (!VanishCMD.hided.isEmpty()) {
             VanishCMD.hided.forEach(players -> {
@@ -691,9 +701,7 @@ public class Main extends JavaPlugin {
                 }
             });
         }
-        savePlayerHomes();
-        playerJson.set("offlineplayers",offlinePlayers);
-        playerJson.saveConfig();
+        savePlayers();
     }
 
     /**
@@ -787,49 +795,7 @@ public class Main extends JavaPlugin {
         return limited;
     }
 
-    public void savePlayerHomes() {
-        File file = new File(getDataFolder(), "homes.json");
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(new GsonBuilder().setPrettyPrinting().create().toJson(homes));
-            fileWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public LagCMD.SpigotTimer getSpigotTimer() {
         return spigotTimer;
-    }
-
-    public HashMap<String, HashMap<String, Home>> getPlayerHomes() {
-        File file = new File(getDataFolder(), "homes.json");
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        HashMap<String, HashMap<String, Home>> homes = new HashMap<>();
-        try {
-            FileReader fileReader = new FileReader(file);
-            Type type = new TypeToken<HashMap<String, HashMap<String, Home>>>() {
-            }.getType();
-            homes = new Gson().fromJson(fileReader, type);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return homes;
     }
 }

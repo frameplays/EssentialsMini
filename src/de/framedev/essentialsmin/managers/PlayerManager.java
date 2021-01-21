@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -283,8 +284,9 @@ public class PlayerManager implements Serializable {
     }
 
     private double round(double value, int decimalPoints) {
-        double d = Math.pow(10, decimalPoints);
-        return Math.round(value * d) / d;
+        NumberFormat formatter = NumberFormat.getInstance();
+        formatter.setMaximumFractionDigits(decimalPoints);
+        return Double.parseDouble(formatter.format(value));
     }
 
     public String getName() {
