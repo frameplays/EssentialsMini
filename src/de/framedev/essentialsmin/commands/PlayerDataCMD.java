@@ -78,6 +78,20 @@ public class PlayerDataCMD implements CommandExecutor {
                     }
                     //noinspection deprecation
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+                    if(plugin.isMysql()) {
+                        if(player.isOnline()) {
+                            if(!plugin.getCfgLossHashMap().isEmpty()) {
+                                if(plugin.getCfgLossHashMap().containsKey(player))
+                                playerManager = plugin.getCfgLossHashMap().get(player);
+                            }
+                        } else {
+                            if (PlayerManagerCfgLoss.loadPlayerData(player) != null) {
+                                playerManager = PlayerManagerCfgLoss.loadPlayerData(player);
+                            } else {
+                                playerManager = new PlayerManagerCfgLoss(player);
+                            }
+                        }
+                    }
                     long login = playerManager.getLastlogin();
                     sender.sendMessage("§6Info About §a" + player.getName());
                     sender.sendMessage(

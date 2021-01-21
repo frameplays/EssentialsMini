@@ -361,8 +361,10 @@ public class PlayerManager implements Serializable {
     @Deprecated
     public String getHoursPlayed() {
         long ticks = Bukkit.getOfflinePlayer(uuid).getStatistic(Statistic.PLAY_ONE_MINUTE);
-        long seconds = ticks * 20;
-        Date date = new Date(seconds);
+        long seconds = ticks / 20 * 1000;
+        Date date = new Date();
+        date.setDate(0);
+        date.setTime(seconds);
         String time = new SimpleDateFormat("HH").format(date);
         return time;
     }
@@ -370,8 +372,10 @@ public class PlayerManager implements Serializable {
     @Deprecated
     public String getTimePlayed() {
         long ticks = Bukkit.getOfflinePlayer(uuid).getStatistic(Statistic.PLAY_ONE_MINUTE);
-        long seconds = ticks * 20;
-        Date date = new Date(seconds);
+        long seconds = ticks / 20 * 1000;
+        Date date = new Date();
+        date.setDate(0);
+        date.setTime(seconds);
         String time = new SimpleDateFormat("D | HH:mm:ss").format(date);
         return time;
     }
