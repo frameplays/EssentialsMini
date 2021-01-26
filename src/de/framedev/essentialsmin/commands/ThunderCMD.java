@@ -32,29 +32,22 @@ public class ThunderCMD extends CommandBase implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 0) {
-            if(sender instanceof Player) {
-                Player player = (Player) sender;
-                if(player.hasPermission(new Permission(plugin.getPermissionName() + "lightningstrike", PermissionDefault.OP))) {
-                    player.getWorld().strikeLightning(player.getLocation());
-                    player.sendMessage(plugin.getPrefix() + "§6Blitz!");
-                } else {
-                    player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
-                }
-            } else {
-                sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
-            }
-        } else if(args.length == 1) {
+        if(args.length == 1) {
             Player target = Bukkit.getPlayer(args[0]);
             if(target != null) {
-                if (sender.hasPermission(new Permission(plugin.getPermissionName() + "lightningstrike.others", PermissionDefault.OP))) {
+                if (sender.hasPermission(new Permission(plugin.getPermissionName() + "lightningstrike", PermissionDefault.OP))) {
                     target.getWorld().strikeLightning(target.getLocation());
+                    if(sender instanceof Player) {
+                        Player player = (Player) sender;
+                        // TODO Change this!!!
+                        System.out.println(player.getLocale());
+                    }
                     sender.sendMessage(plugin.getPrefix() + "§6Blitz! §a" + target.getName() + "§c!");
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
             } else {
-                sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler existiert nicht! §6" + args[0]);
+                sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
             }
         }
         return false;

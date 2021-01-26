@@ -36,6 +36,12 @@ public class SunRainThunderCMD implements CommandExecutor {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if (command.getName().equalsIgnoreCase("sun")) {
+                String message = plugin.getCustomMessagesConfig().getString("WeatherSun");
+                if(message.contains("&"))
+                    message = message.replace('&','§');
+                if(message.contains("%World%")) {
+                    message = message.replace("%World%",player.getWorld().getName());
+                }
                 if(player.hasPermission(plugin.getPermissionName() + "sun")) {
                     new BukkitRunnable() {
                         @Override
@@ -44,26 +50,38 @@ public class SunRainThunderCMD implements CommandExecutor {
                             player.getWorld().setThundering(false);
                         }
                     }.runTaskLater(plugin,60);
-                    player.sendMessage(plugin.getPrefix() + "§aIn der Welt §6" + player.getWorld().getName() + " §ascheint nun die Sonne!");
+                    player.sendMessage(plugin.getPrefix() + message);
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
             }
             if (command.getName().equalsIgnoreCase("rain")) {
                 if(player.hasPermission(plugin.getPermissionName() + "rain")) {
+                    String message = plugin.getCustomMessagesConfig().getString("WeatherRain");
+                    if(message.contains("%World%"))
+                        message = message.replace("%World%",player.getWorld().getName());
+                    if(message.contains("&"))
+                        message = message.replace('&','§');
+
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             player.getWorld().setStorm(true);
                         }
                     }.runTaskLater(plugin,60);
-                    player.sendMessage(plugin.getPrefix() + "§aIn der Welt §6" + player.getWorld().getName() + " §aregnet es nun!");
+                    player.sendMessage(plugin.getPrefix() + message);
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
             }
             if (command.getName().equalsIgnoreCase("thunder")) {
                 if(player.hasPermission(plugin.getPermissionName() + "thunder")) {
+                    String message = plugin.getCustomMessagesConfig().getString("WeatherThunder");
+                    if(message.contains("%World%"))
+                        message = message.replace("%World%",player.getWorld().getName());
+                    if(message.contains("&"))
+                        message = message.replace('&','§');
+
                     new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -71,7 +89,7 @@ public class SunRainThunderCMD implements CommandExecutor {
                             player.getWorld().setThundering(true);
                         }
                     }.runTaskLater(plugin,60);
-                    player.sendMessage(plugin.getPrefix() + "§aIn der Welt §6" + player.getWorld().getName() + " §aist nun ein gewitter!");
+                    player.sendMessage(plugin.getPrefix() + message);
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }

@@ -45,7 +45,12 @@ public class WarpCMD implements CommandExecutor, TabCompleter {
                     if (args.length == 1) {
                         String name = args[0];
                         new LocationsManager().setLocation("warps." + name.toLowerCase(), player.getLocation());
-                        player.sendMessage(plugin.getPrefix() + "§aWarp wurde erstellt mit dem Namen §6" + name + "§c!");
+                        String message = plugin.getCustomMessagesConfig().getString("Warp.Created");
+                        if(message.contains("&"))
+                            message = message.replace('&','§');
+                        if(message.contains("WarpName"))
+                            message = message.replace("%WarpName%",name);
+                        player.sendMessage(plugin.getPrefix() + message);
                     } else {
                         player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/setwarp <Name>"));
                     }
@@ -64,9 +69,17 @@ public class WarpCMD implements CommandExecutor, TabCompleter {
                         String name = args[0];
                         try {
                             player.teleport(new LocationsManager().getLocation("warps." + name.toLowerCase()));
-                            player.sendMessage(plugin.getPrefix() + "§aDu wurdest erfolgreich zum Warp §6" + name + " §aTeleportiert!");
+                            String message = plugin.getCustomMessagesConfig().getString("Warp.Teleport");
+                            if(message.contains("&"))
+                                message = message.replace('&','§');
+                            if(message.contains("%WarpName%"))
+                                message = message.replace("%WarpName%",name);
+                            player.sendMessage(plugin.getPrefix() + message);
                         } catch (Exception ex) {
-                            player.sendMessage(plugin.getPrefix() + "§cDieser Warp wurde noch nicht erstellt!");
+                            String message = plugin.getCustomMessagesConfig().getString("Warp.NotExist");
+                            if(message.contains("&"))
+                                message = message.replace('&','§');
+                            player.sendMessage(plugin.getPrefix() + message);
                         }
                     } else {
                         player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/warp <Name>"));
@@ -91,7 +104,10 @@ public class WarpCMD implements CommandExecutor, TabCompleter {
                         }
                     }
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cEs gibt noch keine Warps!");
+                    String message = plugin.getCustomMessagesConfig().getString("Warp.NotExist");
+                    if(message.contains("&"))
+                        message = message.replace('&','§');
+                    sender.sendMessage(plugin.getPrefix() + message);
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -103,7 +119,12 @@ public class WarpCMD implements CommandExecutor, TabCompleter {
                     String warp = args[0].toLowerCase();
                     new LocationsManager().getCfg().set("warps." + warp, " ");
                     new LocationsManager().saveCfg();
-                    sender.sendMessage(plugin.getPrefix() + "§aWarp mit dem Namen §6" + warp + " §awurde §cgelöscht!");
+                    String message = plugin.getCustomMessagesConfig().getString("World.Delete");
+                    if(message.contains("&"))
+                        message = message.replace('&','§');
+                    if(message.contains("%WarpName%"))
+                        message = message.replace("%WarpName%",warp);
+                    sender.sendMessage(plugin.getPrefix() + message);
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

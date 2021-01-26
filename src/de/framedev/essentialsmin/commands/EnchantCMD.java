@@ -81,10 +81,7 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
                         sender.sendMessage(plugin.getPrefix() + message);
                     }
                 } else {
-                    String message = plugin.getCustomMessagesConfig().getString("PlayerNotOnline");
-                    if(message != null) {
-                        message = new TextUtils().replaceAndToParagraph(message);
-                    }
+                    String message = plugin.getVariables().getPlayerNotOnline(args[2]);
                     sender.sendMessage(plugin.getPrefix() + message);
                 }
             } else {

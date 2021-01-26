@@ -47,7 +47,7 @@ public class FeedCMD implements CommandExecutor {
                     player.sendMessage(plugin.getPrefix() + "§aDein Hunger wurde gestillt!");
                     sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + "'s §aHunger wurde gestillt!");
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                    sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

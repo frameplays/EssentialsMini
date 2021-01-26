@@ -87,7 +87,7 @@ public class PayCMD extends CommandBase {
                                         sender.sendMessage(plugin.getPrefix() + "§cNicht genug Geld! §aBalance §6: " + plugin.getVaultManager().getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
                                     }
                                 } else {
-                                    sender.sendMessage(plugin.getPrefix() + "§c Dieser Spieler ist nicht Online!");
+                                    sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[1]));
                                 }
                             }
                         } else {

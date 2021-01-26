@@ -92,7 +92,7 @@ public class RepairCMD implements CommandExecutor {
                         sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                    sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/repair §coder §6/repair <PlayerName>"));

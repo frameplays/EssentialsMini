@@ -1,6 +1,7 @@
 package de.framedev.essentialsmin.commands;
 
 import de.framedev.essentialsmin.main.Main;
+import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /*
@@ -43,7 +45,10 @@ public class VanishCMD implements CommandExecutor, Listener {
                                 o.showPlayer(this.plugin, player);
                             });
                             hided.remove(player.getName());
-                            player.sendMessage(plugin.getPrefix() + "§cDu bist nun nicht mehr im Vanish!");
+                            String message = plugin.getCustomMessagesConfig().getString("VanishOff.Single");
+                            if(message.contains("&"))
+                                message = new TextUtils().replaceAndToParagraph(message);
+                            player.sendMessage(plugin.getPrefix() + message);
                             return true;
                         } else {
                             Bukkit.getOnlinePlayers().forEach(o -> {
@@ -52,7 +57,10 @@ public class VanishCMD implements CommandExecutor, Listener {
                                 }
                             });
                             hided.add(player.getName());
-                            player.sendMessage(plugin.getPrefix() + "§aDu bist nun im Vanish!");
+                            String message = plugin.getCustomMessagesConfig().getString("VanishOn.Single");
+                            if(message.contains("&"))
+                                message = new TextUtils().replaceAndToParagraph(message);
+                            player.sendMessage(plugin.getPrefix() + message);
                             return true;
                         }
                     } else {
@@ -66,8 +74,15 @@ public class VanishCMD implements CommandExecutor, Listener {
                                 o.showPlayer(this.plugin, target);
                             });
                             hided.remove(target.getName());
-                            target.sendMessage(plugin.getPrefix() + "§cDu bist nun nicht mehr im Vanish!");
-                            sender.sendMessage(plugin.getPrefix() + "§6" + target.getName() + " §chat kein Vanish mehr!");
+                            String message = plugin.getCustomMessagesConfig().getString("VanishOff.Single");
+                            if(message.contains("&"))
+                                message = new TextUtils().replaceAndToParagraph(message);
+                            String playerMessage = plugin.getCustomConfig().getString("VanishOff.Multi");
+                            if(playerMessage.contains("%Player%"))
+                                message = message.replace("%Player%",target.getName());
+                            if(playerMessage.contains("&")) message = message.replace('&','§');
+                            target.sendMessage(plugin.getPrefix() + message);
+                            sender.sendMessage(plugin.getPrefix() + playerMessage);
                             return true;
 
                         } else {
@@ -77,11 +92,18 @@ public class VanishCMD implements CommandExecutor, Listener {
                                 }
                             });
                             hided.add(target.getName());
-                            target.sendMessage(plugin.getPrefix() + "§aDu bist nun im Vanish!");
-                            sender.sendMessage(plugin.getPrefix() + "§6" + target.getName() + " §ahat nun Vanish!");
+                            String message = plugin.getCustomMessagesConfig().getString("VanishOn.Single");
+                            if(message.contains("&"))
+                                message = new TextUtils().replaceAndToParagraph(message);
+                            String playerMessage = plugin.getCustomConfig().getString("VanishOn.Multi");
+                            if(playerMessage.contains("%Player%"))
+                                message = message.replace("%Player%",target.getName());
+                            if(playerMessage.contains("&")) message = message.replace('&','§');
+                            target.sendMessage(plugin.getPrefix() + message);
+                            sender.sendMessage(plugin.getPrefix() + playerMessage);
                         }
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                     }
                     return true;
                 } else {

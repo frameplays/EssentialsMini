@@ -53,7 +53,7 @@ public class SetHealthCMD implements CommandExecutor {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
             } else {
-                sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler existiert nicht! §6" + args[1]);
+                sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[1]));
             }
         }
         return false;

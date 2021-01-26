@@ -126,7 +126,7 @@ public class TeleportCMD implements CommandExecutor, Listener {
                                 sender.sendMessage(plugin.getPrefix() + "§cThis Player doesn't accept Teleport!");
                             }
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + plugin.getCustomMessagesConfig().getString("PlayerNotOnline"));
+                            sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + "§cYou cannot send to your self a Tpa Request!");
@@ -195,7 +195,7 @@ public class TeleportCMD implements CommandExecutor, Listener {
                             sender.sendMessage(plugin.getPrefix() + "§cThis Player doesn't accept Teleport!");
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                     }
             }
         }

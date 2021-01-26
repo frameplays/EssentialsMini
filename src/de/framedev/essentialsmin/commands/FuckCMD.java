@@ -91,7 +91,7 @@ public class FuckCMD extends CommandBase {
                     }
                     target.sendMessage(plugin.getPrefix() + "§aYou got Fucked!");
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler existiert nicht!");
+                    sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                 }
             }
         } else {

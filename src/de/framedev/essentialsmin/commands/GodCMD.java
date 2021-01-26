@@ -66,7 +66,7 @@ public class GodCMD implements CommandExecutor {
                 }
                 return true;
             } else {
-                sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online! §6" + args[0]);
+                sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                 return true;
             }
         } else {
