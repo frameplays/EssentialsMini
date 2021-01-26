@@ -178,7 +178,7 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                             }
                         }
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[1]));
                     }
                 } else {
                     sender.sendMessage(Main.getInstance().getPrefix() + plugin.getNOPERMS());

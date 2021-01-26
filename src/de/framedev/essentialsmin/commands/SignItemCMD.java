@@ -51,7 +51,7 @@ public class SignItemCMD implements CommandExecutor {
                     if (meta.getLore() == null) {
                         lore = new ArrayList<>();
                         String message = "";
-                        for (int i = 1; i < args.length; i++) {
+                        for (int i = 0; i < args.length; i++) {
                             message = message + args[i] + " ";
                         }
                         lore.add("§6Signed by §d" + sender.getName());

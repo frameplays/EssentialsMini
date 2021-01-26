@@ -38,7 +38,7 @@ public class InvseeCMD implements CommandExecutor {
                                 player.openInventory(target.getInventory());
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                            player.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -72,7 +72,7 @@ public class InvseeCMD implements CommandExecutor {
                                 player.openInventory(target.getEnderChest());
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                            player.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

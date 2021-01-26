@@ -79,7 +79,7 @@ public class WorldTPCMD implements CommandExecutor, Listener {
                                 player.sendMessage(plugin.getPrefix() + "§cDiese Welt existiert nicht! §6" + worldName);
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online! §6" + args[1]);
+                            player.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/worldtp <WorldName> §coder §6/worldtp <WorldName> <PlayerName>"));

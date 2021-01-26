@@ -275,6 +275,7 @@ public class Main extends JavaPlugin {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        matchConfig(customConfig,customConfigFile);
         saveCustomMessagesConfig();
         try {
             this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
@@ -332,6 +333,24 @@ public class Main extends JavaPlugin {
             writer.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public void matchConfig(FileConfiguration config, File file) {
+        try {
+            InputStream is = getResource(file.getName());
+            if (is != null) {
+                YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(file);
+                for (String key : defConfig.getConfigurationSection("").getKeys(false))
+                    if (!config.contains(key)) config.set(key, defConfig.getConfigurationSection(key));
+
+                for (String key : config.getConfigurationSection("").getKeys(false))
+                    if (!defConfig.contains(key)) config.set(key, null);
+
+                config.save(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
