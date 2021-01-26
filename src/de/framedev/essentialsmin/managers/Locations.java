@@ -10,19 +10,12 @@ package de.framedev.essentialsmin.managers;
  * This Class was created at 28.09.2020 10:12
  */
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.utils.CustomJson;
-import de.framedev.essentialsmin.utils.JsonHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 
-import java.io.*;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
 public class Locations {
 
@@ -137,5 +130,20 @@ public class Locations {
             return new Utils().locationFromString(json.getString(name));
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Locations{" +
+                "name='" + name + '\'' +
+                ", world='" + world + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                ", yaw=" + yaw +
+                ", pitch=" + pitch +
+                ", file=" + file +
+                ", json=" + json +
+                '}';
     }
 }
