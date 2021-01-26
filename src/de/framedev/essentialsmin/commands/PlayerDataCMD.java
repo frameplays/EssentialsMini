@@ -13,6 +13,7 @@ import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.PlayerManager;
 import de.framedev.essentialsmin.managers.PlayerManagerCfgLoss;
 import de.framedev.essentialsmin.managers.PlayerManagerMongoDB;
+import org.bson.json.JsonWriter;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -59,7 +60,8 @@ public class PlayerDataCMD implements CommandExecutor {
                     sender.sendMessage("§aPlayerKills : §6" + playerManager.getPlayerKills());
                     sender.sendMessage("§aEntityKills : §6" + playerManager.getEntityKills());
                     sender.sendMessage("§aDamage : §6" + playerManager.getDamage());
-                    sender.sendMessage("§aDeaths : §6" + playerManager.getDeaths());sender.sendMessage("§aCommandsUsed : §6" + playerManager.getCommandsUsed());
+                    sender.sendMessage("§aDeaths : §6" + playerManager.getDeaths());
+                    sender.sendMessage("§aCommandsUsed : §6" + playerManager.getCommandsUsed());
                     sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlockBroken());
                     sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlockPlace());
                 } else if(!plugin.isMongoDb()) {
@@ -111,6 +113,11 @@ public class PlayerDataCMD implements CommandExecutor {
                     sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlockBroken());
                     sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlockPlace());
 
+                    try {
+                        JsonWriter jsonWriter = new JsonWriter(new FileWriter("test.json"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     PlayerManagerMongoDB playerManager = PlayerManagerMongoDB.getPlayerManager(args[0],"test");
                     long login = playerManager.getLastLogin();

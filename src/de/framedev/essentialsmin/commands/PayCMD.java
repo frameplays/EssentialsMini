@@ -168,7 +168,7 @@ public class PayCMD extends CommandBase {
                                 }
                                 plugin.getVaultManager().getEco().withdrawPlayer(player, plugin.getVaultManager().getEco().getBalance(player));
                                 plugin.getVaultManager().getEco().depositPlayer(player, amount);
-                                String setOther = plugin.getCustomMessagesConfig().getString("MoneySet.Other.MSG");
+                                String setOther = plugin.getCustomMessagesConfig().getString("Money.MoneySet.Other.MSG");
                                 if (setOther != null) {
                                     setOther = new TextUtils().replaceAndToParagraph(setOther);
                                     setOther = new TextUtils().replaceObject(setOther, "[Target]", player.getName());

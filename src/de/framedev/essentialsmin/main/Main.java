@@ -13,12 +13,15 @@ import de.framedev.essentialsmin.managers.*;
 import de.framedev.essentialsmin.utils.*;
 import de.framedev.mysqlapi.api.SQL;
 import net.md_5.bungee.api.chat.*;
+import org.bson.Document;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -193,7 +196,7 @@ public class Main extends JavaPlugin {
         }
 
         /* Json Config at Key's and Value's */
-        /*HashMap<String, Object> json = new HashMap<>();
+        HashMap<String, Object> json = new HashMap<>();
         json.put("Backpack", true);
         json.put("SpawnTP", false);
         json.put("SkipNight", false);
@@ -238,7 +241,7 @@ public class Main extends JavaPlugin {
             getJsonConfig().set("SaveInventory", false);
         }
 
-        getJsonConfig().saveConfig();*/
+        getJsonConfig().saveConfig();
         new SaveLists().setVanished();
         /*KitManager kit = new KitManager();
         kit.saveKit("Stone");*/
@@ -273,8 +276,12 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
         saveCustomMessagesConfig();
-        this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
-        this.limitedHomes = getJsonConfig().getHashMap("LimitedHomes");
+        try {
+            this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
+            this.limitedHomes = getJsonConfig().getHashMap("LimitedHomes");
+        } catch (Exception ignored) {
+            getServer().reload();
+        }
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             Bukkit.getOnlinePlayers().forEach(this::hasNewUpdate);
         }
@@ -287,8 +294,8 @@ public class Main extends JavaPlugin {
             offlinePlayers.add("Kleckser253");
             savePlayers();
         }
-        if(isMysql()) {
-            if (!SQL.isTableExists(getName().toLowerCase() + "_data"))
+        if(isMysql() && getConfig().getBoolean("PlayerInfoSave")) {
+            if (!SQL.isTableExists(getName().toLowerCase() + "_data")) {
                 SQL.createTable(getName().toLowerCase() + "_data",
                         "playeruuid VARCHAR(1200)",
                         "playername TEXT(120)",
@@ -302,6 +309,8 @@ public class Main extends JavaPlugin {
                         "lastlogin LONG",
                         "lastlogout LONG",
                         "commandsused INT");
+                Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aMySQL Table Created!");
+            }
         }
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
         checkUpdate();
@@ -532,10 +541,12 @@ public class Main extends JavaPlugin {
                         Config.loadConfig();
                         sender.sendMessage(getPrefix() + "§aConfig wurde reloaded!");
                     }
-                    if (args[0].equalsIgnoreCase("restart")) {
-                        thread.stop();
-                        thread.start();
-                        sender.sendMessage(getPrefix() + "§aScheduler Restartet!");
+                    if(args[0].equalsIgnoreCase("info")) {
+                        boolean jsonFormat = getConfig().getBoolean("JsonFormat");
+                        boolean economyEnabled = getConfig().getBoolean("Economy.Activate");
+                        sender.sendMessage(getPrefix() + "=================");
+                        sender.sendMessage("§ais JsonFormat Enabled §6: " + jsonFormat);
+                        sender.sendMessage("§ais Economy Enabled §6: " + economyEnabled);
                     }
                 } else if (args.length == 2) {
                     if (args[0].equalsIgnoreCase("spawntp")) {
@@ -622,13 +633,6 @@ public class Main extends JavaPlugin {
                         saveConfig();
                         sender.sendMessage(getPrefix() + "§6Economy §awurde auf §6" + isSet + " §agesetzt!");
                     }
-                    if(args[0].equalsIgnoreCase("info")) {
-                        boolean jsonFormat = getConfig().getBoolean("JsonFormat");
-                        boolean economyEnabled = getConfig().getBoolean("Economy.Activate");
-                        sender.sendMessage(getPrefix());
-                        sender.sendMessage("§ais JsonFormat Enabled §6: " + jsonFormat);
-                        sender.sendMessage("§ais Economy Enabled §6: " + economyEnabled);
-                    }
                 }
             }
         }
@@ -657,6 +661,7 @@ public class Main extends JavaPlugin {
                     cmds.add("jsonformat");
                     cmds.add("worldbackup");
                     cmds.add("economy");
+                    cmds.add("info");
                     for (String s : cmds) {
                         if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
                             empty.add(s);
