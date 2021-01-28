@@ -71,7 +71,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if(plugin.getVaultManager().getEco() != null) {
+        if(plugin.getVaultManager() != null && plugin.getVaultManager().getEco() != null) {
             plugin.getVaultManager().getEco().createPlayerAccount(event.getPlayer());
         }
         if (plugin.getConfig()

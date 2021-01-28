@@ -61,11 +61,7 @@ public class Main extends JavaPlugin {
     private File customConfigFile;
     private FileConfiguration customConfig;
 
-    private JsonHandler playerJson;
     private LagCMD.SpigotTimer spigotTimer;
-
-    private File file;
-    private FileConfiguration cfg;
 
     public ArrayList<String> players;
 
@@ -391,10 +387,6 @@ public class Main extends JavaPlugin {
         return mysql;
     }
 
-    public FileConfiguration getCfg() {
-        return cfg;
-    }
-
     public void addOfflinePlayer(OfflinePlayer player) {
         if(!getOfflinePlayers().contains(player.getName()))
             offlinePlayers.add(player.getName());
@@ -405,20 +397,8 @@ public class Main extends JavaPlugin {
             offlinePlayers.remove(player.getName());
     }
 
-    public void saveCfg() {
-        try {
-            this.cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public ArrayList<String> getPlayers() {
         return players;
-    }
-
-    public JsonHandler getPlayerJson() {
-        return playerJson;
     }
 
     public Thread getThread() {
@@ -473,10 +453,6 @@ public class Main extends JavaPlugin {
      */
     public Variables getVariables() {
         return variables;
-    }
-
-    public HashMap<UUID, BukkitTask> getSaver() {
-        return saver;
     }
 
     public String getOnlyPlayer() {

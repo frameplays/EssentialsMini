@@ -175,6 +175,8 @@ commands:
   tptoggle:
     description: This will allow or deny Teleports from other players
   mysql:
+  infoeconomy:
+    description: Infos About Economy
 permissions:
   essentialsmini.*:
     children:

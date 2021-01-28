@@ -102,6 +102,7 @@ public class RegisterManager {
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
         new MySQLCMD(plugin);
+        new EconomyCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate"))
             new PayCMD(plugin);
         plugin.getCommands().entrySet().stream().filter(Objects::nonNull).filter(command -> command.getKey() != null && command.getValue() != null).forEach(command -> Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue()));
