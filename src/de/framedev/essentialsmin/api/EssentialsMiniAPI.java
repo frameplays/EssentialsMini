@@ -31,11 +31,17 @@ public class EssentialsMiniAPI {
     private final Main plugin;
     private static  EssentialsMiniAPI essentialsMiniAPI;
     private final boolean jsonFormat;
+    private boolean economy;
 
     public EssentialsMiniAPI() {
         this.plugin = Main.getInstance();
         essentialsMiniAPI = this;
         jsonFormat = plugin.getConfig().getBoolean("JsonFormat");
+        economy = plugin.getVaultManager() != null;
+    }
+
+    public boolean isEconomy() {
+        return economy;
     }
 
     public boolean isJsonFormat() {

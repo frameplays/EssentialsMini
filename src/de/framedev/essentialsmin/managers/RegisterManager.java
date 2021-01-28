@@ -33,9 +33,7 @@ public class RegisterManager {
     }
 
     private void registerTabCompleters(Main plugin) {
-        for (Entry<String, TabCompleter> command : plugin.getTabCompleters().entrySet()) {
-            plugin.getCommand(command.getKey()).setTabCompleter(command.getValue());
-        }
+        plugin.getTabCompleters().forEach((key, value) -> plugin.getCommand(key).setTabCompleter(value));
     }
 
     private void registerListeners(Main plugin) {
@@ -43,9 +41,7 @@ public class RegisterManager {
         new SleepListener(plugin);
         new PlayerListeners(plugin);
         new MoneySignListeners(plugin);
-        plugin.getListeners().forEach(listener -> {
-            plugin.getServer().getPluginManager().registerEvents(listener, plugin);
-        });
+        plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
     private ThunderCMD thunderCMD;
@@ -108,13 +104,7 @@ public class RegisterManager {
         new MySQLCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate"))
             new PayCMD(plugin);
-        for (Entry<String, CommandExecutor> command : plugin.getCommands().entrySet()) {
-            if (command != null) {
-                if (command.getKey() != null && command.getValue() != null) {
-                    Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue());
-                }
-            }
-        }
+        plugin.getCommands().entrySet().stream().filter(Objects::nonNull).filter(command -> command.getKey() != null && command.getValue() != null).forEach(command -> Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue()));
     }
 
     public BackUpCMD getBackup() {

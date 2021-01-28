@@ -4,7 +4,6 @@
     <root id="archive" name="EssentialsMini.jar">
       <element id="module-output" name="EssentialsMini" />
       <element id="file-copy" path="$USER_HOME$/OneDrive/llel/gson-2.8.2.jar" />
-      <element id="file-copy" path="$USER_HOME$/OneDrive/llel/lombok.jar" />
     </root>
   </artifact>
 </component>

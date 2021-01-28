@@ -13,9 +13,7 @@ import de.framedev.essentialsmin.managers.*;
 import de.framedev.essentialsmin.utils.*;
 import de.framedev.mysqlapi.api.SQL;
 import net.md_5.bungee.api.chat.*;
-import org.bson.Document;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -246,17 +244,21 @@ public class Main extends JavaPlugin {
         /*KitManager kit = new KitManager();
         kit.saveKit("Stone");*/
         //EssentialsMiniAPI.getInstance().printAllHomesFromPlayers();
+
         this.mysql = getConfig().getBoolean("MySQL");
+
         if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
             if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
                 this.mongoDb = true;
             }
         }
+
         if(getConfig().getBoolean("Economy.Activate")) {
             if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
                 this.vaultManager = new VaultManager(this);
             }
         }
+
         this.registerManager = new RegisterManager(this);
         registerManager.getBackup().makeBackups();
         // BackPack restore
@@ -268,15 +270,16 @@ public class Main extends JavaPlugin {
                 BackpackCMD.restore(onlinePlayer);
             }
         }
+
         //saveCfg();
         this.currencySymbol = (String) getConfig().get("Currency");
+        saveCustomMessagesConfig();
         try {
             reloadCustomConfig();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         matchConfig(customConfig,customConfigFile);
-        saveCustomMessagesConfig();
         try {
             this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
             this.limitedHomes = getJsonConfig().getHashMap("LimitedHomes");

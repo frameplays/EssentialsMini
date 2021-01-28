@@ -43,7 +43,7 @@ public class SpawnCMD implements CommandExecutor {
                 try {
                     ((Player) sender).teleport(new LocationsManager("spawn").getLocation());
                     sender.sendMessage(plugin.getPrefix() + "§aDu wurdest zum §6Spawn §aTeleportiert!");
-                } catch (IllegalArgumentException ex) {
+                } catch (IllegalArgumentException ignored) {
                     ((Player) sender).teleport(((Player) sender).getWorld().getSpawnLocation());
                 }
             } else {
