@@ -72,3 +72,9 @@ WorldBackup: false
 BackupWorldTime: 60
 
 OnlyEssentialsFeatures: true
+
+AFK:
+  Time: 120
+  Boolean: false
+  IsAFK: '&7[Player] is now AFK'
+  IsNotAFK: '&7[Player] is no longer AFK'

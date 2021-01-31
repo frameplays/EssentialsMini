@@ -53,9 +53,13 @@ public class EssentialsMiniAPI {
     }
 
     public boolean hasPlayerKey(OfflinePlayer player) {
-        if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-            return plugin.getBackendManager().exists(player, "key", "test");
-        } else return plugin.getKeyGenerator().hasPlayerKey(player);
+        if(plugin.isMongoDb()) {
+            if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
+                return plugin.getBackendManager().exists(player, "key", "test");
+            }
+        }
+        plugin.getKeyGenerator().loadCfg();
+        return plugin.getKeyGenerator().hasPlayerKey(player);
     }
 
     public boolean canPlayerFly(Player player) {

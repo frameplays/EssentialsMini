@@ -14,10 +14,6 @@ import org.bukkit.command.TabCompleter;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-/**
- * @author DHZoc
- *
- */
 public class RegisterManager {
 
 
@@ -105,6 +101,8 @@ public class RegisterManager {
         new EconomyCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate"))
             new PayCMD(plugin);
+        if (plugin.getConfig().getBoolean("AFK.Boolean"))
+            new AFK(plugin);
         plugin.getCommands().entrySet().stream().filter(Objects::nonNull).filter(command -> command.getKey() != null && command.getValue() != null).forEach(command -> Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue()));
     }
 

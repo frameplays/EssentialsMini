@@ -9,9 +9,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * This Plugin was Created by FrameDev
@@ -30,6 +29,7 @@ public class PayCMD extends CommandBase {
         setup("pay", this);
         setup("balance", this);
         setup("eco", this);
+        setup("balancetop",this);
         setupTabCompleter("pay", this);
     }
 
@@ -196,6 +196,29 @@ public class PayCMD extends CommandBase {
 
             }
         }
+        if (command.getName().equalsIgnoreCase("balancetop")) {
+            if (sender.hasPermission(plugin.getPermissionName() + "balancetop")) {
+                HashMap<String, Double> mostplayers = new HashMap<>();
+                ValueComparator bvc = new ValueComparator(mostplayers);
+                TreeMap<String, Double> sorted_map = new TreeMap<String, Double>(bvc);
+                for (Player all : Bukkit.getOnlinePlayers()) {
+                    mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
+                }
+                for (OfflinePlayer alloffline : Bukkit.getOfflinePlayers()) {
+                    mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
+                }
+                sorted_map.putAll(mostplayers);
+                int i = 0;
+                for (Map.Entry<String, Double> e : sorted_map.entrySet()) {
+                    i++;
+                    sender.sendMessage("§a" + i + "st [§6" + e.getKey() + " §b: " + e.getValue() + "§a]");
+                    if (i == 3) {
+                        break;
+                    }
+                }
+                return true;
+            }
+        }
         return false;
     }
 
@@ -231,11 +254,29 @@ public class PayCMD extends CommandBase {
                         empty.add(s);
                     }
                 }
-                System.out.println(empty);
                 Collections.sort(empty);
                 return empty;
             }
         }
         return null;
+    }
+
+    static class ValueComparator implements Comparator<String> {
+
+
+        Map<String, Double> base;
+
+        public ValueComparator(Map<String, Double> base) {
+            this.base = base;
+        }
+
+
+        public int compare(String a, String b) {
+            if (base.get(a) >= base.get(b)) {
+                return -1;
+            } else {
+                return 1;
+            } // returning 0 would merge keys
+        }
     }
 }

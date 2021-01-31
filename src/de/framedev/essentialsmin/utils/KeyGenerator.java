@@ -6,6 +6,7 @@ package de.framedev.essentialsmin.utils;
 
 import de.framedev.essentialsmin.main.Main;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -94,6 +95,16 @@ public class KeyGenerator {
         try {
             cfg.save(file);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadCfg() {
+        try {
+            cfg.load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }

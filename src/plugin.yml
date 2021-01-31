@@ -177,6 +177,10 @@ commands:
   mysql:
   infoeconomy:
     description: Infos About Economy
+  balancetop:
+    aliases:
+      - baltop
+  afk:
 permissions:
   essentialsmini.*:
     children:
