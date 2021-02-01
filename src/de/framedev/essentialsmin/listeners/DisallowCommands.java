@@ -267,7 +267,7 @@ public class DisallowCommands extends ListenerBase {
                 event.setCancelled(true);
             }
         }
-        //
+        ////
         if (event.getMessage().contains("/?") || event.getMessage().contains("/help") ||event.getMessage().contains("/Help") || event.getMessage().contains("/bukkit:help") || event.getMessage().contains("/bukkit:Help") || event.getMessage().contains("/Bukkit:Help") || event.getMessage().contains("/bukkit:?") || event.getMessage().contains("/Bukkit:?")) {
             if (!event.getPlayer().hasPermission("essentialsmini.help")) {
                 event.getPlayer().sendMessage(message);
