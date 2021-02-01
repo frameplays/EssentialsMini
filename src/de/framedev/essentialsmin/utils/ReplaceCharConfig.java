@@ -15,6 +15,7 @@ public class ReplaceCharConfig {
         return (double) number;
     }
 
+    //
     public static Integer convertDoubleToInteger(double number) {
         return (int) number;
     }
