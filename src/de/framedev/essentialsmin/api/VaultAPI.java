@@ -128,6 +128,16 @@ public class VaultAPI extends AbstractEconomy {
     }
 
     @Override
+    public double getBalance(OfflinePlayer player) {
+        return getBalance(player.getName());
+    }
+
+    @Override
+    public double getBalance(OfflinePlayer player, String world) {
+        return getBalance(player.getName());
+    }
+
+    @Override
     public double getBalance(String s, String s1) {
         return getBalance(s);
     }
