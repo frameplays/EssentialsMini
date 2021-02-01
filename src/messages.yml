@@ -4,6 +4,7 @@ UnkownCommand: '&cDieser Befehl existiert nicht &6%CMD%&4&l!'
 OnlyPlayer: '&cDieser Befehl kann nur ein Spieler ausführen!'
 PlayerNotOnline: '&cDieser Spieler ist nicht Online!'
 PlayerNameNotOnline: '&cDieser Spieler ist nicht Online! &6%Player%'
+
 Warp:
   Created:  '&aWarp wurde erstellt mit dem Namen &6%WarpName%&c!'
   Teleport: '&aDu wurdest erfolgreich zum Warp &6%WarpName% &aTeleportiert!'

@@ -236,7 +236,7 @@ public class AFK implements CommandExecutor {
 
         public void run() {
             for (Player player : this.plugin.getServer().getOnlinePlayers()) {
-                if (AFK.this.getLocationMap().containsKey(player.getName()) && ((Location) AFK.this.getLocationMap().get(player.getName())).equals(player.getLocation()) && !AFK.isPlayerAfk(player.getName())) {
+                if (AFK.this.getLocationMap().containsKey(player.getName()) && AFK.this.getLocationMap().get(player.getName()).equals(player.getLocation()) && !AFK.isPlayerAfk(player.getName())) {
                     long idleTime = (this.afktime * 20);
                     player.setPlayerTime(-idleTime, true);
                     AFK.this.afk(player, false, "");

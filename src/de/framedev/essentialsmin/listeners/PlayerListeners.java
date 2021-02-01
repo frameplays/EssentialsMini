@@ -72,6 +72,13 @@ public class PlayerListeners implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         if(plugin.getVaultManager() != null && plugin.getVaultManager().getEco() != null) {
+            if(plugin.isMongoDb()) {
+                if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+                    if (plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
+                        plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), "test");
+                    }
+                }
+            }
             plugin.getVaultManager().getEco().createPlayerAccount(event.getPlayer());
         }
         if (plugin.getConfig()
@@ -182,11 +189,6 @@ public class PlayerListeners implements Listener {
                     plugin.getBackendManager().createUserMoney(event.getPlayer(), "test");
                     plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogin", System.currentTimeMillis() + "", "test");
                     plugin.getBackendManager().updateUser(event.getPlayer(), "offline", false, "test");
-                    if(Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-                        if(plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
-                            plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), "test");
-                        }
-                    }
                 }
             }
 

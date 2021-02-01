@@ -154,6 +154,11 @@ public class Main extends JavaPlugin {
         /* MongoDB */
         this.mongoManager = new MongoManager();
         if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
+            if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
+                this.mongoDb = true;
+            }
+        }
+        if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
             if (cfgm.getBoolean("MongoDB.LocalHost")) {
                 this.mongoManager = new MongoManager();
                 this.mongoManager.connectLocalHost();
@@ -167,6 +172,12 @@ public class Main extends JavaPlugin {
             }
             if (cfgm.getBoolean("MongoDB.Boolean")) {
                 this.backendManager = new BackendManager(this);
+            }
+        }
+
+        if(isMongoDb()) {
+            for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+                backendManager.createUserMoney(player,"test");
             }
         }
 
@@ -242,12 +253,6 @@ public class Main extends JavaPlugin {
         //EssentialsMiniAPI.getInstance().printAllHomesFromPlayers();
 
         this.mysql = getConfig().getBoolean("MySQL");
-
-        if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-            if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                this.mongoDb = true;
-            }
-        }
 
         if(getConfig().getBoolean("Economy.Activate")) {
             if (Bukkit.getPluginManager().getPlugin("Vault") != null) {

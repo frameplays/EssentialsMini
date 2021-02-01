@@ -3,6 +3,7 @@ package de.framedev.essentialsmin.listeners;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.ListenerBase;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -224,6 +225,12 @@ public class DisallowCommands extends ListenerBase {
         if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "eco.set")) {
             blockedCommands.add("eco");
         }
+        if(!plugin.getConfig().getBoolean("HomeTP")) {
+            blockedCommands.add("sethome");
+            blockedCommands.add("home");
+            blockedCommands.add("delhome");
+            blockedCommands.add("delotherhomes");
+        }
         event.getCommands().removeAll(blockedCommands);
         event.getCommands().removeIf(string -> string.contains(":"));
     }
@@ -240,26 +247,29 @@ public class DisallowCommands extends ListenerBase {
             if (event.getMessage().contains("/pl") || event.getMessage().contains("/plugins") || event.getMessage().contains("/bukkit:plugins")
                     || event.getMessage().contains("/bukkit:pl")) {
                 if(!event.getMessage().equalsIgnoreCase("/pltime") || !event.getMessage().equalsIgnoreCase("/resetpltime")) {
-                    event.getPlayer().sendMessage("§cNope");
+                    event.getPlayer().sendMessage(ChatColor.WHITE + "Plugins(3): " + ChatColor.GREEN + "Nichts" + ChatColor.WHITE + ", " + ChatColor.GREEN + "zu" + ChatColor.WHITE + ", " + ChatColor.GREEN + "sehen!");
                     event.setCancelled(true);
                 }
             }
         }
+        String message = plugin.getConfig().getString("NotAllowCommand");
+        if(message.contains("&"))
+            message = message.replace('&','§');
         if(!event.getPlayer().hasPermission("essentialsmini.me")) {
             if(event.getMessage().startsWith("/me") || event.getMessage().startsWith("/bukkit:me") || event.getMessage().startsWith("/minecraft:me")) {
-                event.getPlayer().sendMessage("§cNope");
+                event.getPlayer().sendMessage(message);
                 event.setCancelled(true);
             }
         }
         if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "fuck")) {
             if(event.getMessage().contains("/fuck") || event.getMessage().contains("/essentialsmini.fuck")) {
-                event.getPlayer().sendMessage("§cNope");
+                event.getPlayer().sendMessage(message);
                 event.setCancelled(true);
             }
         }
         if (event.getMessage().contains("/?") || event.getMessage().contains("/help") || event.getMessage().contains("/bukkit:help") || event.getMessage().contains("/bukkit:?")) {
             if (!event.getPlayer().hasPermission("essentialsmini.help")) {
-                event.getPlayer().sendMessage("§cNope");
+                event.getPlayer().sendMessage(message);
                 event.setCancelled(true);
             }
         }
@@ -269,10 +279,10 @@ public class DisallowCommands extends ListenerBase {
             HelpTopic topic = Bukkit.getServer().getHelpMap().getHelpTopic(msg);
             if(topic == null) {
                 if(plugin.getCustomMessagesConfig().contains("UnkownCommand")) {
-                    String message = plugin.getCustomMessagesConfig().getString("UnkownCommand");
-                    message = message.replace('&', '§');
-                    message = message.replace("%CMD%", msg);
-                    player.sendMessage(plugin.getPrefix() + message);
+                    String notFound = plugin.getCustomMessagesConfig().getString("UnkownCommand");
+                    notFound = notFound.replace('&', '§');
+                    notFound = notFound.replace("%CMD%", msg);
+                    player.sendMessage(plugin.getPrefix() + notFound);
                     event.setCancelled(true);
                 } else {
                     System.err.println(plugin.getPrefix() + "Cannot found 'UnkownCommand' in Config.yml");

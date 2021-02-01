@@ -82,7 +82,26 @@ public class WarpCMD implements CommandExecutor, TabCompleter {
                             player.sendMessage(plugin.getPrefix() + message);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/warp <Name>"));
+                        if (sender.hasPermission("essentialsmini.warps")) {
+                            sender.sendMessage(plugin.getPrefix() + "§a==Alle Aktuellen Warps==");
+                            ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("warps");
+                            if (new LocationsManager().getCfg().contains("warps")) {
+                                if (cs != null) {
+                                    for (String s : cs.getKeys(false)) {
+                                        if (s != null) {
+                                            sender.sendMessage(s);
+                                        }
+                                    }
+                                }
+                            } else {
+                                String message = plugin.getCustomMessagesConfig().getString("Warp.NotExist");
+                                if (message.contains("&"))
+                                    message = message.replace('&', '§');
+                                sender.sendMessage(plugin.getPrefix() + message);
+                            }
+                        } else {
+                            player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/warp <Name>"));
+                        }
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());

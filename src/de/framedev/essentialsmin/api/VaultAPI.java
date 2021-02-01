@@ -115,7 +115,9 @@ public class VaultAPI extends AbstractEconomy {
         if (Main.getInstance().isMysql()) {
             return new MySQLManager().getMoney(Bukkit.getOfflinePlayer(s));
         } else if (Main.getInstance().isMongoDb()) {
-            return (double) Main.getInstance().getBackendManager().get(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), "test");
+            if (Main.getInstance().getBackendManager().get(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), "test") != null)
+                return (double) Main.getInstance().getBackendManager().get(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), "test");
+            return 0d;
         } else {
             if (Bukkit.getServer().getOnlineMode()) {
                 return cfg.getDouble(Bukkit.getOfflinePlayer(s).getUniqueId().toString());
@@ -225,7 +227,7 @@ public class VaultAPI extends AbstractEconomy {
     @Override
     public EconomyResponse createBank(String name, String player) {
         if (Main.getInstance().isMysql()) {
-            new MySQLManager().createBank(Bukkit.getOfflinePlayer(player),name);
+            new MySQLManager().createBank(Bukkit.getOfflinePlayer(player), name);
         } else {
             File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
             FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
@@ -246,8 +248,8 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public EconomyResponse bankBalance(String name) {
-        if(Main.getInstance().isMysql()) {
-            return new EconomyResponse(new MySQLManager().getBankMoney(name),new MySQLManager().getBankMoney(name), EconomyResponse.ResponseType.SUCCESS,"");
+        if (Main.getInstance().isMysql()) {
+            return new EconomyResponse(new MySQLManager().getBankMoney(name), new MySQLManager().getBankMoney(name), EconomyResponse.ResponseType.SUCCESS, "");
         } else {
             File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
             FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
@@ -267,12 +269,12 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public EconomyResponse bankWithdraw(String name, double amount) {
-        if(Main.getInstance().isMysql()) {
+        if (Main.getInstance().isMysql()) {
             double balance = new MySQLManager().getBankMoney(name);
             balance -= amount;
-            if(!bankHas(name,amount).transactionSuccess())
+            if (!bankHas(name, amount).transactionSuccess())
                 return new EconomyResponse(amount, balance, EconomyResponse.ResponseType.FAILURE, "Not enought Money");
-            new MySQLManager().setBankMoney(name,balance);
+            new MySQLManager().setBankMoney(name, balance);
         }
         File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
@@ -291,10 +293,10 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public EconomyResponse bankDeposit(String name, double amount) {
-        if(Main.getInstance().isMysql()) {
+        if (Main.getInstance().isMysql()) {
             double balance = new MySQLManager().getBankMoney(name);
             balance += amount;
-            new MySQLManager().setBankMoney(name,balance);
+            new MySQLManager().setBankMoney(name, balance);
         }
         File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
