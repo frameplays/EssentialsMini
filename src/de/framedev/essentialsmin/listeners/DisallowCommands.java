@@ -245,7 +245,7 @@ public class DisallowCommands extends ListenerBase {
         }
         if (!event.getPlayer().hasPermission("essentialsmini.plugins")) {
             if (event.getMessage().contains("/pl") || event.getMessage().contains("/plugins") || event.getMessage().contains("/bukkit:plugins")
-                    || event.getMessage().contains("/bukkit:pl")) {
+                    || event.getMessage().contains("/bukkit:pl") || event.getMessage().contains("/PL") || event.getMessage().contains("/bukkit:PL") || event.getMessage().contains("/Bukkit:PL")) {
                 if(!event.getMessage().equalsIgnoreCase("/pltime") || !event.getMessage().equalsIgnoreCase("/resetpltime")) {
                     event.getPlayer().sendMessage(ChatColor.WHITE + "Plugins(3): " + ChatColor.GREEN + "Nichts" + ChatColor.WHITE + ", " + ChatColor.GREEN + "zu" + ChatColor.WHITE + ", " + ChatColor.GREEN + "sehen!");
                     event.setCancelled(true);
@@ -267,7 +267,7 @@ public class DisallowCommands extends ListenerBase {
                 event.setCancelled(true);
             }
         }
-        if (event.getMessage().contains("/?") || event.getMessage().contains("/help") || event.getMessage().contains("/bukkit:help") || event.getMessage().contains("/bukkit:?")) {
+        if (event.getMessage().contains("/?") || event.getMessage().contains("/help") ||event.getMessage().contains("/Help") || event.getMessage().contains("/bukkit:help") || event.getMessage().contains("/bukkit:Help") || event.getMessage().contains("/Bukkit:Help") || event.getMessage().contains("/bukkit:?") || event.getMessage().contains("/Bukkit:?")) {
             if (!event.getPlayer().hasPermission("essentialsmini.help")) {
                 event.getPlayer().sendMessage(message);
                 event.setCancelled(true);
