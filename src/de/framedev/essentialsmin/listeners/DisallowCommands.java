@@ -225,6 +225,21 @@ public class DisallowCommands extends ListenerBase {
         if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "eco.set")) {
             blockedCommands.add("eco");
         }
+        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "lightningstrike")) {
+            blockedCommands.add("lightningstrike");
+            blockedCommands.add("lightning");
+        }
+        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "speed"))
+            blockedCommands.add("speed");
+        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "afk"))
+            blockedCommands.add("afk");
+        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "infoeconomy"))
+            blockedCommands.add("infoeconomy");
+        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "item")) {
+            blockedCommands.add("item");
+            blockedCommands.add("i");
+        }
+
         if(!plugin.getConfig().getBoolean("HomeTP")) {
             blockedCommands.add("sethome");
             blockedCommands.add("home");
