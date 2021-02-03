@@ -1,6 +1,7 @@
 package de.framedev.essentialsmin.commands;
 
 import de.framedev.essentialsmin.main.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -79,17 +80,32 @@ public class KillCMD implements CommandExecutor, TabCompleter {
             }
         }
         if (command.getName().equalsIgnoreCase("suicid")) {
-            if (sender.hasPermission(plugin.getPermissionName() + "suicid")) {
-                if (sender instanceof Player) {
-                    ((Player) sender).setHealth(0);
-                    ((Player) sender).getWorld().getPlayers().forEach(players -> {
-                        players.sendMessage("§6" + sender.getName() + " §ahat Suicid begangen!");
-                    });
+            if(args.length == 0) {
+                if (sender.hasPermission(plugin.getPermissionName() + "suicid")) {
+                    if (sender instanceof Player) {
+                        ((Player) sender).setHealth(0);
+                        ((Player) sender).setFoodLevel(0);
+                        ((Player) sender).getWorld().getPlayers().forEach(players -> players.sendMessage("§6" + sender.getName() + " §ahat Suicid begangen!"));
+                    } else {
+                        sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
+                    }
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
-            } else {
-                sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+            } else if(args.length == 1) {
+                if(sender.hasPermission(plugin.getPermissionName() + "suicid.others")) {
+                    Player player = Bukkit.getPlayer(args[0]);
+                    if(player == null) {
+                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
+                        return true;
+                    }
+                    player.setHealth(0);
+                    player.setFoodLevel(0);
+                    player.getWorld().getPlayers().forEach(players -> players.sendMessage("§6" + player.getName() + " §ahat Suicid begangen!"));
+                    sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §ahat Suicid begangen!");
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                }
             }
         }
         return false;
