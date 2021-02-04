@@ -9,7 +9,7 @@ package de.framedev.essentialsmin.managers;
  * This Class was created at 21.08.2020 21:53
  */
 
-import de.framedev.essentialsmin.commands.VanishCMD;
+import de.framedev.essentialsmin.commands.playercommands.VanishCMD;
 import de.framedev.essentialsmin.utils.JsonHandler;
 
 public class SaveLists {

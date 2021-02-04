@@ -1,14 +1,13 @@
 package de.framedev.essentialsmin.api;
 
 import com.google.gson.GsonBuilder;
-import de.framedev.essentialsmin.commands.BackpackCMD;
-import de.framedev.essentialsmin.commands.GameModeCMD;
-import de.framedev.essentialsmin.commands.RegisterCMD;
-import de.framedev.essentialsmin.commands.WorldTPCMD;
+import de.framedev.essentialsmin.commands.playercommands.BackpackCMD;
+import de.framedev.essentialsmin.commands.playercommands.GameModeCMD;
+import de.framedev.essentialsmin.commands.playercommands.RegisterCMD;
+import de.framedev.essentialsmin.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.*;
 import de.framedev.essentialsmin.utils.InventoryStringDeSerializer;
-import de.framedev.essentialsmin.utils.KeyGenerator;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;

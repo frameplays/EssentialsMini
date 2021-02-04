@@ -4,14 +4,13 @@
  */
 package de.framedev.essentialsmin.managers;
 
-import de.framedev.essentialsmin.commands.*;
+import de.framedev.essentialsmin.commands.playercommands.*;
+import de.framedev.essentialsmin.commands.servercommands.*;
+import de.framedev.essentialsmin.commands.worldcommands.*;
 import de.framedev.essentialsmin.listeners.*;
 import de.framedev.essentialsmin.main.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.TabCompleter;
 
-import java.util.Map.Entry;
 import java.util.Objects;
 
 public class RegisterManager {
