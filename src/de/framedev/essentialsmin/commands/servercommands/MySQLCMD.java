@@ -26,7 +26,6 @@ public class MySQLCMD extends CommandBase {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args[0].equalsIgnoreCase("status")) {
             if(sender.hasPermission(plugin.getPermissionName() + "status")) {
-                sender.sendMessage(plugin.getPrefix() + "§6" + Bukkit.getPluginManager().isPluginEnabled("MySQLAPI"));
                 enabled = MySQL.con != null;
                 sender.sendMessage(plugin.getPrefix() + "§6Enabled : §a" + isEnabled());
             } else

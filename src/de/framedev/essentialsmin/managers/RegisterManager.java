@@ -11,6 +11,7 @@ import de.framedev.essentialsmin.listeners.*;
 import de.framedev.essentialsmin.main.Main;
 import org.bukkit.Bukkit;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class RegisterManager {
@@ -20,18 +21,24 @@ public class RegisterManager {
     private BackUpCMD backup;
 
     public RegisterManager(Main plugin) {
-        registerCommands(plugin);
-        registerListeners(plugin);
-        registerTabCompleters(plugin);
         this.plugin = plugin;
+        registerCommands();
+        registerListeners();
+        registerTabCompleters();
 
     }
 
-    private void registerTabCompleters(Main plugin) {
+    public void data() {
+        YAMLConfigurator data = plugin.getInfo();
+        HashMap<String,Object> dataYml = data.getData();
+        System.out.println(dataYml);
+    }
+
+    private void registerTabCompleters() {
         plugin.getTabCompleters().forEach((key, value) -> plugin.getCommand(key).setTabCompleter(value));
     }
 
-    private void registerListeners(Main plugin) {
+    private void registerListeners() {
         new DisallowCommands(plugin);
         new SleepListener(plugin);
         new PlayerListeners(plugin);
@@ -44,7 +51,8 @@ public class RegisterManager {
     /**
      * @param plugin
      */
-    private void registerCommands(Main plugin) {
+    private void registerCommands() {
+        new EssentialsMiniCMD(plugin);
         new SpawnCMD(plugin);
         if (plugin.getConfig().getBoolean("HomeTP")) {
             new HomeCMD(plugin);

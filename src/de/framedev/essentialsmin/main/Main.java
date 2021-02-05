@@ -92,10 +92,13 @@ public class Main extends JavaPlugin {
     private String currencySymbol;
 
     private ArrayList<String> offlinePlayers;
+    private YAMLConfigurator info;
 
     @Override
     public void onEnable() {
         instance = this;
+
+        this.info = new YAMLConfigurator("info");
 
         new EssentialsMiniAPI();
         createCustomMessagesConfig();
@@ -323,6 +326,16 @@ public class Main extends JavaPlugin {
         }
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
         checkUpdate();
+        info.set("MongoDB",isMongoDb());
+        info.set("MySQL",isMysql());
+        info.set("isOnlineMode",getVariables().isOnlineMode());
+        info.set("PlayerDataSave",getConfig().getBoolean("PlayerInfoSave"));
+        info.set("Economy", getConfig().getBoolean("Economy.Activate"));
+        info.saveConfig();
+    }
+
+    public void debug(Object data) {
+        System.out.println(data);
     }
 
     public ArrayList<String> getOfflinePlayers() {
@@ -342,6 +355,10 @@ public class Main extends JavaPlugin {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public YAMLConfigurator getInfo() {
+        return info;
     }
 
     public void matchConfig(FileConfiguration config, File file) {
@@ -533,167 +550,6 @@ public class Main extends JavaPlugin {
 
     public String getPermissionName() {
         return "essentialsmini.";
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("essentialsmini")) {
-            if (sender.hasPermission("essentialsmini.utils")) {
-                if (args.length == 1) {
-                    if (args[0].equalsIgnoreCase("reload")) {
-                        this.getServer().getPluginManager().disablePlugin(this);
-                        this.getServer().getPluginManager().enablePlugin(this);
-                        reloadConfig();
-                        Config.updateConfig();
-                        Config.loadConfig();
-                        sender.sendMessage(getPrefix() + "§aConfig wurde reloaded!");
-                    }
-                    if(args[0].equalsIgnoreCase("info")) {
-                        boolean jsonFormat = getConfig().getBoolean("JsonFormat");
-                        boolean economyEnabled = getConfig().getBoolean("Economy.Activate");
-                        sender.sendMessage(getPrefix() + "=================");
-                        sender.sendMessage("§ais JsonFormat Enabled §6: " + jsonFormat);
-                        sender.sendMessage("§ais Economy Enabled §6: " + economyEnabled);
-                    }
-                } else if (args.length == 2) {
-                    if (args[0].equalsIgnoreCase("spawntp")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("SpawnTP", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6SpawnTP §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("backpack")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("Backpack", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6Backpack §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("saveinventory")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("SaveInventory", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6SaveInventory §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("back")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("Back", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6Back §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("skipnight")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("SkipNight", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6SkipNight §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("showlocation")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("ShowLocation", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6ShowLocation §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("showcrafting")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("ShowCrafting", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6ShowCrafting §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("showitem")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("ShowItem", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6ShowItem §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("position")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("Position", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6Position §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("jsonformat")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("JsonFormat", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6JsonFormat §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("backupmessages")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("BackupMessages", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6BackupMessages §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if (args[0].equalsIgnoreCase("autorestart")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("ZeitGesteuerterRestartBoolean", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6Auto Restart §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if(args[0].equalsIgnoreCase("worldbackup")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("WorldBackup", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6WorldBackup §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                    if(args[0].equalsIgnoreCase("economy")) {
-                        boolean isSet = Boolean.parseBoolean(args[1]);
-                        getConfig().set("Economy.Activate", isSet);
-                        saveConfig();
-                        sender.sendMessage(getPrefix() + "§6Economy §awurde auf §6" + isSet + " §agesetzt!");
-                    }
-                }
-            }
-        }
-        return super.onCommand(sender, command, label, args);
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (command.getName().equalsIgnoreCase("essentialsmini")) {
-            if (args.length == 1) {
-                if (sender.hasPermission("essentialsmini.utils")) {
-                    ArrayList<String> cmds = new ArrayList<>();
-                    ArrayList<String> empty = new ArrayList<>();
-                    cmds.add("backupmessages");
-                    cmds.add("autorestart");
-                    cmds.add("reload");
-                    cmds.add("back");
-                    cmds.add("backpack");
-                    cmds.add("saveinventory");
-                    cmds.add("skipnight");
-                    cmds.add("spawntp");
-                    cmds.add("showlocation");
-                    cmds.add("showcrafting");
-                    cmds.add("showitem");
-                    cmds.add("position");
-                    cmds.add("jsonformat");
-                    cmds.add("worldbackup");
-                    cmds.add("economy");
-                    cmds.add("info");
-                    for (String s : cmds) {
-                        if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
-                            empty.add(s);
-                        }
-                    }
-                    Collections.sort(empty);
-                    return empty;
-                }
-            } else if (args.length == 2) {
-                if (!args[0].equalsIgnoreCase("reload")) {
-                    ArrayList<String> cmds = new ArrayList<>();
-                    ArrayList<String> empty = new ArrayList<>();
-                    cmds.add("true");
-                    cmds.add("false");
-                    for (String s : cmds) {
-                        if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
-                            empty.add(s);
-                        }
-                    }
-                    Collections.sort(empty);
-                    return empty;
-                }
-            }
-        }
-        return super.onTabComplete(sender, command, alias, args);
     }
 
     @Override
