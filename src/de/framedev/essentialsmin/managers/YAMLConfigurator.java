@@ -43,6 +43,9 @@ public class YAMLConfigurator {
         return hash;
     }
 
+    public void setDefaults(HashMap<String,Object> defaults) {
+        data.putAll(defaults);
+    }
     public void addDefault(String path, Object value) {
         data.put(path, value);
     }

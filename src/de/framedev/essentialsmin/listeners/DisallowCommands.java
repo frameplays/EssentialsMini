@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.help.HelpTopic;
@@ -31,12 +30,12 @@ public class DisallowCommands extends ListenerBase {
     public DisallowCommands(Main plugin) {
         super(plugin);
         this.plugin = getPlugin();
-        blockedCMDString.put("essentialsmini.setspawn","setspawn");
-        blockedCMDString.put("essentialsmini.fly","fly");
-        blockedCMDString.put("essentialsmini.invsee","invsee");
-        blockedCMDString.put("essentialsmini.invsee","enderchest");
-        blockedCMDString.put("essentialsmini.invsee","ec");
-        blockedCMDString.put("essentialsmini.resethealth","resethealth");
+        blockedCMDString.put("essentialsmini.setspawn", "setspawn");
+        blockedCMDString.put("essentialsmini.fly", "fly");
+        blockedCMDString.put("essentialsmini.invsee", "invsee");
+        blockedCMDString.put("essentialsmini.invsee", "enderchest");
+        blockedCMDString.put("essentialsmini.invsee", "ec");
+        blockedCMDString.put("essentialsmini.resethealth", "resethealth");
         setupListener(this);
     }
 
@@ -61,7 +60,7 @@ public class DisallowCommands extends ListenerBase {
         if (!event.getPlayer().hasPermission("minecraft.command.me")) {
             blockedCommands.add("me");
         }
-        if(!event.getPlayer().hasPermission("essentialsmini.me")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.me")) {
             blockedCommands.add("me");
         }
         if (!event.getPlayer().hasPermission("bukkit.command.plugins")) {
@@ -108,7 +107,7 @@ public class DisallowCommands extends ListenerBase {
             blockedCommands.add("playerdata");
             blockedCommands.add("pldata");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "god") ||!event.getPlayer().hasPermission(plugin.getPermissionName() + "godmode")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "god") || !event.getPlayer().hasPermission(plugin.getPermissionName() + "godmode")) {
             blockedCommands.add("godmode");
             blockedCommands.add("god");
         }
@@ -162,85 +161,85 @@ public class DisallowCommands extends ListenerBase {
             blockedCommands.add("position");
             blockedCommands.add("pos");
         }
-        if(!event.getPlayer().hasPermission("essentialsmini.repair")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.repair")) {
             blockedCommands.add("repair");
         }
-        if(!event.getPlayer().hasPermission("essentialsmini.heal")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.heal")) {
             blockedCommands.add("heal");
             blockedCommands.add("healme");
         }
-        if(!event.getPlayer().hasPermission("essentialsmini.feed")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.feed")) {
             blockedCommands.add("feed");
         }
-        if(!event.getPlayer().hasPermission("essentialsmini.trash")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.trash")) {
             blockedCommands.add("trash");
         }
-        if(!event.getPlayer().hasPermission("essentialsmini.enderchest")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.enderchest")) {
             blockedCommands.add("enderchest");
             blockedCommands.add("ec");
         }
-        if(!event.getPlayer().hasPermission(plugin.getVariables().getPermissionBase() + "restart")) {
+        if (!event.getPlayer().hasPermission(plugin.getVariables().getPermissionBase() + "restart")) {
             blockedCommands.add("srestart");
         }
-        if(!event.getPlayer().hasPermission(plugin.getVariables().getPermissionBase() + "worldutils")) {
+        if (!event.getPlayer().hasPermission(plugin.getVariables().getPermissionBase() + "worldutils")) {
             blockedCommands.add("worldtp");
             blockedCommands.add("addworld");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "key")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "key")) {
             blockedCommands.add("key");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "enchant")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "enchant")) {
             blockedCommands.add("enchant");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "thunder")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "thunder")) {
             blockedCommands.add("thunder");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "summon")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "summon")) {
             blockedCommands.add("summon");
         }
 
-        if(!event.getPlayer().hasPermission("essentialsmini.gamemode")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.gamemode")) {
             blockedCommands.add("gamemode");
             blockedCommands.add("gm");
         }
-        if(plugin.getVariables().isOnlineMode()) {
+        if (plugin.getVariables().isOnlineMode()) {
             blockedCommands.add("register");
             blockedCommands.add("login");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "chatclear")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "chatclear")) {
             blockedCommands.add("cc");
             blockedCommands.add("clearchat");
             blockedCommands.add("chatclear");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "fuck")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "fuck")) {
             blockedCommands.add("fuck");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "pay")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "pay")) {
             blockedCommands.add("pay");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "balance")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "balance")) {
             blockedCommands.add("balance");
             blockedCommands.add("bal");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "eco.set")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "eco.set")) {
             blockedCommands.add("eco");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "lightningstrike")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "lightningstrike")) {
             blockedCommands.add("lightningstrike");
             blockedCommands.add("lightning");
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "speed"))
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "speed"))
             blockedCommands.add("speed");
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "afk"))
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "afk"))
             blockedCommands.add("afk");
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "infoeconomy"))
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "infoeconomy"))
             blockedCommands.add("infoeconomy");
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "item")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "item")) {
             blockedCommands.add("item");
             blockedCommands.add("i");
         }
 
-        if(!plugin.getConfig().getBoolean("HomeTP")) {
+        if (!plugin.getConfig().getBoolean("HomeTP")) {
             blockedCommands.add("sethome");
             blockedCommands.add("home");
             blockedCommands.add("delhome");
@@ -253,7 +252,7 @@ public class DisallowCommands extends ListenerBase {
     @EventHandler
     public void onSendCommand(PlayerCommandPreprocessEvent event) {
         if (event.getMessage().equalsIgnoreCase("/showitem")) {
-            if(Bukkit.getVersion().contains("1.16.1")) {
+            if (Bukkit.getVersion().contains("1.16.1")) {
                 event.getPlayer().sendMessage(plugin.getPrefix() + "§cDieser Befehl funktioniert nur in der 1.16.1!");
                 event.setCancelled(true);
             }
@@ -261,39 +260,47 @@ public class DisallowCommands extends ListenerBase {
         if (!event.getPlayer().hasPermission("essentialsmini.plugins")) {
             if (event.getMessage().contains("/pl") || event.getMessage().contains("/plugins") || event.getMessage().contains("/bukkit:plugins")
                     || event.getMessage().contains("/bukkit:pl") || event.getMessage().contains("/PL") || event.getMessage().contains("/bukkit:PL") || event.getMessage().contains("/Bukkit:PL")) {
-                if(!event.getMessage().equalsIgnoreCase("/pltime") || !event.getMessage().equalsIgnoreCase("/resetpltime")) {
+                if (!event.getMessage().contains("/plot") || !event.getMessage().contains("/plots") || !event.getMessage().contains("/plotsquared")) {
                     event.getPlayer().sendMessage(ChatColor.WHITE + "Plugins(3): " + ChatColor.GREEN + "Nichts" + ChatColor.WHITE + ", " + ChatColor.GREEN + "zu" + ChatColor.WHITE + ", " + ChatColor.GREEN + "sehen!");
                     event.setCancelled(true);
                 }
             }
         }
-        String message = plugin.getConfig().getString("NotAllowCommand");
-        if(message.contains("&"))
-            message = message.replace('&','§');
-        if(!event.getPlayer().hasPermission("essentialsmini.me")) {
-            if(event.getMessage().startsWith("/me") || event.getMessage().startsWith("/bukkit:me") || event.getMessage().startsWith("/minecraft:me")) {
+        if (!event.getPlayer().hasPermission("essentialsmini.me")) {
+            if (event.getMessage().startsWith("/me") || event.getMessage().startsWith("/bukkit:me") || event.getMessage().startsWith("/minecraft:me")) {
+                if (!event.getMessage().equalsIgnoreCase("/pltime") || !event.getMessage().equalsIgnoreCase("/resetpltime")) {
+                    String message = plugin.getConfig().getString("NotAllowCommand");
+                    if (message.contains("&"))
+                        message = message.replace('&', '§');
+                    event.getPlayer().sendMessage(message);
+                    event.setCancelled(true);
+                }
+            }
+        }
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "fuck")) {
+            if (event.getMessage().contains("/fuck") || event.getMessage().contains("/essentialsmini.fuck")) {
+                String message = plugin.getConfig().getString("NotAllowCommand");
+                if (message.contains("&"))
+                    message = message.replace('&', '§');
                 event.getPlayer().sendMessage(message);
                 event.setCancelled(true);
             }
         }
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "fuck")) {
-            if(event.getMessage().contains("/fuck") || event.getMessage().contains("/essentialsmini.fuck")) {
-                event.getPlayer().sendMessage(message);
-                event.setCancelled(true);
-            }
-        }
-        if (event.getMessage().contains("/?") || event.getMessage().contains("/help") ||event.getMessage().contains("/Help") || event.getMessage().contains("/bukkit:help") || event.getMessage().contains("/bukkit:Help") || event.getMessage().contains("/Bukkit:Help") || event.getMessage().contains("/bukkit:?") || event.getMessage().contains("/Bukkit:?")) {
+        if (event.getMessage().contains("/?") || event.getMessage().contains("/help") || event.getMessage().contains("/Help") || event.getMessage().contains("/bukkit:help") || event.getMessage().contains("/bukkit:Help") || event.getMessage().contains("/Bukkit:Help") || event.getMessage().contains("/bukkit:?") || event.getMessage().contains("/Bukkit:?")) {
             if (!event.getPlayer().hasPermission("essentialsmini.help")) {
+                String message = plugin.getConfig().getString("NotAllowCommand");
+                if (message.contains("&"))
+                    message = message.replace('&', '§');
                 event.getPlayer().sendMessage(message);
                 event.setCancelled(true);
             }
         }
-        if(!(event.isCancelled())) {
+        if (!(event.isCancelled())) {
             Player player = event.getPlayer();
             String msg = event.getMessage().split(" ")[0];
             HelpTopic topic = Bukkit.getServer().getHelpMap().getHelpTopic(msg);
-            if(topic == null) {
-                if(plugin.getCustomMessagesConfig().contains("UnkownCommand")) {
+            if (topic == null) {
+                if (plugin.getCustomMessagesConfig().contains("UnkownCommand")) {
                     String notFound = plugin.getCustomMessagesConfig().getString("UnkownCommand");
                     notFound = notFound.replace('&', '§');
                     notFound = notFound.replace("%CMD%", msg);

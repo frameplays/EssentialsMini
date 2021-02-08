@@ -207,16 +207,6 @@ public class Main extends JavaPlugin {
             SaveInventoryCMD.restore();
         }
 
-        /* Json Config at Key's and Value's */
-        HashMap<String, Object> json = new HashMap<>();
-        json.put("Backpack", true);
-        json.put("SpawnTP", false);
-        json.put("SkipNight", false);
-        json.put("LocationsBackup", false);
-        json.put("BackupTime", 5);
-        json.put("LocationsBackupMessage", false);
-        json.put("IgnoreJoinLeave", false);
-        json.put("Limited", false);
         HashMap<String, Integer> limitedHomes = new HashMap<>();
         ConfigurationSection cs = getConfig().getConfigurationSection("LimitedHomes");
         if (cs != null) {
@@ -224,7 +214,6 @@ public class Main extends JavaPlugin {
                 limitedHomes.put(s, getConfig().getInt("LimitedHomes." + s));
             }
         }
-        json.put("LimitedHomes", limitedHomes);
         HashMap<String, String> limitedHomesPermissions = new HashMap<>();
         ConfigurationSection css = getConfig().getConfigurationSection("LimitedHomesPermission");
         if (css != null) {
@@ -232,28 +221,41 @@ public class Main extends JavaPlugin {
                 limitedHomesPermissions.put(s, getConfig().getString("LimitedHomesPermission." + s));
             }
         }
-        json.put("LimitedHomesPermission", limitedHomesPermissions);
-        json.put("HomeTP", true);
-        json.put("ShowItem", true);
-        json.put("ShowCrafting", true);
-        json.put("ShowLocation", true);
-        json.put("Position", true);
-        json.put("JsonFormat", true);
-        json.put("BackupMessages", true);
-        json.put("SendPlayerUpdateMessage", true);
-        json.put("ZeitgesteuerterRestart", 60);
-        json.put("ZeitGesteuerterRestartBoolean", true);
-        if (!getJsonConfig().contains("Prefix")) {
-            for (Map.Entry<String, Object> entry : json.entrySet()) {
-                getJsonConfig().set(entry.getKey(), entry.getValue());
+        if(variables.isJsonFormat()) {
+            /* Json Config at Key's and Value's */
+            HashMap<String, Object> json = new HashMap<>();
+            json.put("Backpack", true);
+            json.put("SpawnTP", false);
+            json.put("SkipNight", false);
+            json.put("LocationsBackup", false);
+            json.put("BackupTime", 5);
+            json.put("LocationsBackupMessage", false);
+            json.put("IgnoreJoinLeave", false);
+            json.put("Limited", false);
+            json.put("LimitedHomes", limitedHomes);
+            json.put("LimitedHomesPermission", limitedHomesPermissions);
+            json.put("HomeTP", true);
+            json.put("ShowItem", true);
+            json.put("ShowCrafting", true);
+            json.put("ShowLocation", true);
+            json.put("Position", true);
+            json.put("JsonFormat", true);
+            json.put("BackupMessages", true);
+            json.put("SendPlayerUpdateMessage", true);
+            json.put("ZeitgesteuerterRestart", 60);
+            json.put("ZeitGesteuerterRestartBoolean", true);
+            if (!getJsonConfig().contains("Prefix")) {
+                for (Map.Entry<String, Object> entry : json.entrySet()) {
+                    getJsonConfig().set(entry.getKey(), entry.getValue());
+                }
+                getJsonConfig().set("Prefix", "§6[§aEssentials§bMini§6] §c» §f");
+                getJsonConfig().set("JoinBoolean", true);
+                getJsonConfig().set("LeaveBoolean", true);
+                getJsonConfig().set("SaveInventory", false);
             }
-            getJsonConfig().set("Prefix", "§6[§aEssentials§bMini§6] §c» §f");
-            getJsonConfig().set("JoinBoolean", true);
-            getJsonConfig().set("LeaveBoolean", true);
-            getJsonConfig().set("SaveInventory", false);
-        }
 
-        getJsonConfig().saveConfig();
+            getJsonConfig().saveConfig();
+        }
         new SaveLists().setVanished();
         /*KitManager kit = new KitManager();
         kit.saveKit("Stone");*/
