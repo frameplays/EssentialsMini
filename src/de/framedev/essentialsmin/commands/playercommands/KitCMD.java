@@ -28,7 +28,7 @@ public class KitCMD implements CommandExecutor, TabCompleter {
             Player p = (Player) sender;
             if (args.length != 0) {
                 String name = args[0];
-                if (p.hasPermission(plugin.getPermissionName() + name)) {
+                if (p.hasPermission(plugin.getPermissionName() + "kits." + name)) {
                     if (args.length == 1) {
                         if(KitManager.getCustomConfig().contains("Items." + name)) {
                             KitManager kit = new KitManager();
@@ -55,7 +55,7 @@ public class KitCMD implements CommandExecutor, TabCompleter {
             ArrayList<String> list = new ArrayList<>();
             ConfigurationSection cs = KitManager.getCustomConfig().getConfigurationSection("Items");
             for (String s : cs.getKeys(false)) {
-                if (sender.hasPermission(plugin.getPermissionName() + s)) {
+                if (sender.hasPermission(plugin.getPermissionName() + "kits." + s)) {
                     list.add(s);
                 }
             }
