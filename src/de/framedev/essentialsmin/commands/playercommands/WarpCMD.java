@@ -2,6 +2,10 @@ package de.framedev.essentialsmin.commands.playercommands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.LocationsManager;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -118,7 +122,10 @@ public class WarpCMD implements CommandExecutor, TabCompleter {
                     if (cs != null) {
                         for (String s : cs.getKeys(false)) {
                             if (s != null) {
-                                sender.sendMessage(s);
+                                TextComponent textComponent = new TextComponent(s);
+                                textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder("Click me to add Warp Command").create()));
+                                textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/warp "+ s));
+                                sender.spigot().sendMessage(textComponent);
                             }
                         }
                     }
