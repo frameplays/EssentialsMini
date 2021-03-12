@@ -1,2 +1,2 @@
 ## Essentials Mini
-https://framedev.stream/sites/downloads/essentialsmini
+https://framedev.stream/sites/downloads/essentialsmini.html
