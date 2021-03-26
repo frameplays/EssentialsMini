@@ -9,7 +9,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -29,7 +28,7 @@ public class PayCMD extends CommandBase {
         setup("pay", this);
         setup("balance", this);
         setup("eco", this);
-        setup("balancetop",this);
+        setup("balancetop", this);
         setupTabCompleter("pay", this);
     }
 
@@ -180,10 +179,11 @@ public class PayCMD extends CommandBase {
                                     set = new TextUtils().replaceObject(set, "[Money]", amount + plugin.getCurrencySymbol());
                                 }
                                 sender.sendMessage(plugin.getPrefix() + setOther);
-                                if (player.isOnline()) {
-                                    Player online = (Player) player;
-                                    online.sendMessage(plugin.getPrefix() + set);
-                                }
+                                if (!Main.getSilent().contains(sender.getName()))
+                                    if (player.isOnline()) {
+                                        Player online = (Player) player;
+                                        online.sendMessage(plugin.getPrefix() + set);
+                                    }
                             } else {
                                 sender.sendMessage(plugin.getPrefix() + "§6" + args[1] + " §cist keine Zahl!");
                             }

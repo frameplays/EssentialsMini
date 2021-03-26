@@ -25,7 +25,7 @@ public class GodCMD implements CommandExecutor {
 
     public GodCMD(Main plugin) {
         this.plugin = plugin;
-        plugin.getCommands().put("godmode",this);
+        plugin.getCommands().put("godmode", this);
     }
 
     @Override
@@ -48,20 +48,22 @@ public class GodCMD implements CommandExecutor {
                 player.sendMessage(plugin.getPrefix() + "§aDu bist nun unverwundbar!");
             }
             return true;
-        } else if(args.length == 1) {
+        } else if (args.length == 1) {
             Player player = Bukkit.getPlayer(args[0]);
-            if(player != null) {
+            if (player != null) {
                 if (!sender.hasPermission(new Permission(plugin.getPermissionName() + "god.others", PermissionDefault.OP))) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     return true;
                 }
                 if (player.isInvulnerable()) {
                     player.setInvulnerable(false);
-                    player.sendMessage(plugin.getPrefix() + "§cDu bist nun verwundbar!");
+                    if (!Main.getSilent().contains(sender.getName()))
+                        player.sendMessage(plugin.getPrefix() + "§cDu bist nun verwundbar!");
                     sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §cist nun verwundbar!");
                 } else {
                     player.setInvulnerable(true);
-                    player.sendMessage(plugin.getPrefix() + "§aDu bist nun unverwundbar!");
+                    if (!Main.getSilent().contains(sender.getName()))
+                        player.sendMessage(plugin.getPrefix() + "§aDu bist nun unverwundbar!");
                     sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §aist nun unverwundbar!");
                 }
                 return true;

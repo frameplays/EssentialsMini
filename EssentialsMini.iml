@@ -52,17 +52,6 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Minecraft Server/spigot-1.16.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../Minecraft Server/spigot-1.16.1.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
           <root url="jar://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Programmieren/Developer/Plugins/MySQLAPI.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -121,6 +110,17 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Minecraft Server/spigot-1.16.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Minecraft Server/spigot-1.16.1.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

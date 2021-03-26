@@ -22,14 +22,14 @@ public class FeedCMD implements CommandExecutor {
 
     public FeedCMD(Main plugin) {
         this.plugin = plugin;
-        plugin.getCommands().put("feed",this);
+        plugin.getCommands().put("feed", this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 0) {
-            if(sender instanceof Player) {
-                if(sender.hasPermission("essentialsmini.feed")) {
+        if (args.length == 0) {
+            if (sender instanceof Player) {
+                if (sender.hasPermission("essentialsmini.feed")) {
                     Player player = (Player) sender;
                     player.setFoodLevel(20);
                     player.sendMessage(plugin.getPrefix() + "§aDein Hunger wurde gestillt!");
@@ -39,12 +39,13 @@ public class FeedCMD implements CommandExecutor {
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
             }
-        } else if(args.length == 1) {
-            if(sender.hasPermission("essentialsmini.feed.others")) {
+        } else if (args.length == 1) {
+            if (sender.hasPermission("essentialsmini.feed.others")) {
                 Player player = Bukkit.getPlayer(args[0]);
-                if(player != null) {
+                if (player != null) {
                     player.setFoodLevel(20);
-                    player.sendMessage(plugin.getPrefix() + "§aDein Hunger wurde gestillt!");
+                    if (!Main.getSilent().contains(sender.getName()))
+                        player.sendMessage(plugin.getPrefix() + "§aDein Hunger wurde gestillt!");
                     sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + "'s §aHunger wurde gestillt!");
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));

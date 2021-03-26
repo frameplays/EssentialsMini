@@ -47,7 +47,8 @@ public class SetHealthCMD implements CommandExecutor {
             if (player != null) {
                 if (sender.hasPermission(plugin.getPermissionName() + "sethealth.others")) {
                     player.setHealthScale(health);
-                    player.sendMessage(plugin.getPrefix() + "§aDeine Herzen wurden auf §6" + health + " §agesetzt!");
+                    if (!Main.getSilent().contains(sender.getName()))
+                        player.sendMessage(plugin.getPrefix() + "§aDeine Herzen wurden auf §6" + health + " §agesetzt!");
                     sender.sendMessage(plugin.getPrefix() + "§aDie Herzen von §6" + player.getName() + " §awurden auf §6" + health + " §agesetzt!");
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

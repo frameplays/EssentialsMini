@@ -12,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /*
@@ -46,7 +45,7 @@ public class VanishCMD implements CommandExecutor, Listener {
                             });
                             hided.remove(player.getName());
                             String message = plugin.getCustomMessagesConfig().getString("VanishOff.Single");
-                            if(message.contains("&"))
+                            if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             player.sendMessage(plugin.getPrefix() + message);
                             return true;
@@ -58,7 +57,7 @@ public class VanishCMD implements CommandExecutor, Listener {
                             });
                             hided.add(player.getName());
                             String message = plugin.getCustomMessagesConfig().getString("VanishOn.Single");
-                            if(message.contains("&"))
+                            if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             player.sendMessage(plugin.getPrefix() + message);
                             return true;
@@ -75,13 +74,14 @@ public class VanishCMD implements CommandExecutor, Listener {
                             });
                             hided.remove(target.getName());
                             String message = plugin.getCustomMessagesConfig().getString("VanishOff.Single");
-                            if(message.contains("&"))
+                            if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             String playerMessage = plugin.getCustomConfig().getString("VanishOff.Multi");
-                            if(playerMessage.contains("%Player%"))
-                                message = message.replace("%Player%",target.getName());
-                            if(playerMessage.contains("&")) message = message.replace('&','§');
-                            target.sendMessage(plugin.getPrefix() + message);
+                            if (playerMessage.contains("%Player%"))
+                                message = message.replace("%Player%", target.getName());
+                            if (playerMessage.contains("&")) message = message.replace('&', '§');
+                            if (!Main.getSilent().contains(sender.getName()))
+                                target.sendMessage(plugin.getPrefix() + message);
                             sender.sendMessage(plugin.getPrefix() + playerMessage);
                             return true;
 
@@ -93,13 +93,14 @@ public class VanishCMD implements CommandExecutor, Listener {
                             });
                             hided.add(target.getName());
                             String message = plugin.getCustomMessagesConfig().getString("VanishOn.Single");
-                            if(message.contains("&"))
+                            if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             String playerMessage = plugin.getCustomConfig().getString("VanishOn.Multi");
-                            if(playerMessage.contains("%Player%"))
-                                message = message.replace("%Player%",target.getName());
-                            if(playerMessage.contains("&")) message = message.replace('&','§');
-                            target.sendMessage(plugin.getPrefix() + message);
+                            if (playerMessage.contains("%Player%"))
+                                message = message.replace("%Player%", target.getName());
+                            if (playerMessage.contains("&")) message = message.replace('&', '§');
+                            if (!Main.getSilent().contains(sender.getName()))
+                                target.sendMessage(plugin.getPrefix() + message);
                             sender.sendMessage(plugin.getPrefix() + playerMessage);
                         }
                     } else {

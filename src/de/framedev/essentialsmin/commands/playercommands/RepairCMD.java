@@ -74,7 +74,8 @@ public class RepairCMD implements CommandExecutor {
                                     if (damageable.hasDamage()) {
                                         damageable.setDamage(0);
                                         item.setItemMeta((ItemMeta) damageable);
-                                        player.sendMessage(plugin.getPrefix() + "§aDas Item §6: " + item.getType().name() + " §awurde repariert!");
+                                        if (!Main.getSilent().contains(sender.getName()))
+                                            player.sendMessage(plugin.getPrefix() + "§aDas Item §6: " + item.getType().name() + " §awurde repariert!");
                                         sender.sendMessage(plugin.getPrefix() + "§aDas Item §6: " + item.getType().name() + " §avon §6: " + player.getName() + " §awurde repariert!");
                                     } else {
                                         sender.sendMessage(plugin.getPrefix() + "§cDas Item §6: " + item.getType().name() + " §cvon §6: " + player.getName() + " §cmuss nicht Repariert werden!");

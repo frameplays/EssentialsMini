@@ -27,7 +27,7 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
     public GameModeCMD(Main plugin) {
         this.plugin = plugin;
         plugin.getCommands().put("gamemode", this);
-        plugin.getTabCompleters().put("gamemode",this);
+        plugin.getTabCompleters().put("gamemode", this);
     }
 
     @Override
@@ -110,22 +110,26 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                             switch (Integer.parseInt(args[0])) {
                                 case 0:
                                     target.setGameMode(GameMode.SURVIVAL);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SURVIVAL.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SURVIVAL.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.SURVIVAL.name() + " §ageändert!");
                                     break;
                                 case 1:
                                     target.setGameMode(GameMode.CREATIVE);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.CREATIVE.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.CREATIVE.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.CREATIVE.name() + " §ageändert!");
                                     break;
                                 case 2:
                                     target.setGameMode(GameMode.ADVENTURE);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case 3:
                                     target.setGameMode(GameMode.SPECTATOR);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SPECTATOR.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SPECTATOR.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.SPECTATOR.name() + " §ageändert!");
                                     break;
                                 default:
@@ -135,42 +139,50 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                             switch (args[0]) {
                                 case "survival":
                                     target.setGameMode(GameMode.SURVIVAL);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SURVIVAL.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SURVIVAL.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case "creative":
                                     target.setGameMode(GameMode.CREATIVE);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.CREATIVE.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.CREATIVE.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case "adventure":
                                     target.setGameMode(GameMode.ADVENTURE);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case "spectator":
                                     target.setGameMode(GameMode.SPECTATOR);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SPECTATOR.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SPECTATOR.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case "s":
                                     target.setGameMode(GameMode.SURVIVAL);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SURVIVAL.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.SURVIVAL.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case "c":
                                     target.setGameMode(GameMode.CREATIVE);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.CREATIVE.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.CREATIVE.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case "a":
                                     target.setGameMode(GameMode.ADVENTURE);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 case "sp":
                                     target.setGameMode(GameMode.ADVENTURE);
-                                    target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        target.sendMessage("§aDein Spielmodus wurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     sender.sendMessage("§aDer Gamemode von §6" + target.getName() + " §awurde auf §6" + GameMode.ADVENTURE.name() + " §ageändert!");
                                     break;
                                 default:
@@ -204,9 +216,10 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                 return null;
         }
     }
+
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 1) {
+        if (args.length == 1) {
             ArrayList<String> gamemodes = new ArrayList<>();
             ArrayList<String> empty = new ArrayList<>();
             gamemodes.add("creative");
@@ -221,8 +234,8 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
             gamemodes.add("1");
             gamemodes.add("2");
             gamemodes.add("3");
-            for(String s : gamemodes) {
-                if(s.toLowerCase().startsWith(args[0])) {
+            for (String s : gamemodes) {
+                if (s.toLowerCase().startsWith(args[0])) {
                     empty.add(s);
                 }
             }

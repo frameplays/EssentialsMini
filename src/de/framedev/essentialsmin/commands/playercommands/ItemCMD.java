@@ -66,7 +66,8 @@ public class ItemCMD implements CommandExecutor, TabCompleter {
                                 if (new MaterialManager().existsMaterial(Material.getMaterial(name.toUpperCase()))) {
                                     int amount = Integer.parseInt(args[1]);
                                     player.getInventory().addItem(new ItemStack(new MaterialManager().getMaterial(name.toUpperCase()), amount));
-                                    player.sendMessage(plugin.getPrefix() + "§aDu hast das Item §6" + name + " §abekommen! Menge §6" + amount);
+                                    if (!Main.getSilent().contains(sender.getName()))
+                                        player.sendMessage(plugin.getPrefix() + "§aDu hast das Item §6" + name + " §abekommen! Menge §6" + amount);
                                 } else {
                                     player.sendMessage(plugin.getPrefix() + "§cDieses Item existiert nicht! §6" + name);
                                 }

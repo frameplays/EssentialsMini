@@ -40,6 +40,7 @@ import java.util.*;
 
 public class Main extends JavaPlugin {
 
+    private static ArrayList<String> silent;
     /* Commands, TabCompleters and Listeners List */
     Thread thread;
     private HashMap<String, CommandExecutor> commands;
@@ -60,7 +61,6 @@ public class Main extends JavaPlugin {
     private KeyGenerator keyGenerator;
 
     private VaultManager vaultManager;
-
     /* Custom Config File */
     private File customConfigFile;
     private FileConfiguration customConfig;
@@ -134,6 +134,8 @@ public class Main extends JavaPlugin {
 
         /* JsonConfig */
         this.jsonConfig = new JsonConfig();
+
+        silent = new ArrayList<>();
 
         /*this.file = new File(getDataFolder(), "offline.yml");
         this.cfg = YamlConfiguration.loadConfiguration(file);
@@ -334,6 +336,10 @@ public class Main extends JavaPlugin {
         info.set("PlayerDataSave",getConfig().getBoolean("PlayerInfoSave"));
         info.set("Economy", getConfig().getBoolean("Economy.Activate"));
         info.saveConfig();
+    }
+
+    public static ArrayList<String> getSilent() {
+        return silent;
     }
 
     public void debug(Object data) {

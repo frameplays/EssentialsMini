@@ -13,14 +13,12 @@ import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.CommandBase;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class HealCMD extends CommandBase {
 
@@ -60,7 +58,8 @@ public class HealCMD extends CommandBase {
                             player.setHealth(20);
                             player.setFireTicks(0);
                             player.setFoodLevel(20);
-                            player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
+                            if (!Main.getSilent().contains(sender.getName()))
+                                player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
                             sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §awurde geheilt!");
                         } else {
                             sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
@@ -78,7 +77,8 @@ public class HealCMD extends CommandBase {
                         player.setHealth(20);
                         player.setFireTicks(0);
                         player.setFoodLevel(20);
-                        player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
+                        if (!Main.getSilent().contains(sender.getName()))
+                            player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
                         sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §awurde geheilt!");
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
