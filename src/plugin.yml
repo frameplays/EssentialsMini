@@ -181,6 +181,7 @@ commands:
     aliases:
       - baltop
   afk:
+  silent:
 permissions:
   essentialsmini.*:
     children:
@@ -244,6 +245,7 @@ permissions:
       essentialsmini.msgtoggle.bypass: true
       essentialsmini.tptoggle: true
       essentialsmini.tptoggle.bypass: true
+      essentialsmini.silent: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -394,3 +396,5 @@ permissions:
     default: op
     children:
       essentialsmini.tptoggle: true
+  essentialsmini.silent:
+    default: op
