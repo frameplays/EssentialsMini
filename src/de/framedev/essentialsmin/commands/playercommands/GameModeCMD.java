@@ -190,7 +190,7 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                             }
                         }
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[1]));
+                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[1]));
                     }
                 } else {
                     sender.sendMessage(Main.getInstance().getPrefix() + plugin.getNOPERMS());

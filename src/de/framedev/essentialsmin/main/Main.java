@@ -128,6 +128,8 @@ public class Main extends JavaPlugin {
 
         this.spigotTimer = new LagCMD.SpigotTimer();
 
+        this.variables = new Variables();
+
         this.keyGenerator = new KeyGenerator();
 
         new KitManager().createCustomConfig();
@@ -157,8 +159,6 @@ public class Main extends JavaPlugin {
         cfg.set("players", players);
         saveCfg();*/
 
-        /* Variables */
-        this.variables = new Variables();
 
         /* MongoDB */
         this.mongoManager = new MongoManager();

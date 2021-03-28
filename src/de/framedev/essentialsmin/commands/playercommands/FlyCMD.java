@@ -62,7 +62,7 @@ public class FlyCMD implements CommandExecutor {
                         sender.sendMessage(plugin.getPrefix() + "§6" + target.getName() + " §ckann nun nicht mehr Fliegen!");
                     }
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
+                    sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

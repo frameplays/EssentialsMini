@@ -24,7 +24,7 @@ public class Variables {
     private final String apiVersion;
     private final boolean onlineMode;
     private final boolean jsonFormat;
-    private String playerNotOnline;
+    private String playerNameNotOnline;
 
     public Variables() {
         this.instance = Main.getInstance();
@@ -37,15 +37,15 @@ public class Variables {
         this.apiVersion = instance.getDescription().getAPIVersion();
         this.onlineMode = instance.getConfig().getBoolean("OnlineMode");
         this.jsonFormat = instance.getConfig().getBoolean("JsonFormat");
-        this.playerNotOnline = instance.getConfig().getString("PlayerNameNotOnline");
+        this.playerNameNotOnline = instance.getCustomMessagesConfig().getString("PlayerNameNotOnline");
     }
 
-    public String getPlayerNotOnline(String playerName) {
-        if(playerNotOnline.contains("&"))
-            playerNotOnline = playerNotOnline.replace('&','§');
-        if(playerNotOnline.contains("%Player%"))
-            playerNotOnline = playerNotOnline.replace("%Player%",playerName);
-        return playerNotOnline;
+    public String getPlayerNameNotOnline(String playerName) {
+        if(playerNameNotOnline.contains("&"))
+            playerNameNotOnline = playerNameNotOnline.replace('&','§');
+        if(playerNameNotOnline.contains("%Player%"))
+            playerNameNotOnline = playerNameNotOnline.replace("%Player%",playerName);
+        return playerNameNotOnline;
     }
 
     public boolean isJsonFormat() {

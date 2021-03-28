@@ -30,7 +30,7 @@ public class RegisterManager {
 
     public void data() {
         YAMLConfigurator data = plugin.getInfo();
-        HashMap<String,Object> dataYml = data.getData();
+        HashMap<String, Object> dataYml = data.getData();
         System.out.println(dataYml);
     }
 

@@ -61,7 +61,7 @@ public class PlayerHeadsCMD implements CommandExecutor {
                         Bukkit.getPlayer(args[1]).getInventory().addItem(new SkullBuilder(args[0]).setDisplayName(args[0]).create());
                         sender.sendMessage(plugin.getPrefix() + "§6" + Bukkit.getPlayer(args[1]).getName() + " §ahat den Player Head von §6" + args[0] + " §abekommen!");
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[1]));
+                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[1]));
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/playerheads <SpielerName>"));

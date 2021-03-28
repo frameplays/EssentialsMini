@@ -37,17 +37,12 @@ public class ThunderCMD extends CommandBase implements CommandExecutor {
             if(target != null) {
                 if (sender.hasPermission(new Permission(plugin.getPermissionName() + "lightningstrike", PermissionDefault.OP))) {
                     target.getWorld().strikeLightning(target.getLocation());
-                    if(sender instanceof Player) {
-                        Player player = (Player) sender;
-                        // TODO Change this!!!
-                        System.out.println(player.getLocale());
-                    }
                     sender.sendMessage(plugin.getPrefix() + "§6Blitz! §a" + target.getName() + "§c!");
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
             } else {
-                sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
+                sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
             }
         }
         return false;

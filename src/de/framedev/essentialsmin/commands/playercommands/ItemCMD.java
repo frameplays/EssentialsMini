@@ -106,7 +106,7 @@ public class ItemCMD implements CommandExecutor, TabCompleter {
                             player1.getInventory().addItem(new ItemStack(new MaterialManager().getMaterial(name.toUpperCase()), amount));
                             sender.sendMessage(plugin.getPrefix() + "§6" + player1.getName() + " §ahat das Item §6" + name + " §abekommen! Menge §6" + amount);
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[2]));
+                            sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[2]));
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + "§cDieses Item existiert nicht! §6" + name);

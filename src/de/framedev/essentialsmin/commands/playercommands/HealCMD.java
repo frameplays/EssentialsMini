@@ -81,7 +81,7 @@ public class HealCMD extends CommandBase {
                             player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
                         sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §awurde geheilt!");
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
+                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                     }
                     return true;
                 } else {

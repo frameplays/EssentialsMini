@@ -5,8 +5,6 @@
 package de.framedev.essentialsmin.commands.playercommands;
 
 import de.framedev.essentialsmin.main.Main;
-import de.framedev.essentialsmin.managers.CommandBase;
-import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -126,7 +124,7 @@ public class TeleportCMD implements CommandExecutor, Listener {
                                 sender.sendMessage(plugin.getPrefix() + "§cThis Player doesn't accept Teleport!");
                             }
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
+                            sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + "§cYou cannot send to your self a Tpa Request!");
@@ -195,7 +193,7 @@ public class TeleportCMD implements CommandExecutor, Listener {
                             sender.sendMessage(plugin.getPrefix() + "§cThis Player doesn't accept Teleport!");
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
+                        player.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                     }
             }
         }

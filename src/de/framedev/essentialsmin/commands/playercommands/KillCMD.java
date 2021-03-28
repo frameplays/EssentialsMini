@@ -7,7 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.*;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
@@ -96,7 +95,7 @@ public class KillCMD implements CommandExecutor, TabCompleter {
                 if(sender.hasPermission(plugin.getPermissionName() + "suicid.others")) {
                     Player player = Bukkit.getPlayer(args[0]);
                     if(player == null) {
-                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNotOnline(args[0]));
+                        sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                         return true;
                     }
                     player.setHealth(0);
