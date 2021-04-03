@@ -1,11 +1,10 @@
-package de.framedev.essentialsmin.commands.worldcommands;
+package de.framedev.essentialsmin.commands.servercommands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.CommandBase;
 import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import javax.annotation.Nonnull;

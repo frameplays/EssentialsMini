@@ -43,11 +43,11 @@ public class AFK implements CommandExecutor {
         this.locationMap = new HashMap<>();
         afkPlayerMap = new HashMap<>();
         afkTimeMap = new HashMap<>();
-        int afktime = plugin.getConfig().getInt("AFK.Time");
+        int afkTime = plugin.getConfig().getInt("AFK.Time");
         plugin.getCommands().put("afk",this);
         plugin.getCommand("afk").setExecutor(this);
         Bukkit.getPluginManager().registerEvents(new Events(), plugin);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new IdleTimer(plugin), (afktime * 20), (afktime * 20));
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new IdleTimer(plugin), (afkTime * 20), (afkTime * 20));
     }
 
     public static void putPlayerToAfkMap(String PlayerName) {

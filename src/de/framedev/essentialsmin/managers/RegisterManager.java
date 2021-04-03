@@ -31,7 +31,7 @@ public class RegisterManager {
     public void data() {
         YAMLConfigurator data = plugin.getInfo();
         HashMap<String, Object> dataYml = data.getData();
-        System.out.println(dataYml);
+        plugin.debug(dataYml);
     }
 
     private void registerTabCompleters() {

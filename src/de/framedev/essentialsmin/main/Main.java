@@ -111,6 +111,7 @@ public class Main extends JavaPlugin {
         saveDefaultConfig();
         Config.loadConfig();
         Config.updateConfig();
+        Config.saveDefaultConfigValues();
 
         if (getConfig().getBoolean("HomeTP")) {
             homeTP = true;
@@ -126,6 +127,7 @@ public class Main extends JavaPlugin {
         this.materialManager.saveMaterials();
         this.materialManager.saveMaterialToJson();
 
+        /* TPS Command Timer */
         this.spigotTimer = new LagCMD.SpigotTimer();
 
         this.variables = new Variables();
@@ -382,6 +384,8 @@ public class Main extends JavaPlugin {
 
                 config.save(file);
             }
+            if(this.info.contains("Economy"))
+                System.out.println("Nein!");
         } catch (Exception e) {
             e.printStackTrace();
         }

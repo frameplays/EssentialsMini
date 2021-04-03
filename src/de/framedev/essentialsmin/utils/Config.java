@@ -1,10 +1,10 @@
 package de.framedev.essentialsmin.utils;
 
 import de.framedev.essentialsmin.main.Main;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 
 public class Config {
@@ -37,6 +37,27 @@ public class Config {
             }
         } catch (IOException | org.bukkit.configuration.InvalidConfigurationException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void saveDefaultConfigValues() {
+        File file = new File(Main.getInstance().getDataFolder() + "config.yml");
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+        //Defaults in jar
+        Reader defConfigStream = null;
+        try {
+            defConfigStream = new InputStreamReader(Main.getInstance().getResource("config.yml"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (defConfigStream != null) {
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+            cfg.setDefaults(defConfig);
+            //Copy default values
+            cfg.options().copyDefaults(true);
+            Main.getInstance().saveConfig();
+            //OR use this to copy default values
+            //this.saveDefaultConfig();
         }
     }
 }

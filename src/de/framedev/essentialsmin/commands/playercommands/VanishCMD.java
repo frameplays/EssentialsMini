@@ -78,8 +78,8 @@ public class VanishCMD implements CommandExecutor, Listener {
                                 message = new TextUtils().replaceAndToParagraph(message);
                             String playerMessage = plugin.getCustomConfig().getString("VanishOff.Multi");
                             if (playerMessage.contains("%Player%"))
-                                message = message.replace("%Player%", target.getName());
-                            if (playerMessage.contains("&")) message = message.replace('&', '§');
+                                playerMessage = playerMessage.replace("%Player%", target.getName());
+                            if (playerMessage.contains("&")) playerMessage = playerMessage.replace('&', '§');
                             if (!Main.getSilent().contains(sender.getName()))
                                 target.sendMessage(plugin.getPrefix() + message);
                             sender.sendMessage(plugin.getPrefix() + playerMessage);
@@ -97,8 +97,8 @@ public class VanishCMD implements CommandExecutor, Listener {
                                 message = new TextUtils().replaceAndToParagraph(message);
                             String playerMessage = plugin.getCustomConfig().getString("VanishOn.Multi");
                             if (playerMessage.contains("%Player%"))
-                                message = message.replace("%Player%", target.getName());
-                            if (playerMessage.contains("&")) message = message.replace('&', '§');
+                                playerMessage = playerMessage.replace("%Player%", target.getName());
+                            if (playerMessage.contains("&")) playerMessage = playerMessage.replace('&', '§');
                             if (!Main.getSilent().contains(sender.getName()))
                                 target.sendMessage(plugin.getPrefix() + message);
                             sender.sendMessage(plugin.getPrefix() + playerMessage);

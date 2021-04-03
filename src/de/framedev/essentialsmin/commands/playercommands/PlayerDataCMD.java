@@ -112,12 +112,6 @@ public class PlayerDataCMD implements CommandExecutor {
                     sender.sendMessage("§aCommandsUsed : §6" + playerManager.getCommandsUsed());
                     sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlockBroken());
                     sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlockPlace());
-
-                    try {
-                        JsonWriter jsonWriter = new JsonWriter(new FileWriter("test.json"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 } else {
                     PlayerManagerMongoDB playerManager = PlayerManagerMongoDB.getPlayerManager(args[0],"test");
                     long login = playerManager.getLastLogin();
