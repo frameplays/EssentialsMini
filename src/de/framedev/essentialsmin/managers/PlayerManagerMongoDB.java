@@ -5,9 +5,8 @@ import com.mongodb.client.MongoCollection;
 import de.framedev.essentialsmin.main.Main;
 import org.bson.Document;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,17 +28,18 @@ public class PlayerManagerMongoDB {
     private double damage;
     private int entityKills;
     private int deaths;
-    private List<Material> blocksBroken;
-    private List<Material> blocksPlacen;
+    private List<String> blocksBroken;
+    private List<String> blocksPlacen;
     private int commandsUsed;
     private String key;
-    private List<EntityType> entityTypes;
+    private int sleepTimes;
+    private List<String> entityTypes;
     private boolean offline;
     private String createDate;
     private String lastLogin;
     private String lastLogout;
 
-    public PlayerManagerMongoDB(UUID uuid, String name, double money, double bank, int kills, double damage, int entityKills, int deaths, List<Material> blocksBroken, List<Material> blocksPlacen, int commandsUsed, String key, List<EntityType> entityTypes, boolean offline, String createDate, String lastLogin, String lastLogout) {
+    public PlayerManagerMongoDB(UUID uuid, String name, double money, double bank, int kills, double damage, int entityKills, int deaths, List<String> blocksBroken, List<String> blocksPlacen, int commandsUsed, String key, int sleepTimes, List<String> entityTypes, boolean offline, String createDate, String lastLogin, String lastLogout) {
         this.uuid = uuid;
         this.name = name;
         this.money = money;
@@ -52,6 +52,7 @@ public class PlayerManagerMongoDB {
         this.blocksPlacen = blocksPlacen;
         this.commandsUsed = commandsUsed;
         this.key = key;
+        this.sleepTimes = sleepTimes;
         this.entityTypes = entityTypes;
         this.offline = offline;
         this.createDate = createDate;
@@ -68,6 +69,14 @@ public class PlayerManagerMongoDB {
     public PlayerManagerMongoDB(String name) {
         this.name = name;
         this.uuid = Bukkit.getOfflinePlayer(name).getUniqueId();
+    }
+
+    public int getSleepTimes() {
+        return sleepTimes;
+    }
+
+    public void setSleepTimes(int sleepTimes) {
+        this.sleepTimes = sleepTimes;
     }
 
     public void setUuid(UUID uuid) {
@@ -102,11 +111,11 @@ public class PlayerManagerMongoDB {
         this.deaths = deaths;
     }
 
-    public void setBlocksBroken(List<Material> blocksBroken) {
+    public void setBlocksBroken(List<String> blocksBroken) {
         this.blocksBroken = blocksBroken;
     }
 
-    public void setBlocksPlacen(List<Material> blocksPlacen) {
+    public void setBlocksPlacen(List<String> blocksPlacen) {
         this.blocksPlacen = blocksPlacen;
     }
 
@@ -118,7 +127,7 @@ public class PlayerManagerMongoDB {
         this.key = key;
     }
 
-    public void setEntityTypes(List<EntityType> entityTypes) {
+    public void setEntityTypes(List<String> entityTypes) {
         this.entityTypes = entityTypes;
     }
 
@@ -170,11 +179,11 @@ public class PlayerManagerMongoDB {
         return deaths;
     }
 
-    public List<Material> getBlocksBroken() {
+    public List<String> getBlocksBroken() {
         return blocksBroken;
     }
 
-    public List<Material> getBlocksPlacen() {
+    public List<String> getBlocksPlacen() {
         return blocksPlacen;
     }
 
@@ -186,7 +195,7 @@ public class PlayerManagerMongoDB {
         return key;
     }
 
-    public List<EntityType> getEntityTypes() {
+    public List<String> getEntityTypes() {
         return entityTypes;
     }
 
@@ -214,6 +223,14 @@ public class PlayerManagerMongoDB {
         return new PlayerManagerMongoDB(playerName);
     }
 
+    public static PlayerManagerMongoDB getPlayerManager(UUID playerUUID, String collection) {
+        MongoCollection<Document> collections = Main.getInstance().getMongoManager().getDatabase().getCollection(collection);
+        Document result = collections.find(new Document("uuid", playerUUID.toString())).first();
+        if (result != null)
+            return new Gson().fromJson(result.toJson(), PlayerManagerMongoDB.class);
+        return new PlayerManagerMongoDB(playerUUID);
+    }
+
     public void save(String collection) {
         MongoCollection<Document> collections = Main.getInstance().getMongoManager().getDatabase().getCollection(collection);
         String json = new Gson().toJson(this);
@@ -222,20 +239,24 @@ public class PlayerManagerMongoDB {
         if (result == null) {
             collections.insertOne(document);
         } else {
-            result.replace("deaths",getDeaths());
-            result.replace("money",getMoney());
-            result.replace("bank",getBank());
-            result.replace("kills",getKills());
-            result.replace("entityKills",entityKills);
-            result.replace("entityTypes",entityTypes);
-            result.replace("damage",getDamage());
-            result.replace("blocksBroken",getBlocksBroken());
-            result.replace("blocksPlacen",getBlocksPlacen());
-            result.replace("commandsUsed",getCommandsUsed());
-            result.replace("key",getKey());
-            result.replace(BackendManager.DATA.LASTLOGIN.getName(),getLastLogin());
-            result.replace(BackendManager.DATA.LASTLOGOUT.getName(),getLastLogout());
-            result.replace(BackendManager.DATA.OFFLINE.getName(),isOffline());
+            for (BackendManager.DATA data : BackendManager.DATA.values()) {
+                try {
+                    String cap = data.getName().substring(0, 1).toUpperCase() + data.getName().substring(1);
+                    if (data == BackendManager.DATA.LASTLOGOUT) {
+                        document.put(data.getName(), this.getClass().getMethod("get" + cap).invoke(this).toString());
+                    } else if (data == BackendManager.DATA.LASTLOGIN) {
+                        document.put(data.getName(), this.getClass().getMethod("get" + cap).invoke(this).toString());
+                    } else if (data == BackendManager.DATA.OFFLINE) {
+                        document.put(data.getName(), this.getClass().getMethod("is" + cap).invoke(this));
+                    } else if (data == BackendManager.DATA.CREATEDATE) {
+                        document.put(data.getName(), this.getClass().getMethod("get" + cap).invoke(this).toString());
+                    } else
+                        document.put(data.getName(), this.getClass().getMethod("get" + cap).invoke(this));
+                } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            collections.replaceOne(collections.find(new Document("uuid", result.get("uuid"))).first(), document);
         }
     }
 }

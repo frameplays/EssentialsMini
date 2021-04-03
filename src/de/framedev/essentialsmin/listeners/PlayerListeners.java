@@ -13,6 +13,7 @@ import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.LocationsManager;
 import de.framedev.essentialsmin.managers.PlayerManager;
 import de.framedev.essentialsmin.managers.PlayerManagerCfgLoss;
+import de.framedev.essentialsmin.managers.PlayerManagerMongoDB;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -204,7 +205,6 @@ public class PlayerListeners implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (isEnabled() && !onlyEssentialsFeatures) {
             plugin.addOfflinePlayer(event.getPlayer());
-            System.out.println(plugin.getOfflinePlayers());
             plugin.savePlayers();
             if (!isJsonFormat()) {
                 new PlayerManager(event.getPlayer()

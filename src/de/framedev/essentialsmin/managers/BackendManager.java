@@ -20,6 +20,8 @@ public class BackendManager {
     public enum DATA {
         NAME("name"),
         MONEY("money"),
+        BANK("bank"),
+        KILLS("kills"),
         DAMAGE("damage"),
         ENTITYKILLS("entityKills"),
         DEATHS("deaths"),
@@ -116,7 +118,7 @@ public class BackendManager {
                     collections.updateOne(document, document2);
                 } else {
                     document.put(where,data);
-                    collections.updateOne(collections.find(new Document("uuid", uuid)).first(), document);
+                    collections.replaceOne(collections.find(new Document("uuid", uuid)).first(), document);
                 }
             }
         } else {

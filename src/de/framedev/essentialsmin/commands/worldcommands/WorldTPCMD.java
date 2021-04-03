@@ -84,33 +84,38 @@ public class WorldTPCMD implements CommandExecutor, Listener {
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/worldtp <WorldName> §coder §6/worldtp <WorldName> <PlayerName>"));
                     }
-                } else if (command.getName().equalsIgnoreCase("addworld")) {
-                    Player player = (Player) sender;
-                    if (args.length == 1) {
-                        String worldName = args[0];
-                        if (Bukkit.getWorld(worldName) != null) {
-                            if (!worldWithKeys.contains(worldName)) {
-                                worldWithKeys.add(worldName);
-                                player.sendMessage(plugin.getPrefix() + "§6" + worldName + " §awurde zu den Welten hinzugefügt die nur durch Keys betret bar sind! §6" + worldName);
-                                saveWorlds();
-                                worldWithKeys = getWorldWithKeys();
-                            } else {
-                                worldWithKeys.remove(worldName);
-                                player.sendMessage(plugin.getPrefix() + "§6" + worldName + " §awurde von den Welten entfernt §6Diese Welt kann nun wieder ohne Key betretet werden! §6" + worldName);
-                                saveWorlds();
-                            }
-                        } else {
-                            player.sendMessage(plugin.getPrefix() + "§cDiese Welt existiert nicht! §6" + worldName);
-                        }
-                    } else {
-                        sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/addworld <WorldName>"));
-                    }
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
             }
         } else {
-            sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getOnlyPlayer());
+            if (command.getName().equalsIgnoreCase("addworld")) {
+                if (sender.hasPermission(new Permission(plugin.getVariables().getPermissionBase() + "worldutils", PermissionDefault.OP))) {
+                    if (args.length == 1) {
+                        String worldName = args[0];
+                        if (Bukkit.getWorld(worldName) != null) {
+                            if (!worldWithKeys.contains(worldName)) {
+                                worldWithKeys.add(worldName);
+                                sender.sendMessage(plugin.getPrefix() + "§6" + worldName + " §awurde zu den Welten hinzugefügt die nur durch Keys betret bar sind! §6" + worldName);
+                                saveWorlds();
+                                worldWithKeys = getWorldWithKeys();
+                            } else {
+                                worldWithKeys.remove(worldName);
+                                sender.sendMessage(plugin.getPrefix() + "§6" + worldName + " §awurde von den Welten entfernt §6Diese Welt kann nun wieder ohne Key betretet werden! §6" + worldName);
+                                saveWorlds();
+                            }
+                        } else {
+                            sender.sendMessage(plugin.getPrefix() + "§cDiese Welt existiert nicht! §6" + worldName);
+                        }
+                    } else {
+                        sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/addworld <WorldName>"));
+                    }
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                }
+            } else {
+                sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
+            }
         }
         return false;
     }
