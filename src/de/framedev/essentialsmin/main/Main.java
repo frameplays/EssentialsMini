@@ -28,6 +28,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.*;
 import java.net.URL;
@@ -42,7 +43,7 @@ public class Main extends JavaPlugin {
 
     private static ArrayList<String> silent;
     /* Commands, TabCompleters and Listeners List */
-    Thread thread;
+    private Thread thread;
     private HashMap<String, CommandExecutor> commands;
     private HashMap<String, TabCompleter> tabCompleters;
     private ArrayList<Listener> listeners;
@@ -204,7 +205,9 @@ public class Main extends JavaPlugin {
         }
         /* Thread for the Schedulers for save restart and .... */
         if (!getConfig().getBoolean("OnlyEssentialsFeatures"))
-            new UpdateScheduler().run();
+            thread = new Thread(new UpdateScheduler());
+        if(thread != null)
+            thread.start();
 
         if (this.getConfig().getBoolean("SaveInventory")) {
             SaveInventoryCMD.restore();
@@ -225,7 +228,7 @@ public class Main extends JavaPlugin {
             }
         }
         if (variables.isJsonFormat()) {
-            /* Json Config at Key's and Value's */
+            /* Json Config add Key's and Value's */
             HashMap<String, Object> json = new HashMap<>();
             json.put("Backpack", true);
             json.put("SpawnTP", false);
@@ -378,9 +381,13 @@ public class Main extends JavaPlugin {
             });
         }
         savePlayers();
-        CustomJson json = new CustomJson("playersss");
-        json.set("Offline", offlinePlayers);
-        json.saveConfig();
+        if(false) {
+            CustomJson json = new CustomJson("playersss");
+            json.set("Offline", offlinePlayers);
+            json.saveConfig();
+        }
+        if(thread.isAlive())
+            thread.getThreadGroup().destroy();
     }
 
     /**

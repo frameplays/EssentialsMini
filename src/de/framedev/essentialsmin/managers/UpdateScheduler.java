@@ -11,39 +11,44 @@ package de.framedev.essentialsmin.managers;
 
 import de.framedev.essentialsmin.main.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Map;
+public class UpdateScheduler implements Runnable {
 
-public class UpdateScheduler {
-
+    @Override
     public void run() {
-        if(Main.getInstance().getConfig().getBoolean("LocationsBackup")) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (Main.getInstance().getConfig().getBoolean("LocationsBackup")) {
-                        new LocationsManager().saveBackup();
-                        //Main.getInstance().savePlayerHomes();
-                        if (Main.getInstance().getConfig().getBoolean("LocationsBackupMessage")) {
-                            Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§a" + new LocationsManager().getFileBackup().getName() + " §6LocationBackup gespeichert!");
-                            Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§aDas Backup befindet sich in §6" + new LocationsManager().getFileBackup().getPath());
-                        }
+        boolean[] s = {true, true, true};
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (Main.getInstance().getConfig().getBoolean("LocationsBackup")) {
+                    new LocationsManager().saveBackup();
+                    //Main.getInstance().savePlayerHomes();
+                    if (Main.getInstance().getConfig().getBoolean("LocationsBackupMessage")) {
+                        Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§a" + new LocationsManager().getFileBackup().getName() + " §6LocationBackup gespeichert!");
+                        Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§aDas Backup befindet sich in §6" + new LocationsManager().getFileBackup().getPath());
                     }
+                } else {
+                    s[0] = false;
+                }
+                if(Main.getInstance().getConfig().getBoolean("PlayerInfoSave")) {
                     Main.getInstance().getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
                         if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
                             playerManagerCfgLoss.savePlayerManager();
                         }
                     });
-                    if (Main.getInstance().getConfig().getBoolean("BackupMessages")) {
-                        Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§6User Data §aSaved!");
-                    }
+                } else {
+                    s[1] = false;
                 }
-            }.runTaskTimerAsynchronously(Main.getInstance(), 0, 20 * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
-        }
+                if (Main.getInstance().getConfig().getBoolean("BackupMessages")) {
+                    Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§6User Data §aSaved!");
+                } else {
+                    s[2] = false;
+                }
+                if(s[0] == false && s[1] == false && s[2] == false) {
+                    cancel();
+                }
+            }
+        }.runTaskTimerAsynchronously(Main.getInstance(), 0, 20 * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
     }
 }

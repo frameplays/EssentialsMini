@@ -40,6 +40,7 @@ public class EssentialsMiniCMD extends CommandBase {
                         plugin.reloadConfig();
                         Config.updateConfig();
                         Config.loadConfig();
+                        Config.saveDefaultConfigValues();
                         sender.sendMessage(plugin.getPrefix() + "§aConfig wurde reloaded!");
                     }
                     if (args[0].equalsIgnoreCase("info")) {
