@@ -19,9 +19,7 @@ import de.framedev.mysqlapi.api.SQL;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -30,13 +28,15 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends JavaPlugin {
 
@@ -47,7 +47,7 @@ public class Main extends JavaPlugin {
     private HashMap<String, TabCompleter> tabCompleters;
     private ArrayList<Listener> listeners;
 
-    private HashMap<OfflinePlayer, PlayerManagerCfgLoss> cfgLossHashMap = new HashMap<>();
+    private final HashMap<OfflinePlayer, PlayerManagerCfgLoss> cfgLossHashMap = new HashMap<>();
     private Map<String, Object> limitedHomesPermission;
 
     /* Json Config.json */
@@ -184,9 +184,9 @@ public class Main extends JavaPlugin {
             }
         }
 
-        if(isMongoDb()) {
-            for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-                backendManager.createUserMoney(player,"test");
+        if (isMongoDb()) {
+            for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+                backendManager.createUserMoney(player, "test");
             }
         }
         /* MongoDB Finish */
@@ -203,7 +203,7 @@ public class Main extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups werden gemacht!");
         }
         /* Thread for the Schedulers for save restart and .... */
-        if(!getConfig().getBoolean("OnlyEssentialsFeatures"))
+        if (!getConfig().getBoolean("OnlyEssentialsFeatures"))
             new UpdateScheduler().run();
 
         if (this.getConfig().getBoolean("SaveInventory")) {
@@ -224,7 +224,7 @@ public class Main extends JavaPlugin {
                 limitedHomesPermissions.put(s, getConfig().getString("LimitedHomesPermission." + s));
             }
         }
-        if(variables.isJsonFormat()) {
+        if (variables.isJsonFormat()) {
             /* Json Config at Key's and Value's */
             HashMap<String, Object> json = new HashMap<>();
             json.put("Backpack", true);
@@ -266,7 +266,7 @@ public class Main extends JavaPlugin {
 
         this.mysql = getConfig().getBoolean("MySQL");
 
-        if(getConfig().getBoolean("Economy.Activate")) {
+        if (getConfig().getBoolean("Economy.Activate")) {
             if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
                 this.vaultManager = new VaultManager(this);
             }
@@ -292,7 +292,7 @@ public class Main extends JavaPlugin {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        matchConfig(customConfig,customConfigFile);
+        matchConfig(customConfig, customConfigFile);
         try {
             this.limitedHomesPermission = getJsonConfig().getHashMap("LimitedHomesPermission");
             this.limitedHomes = getJsonConfig().getHashMap("LimitedHomes");
@@ -303,15 +303,17 @@ public class Main extends JavaPlugin {
             Bukkit.getOnlinePlayers().forEach(this::hasNewUpdate);
         }
 
+        /* OfflinePlayer Register */
         this.offlinePlayers = new ArrayList<>();
-        if(getJson() != null) {
+        if (getJson() != null) {
             this.offlinePlayers = getJson();
         } else {
             this.offlinePlayers = new ArrayList<>();
             offlinePlayers.add("FramePlays");
             savePlayers();
         }
-        if(isMysql() && getConfig().getBoolean("PlayerInfoSave")) {
+
+        if (isMysql() && getConfig().getBoolean("PlayerInfoSave")) {
             if (!SQL.isTableExists(getName().toLowerCase() + "_data")) {
                 SQL.createTable(getName().toLowerCase() + "_data",
                         "playeruuid VARCHAR(1200)",
@@ -331,10 +333,10 @@ public class Main extends JavaPlugin {
         }
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
         checkUpdate();
-        info.set("MongoDB",isMongoDb());
-        info.set("MySQL",isMysql());
-        info.set("isOnlineMode",getVariables().isOnlineMode());
-        info.set("PlayerDataSave",getConfig().getBoolean("PlayerInfoSave"));
+        info.set("MongoDB", isMongoDb());
+        info.set("MySQL", isMysql());
+        info.set("isOnlineMode", getVariables().isOnlineMode());
+        info.set("PlayerDataSave", getConfig().getBoolean("PlayerInfoSave"));
         info.set("Economy", getConfig().getBoolean("Economy.Activate"));
         info.saveConfig();
     }
@@ -358,10 +360,10 @@ public class Main extends JavaPlugin {
             new LocationsManager().saveBackup();
         }
         new LocationsManager().deleteLocations();
-        if(!getCfgLossHashMap().isEmpty()) {
+        if (!getCfgLossHashMap().isEmpty()) {
             getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
                 if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
-                    if(isMysql())
+                    if (isMysql())
                         playerManagerCfgLoss.savePlayerData(player);
                     playerManagerCfgLoss.savePlayerManager();
                 }
@@ -376,10 +378,12 @@ public class Main extends JavaPlugin {
             });
         }
         savePlayers();
+        CustomJson json = new CustomJson("playersss");
+        json.set("Offline", offlinePlayers);
+        json.saveConfig();
     }
 
     /**
-     *
      * @return the List of PlayerNames they are set to Silent
      */
     public static ArrayList<String> getSilent() {
@@ -387,7 +391,6 @@ public class Main extends JavaPlugin {
     }
 
     /**
-     *
      * @param data the Data to Debugging
      */
     public void debug(Object data) {
@@ -399,9 +402,9 @@ public class Main extends JavaPlugin {
     }
 
     public void savePlayers() {
-        File file = new File(getDataFolder(),"players.json");
+        File file = new File(getDataFolder(), "players.json");
         try {
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.createNewFile();
             }
             FileWriter writer = new FileWriter(file);
@@ -411,6 +414,8 @@ public class Main extends JavaPlugin {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        info.set("OfflinePlayers", offlinePlayers);
+        info.saveConfig();
     }
 
     public YAMLConfigurator getInfo() {
@@ -430,24 +435,23 @@ public class Main extends JavaPlugin {
 
                 config.save(file);
             }
-            if(this.info.contains("Economy"))
-                System.out.println("Nein!");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public ArrayList<String> getJson() {
-        File file = new File(getDataFolder(),"players.json");
+        File file = new File(getDataFolder(), "players.json");
         String[] players = null;
         try {
-            if(file.exists()) {
+            if (file.exists()) {
                 FileReader reader = new FileReader(file);
                 players = new Gson().fromJson(reader, String[].class);
                 reader.close();
                 return new ArrayList<>(Arrays.asList(players));
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         return null;
     }
 
@@ -472,12 +476,12 @@ public class Main extends JavaPlugin {
     }
 
     public void addOfflinePlayer(OfflinePlayer player) {
-        if(!getOfflinePlayers().contains(player.getName()))
+        if (!getOfflinePlayers().contains(player.getName()))
             offlinePlayers.add(player.getName());
     }
 
     public void removeOfflinePlayer(OfflinePlayer player) {
-        if(getOfflinePlayers().contains(player.getName()))
+        if (getOfflinePlayers().contains(player.getName()))
             offlinePlayers.remove(player.getName());
     }
 

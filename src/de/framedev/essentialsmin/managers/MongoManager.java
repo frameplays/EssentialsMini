@@ -14,12 +14,12 @@ import java.util.Arrays;
 
 public class MongoManager {
     File file = new File("plugins/MDBConnection/config.yml");
-    FileConfiguration cfg = (FileConfiguration) YamlConfiguration.loadConfiguration(this.file);
+    FileConfiguration cfg = YamlConfiguration.loadConfiguration(this.file);
     String databasestring = this.cfg.getString("MongoDB.Database");
     String username = this.cfg.getString("MongoDB.User");
     String password = this.cfg.getString("MongoDB.Password");
-    private String hostname = this.cfg.getString("MongoDB.Host");
-    private int port = this.cfg.getInt("MongoDB.Port");
+    private final String hostname = this.cfg.getString("MongoDB.Host");
+    private final int port = this.cfg.getInt("MongoDB.Port");
 
     private MongoClient client;
 

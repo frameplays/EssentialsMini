@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 
 public class Config {
@@ -45,11 +46,7 @@ public class Config {
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         //Defaults in jar
         Reader defConfigStream = null;
-        try {
-            defConfigStream = new InputStreamReader(Main.getInstance().getResource("config.yml"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        defConfigStream = new InputStreamReader(Main.getInstance().getResource("config.yml"), StandardCharsets.UTF_8);
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
             cfg.setDefaults(defConfig);

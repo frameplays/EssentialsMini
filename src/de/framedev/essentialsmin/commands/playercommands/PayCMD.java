@@ -50,7 +50,7 @@ public class PayCMD extends CommandBase {
                                             String send = plugin.getCustomMessagesConfig().getString("Money.MSG.Pay");
                                             send = send.replace('&', '§');
                                             send = send.replace("[Target]", player.getName());
-                                            send = send.replace("[Money]", String.valueOf(amount) + plugin.getCurrencySymbol());
+                                            send = send.replace("[Money]", amount + plugin.getCurrencySymbol());
                                             String got = plugin.getCustomMessagesConfig().getString("Money.MSG.GotPay");
                                             if (got != null) {
                                                 got = new TextUtils().replaceAndToParagraph(got);
@@ -73,7 +73,7 @@ public class PayCMD extends CommandBase {
                                         String send = plugin.getCustomMessagesConfig().getString("Money.MSG.Pay");
                                         send = send.replace('&', '§');
                                         send = send.replace("[Target]", player.getName());
-                                        send = send.replace("[Money]", String.valueOf(amount) + plugin.getCurrencySymbol());
+                                        send = send.replace("[Money]", amount + plugin.getCurrencySymbol());
                                         String got = plugin.getCustomMessagesConfig().getString("Money.MSG.GotPay");
                                         if (got != null) {
                                             got = new TextUtils().replaceAndToParagraph(got);

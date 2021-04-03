@@ -39,7 +39,7 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
     static File file;
     static FileConfiguration cfg;
     public static HashMap<String, String> itemsStringHashMap = new HashMap<>();
-    private Main plugin;
+    private final Main plugin;
 
     public BackpackCMD(Main plugin) {
         this.plugin = plugin;

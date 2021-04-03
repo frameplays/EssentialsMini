@@ -27,11 +27,11 @@ import java.util.*;
  */
 public class PlayerManager implements Serializable {
 
-    private File file;
+    private final File file;
     FileConfiguration cfg;
     private String name;
-    private UUID uuid;
-    private OfflinePlayer player;
+    private final UUID uuid;
+    private final OfflinePlayer player;
     private Long lastLogin;
     private Long lastLogout;
     private double damage;

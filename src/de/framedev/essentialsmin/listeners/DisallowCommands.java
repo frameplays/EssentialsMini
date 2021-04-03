@@ -25,7 +25,7 @@ public class DisallowCommands extends ListenerBase {
 
     private final Main plugin;
 
-    private HashMap<String, String> blockedCMDString = new HashMap<>();
+    private final HashMap<String, String> blockedCMDString = new HashMap<>();
 
     public DisallowCommands(Main plugin) {
         super(plugin);

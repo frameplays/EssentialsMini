@@ -128,6 +128,6 @@ public class VanishCMD implements CommandExecutor, Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        if (hided.contains(event.getPlayer().getName())) hided.remove(event.getPlayer().getName());
+        hided.remove(event.getPlayer().getName());
     }
 }

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public class KeyGenerator {
 
-    private static Main plugin = Main.getInstance();
+    private static final Main plugin = Main.getInstance();
 
     private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
     private static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
@@ -36,10 +36,10 @@ public class KeyGenerator {
     private static final String STRING_ALLOW_BASE_SHUFFLE = shuffleString(STRING_ALLOW_BASE);
     private static final String STRING_ALLOW = STRING_ALLOW_BASE_SHUFFLE;
 
-    private static SecureRandom random = new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
 
-    private File file = new File(Main.getInstance().getDataFolder(), "keys.yml");
-    private FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+    private final File file = new File(Main.getInstance().getDataFolder(), "keys.yml");
+    private final FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
     public static String generatorString(int length) {
         if (length < 1)
@@ -74,10 +74,7 @@ public class KeyGenerator {
     }
 
     public boolean hasPlayerKey(OfflinePlayer player) {
-        if (cfg.contains(player.getName())) {
-            return true;
-        }
-        return false;
+        return cfg.contains(player.getName());
     }
 
     /**

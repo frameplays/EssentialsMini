@@ -36,7 +36,7 @@ public class AFK implements CommandExecutor {
     private static HashMap<String, String> afkPlayerMap;
     private static HashMap<String, Long> afkTimeMap;
     private final Main plugin;
-    private HashMap<String, Location> locationMap;
+    private final HashMap<String, Location> locationMap;
 
     public AFK(Main plugin) {
         this.plugin = plugin;

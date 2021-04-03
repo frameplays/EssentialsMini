@@ -25,8 +25,8 @@ public class SleepCMD implements CommandExecutor {
 
     private final Main plugin;
 
-    private ArrayList<Location> bedLoc = new ArrayList<>();
-    private ArrayList<Material> block = new ArrayList<>();
+    private final ArrayList<Location> bedLoc = new ArrayList<>();
+    private final ArrayList<Material> block = new ArrayList<>();
 
     public SleepCMD(Main plugin) {
         this.plugin = plugin;

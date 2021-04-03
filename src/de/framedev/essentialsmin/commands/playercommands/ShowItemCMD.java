@@ -30,7 +30,7 @@ import java.util.logging.Level;
 
 public class ShowItemCMD extends CommandBase implements CommandExecutor {
 
-    private String permission = Main.getInstance().getPermissionName() + "showitem";
+    private final String permission = Main.getInstance().getPermissionName() + "showitem";
 
     private final Main plugin;
 

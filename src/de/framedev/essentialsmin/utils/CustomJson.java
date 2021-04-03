@@ -28,7 +28,7 @@ import java.util.Map;
 public class CustomJson {
 
     File file;
-    JSONObject object = getObject();
+    JSONObject object;
 
     public CustomJson(File file) {
         this.file = file;

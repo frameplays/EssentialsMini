@@ -37,7 +37,7 @@ public class RegisterCMD extends CommandBase implements CommandExecutor, Listene
 
     private final Main plugin;
 
-    private ArrayList<OfflinePlayer> registerd = new ArrayList<>();
+    private final ArrayList<OfflinePlayer> registerd = new ArrayList<>();
 
     public RegisterCMD(Main plugin) {
         super(plugin);

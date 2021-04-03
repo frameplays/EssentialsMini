@@ -26,7 +26,7 @@ public class BackCMD implements Listener, CommandExecutor {
     private final Main plugin;
 
     // death HashMap
-    private HashMap<Player, Location> deaths = new HashMap<>();
+    private final HashMap<Player, Location> deaths = new HashMap<>();
 
     public BackCMD(Main plugin) {
         this.plugin = plugin;

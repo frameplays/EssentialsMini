@@ -167,7 +167,7 @@ public class MoneySignListeners implements Listener {
 
                         int money = Integer.parseInt(args[3]);
                         if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "") && s.getLine(3).equalsIgnoreCase(money + "")) {
-                            if (eco.getBalance((OfflinePlayer)e.getPlayer()) < money) {
+                            if (eco.getBalance(e.getPlayer()) < money) {
                                 e.getPlayer().sendMessage("Not enought Money");
                                 return;
                             }
@@ -238,7 +238,7 @@ public class MoneySignListeners implements Listener {
                                 ItemStack item = new ItemStack(name);
                                 item.setAmount(amount);
                                 e.getPlayer().getInventory().removeItem(item);
-                                eco.depositPlayer((OfflinePlayer)e.getPlayer(), money);
+                                eco.depositPlayer(e.getPlayer(), money);
                                 e.getPlayer().sendMessage("§aYou sell §6" + name.name() + " §afor §6" + money);
                                 return;
                             }

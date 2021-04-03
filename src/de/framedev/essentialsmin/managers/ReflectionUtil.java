@@ -28,22 +28,22 @@ public class ReflectionUtil {
     /*
      * Cache of NMS classes that we've searched for
      */
-    private static Map<String, Class<?>> loadedNMSClasses = new HashMap<String, Class<?>>();
+    private static final Map<String, Class<?>> loadedNMSClasses = new HashMap<String, Class<?>>();
 
     /*
      * Cache of OBS classes that we've searched for
      */
-    private static Map<String, Class<?>> loadedOBCClasses = new HashMap<String, Class<?>>();
+    private static final Map<String, Class<?>> loadedOBCClasses = new HashMap<String, Class<?>>();
 
     /*
      * Cache of methods that we've found in particular classes
      */
-    private static Map<Class<?>, Map<String, Method>> loadedMethods = new HashMap<Class<?>, Map<String, Method>>();
+    private static final Map<Class<?>, Map<String, Method>> loadedMethods = new HashMap<Class<?>, Map<String, Method>>();
 
     /*
      * Cache of fields that we've found in particular classes
      */
-    private static Map<Class<?>, Map<String, Field>> loadedFields = new HashMap<Class<?>, Map<String, Field>>();
+    private static final Map<Class<?>, Map<String, Field>> loadedFields = new HashMap<Class<?>, Map<String, Field>>();
 
     /**
      * Gets the version string for NMS & OBC class paths

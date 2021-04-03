@@ -26,10 +26,7 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public boolean isEnabled() {
-        if (Main.getInstance() != null) {
-            return true;
-        }
-        return false;
+        return Main.getInstance() != null;
     }
 
     @Override
@@ -92,15 +89,10 @@ public class VaultAPI extends AbstractEconomy {
         File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         if (Bukkit.getServer().getOnlineMode()) {
-            if (cfg.getStringList("accounts").contains(Bukkit.getOfflinePlayer(s).getUniqueId().toString())) {
-                return true;
-            }
+            return cfg.getStringList("accounts").contains(Bukkit.getOfflinePlayer(s).getUniqueId().toString());
         } else {
-            if (cfg.getStringList("accounts").contains(Bukkit.getOfflinePlayer(s).getName())) {
-                return true;
-            }
+            return cfg.getStringList("accounts").contains(Bukkit.getOfflinePlayer(s).getName());
         }
-        return false;
     }
 
     @Override
@@ -144,10 +136,7 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public boolean has(String s, double v) {
-        if (getBalance(s) < v) {
-            return false;
-        }
-        return true;
+        return !(getBalance(s) < v);
     }
 
     @Override

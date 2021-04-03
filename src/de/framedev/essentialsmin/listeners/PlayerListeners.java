@@ -10,13 +10,10 @@ package de.framedev.essentialsmin.listeners;
  */
 
 import de.framedev.essentialsmin.main.Main;
-import de.framedev.essentialsmin.managers.BackendManager;
 import de.framedev.essentialsmin.managers.LocationsManager;
 import de.framedev.essentialsmin.managers.PlayerManager;
 import de.framedev.essentialsmin.managers.PlayerManagerCfgLoss;
-import de.framedev.essentialsmin.utils.JsonHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,15 +24,15 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.regex.Matcher;
-import java.util.stream.Stream;
+
 import static de.framedev.essentialsmin.managers.BackendManager.DATA;
 
 public class PlayerListeners implements Listener {
@@ -45,7 +42,7 @@ public class PlayerListeners implements Listener {
     private final boolean jsonFormat;
     private final String permissionBase;
 
-    private boolean onlyEssentialsFeatures;
+    private final boolean onlyEssentialsFeatures;
 
     public PlayerListeners(Main plugin) {
         this.plugin = plugin;
@@ -71,8 +68,8 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if(plugin.getVaultManager() != null && plugin.getVaultManager().getEco() != null) {
-            if(plugin.isMongoDb()) {
+        if (plugin.getVaultManager() != null && plugin.getVaultManager().getEco() != null) {
+            if (plugin.isMongoDb()) {
                 if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
                     if (plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
                         plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), "test");
@@ -138,8 +135,8 @@ public class PlayerListeners implements Listener {
                         try {
                             if (!plugin.getCfgLossHashMap()
                                     .containsKey(event.getPlayer())) {
-                                if(plugin.isMysql()) {
-                                    if(PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
+                                if (plugin.isMysql()) {
+                                    if (PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
                                         plugin.getCfgLossHashMap()
                                                 .put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
                                         plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
@@ -159,8 +156,8 @@ public class PlayerListeners implements Listener {
                         } catch (FileNotFoundException e) {
                             if (!plugin.getCfgLossHashMap()
                                     .containsKey(event.getPlayer())) {
-                                if(plugin.isMysql()) {
-                                    if(PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
+                                if (plugin.isMysql()) {
+                                    if (PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
                                         plugin.getCfgLossHashMap()
                                                 .put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
                                     } else {
@@ -207,6 +204,7 @@ public class PlayerListeners implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (isEnabled() && !onlyEssentialsFeatures) {
             plugin.addOfflinePlayer(event.getPlayer());
+            System.out.println(plugin.getOfflinePlayers());
             plugin.savePlayers();
             if (!isJsonFormat()) {
                 new PlayerManager(event.getPlayer()
@@ -224,7 +222,7 @@ public class PlayerListeners implements Listener {
                             .get(event.getPlayer())
                             .savePlayerManager();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
-                    if(plugin.isMysql()) {
+                    if (plugin.isMysql()) {
                         plugin.getCfgLossHashMap()
                                 .get(event.getPlayer())
                                 .setLastLogout(System.currentTimeMillis());
@@ -292,7 +290,7 @@ public class PlayerListeners implements Listener {
                             .get(event.getPlayer())
                             .savePlayerManager();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
-                    if(plugin.isMysql()) {
+                    if (plugin.isMysql()) {
                         plugin.getCfgLossHashMap()
                                 .get(event.getPlayer())
                                 .setLastLogout(System.currentTimeMillis());
@@ -417,9 +415,9 @@ public class PlayerListeners implements Listener {
                 }
                 if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
                     if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                        int deaths = (int) plugin.getBackendManager().get((Player)event.getEntity(), DATA.DEATHS.getName(), "test");
+                        int deaths = (int) plugin.getBackendManager().get((Player) event.getEntity(), DATA.DEATHS.getName(), "test");
                         deaths++;
-                        plugin.getBackendManager().updateUser((Player)event.getEntity(), DATA.DEATHS.getName(), deaths, "test");
+                        plugin.getBackendManager().updateUser((Player) event.getEntity(), DATA.DEATHS.getName(), deaths, "test");
                     }
                 }
             }
@@ -428,7 +426,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        if(isEnabled() && !onlyEssentialsFeatures) {
+        if (isEnabled() && !onlyEssentialsFeatures) {
             if (isJsonFormat()) {
                 if (plugin.getCfgLossHashMap()
                         .containsKey(event.getPlayer())) {
@@ -459,7 +457,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if(isEnabled() && !onlyEssentialsFeatures) {
+        if (isEnabled() && !onlyEssentialsFeatures) {
             if (isJsonFormat()) {
                 if (plugin.getCfgLossHashMap()
                         .containsKey(event.getPlayer())) {
@@ -490,7 +488,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onCommandUsed(PlayerCommandPreprocessEvent event) {
-        if(isEnabled() && !onlyEssentialsFeatures) {
+        if (isEnabled() && !onlyEssentialsFeatures) {
             if (isJsonFormat()) {
                 if (plugin.getCfgLossHashMap()
                         .containsKey(event.getPlayer())) {

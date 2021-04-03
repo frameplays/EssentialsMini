@@ -13,9 +13,13 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.MerchantRecipe;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,7 +34,7 @@ public class EssentialsMiniAPI {
     private final Main plugin;
     private static  EssentialsMiniAPI essentialsMiniAPI;
     private final boolean jsonFormat;
-    private boolean economy;
+    private final boolean economy;
 
     public EssentialsMiniAPI() {
         this.plugin = Main.getInstance();
@@ -343,5 +347,21 @@ public class EssentialsMiniAPI {
 
     public String toJson(Object obj) {
         return new GsonBuilder().setPrettyPrinting().create().toJson(obj);
+    }
+
+    public Villager villagerCreate(Player player) {
+        Villager villager = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
+        ArrayList<MerchantRecipe> recipes = new ArrayList<>();
+        MerchantRecipe recipe = new MerchantRecipe(new ItemBuilder(Material.STICK).setAmount(1).setDisplayName("§aParty!").addEnchantment(Enchantment.KNOCKBACK, 10, true).build(), Integer.MAX_VALUE);
+        ItemStack stack = new ItemStack(Material.STICK);
+        stack.setAmount(2);
+        recipe.addIngredient(stack);
+        villager.setProfession(Villager.Profession.ARMORER);
+        villager.setVillagerExperience(1);
+        recipes.add(recipe);
+        villager.setRecipes(recipes);
+        villager.setVillagerLevel(1);
+        villager.setVillagerType(Villager.Type.DESERT);
+        return villager;
     }
 }

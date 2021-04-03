@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class YAMLConfigurator {
 
-    private HashMap<String, Object> data = getConfig();
+    private HashMap<String, Object> data;
 
     String fileName;
 
@@ -44,47 +44,56 @@ public class YAMLConfigurator {
     }
 
     public void setDefaults(HashMap<String,Object> defaults) {
+        data = getConfig();
         data.putAll(defaults);
     }
     public void addDefault(String path, Object value) {
+        data = getConfig();
         data.put(path, value);
     }
 
     public void set(String path, Object value) {
+        data = getConfig();
         data.put(path, value);
     }
 
     public int getInt(String path) {
+        data = getConfig();
         if (data.containsKey(path))
             return Integer.parseInt(String.valueOf(data.get(path)));
         return 0;
     }
 
     public double getDouble(String path) {
+        data = getConfig();
         if (data.containsKey(path))
             return Double.parseDouble(String.valueOf(data.get(path)));
         return 0d;
     }
 
     public Object get(String path) {
+        data = getConfig();
         if (data.containsKey(path))
             return data.get(path);
         return null;
     }
 
     public String getString(String path) {
+        data = getConfig();
         if (data.containsKey(path))
             return (String) data.get(path);
         return null;
     }
 
     public boolean getBoolean(String path) {
+        data = getConfig();
         if (data.containsKey(path))
             return Boolean.parseBoolean(String.valueOf(data.get(path)));
         return false;
     }
 
     public boolean isInteger(String path) {
+        data = getConfig();
         if (data.containsKey(path)) {
             try {
                 Integer.parseInt(String.valueOf(data.get(path)));
@@ -97,6 +106,7 @@ public class YAMLConfigurator {
     }
 
     public boolean isDouble(String path) {
+        data = getConfig();
         if (data.containsKey(path)) {
             try {
                 Double.parseDouble(String.valueOf(data.get(path)));
@@ -108,6 +118,7 @@ public class YAMLConfigurator {
     }
 
     public boolean contains(String path) {
+        data = getConfig();
         return data.containsKey(path);
     }
 
@@ -144,6 +155,7 @@ public class YAMLConfigurator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        data = getConfig();
     }
 
     @Override

@@ -317,7 +317,7 @@ public class LocationsManager {
         }
     }
 
-    private HashMap<String, String> backups = new HashMap<>();
+    private final HashMap<String, String> backups = new HashMap<>();
 
     public void saveBackup() {
         for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
@@ -329,6 +329,9 @@ public class LocationsManager {
                         if (getCfg().get(ss + ".home." + s) != null && !getCfg().get(ss + ".home." + s).equals(" ")) {
                             cfgBackup.set(ss + ".home." + s, locationToString(getLocation(ss + ".home." + s)));
                             backups.put(ss + ".home." + s,locationToString(getLocation(ss + ".home." + s)));
+
+                            /* Test */
+                            new Locations(ss + ".home." + s,getLocation(ss + ".home." + s)).setLocation();
                         }
                     }
                 }

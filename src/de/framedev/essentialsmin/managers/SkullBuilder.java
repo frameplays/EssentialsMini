@@ -22,7 +22,7 @@ public class SkullBuilder {
     private final String skullOwner;
     private String displayName;
     private final OfflinePlayer player;
-    private ItemStack itemStack;
+    private final ItemStack itemStack;
 
     @Deprecated
     public SkullBuilder(String skullOwner) {

@@ -38,7 +38,7 @@ public class WarpCMD implements CommandExecutor, TabCompleter {
         plugin.getCommands().put("delwarp", this);
     }
 
-    private LocationsManager locationsManager = new LocationsManager();
+    private final LocationsManager locationsManager = new LocationsManager();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

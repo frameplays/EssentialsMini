@@ -11,6 +11,7 @@ package de.framedev.essentialsmin.managers;
  */
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -42,7 +43,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setDisplayName(String displayName) {
-        if(itemMeta == null) {
+        if (itemMeta == null) {
             return null;
         }
         this.itemMeta.setDisplayName(displayName);
@@ -50,20 +51,20 @@ public class ItemBuilder {
     }
 
     public String getDisplayName() {
-        if(itemMeta == null) {
+        if (itemMeta == null) {
             return null;
         }
         return this.itemMeta.getDisplayName();
     }
 
     public ItemBuilder setLore(String... lore) {
-        if(itemMeta == null) return null;
+        if (itemMeta == null) return null;
         this.itemMeta.setLore(Arrays.asList(lore));
         return this;
     }
 
     public List<String> getLore() {
-        if(itemMeta == null) return null;
+        if (itemMeta == null) return null;
         return this.itemMeta.getLore();
     }
 
@@ -73,19 +74,19 @@ public class ItemBuilder {
     }
 
     public int getAmount() {
-        if(itemStack == null) return 0;
+        if (itemStack == null) return 0;
         return itemStack.getAmount();
     }
 
     public ItemBuilder addLore(String str) {
-        if(this.itemMeta == null) return null;
-        if(!this.itemMeta.hasLore()) {
+        if (this.itemMeta == null) return null;
+        if (!this.itemMeta.hasLore()) {
             List<String> lore = new ArrayList<>();
             lore.add(str);
             this.itemMeta.setLore(lore);
         } else {
             List<String> lore = this.itemMeta.getLore();
-            if(this.itemMeta.getLore() != null) {
+            if (this.itemMeta.getLore() != null) {
                 lore.add(str);
                 this.itemMeta.setLore(lore);
             } else {
@@ -98,20 +99,26 @@ public class ItemBuilder {
     }
 
     public Material getMaterial() {
-        if(this.itemStack == null) return null;
+        if (this.itemStack == null) return null;
         return this.itemStack.getType();
     }
 
     public String getLore(int index) {
-        if(this.itemMeta == null) return null;
-        if(this.itemMeta.hasLore() && this.itemMeta.getLore() != null) {
+        if (this.itemMeta == null) return null;
+        if (this.itemMeta.hasLore() && this.itemMeta.getLore() != null) {
             return this.itemMeta.getLore().get(index);
         }
         return null;
     }
 
+    public ItemBuilder addEnchantment(Enchantment enchantment, int level, boolean ignore) {
+        if (this.itemMeta == null) return null;
+        itemMeta.addEnchant(enchantment, level, ignore);
+        return this;
+    }
+
     public ItemStack build() {
-        if(this.itemMeta == null) {
+        if (this.itemMeta == null) {
             return itemStack;
         }
         this.itemStack.setItemMeta(itemMeta);

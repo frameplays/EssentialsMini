@@ -41,7 +41,7 @@ public class KitManager {
             Main.getInstance().saveResource("kits.yml", false);
         }
 
-        customConfig = (FileConfiguration) new YamlConfiguration();
+        customConfig = new YamlConfiguration();
         try {
             customConfig.load(customConfigFile);
         } catch (IOException | org.bukkit.configuration.InvalidConfigurationException e) {
