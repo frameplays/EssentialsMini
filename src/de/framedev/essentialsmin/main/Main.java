@@ -69,8 +69,6 @@ public class Main extends JavaPlugin {
 
     public ArrayList<String> players;
 
-    private final HashMap<UUID, BukkitTask> saver = new HashMap<>();
-
     /* MongoDB */
     private MongoManager mongoManager;
     private BackendManager backendManager;
@@ -191,6 +189,7 @@ public class Main extends JavaPlugin {
                 backendManager.createUserMoney(player,"test");
             }
         }
+        /* MongoDB Finish */
 
         // Load Enchantments
         EnchantCMD.Enchantments.load();
@@ -309,7 +308,7 @@ public class Main extends JavaPlugin {
             this.offlinePlayers = getJson();
         } else {
             this.offlinePlayers = new ArrayList<>();
-            offlinePlayers.add("Kleckser253");
+            offlinePlayers.add("FramePlays");
             savePlayers();
         }
         if(isMysql() && getConfig().getBoolean("PlayerInfoSave")) {
@@ -340,10 +339,57 @@ public class Main extends JavaPlugin {
         info.saveConfig();
     }
 
+    @Override
+    public void onDisable() {
+        if (this.getConfig().getBoolean("SaveInventory")) {
+            SaveInventoryCMD.save();
+        }
+        if (!BackpackCMD.itemsStringHashMap.isEmpty()) {
+            if (getConfig().getBoolean("Backpack")) {
+                for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                    BackpackCMD.save(offlinePlayer);
+                }
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    BackpackCMD.save(onlinePlayer);
+                }
+            }
+        }
+        if (getConfig().getBoolean("LocationsBackup")) {
+            new LocationsManager().saveBackup();
+        }
+        new LocationsManager().deleteLocations();
+        if(!getCfgLossHashMap().isEmpty()) {
+            getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
+                if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
+                    if(isMysql())
+                        playerManagerCfgLoss.savePlayerData(player);
+                    playerManagerCfgLoss.savePlayerManager();
+                }
+            });
+        }
+        new SaveLists().saveVanishList();
+        if (!VanishCMD.hided.isEmpty()) {
+            VanishCMD.hided.forEach(players -> {
+                if (Bukkit.getPlayer(players) != null) {
+                    Bukkit.getPlayer(players).sendMessage(getPrefix() + "§cNach dem Reload wirst du nicht mehr im Vanish sein!");
+                }
+            });
+        }
+        savePlayers();
+    }
+
+    /**
+     *
+     * @return the List of PlayerNames they are set to Silent
+     */
     public static ArrayList<String> getSilent() {
         return silent;
     }
 
+    /**
+     *
+     * @param data the Data to Debugging
+     */
     public void debug(Object data) {
         System.out.println(data);
     }
@@ -564,44 +610,6 @@ public class Main extends JavaPlugin {
         return "essentialsmini.";
     }
 
-    @Override
-    public void onDisable() {
-        if (this.getConfig().getBoolean("SaveInventory")) {
-            SaveInventoryCMD.save();
-        }
-        if (!BackpackCMD.itemsStringHashMap.isEmpty()) {
-            if (getConfig().getBoolean("Backpack")) {
-                for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-                    BackpackCMD.save(offlinePlayer);
-                }
-                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                    BackpackCMD.save(onlinePlayer);
-                }
-            }
-        }
-        if (getConfig().getBoolean("LocationsBackup")) {
-            new LocationsManager().saveBackup();
-        }
-        new LocationsManager().deleteLocations();
-        if(!getCfgLossHashMap().isEmpty()) {
-            getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
-                if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
-                    if(isMysql())
-                        playerManagerCfgLoss.savePlayerData(player);
-                    playerManagerCfgLoss.savePlayerManager();
-                }
-            });
-        }
-        new SaveLists().saveVanishList();
-        if (!VanishCMD.hided.isEmpty()) {
-            VanishCMD.hided.forEach(players -> {
-                if (Bukkit.getPlayer(players) != null) {
-                    Bukkit.getPlayer(players).sendMessage(getPrefix() + "§cNach dem Reload wirst du nicht mehr im Vanish sein!");
-                }
-            });
-        }
-        savePlayers();
-    }
 
     /**
      * @return the TabCompleters
