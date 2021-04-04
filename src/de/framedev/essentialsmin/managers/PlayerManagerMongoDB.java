@@ -30,6 +30,8 @@ public class PlayerManagerMongoDB {
     private int deaths;
     private List<String> blocksBroken;
     private List<String> blocksPlacen;
+    private int blockBroken;
+    private int blockPlacen;
     private int commandsUsed;
     private String key;
     private int sleepTimes;
@@ -39,7 +41,7 @@ public class PlayerManagerMongoDB {
     private String lastLogin;
     private String lastLogout;
 
-    public PlayerManagerMongoDB(UUID uuid, String name, double money, double bank, int kills, double damage, int entityKills, int deaths, List<String> blocksBroken, List<String> blocksPlacen, int commandsUsed, String key, int sleepTimes, List<String> entityTypes, boolean offline, String createDate, String lastLogin, String lastLogout) {
+    public PlayerManagerMongoDB(UUID uuid, String name, double money, double bank, int kills, double damage, int entityKills, int deaths, List<String> blocksBroken, List<String> blocksPlacen, int blockBroken, int blockPlacen, int commandsUsed, String key, int sleepTimes, List<String> entityTypes, boolean offline, String createDate, String lastLogin, String lastLogout) {
         this.uuid = uuid;
         this.name = name;
         this.money = money;
@@ -50,6 +52,8 @@ public class PlayerManagerMongoDB {
         this.deaths = deaths;
         this.blocksBroken = blocksBroken;
         this.blocksPlacen = blocksPlacen;
+        this.blockBroken = blockBroken;
+        this.blockPlacen = blockPlacen;
         this.commandsUsed = commandsUsed;
         this.key = key;
         this.sleepTimes = sleepTimes;
@@ -213,6 +217,22 @@ public class PlayerManagerMongoDB {
 
     public long getLastLogout() {
         return Long.parseLong(lastLogout);
+    }
+
+    public int getBlockBroken() {
+        return blockBroken;
+    }
+
+    public void setBlockBroken(int blockBroken) {
+        this.blockBroken = blockBroken;
+    }
+
+    public int getBlockPlacen() {
+        return blockPlacen;
+    }
+
+    public void setBlockPlacen(int blockPlacen) {
+        this.blockPlacen = blockPlacen;
     }
 
     public static PlayerManagerMongoDB getPlayerManager(String playerName, String collection) {

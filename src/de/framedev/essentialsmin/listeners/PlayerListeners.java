@@ -187,6 +187,7 @@ public class PlayerListeners implements Listener {
                     plugin.getBackendManager().createUserMoney(event.getPlayer(), "test");
                     plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogin", System.currentTimeMillis() + "", "test");
                     plugin.getBackendManager().updateUser(event.getPlayer(), "offline", false, "test");
+                    PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),"test").save("test");
                 }
             }
 
@@ -450,6 +451,9 @@ public class PlayerListeners implements Listener {
                         materis.add(event.getBlock().getType().name());
                         plugin.getBackendManager().updateUser(event.getPlayer(), "blocksBroken", materis, "test");
                     }
+                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),"test");
+                    pl.setBlockBroken(pl.getBlockBroken() + 1);
+                    pl.save("test");
                 }
             }
         }
@@ -481,6 +485,9 @@ public class PlayerListeners implements Listener {
                         materis.add(event.getBlock().getType().name());
                         plugin.getBackendManager().updateUser(event.getPlayer(), "blocksPlacen", materis, "test");
                     }
+                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),"test");
+                    pl.setBlockPlacen(pl.getBlockPlacen() + 1);
+                    pl.save("test");
                 }
             }
         }

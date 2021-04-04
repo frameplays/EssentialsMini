@@ -127,8 +127,8 @@ public class PlayerDataCMD implements CommandExecutor {
                     sender.sendMessage("§aDamage : §6" + playerManager.getDamage());
                     sender.sendMessage("§aDeaths : §6" + playerManager.getDeaths());
                     sender.sendMessage("§aCommandsUsed : §6" + playerManager.getCommandsUsed());
-                    sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlocksBroken().size());
-                    sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlocksPlacen().size());
+                    sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlockBroken());
+                    sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlockPlacen());
                 }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/playerdata <PlayerName>"));

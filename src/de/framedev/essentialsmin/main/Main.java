@@ -28,7 +28,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.*;
 import java.net.URL;
@@ -206,7 +205,7 @@ public class Main extends JavaPlugin {
         /* Thread for the Schedulers for save restart and .... */
         if (!getConfig().getBoolean("OnlyEssentialsFeatures"))
             thread = new Thread(new UpdateScheduler());
-        if(thread != null)
+        if (thread != null)
             thread.start();
 
         if (this.getConfig().getBoolean("SaveInventory")) {
@@ -335,7 +334,7 @@ public class Main extends JavaPlugin {
             }
         }
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
-        checkUpdate();
+        checkUpdate(getConfig().getBoolean("AutoDownload"));
         info.set("MongoDB", isMongoDb());
         info.set("MySQL", isMysql());
         info.set("isOnlineMode", getVariables().isOnlineMode());
@@ -381,12 +380,12 @@ public class Main extends JavaPlugin {
             });
         }
         savePlayers();
-        if(false) {
+        if (false) {
             CustomJson json = new CustomJson("playersss");
             json.set("Offline", offlinePlayers);
             json.saveConfig();
         }
-        if(thread.isAlive())
+        if (thread != null && thread.isAlive())
             thread.getThreadGroup().destroy();
     }
 
@@ -595,7 +594,7 @@ public class Main extends JavaPlugin {
         return homeTP;
     }
 
-    public void checkUpdate() {
+    public boolean checkUpdate(boolean download) {
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Checking for updates...");
         try {
             int resource = 82775;
@@ -604,13 +603,27 @@ public class Main extends JavaPlugin {
             String oldVersion = Main.getInstance().getDescription().getVersion();
             String newVersion = br.readLine();
             if (!newVersion.equalsIgnoreCase(oldVersion)) {
+                if (download) {
+                    downloadLatest();
+                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "Latest Version will be Downloaded");
+                }
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
+                return true;
             } else {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
             }
         } catch (IOException e) {
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on spigotmc.org");
         }
+        return false;
+    }
+
+    public void downloadLatest() {
+        final File pluginFile = getDataFolder().getParentFile();
+        final File updaterFile = new File(pluginFile, "update");
+        if (!updaterFile.exists())
+            updaterFile.mkdir();
+        new UpdateChecker().download("https://framedev.stream/downloads/EssentialsMini-Latest.jar", getServer().getUpdateFolder(), "EssentialsMini.jar");
     }
 
     public MaterialManager getMaterialManager() {

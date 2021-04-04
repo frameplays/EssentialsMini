@@ -79,3 +79,4 @@ AFK:
   IsAFK: '&7[Player] is now AFK'
   IsNotAFK: '&7[Player] is no longer AFK'
 NotAllowCommand: '&cNope'
+AutoDownload: false

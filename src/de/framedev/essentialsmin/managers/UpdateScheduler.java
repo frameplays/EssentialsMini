@@ -11,6 +11,7 @@ package de.framedev.essentialsmin.managers;
 
 import de.framedev.essentialsmin.main.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class UpdateScheduler implements Runnable {
@@ -31,7 +32,7 @@ public class UpdateScheduler implements Runnable {
                 } else {
                     s[0] = false;
                 }
-                if(Main.getInstance().getConfig().getBoolean("PlayerInfoSave")) {
+                if (Main.getInstance().getConfig().getBoolean("PlayerInfoSave")) {
                     Main.getInstance().getCfgLossHashMap().forEach((player, playerManagerCfgLoss) -> {
                         if (playerManagerCfgLoss.getName().equalsIgnoreCase(player.getName())) {
                             playerManagerCfgLoss.savePlayerManager();
@@ -45,7 +46,7 @@ public class UpdateScheduler implements Runnable {
                 } else {
                     s[2] = false;
                 }
-                if(s[0] == false && s[1] == false && s[2] == false) {
+                if (s[0] == false && s[1] == false && s[2] == false) {
                     cancel();
                 }
             }

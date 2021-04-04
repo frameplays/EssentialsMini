@@ -221,7 +221,7 @@ public class EssentialsMiniAPI {
         }
     }
 
-    public void getPlayersBackpack(Player player,OfflinePlayer target) {
+    public void openPlayersBackpack(Player player,OfflinePlayer target) {
         Inventory inventory = Bukkit.createInventory(null, 3 * 9, target.getName() + "'s Inventory");
         if (BackpackCMD.itemsStringHashMap.containsKey(target.getUniqueId().toString())) {
             try {

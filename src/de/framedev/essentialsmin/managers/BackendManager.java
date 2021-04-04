@@ -27,6 +27,8 @@ public class BackendManager {
         DEATHS("deaths"),
         BLOCKSBROKEN("blocksBroken"),
         BLOCKSPLACEN("blocksPlacen"),
+        BLOCKBROKEN("blockBroken"),
+        BLOCKPLACEN("blockPlacen"),
         COMMANDSUSED("commandsUsed"),
         KEY("key"),
         ENTITYTYPES("entityTypes"),
@@ -67,6 +69,8 @@ public class BackendManager {
                         .append("deaths", 0)
                         .append("blocksBroken", new ArrayList<String>())
                         .append("blocksPlacen", new ArrayList<String>())
+                        .append("blockBroken", 0)
+                        .append("blockPlacen", 0)
                         .append("commandsUsed", 0)
                         .append("key", null)
                         .append("entityTypes", new ArrayList<String>())
@@ -92,6 +96,8 @@ public class BackendManager {
                         .append("deaths", 0)
                         .append("blocksBroken", new ArrayList<String>())
                         .append("blocksPlacen", new ArrayList<String>())
+                        .append("blockBroken", 0)
+                        .append("blockPlacen", 0)
                         .append("commandsUsed", 0)
                         .append("key", null)
                         .append("entityTypes", new ArrayList<String>())
@@ -165,6 +171,18 @@ public class BackendManager {
         }
     }
 
+    public void insertData(OfflinePlayer player, String where, Object data, String collection) {
+        if (existsCollection(collection)) {
+            String uuid = player.getUniqueId().toString();
+            MongoCollection<Document> collections = this.plugin.getMongoManager().getDatabase().getCollection(collection);
+            Document document = collections.find(new Document("uuid", uuid)).first();
+            if (document != null) {
+                collections.updateOne(new Document("uuid", uuid),
+                        new Document("$set", new Document(where, data)));
+            }
+        }
+    }
+
     public Object get(OfflinePlayer player, String where, String collection) {
         if (existsCollection(collection)) {
             MongoCollection<Document> mongoCollection = this.plugin.getMongoManager().getDatabase().getCollection(collection);
@@ -182,6 +200,25 @@ public class BackendManager {
         Document document = collections.find(new Document("uuid", uuid)).first();
         if (document != null) {
             return document.get(where);
+        }
+        return null;
+    }
+
+    public Object getObject(String selected, String where, Object data, String collection) {
+        if (existsCollection(collection)) {
+            MongoCollection<Document> mongoCollection = this.plugin.getMongoManager().getDatabase().getCollection(collection);
+            Document document1 = mongoCollection.find(new Document(where, data)).first();
+            if (document1 != null) {
+                return document1.get(selected);
+            }
+            return null;
+        }
+        this.plugin.getMongoManager().getDatabase().createCollection(collection);
+        MongoCollection<Document> collections = this.plugin.getMongoManager().getDatabase().getCollection(collection);
+        collections.insertOne(new Document());
+        Document document = collections.find(new Document(where, data)).first();
+        if (document != null) {
+            return document.get(selected);
         }
         return null;
     }
