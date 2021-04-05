@@ -597,8 +597,7 @@ public class Main extends JavaPlugin {
     public boolean checkUpdate(boolean download) {
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Checking for updates...");
         try {
-            int resource = 82775;
-            URLConnection conn = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + resource).openConnection();
+            URLConnection conn = new URL("https://framedev.stream/sites/downloads/essentialsminiversion.txt").openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String oldVersion = Main.getInstance().getDescription().getVersion();
             String newVersion = br.readLine();

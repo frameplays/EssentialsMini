@@ -1,9 +1,7 @@
 package de.framedev.essentialsmin.api;
 
 import com.google.gson.GsonBuilder;
-import de.framedev.essentialsmin.commands.playercommands.BackpackCMD;
-import de.framedev.essentialsmin.commands.playercommands.GameModeCMD;
-import de.framedev.essentialsmin.commands.playercommands.RegisterCMD;
+import de.framedev.essentialsmin.commands.playercommands.*;
 import de.framedev.essentialsmin.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.*;
@@ -53,6 +51,14 @@ public class EssentialsMiniAPI {
 
     public static EssentialsMiniAPI getInstance() {
         return essentialsMiniAPI;
+    }
+
+    public boolean isPlayerVanish(Player player) {
+        return VanishCMD.hided.contains(player);
+    }
+
+    public boolean isPlayerSilent(Player player) {
+        return Main.getSilent().contains(player);
     }
 
     public boolean hasPlayerKey(OfflinePlayer player) {
