@@ -5,6 +5,7 @@
 package de.framedev.essentialsmin.commands.playercommands;
 
 import de.framedev.essentialsmin.main.Main;
+import lombok.NonNull;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -15,7 +16,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -45,7 +45,7 @@ public class TeleportCMD implements CommandExecutor, Listener {
     private final ArrayList<Player> tpToggle = new ArrayList<>();
 
     @Override
-    public boolean onCommand(@Nonnull CommandSender sender, Command command, @Nonnull String label, @Nonnull String[] args) {
+    public boolean onCommand(@NonNull CommandSender sender, Command command, @NonNull String label, @NonNull String[] args) {
         if(command.getName().equalsIgnoreCase("tptoggle")) {
             if(sender instanceof Player) {
                 Player player = (Player) sender;

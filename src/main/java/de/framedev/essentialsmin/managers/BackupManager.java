@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-import static org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils.copyFile;
+import static org.apache.commons.io.FileUtils.copyFile;
 
 public class BackupManager {
 

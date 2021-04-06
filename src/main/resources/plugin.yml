@@ -87,8 +87,6 @@ commands:
     description: killall monsters,items,animals
   suicid:
     description: make suicid
-  showitem:
-    description: show other player your item
   showcrafting:
     description: shows you the Crafting from the Item you have entered as args
   signitem:

@@ -90,9 +90,6 @@ public class RegisterManager {
         if (plugin.getConfig().getBoolean("SaveInventory")) {
             new SaveInventoryCMD(plugin);
         }
-        if (Bukkit.getServer().getVersion().contains("MC: 1.16.1")) {
-            new ShowItemCMD(plugin);
-        }
         new ShowCraftingCMD(plugin);
         new SignItemCMD(plugin);
         new WorldTPCMD(plugin);

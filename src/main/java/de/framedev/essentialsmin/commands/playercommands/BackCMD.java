@@ -2,6 +2,7 @@ package de.framedev.essentialsmin.commands.playercommands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.utils.TextUtils;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,7 +37,7 @@ public class BackCMD implements Listener, CommandExecutor {
 
     //Test
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NonNull CommandSender sender, Command command, String label, String[] args) {
         if(command.getName().equalsIgnoreCase("back")) {
             if(plugin.getConfig().getBoolean("Back")) {
                 if (sender instanceof Player) {

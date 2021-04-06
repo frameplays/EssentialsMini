@@ -11,7 +11,6 @@ package de.framedev.essentialsmin.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.internal.LinkedTreeMap;
 import de.framedev.essentialsmin.main.Main;
 import org.json.simple.JSONObject;

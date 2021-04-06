@@ -3,7 +3,6 @@ package de.framedev.essentialsmin.managers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.mysql.fabric.xmlrpc.base.Array;
 import de.framedev.essentialsmin.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,9 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 public class KitManager {

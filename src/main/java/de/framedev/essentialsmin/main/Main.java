@@ -6,7 +6,6 @@ package de.framedev.essentialsmin.main;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.istack.internal.NotNull;
 import de.framedev.essentialsmin.api.EssentialsMiniAPI;
 import de.framedev.essentialsmin.commands.playercommands.BackpackCMD;
 import de.framedev.essentialsmin.commands.playercommands.EnchantCMD;
@@ -668,7 +667,7 @@ public class Main extends JavaPlugin {
         return prefix;
     }
 
-    public boolean hasNewUpdate(@NotNull Player player) {
+    public boolean hasNewUpdate(Player player) {
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             if (player.hasPermission("essentialsmini.checkupdates")) {
                 try {

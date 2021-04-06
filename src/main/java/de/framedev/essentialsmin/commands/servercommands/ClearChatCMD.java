@@ -6,8 +6,7 @@ import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-
-import javax.annotation.Nonnull;
+import lombok.NonNull;
 
 /**
  * This Plugin was Created by FrameDev
@@ -27,7 +26,7 @@ public class ClearChatCMD extends CommandBase {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+    public boolean onCommand(CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
         if(sender.hasPermission(plugin.getPermissionName() + "chatclear")) {
             clearChat(sender);
         } else {

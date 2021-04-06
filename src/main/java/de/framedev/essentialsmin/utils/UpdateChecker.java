@@ -1,7 +1,5 @@
 package de.framedev.essentialsmin.utils;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
