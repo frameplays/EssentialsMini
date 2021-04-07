@@ -23,6 +23,7 @@ import java.util.List;
  * Copyrighted by FrameDev
  */
 public class VaultAPI extends AbstractEconomy {
+    private String collection = "essentialsmini_data";
 
     @Override
     public boolean isEnabled() {
@@ -107,8 +108,8 @@ public class VaultAPI extends AbstractEconomy {
         if (Main.getInstance().isMysql()) {
             return new MySQLManager().getMoney(Bukkit.getOfflinePlayer(s));
         } else if (Main.getInstance().isMongoDb()) {
-            if (Main.getInstance().getBackendManager().get(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), "test") != null)
-                return (double) Main.getInstance().getBackendManager().get(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), "test");
+            if (Main.getInstance().getBackendManager().get(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), collection) != null)
+                return (double) Main.getInstance().getBackendManager().get(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), collection);
             return 0d;
         } else {
             if (Bukkit.getServer().getOnlineMode()) {
@@ -156,7 +157,7 @@ public class VaultAPI extends AbstractEconomy {
             if (Main.getInstance().isMysql()) {
                 new MySQLManager().removeMoney(Bukkit.getOfflinePlayer(s), v);
             } else if (Main.getInstance().isMongoDb()) {
-                Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), balance, "test");
+                Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), balance, collection);
             } else {
                 File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
                 FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
@@ -192,7 +193,7 @@ public class VaultAPI extends AbstractEconomy {
         if (Main.getInstance().isMysql()) {
             new MySQLManager().addMoney(Bukkit.getOfflinePlayer(s), v);
         } else if (Main.getInstance().isMongoDb()) {
-            Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), balance, "test");
+            Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(s), BackendManager.DATA.MONEY.getName(), balance, collection);
         } else {
             File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
             FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);

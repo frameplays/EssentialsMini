@@ -343,8 +343,8 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                 if (sender instanceof Player) {
                     String name = args[0].toLowerCase();
                     if(plugin.getConfig().getBoolean("JsonFormat")) {
-                        if (new LocationsManager().getLocation(sender.getName() + ".home." + name) != null) {
-                            new LocationsManager().setLocation(sender.getName() + ".home." + name, new LocationsManager.LocationJson());
+                        if (new LocationsManager().getLocation(sender.getName() + ".home." + name) != null && new LocationsManager().existsHome(sender.getName() + ".home." + name)) {
+                            new LocationsManager().removeLocation(sender.getName() + ".home." + name);
                             sender.sendMessage(plugin.getPrefix() + "§aDein Home mit dem Namen §6" + name + " §awurde §centfernt!");
                             homes.clear();
                         } else {
@@ -384,8 +384,8 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
                     String name = args[0];
                     if(plugin.getConfig().getBoolean("JsonFormat")) {
-                        if(new LocationsManager().getLocation(target.getName() + ".home." + name) != null) {
-                            new LocationsManager().setLocation(target.getName() + ".home." + name, new LocationsManager.LocationJson());
+                        if(new LocationsManager().getLocation(target.getName() + ".home." + name) != null && new LocationsManager().existsHome(target.getName() + ".home." + name)) {
+                            new LocationsManager().removeLocation(target.getName() + ".home." + name);
                             sender.sendMessage(plugin.getPrefix() + "§aDen Home von §6" + target.getName() + " §amit dem Namen §6" + name + " §awurde §centfernt!");
                             homes.clear();
                         } else {

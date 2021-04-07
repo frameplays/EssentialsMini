@@ -2,6 +2,7 @@ package de.framedev.essentialsmin.managers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.utils.NotFoundException;
 import org.bukkit.Bukkit;
@@ -11,15 +12,16 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
-import javax.naming.spi.ObjectFactory;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /*
  * ===================================================
@@ -40,15 +42,45 @@ public class LocationsManager {
     private final Main instance = Main.getInstance();
     private boolean jsonFormat;
 
+    public void setJsonLocation(String name, Location location) {
+        if (!getLocations().containsKey(name)) {
+            try {
+                FileWriter writer = new FileWriter(new File(Main.getInstance().getDataFolder(), "locs.json"));
+                getLocations().put(name, locationToString(location));
+                writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(getLocations()));
+                writer.flush();
+                writer.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public boolean existsHome(String name) {
+        return getLocations().containsKey(name) && !getLocations().get(name).equalsIgnoreCase(" ");
+    }
+
+    public void setJsonLocation(String name, String location) {
+        if (!getLocations().containsKey(name)) {
+            try {
+                FileWriter writer = new FileWriter(new File(Main.getInstance().getDataFolder(), "locs.json"));
+                getLocations().put(name, " ");
+                writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(getLocations()));
+                writer.flush();
+                writer.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public LocationsManager(String name) {
         this.jsonFormat = Main.getInstance().getConfig().getBoolean("JsonFormat");
-        jsonFormat = false;
         this.name = name;
     }
 
     public LocationsManager() {
         this.jsonFormat = Main.getInstance().getConfig().getBoolean("JsonFormat");
-        jsonFormat = false;
     }
 
     public void saveCfg() {
@@ -64,20 +96,8 @@ public class LocationsManager {
     }
 
     public void setLocation(String name, Location location) {
-        if(jsonFormat) {
-            List<LocationJson> locs = getLocations();
-            List<LocationJson> updated = new ArrayList<>(getLocations());
-            final boolean[] success = {false};
-            locs.forEach(locationJson -> {
-                if(locationJson.getLocationName().equalsIgnoreCase(name)) {
-                    updated.remove(locationJson);
-                    updated.add(new LocationJson(name,location));
-                    success[0] = true;
-                }
-            });
-            if(!success[0])
-                updated.add(new LocationJson(name,location));
-            saveLocations(updated);
+        if (jsonFormat) {
+            setJsonLocation(name, location);
         } else {
             cfg.set(name + ".world", location.getWorld().getName());
             cfg.set(name + ".x", location.getX());
@@ -91,20 +111,8 @@ public class LocationsManager {
     }
 
     public void setLocation(Location location) {
-        if(jsonFormat) {
-            List<LocationJson> locs = getLocations();
-            List<LocationJson> updated = new ArrayList<>(getLocations());
-            final boolean[] success = {false};
-            locs.forEach(locationJson -> {
-                if(locationJson.getLocationName().equalsIgnoreCase(name)) {
-                    updated.remove(locationJson);
-                    updated.add(new LocationJson(name,location));
-                    success[0] = true;
-                }
-            });
-            if(!success[0])
-                updated.add(new LocationJson(name,location));
-            saveLocations(updated);
+        if (jsonFormat) {
+            setJsonLocation(name, location);
         } else {
             cfg.set(name + ".world", location.getWorld().getName());
             cfg.set(name + ".x", location.getX());
@@ -117,19 +125,19 @@ public class LocationsManager {
         }
     }
 
-    public void setLocation(String name, LocationJson loc) {
+    /*public void setLocation(String name, LocationJson loc) {
         this.name = name;
-        if(jsonFormat) {
+        if (jsonFormat) {
             List<LocationJson> locs = getLocations();
             List<LocationJson> updated = new ArrayList<>(getLocations());
             final boolean[] success = {false};
             locs.forEach(locationJson -> {
-                if(locationJson.getLocationName().equalsIgnoreCase(name)) {
+                if (locationJson.getLocationName().equalsIgnoreCase(name)) {
                     updated.remove(locationJson);
                     success[0] = true;
                 }
             });
-            if(!success[0]) {
+            if (!success[0]) {
                 System.out.println("not");
             }
             saveLocations(updated);
@@ -143,7 +151,7 @@ public class LocationsManager {
             cfg.set(name + ".createdAt", System.currentTimeMillis());
             saveCfg();
         }
-    }
+    }*/
 
     public String getCreatedAt(String name) {
         if (cfg.contains(name + ".createdAt")) {
@@ -156,9 +164,9 @@ public class LocationsManager {
     }
 
     public void saveLocations(List<LocationJson> locs) {
-        File file = new File(Main.getInstance().getDataFolder(),"locations.json");
+        File file = new File(Main.getInstance().getDataFolder(), "locations.json");
         try {
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
@@ -171,33 +179,29 @@ public class LocationsManager {
         }
     }
 
-    public List<LocationJson> getLocations() {
-        File file = new File(Main.getInstance().getDataFolder(),"locations.json");
-        LocationJson[] locs = new LocationJson[0];
-        try {
-            if(file.exists()) {
-                FileReader reader = new FileReader(file);
-                locs = new Gson().fromJson(reader,LocationJson[].class);
-                reader.close();
-            }
-        } catch (Exception ignored) {
+    public void removeLocation(String name) {
+        if (getLocations().containsKey(name))
+            getLocations().remove(name);
+        setJsonLocation(name, " ");
+    }
 
+    public HashMap<String, String> getLocations() {
+        HashMap<String, String> locs = new HashMap<>();
+        try {
+            FileReader reader = new FileReader(new File(Main.getInstance().getDataFolder(), "locs.json"));
+            Type type = new TypeToken<HashMap<String, String>>() {
+            }.getType();
+            locs = new Gson().fromJson(reader, type);
+        } catch (Exception ignored) {
         }
-        return Arrays.asList(locs);
+        return locs;
     }
 
     public Location getLocation(String s) throws NullPointerException {
-        if(jsonFormat) {
-            LocationJson locationJson = null;
-            for (LocationJson location : getLocations()) {
-                if(location.getLocationName().equalsIgnoreCase(s))
-                    locationJson = location;
-            }
-            if(locationJson == null)
-                return null;
-            return locationJson.getLocation();
+        if (jsonFormat) {
+            return locationFromString(getLocations().get(s));
         } else {
-            if(cfg.contains(s)) {
+            if (cfg.contains(s)) {
                 try {
                     World world = Bukkit.getWorld(cfg.getString(s + ".world"));
                     double x = cfg.getDouble(s + ".x");
@@ -251,17 +255,10 @@ public class LocationsManager {
     }
 
     public Location getLocation() {
-        if(jsonFormat) {
-            LocationJson locationJson = null;
-            for (LocationJson location : getLocations()) {
-                if(location.getLocationName().equalsIgnoreCase(name))
-                    locationJson = location;
-            }
-            if(locationJson == null)
-                return null;
-            return locationJson.getLocation();
+        if (jsonFormat) {
+            return locationFromString(getLocations().get(name));
         } else {
-            if(cfg.contains(name)) {
+            if (cfg.contains(name)) {
                 try {
                     World world = Bukkit.getWorld(cfg.getString(name + ".world"));
                     double x = cfg.getDouble(name + ".x");
@@ -328,10 +325,10 @@ public class LocationsManager {
                     for (String s : cs.getKeys(false)) {
                         if (getCfg().get(ss + ".home." + s) != null && !getCfg().get(ss + ".home." + s).equals(" ")) {
                             cfgBackup.set(ss + ".home." + s, locationToString(getLocation(ss + ".home." + s)));
-                            backups.put(ss + ".home." + s,locationToString(getLocation(ss + ".home." + s)));
+                            backups.put(ss + ".home." + s, locationToString(getLocation(ss + ".home." + s)));
 
                             /* Test */
-                            new Locations(ss + ".home." + s,getLocation(ss + ".home." + s)).setLocation();
+                            new Locations(ss + ".home." + s, getLocation(ss + ".home." + s)).setLocation();
                         }
                     }
                 }
@@ -370,7 +367,7 @@ public class LocationsManager {
     public static class LocationJson {
 
         private String locationName, worldName;
-        private double x,y,z;
+        private double x, y, z;
         private float yaw, pitch;
 
         public LocationJson(String name, Location location) {
@@ -443,7 +440,7 @@ public class LocationsManager {
         }
 
         public Location getLocation() {
-            return new Location(Bukkit.getWorld(worldName),x,y,z,yaw,pitch);
+            return new Location(Bukkit.getWorld(worldName), x, y, z, yaw, pitch);
         }
     }
 }

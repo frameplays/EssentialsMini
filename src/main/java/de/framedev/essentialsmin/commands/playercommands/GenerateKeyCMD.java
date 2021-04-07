@@ -17,6 +17,8 @@ public class GenerateKeyCMD implements CommandExecutor, TabCompleter {
 
     private final Main plugin;
 
+    private String collection = "essentialsmini_data";
+
     public GenerateKeyCMD(Main plugin) {
         this.plugin = plugin;
         plugin.getCommands().put("key",this);
@@ -31,8 +33,8 @@ public class GenerateKeyCMD implements CommandExecutor, TabCompleter {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
                     String key = new KeyGenerator().generateKeyAndSave(player);
                     if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                        if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                            plugin.getBackendManager().updateUser(player, "key", key, "test");
+                        if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                            plugin.getBackendManager().updateUser(player, "key", key, collection);
                             sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §ahat nun einen Key!");
                         }
                     } else {
@@ -46,10 +48,10 @@ public class GenerateKeyCMD implements CommandExecutor, TabCompleter {
                 if(sender.hasPermission(plugin.getPermissionName() + "key")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
                     if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                        if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                            if (plugin.getBackendManager().exists(player, "key", "test")) {
+                        if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                            if (plugin.getBackendManager().exists(player, "key", collection)) {
                                 new KeyGenerator().removeBetaKey(player);
-                                plugin.getBackendManager().updateUser(player, "key", null, "test");
+                                plugin.getBackendManager().updateUser(player, "key", null, collection);
                                 sender.sendMessage(plugin.getPrefix() + "§cKey von §6" + player.getName() + " §cwurde entfernt!");
                             }
                         }
@@ -65,8 +67,8 @@ public class GenerateKeyCMD implements CommandExecutor, TabCompleter {
                 if (sender.hasPermission(plugin.getPermissionName() + "key")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
                     if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                        if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                            if (plugin.getBackendManager().exists(player, "key", "test")) {
+                        if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                            if (plugin.getBackendManager().exists(player, "key", collection)) {
                                 sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §ahat einen Key!");
                             } else {
                                 sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §chat keinen Key!");

@@ -42,6 +42,7 @@ public class PlayerListeners implements Listener {
     PlayerManagerCfgLoss cfgLoss;
     private final boolean jsonFormat;
     private final String permissionBase;
+    private String collection = "essentialsmini_data";
 
     private final boolean onlyEssentialsFeatures;
 
@@ -73,7 +74,7 @@ public class PlayerListeners implements Listener {
             if (plugin.isMongoDb()) {
                 if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
                     if (plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
-                        plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), "test");
+                        plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), collection);
                     }
                 }
             }
@@ -183,11 +184,11 @@ public class PlayerListeners implements Listener {
 
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                    plugin.getBackendManager().createUserMoney(event.getPlayer(), "test");
-                    plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogin", System.currentTimeMillis() + "", "test");
-                    plugin.getBackendManager().updateUser(event.getPlayer(), "offline", false, "test");
-                    PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),"test").save("test");
+                if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                    plugin.getBackendManager().createUserMoney(event.getPlayer(), collection);
+                    plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogin", System.currentTimeMillis() + "", collection);
+                    plugin.getBackendManager().updateUser(event.getPlayer(), "offline", false, collection);
+                    PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),collection).save(collection);
                 }
             }
 
@@ -261,10 +262,10 @@ public class PlayerListeners implements Listener {
         }
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                    plugin.getBackendManager().createUserMoney(event.getPlayer(), "test");
-                    plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogout", System.currentTimeMillis() + "", "test");
-                    plugin.getBackendManager().updateUser(event.getPlayer(), "offline", true, "test");
+                if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                    plugin.getBackendManager().createUserMoney(event.getPlayer(), collection);
+                    plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogout", System.currentTimeMillis() + "", collection);
+                    plugin.getBackendManager().updateUser(event.getPlayer(), "offline", true, collection);
                 }
             }
         }
@@ -301,9 +302,9 @@ public class PlayerListeners implements Listener {
                 }
             }
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                    plugin.getBackendManager().updateUser(event.getPlayer(), DATA.LASTLOGOUT.getName(), System.currentTimeMillis() + "", "test");
-                    plugin.getBackendManager().updateUser(event.getPlayer(), "offline", true, "test");
+                if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                    plugin.getBackendManager().updateUser(event.getPlayer(), DATA.LASTLOGOUT.getName(), System.currentTimeMillis() + "", collection);
+                    plugin.getBackendManager().updateUser(event.getPlayer(), "offline", true, collection);
                 }
             }
         }
@@ -325,10 +326,10 @@ public class PlayerListeners implements Listener {
                     new PlayerManager(damager).addDamage(event.getFinalDamage());
                 }
                 if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                    if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                        double damage = (double) plugin.getBackendManager().get(damager, "damage", "test");
+                    if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                        double damage = (double) plugin.getBackendManager().get(damager, "damage", collection);
                         damage += event.getFinalDamage();
-                        plugin.getBackendManager().updateUser(damager, "damage", damage, "test");
+                        plugin.getBackendManager().updateUser(damager, "damage", damage, collection);
                     }
                 }
             }
@@ -352,20 +353,20 @@ public class PlayerListeners implements Listener {
                         new PlayerManager(livingEntity.getKiller()).addEntityType(event.getEntityType());
                     }
                     if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                        if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                            int entityKill = (int) plugin.getBackendManager().get(livingEntity.getKiller(), "entityKills", "test");
+                        if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                            int entityKill = (int) plugin.getBackendManager().get(livingEntity.getKiller(), "entityKills", collection);
                             entityKill++;
-                            plugin.getBackendManager().updateUser(livingEntity.getKiller(), "entityKills", entityKill, "test");
-                            ArrayList<String> materis = (ArrayList<String>) plugin.getBackendManager().get(livingEntity.getKiller(), "entityTypes", "test");
+                            plugin.getBackendManager().updateUser(livingEntity.getKiller(), "entityKills", entityKill, collection);
+                            ArrayList<String> materis = (ArrayList<String>) plugin.getBackendManager().get(livingEntity.getKiller(), "entityTypes", collection);
                             if (materis != null) {
                                 if (!materis.contains(event.getEntityType().name())) {
                                     materis.add(event.getEntityType().name());
-                                    plugin.getBackendManager().updateUser(livingEntity.getKiller(), "entityTypes", materis, "test");
+                                    plugin.getBackendManager().updateUser(livingEntity.getKiller(), "entityTypes", materis, collection);
                                 }
                             } else {
                                 ArrayList<String> types = new ArrayList<>();
                                 types.add(event.getEntityType().name());
-                                plugin.getBackendManager().updateUser(livingEntity.getKiller(), "entityTypes", types, "test");
+                                plugin.getBackendManager().updateUser(livingEntity.getKiller(), "entityTypes", types, collection);
                             }
                         }
                     }
@@ -388,10 +389,10 @@ public class PlayerListeners implements Listener {
                         new PlayerManager(event.getEntity().getKiller()).addPlayerKill();
                     }
                     if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                        if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                            int kills = (int) plugin.getBackendManager().get(event.getEntity().getKiller(), "kills", "test");
+                        if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                            int kills = (int) plugin.getBackendManager().get(event.getEntity().getKiller(), "kills", collection);
                             kills++;
-                            plugin.getBackendManager().updateUser(event.getEntity().getKiller(), "kills", kills, "test");
+                            plugin.getBackendManager().updateUser(event.getEntity().getKiller(), "kills", kills, collection);
                         }
                     }
                 }
@@ -415,10 +416,10 @@ public class PlayerListeners implements Listener {
                     new PlayerManager(player).addDeath();
                 }
                 if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                    if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                        int deaths = (int) plugin.getBackendManager().get((Player) event.getEntity(), DATA.DEATHS.getName(), "test");
+                    if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                        int deaths = (int) plugin.getBackendManager().get((Player) event.getEntity(), DATA.DEATHS.getName(), collection);
                         deaths++;
-                        plugin.getBackendManager().updateUser((Player) event.getEntity(), DATA.DEATHS.getName(), deaths, "test");
+                        plugin.getBackendManager().updateUser((Player) event.getEntity(), DATA.DEATHS.getName(), deaths, collection);
                     }
                 }
             }
@@ -445,15 +446,15 @@ public class PlayerListeners implements Listener {
                         .getType());
             }
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                    ArrayList<String> materis = (ArrayList<String>) plugin.getBackendManager().get(event.getPlayer(), "blocksBroken", "test");
+                if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                    ArrayList<String> materis = (ArrayList<String>) plugin.getBackendManager().get(event.getPlayer(), "blocksBroken", collection);
                     if (!materis.contains(event.getBlock().getType().name())) {
                         materis.add(event.getBlock().getType().name());
-                        plugin.getBackendManager().updateUser(event.getPlayer(), "blocksBroken", materis, "test");
+                        plugin.getBackendManager().updateUser(event.getPlayer(), "blocksBroken", materis, collection);
                     }
-                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),"test");
+                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),collection);
                     pl.setBlockBroken(pl.getBlockBroken() + 1);
-                    pl.save("test");
+                    pl.save(collection);
                 }
             }
         }
@@ -479,15 +480,15 @@ public class PlayerListeners implements Listener {
                         .getType());
             }
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                    ArrayList<String> materis = (ArrayList<String>) plugin.getBackendManager().get(event.getPlayer(), "blocksPlacen", "test");
+                if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                    ArrayList<String> materis = (ArrayList<String>) plugin.getBackendManager().get(event.getPlayer(), "blocksPlacen", collection);
                     if (!materis.contains(event.getBlock().getType().name())) {
                         materis.add(event.getBlock().getType().name());
-                        plugin.getBackendManager().updateUser(event.getPlayer(), "blocksPlacen", materis, "test");
+                        plugin.getBackendManager().updateUser(event.getPlayer(), "blocksPlacen", materis, collection);
                     }
-                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),"test");
+                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),collection);
                     pl.setBlockPlacen(pl.getBlockPlacen() + 1);
-                    pl.save("test");
+                    pl.save(collection);
                 }
             }
         }
@@ -507,10 +508,10 @@ public class PlayerListeners implements Listener {
                 new PlayerManager(event.getPlayer()).addCommandsUsed();
             }
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                    int commandsUsed = (int) plugin.getBackendManager().get(event.getPlayer(), "commandsUsed", "test");
+                if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                    int commandsUsed = (int) plugin.getBackendManager().get(event.getPlayer(), "commandsUsed", collection);
                     commandsUsed++;
-                    plugin.getBackendManager().updateUser(event.getPlayer(), "commandsUsed", commandsUsed, "test");
+                    plugin.getBackendManager().updateUser(event.getPlayer(), "commandsUsed", commandsUsed, collection);
                 }
             }
         }

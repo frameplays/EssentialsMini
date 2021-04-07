@@ -14,9 +14,11 @@ import de.framedev.essentialsmin.commands.playercommands.VanishCMD;
 import de.framedev.essentialsmin.commands.servercommands.LagCMD;
 import de.framedev.essentialsmin.managers.*;
 import de.framedev.essentialsmin.utils.*;
+import de.framedev.mongodbconnections.main.MongoManager;
 import de.framedev.mysqlapi.api.SQL;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
@@ -68,28 +70,25 @@ public class Main extends JavaPlugin {
 
     public ArrayList<String> players;
 
-    /* MongoDB */
-    private MongoManager mongoManager;
-    private BackendManager backendManager;
-
     /* Instance */
     private static Main instance;
     private RegisterManager registerManager;
 
     /* FileM CfgM MongoDBConnection Plugin */
-    public static File filem = new File("plugins/MDBConnection/config.yml");
-    public static FileConfiguration cfgm = YamlConfiguration.loadConfiguration(filem);
+    public static File fileMongoDB = new File("plugins/MDBConnection/config.yml");
+    public static FileConfiguration cfgMongoDB = YamlConfiguration.loadConfiguration(fileMongoDB);
 
     private Map<String, Object> limitedHomes;
 
     private boolean mysql;
 
-    private boolean mongoDb = false;
 
     private String currencySymbol;
 
     private ArrayList<String> offlinePlayers;
     private YAMLConfigurator info;
+
+    private MongoDbUtils mongoDbUtils;
 
     @Override
     public void onEnable() {
@@ -158,34 +157,12 @@ public class Main extends JavaPlugin {
         cfg.set("players", players);
         saveCfg();*/
 
-
-        /* MongoDB */
-        this.mongoManager = new MongoManager();
-        if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-            if (Main.cfgm.getBoolean("MongoDB.LocalHost") || Main.cfgm.getBoolean("MongoDB.Boolean")) {
-                this.mongoDb = true;
-            }
-        }
-        if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-            if (cfgm.getBoolean("MongoDB.LocalHost")) {
-                this.mongoManager = new MongoManager();
-                this.mongoManager.connectLocalHost();
-            }
-            if (cfgm.getBoolean("MongoDB.Boolean")) {
-                this.mongoManager = new MongoManager();
-                this.mongoManager.connect();
-            }
-            if (cfgm.getBoolean("MongoDB.LocalHost")) {
-                this.backendManager = new BackendManager(this);
-            }
-            if (cfgm.getBoolean("MongoDB.Boolean")) {
-                this.backendManager = new BackendManager(this);
-            }
-        }
-
-        if (isMongoDb()) {
-            for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-                backendManager.createUserMoney(player, "test");
+        if(Bukkit.getServer().getPluginManager().getPlugin("MDBConnection") != null) {
+            this.mongoDbUtils = new MongoDbUtils();
+            if (isMongoDb()) {
+                for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+                    getBackendManager().createUserMoney(player, "test");
+                }
             }
         }
         /* MongoDB Finish */
@@ -473,7 +450,8 @@ public class Main extends JavaPlugin {
     }
 
     public boolean isMongoDb() {
-        return mongoDb;
+        if(mongoDbUtils == null) return false;
+        return this.mongoDbUtils.isMongoDb();
     }
 
     public boolean isMysql() {
@@ -507,11 +485,11 @@ public class Main extends JavaPlugin {
     }
 
     public MongoManager getMongoManager() {
-        return mongoManager;
+        return mongoDbUtils.getMongoManager();
     }
 
     public BackendManager getBackendManager() {
-        return backendManager;
+        return mongoDbUtils.getBackendManager();
     }
 
     public HashMap<OfflinePlayer, PlayerManagerCfgLoss> getCfgLossHashMap() {
