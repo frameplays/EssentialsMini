@@ -32,11 +32,17 @@ public class FlyCMD implements CommandExecutor {
                     if (!player.getAllowFlight()) {
                         player.setAllowFlight(true);
                         player.setFlying(true);
-                        player.sendMessage(plugin.getPrefix() + "§aDu kannst nun Fliegen!");
+                        String flySelfOn = plugin.getCustomMessagesConfig().getString("FlySelfOn");
+                        if(flySelfOn.contains("&"))
+                            flySelfOn = flySelfOn.replace('&', '§');
+                        player.sendMessage(plugin.getPrefix() + flySelfOn);
                     } else {
                         player.setAllowFlight(false);
                         player.setFlying(false);
-                        player.sendMessage(plugin.getPrefix() + "§cDu kannst nun nicht mehr Fliegen!");
+                        String flySelfOff = plugin.getCustomMessagesConfig().getString("FlySelfOff");
+                        if(flySelfOff.contains("&"))
+                            flySelfOff = flySelfOff.replace('&', '§');
+                        player.sendMessage(plugin.getPrefix() + flySelfOff);
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -51,15 +57,34 @@ public class FlyCMD implements CommandExecutor {
                     if (!target.getAllowFlight()) {
                         target.setAllowFlight(true);
                         target.setFlying(true);
-                        if (!Main.getSilent().contains(sender.getName()))
-                            target.sendMessage(plugin.getPrefix() + "§aDu kannst nun Fliegen!");
-                        sender.sendMessage(plugin.getPrefix() + "§6" + target.getName() + " §akann nun Fliegen!");
+                        if (!Main.getSilent().contains(sender.getName())) {
+                            String flySelfOn = plugin.getCustomMessagesConfig().getString("FlySelfOn");
+                            if (flySelfOn.contains("&"))
+                                flySelfOn = flySelfOn.replace('&', '§');
+                            target.sendMessage(plugin.getPrefix() + flySelfOn);
+                        }
+                        String flyOtherOn = plugin.getCustomMessagesConfig().getString("FlyOtherOn");
+                        if(flyOtherOn.contains("&"))
+                            flyOtherOn = flyOtherOn.replace('&', '§');
+                        if(flyOtherOn.contains("%Player%"))
+                            flyOtherOn = flyOtherOn.replace("%Player%", target.getName());
+                        sender.sendMessage(plugin.getPrefix() + flyOtherOn);
                     } else {
                         target.setAllowFlight(false);
                         target.setFlying(false);
-                        if (!Main.getSilent().contains(sender.getName()))
+                        if (!Main.getSilent().contains(sender.getName())) {
+                            String flySelfOff = plugin.getCustomMessagesConfig().getString("FlySelfOff");
+                            if (flySelfOff.contains("&"))
+                                flySelfOff = flySelfOff.replace('&', '§');
+                            target.sendMessage(plugin.getPrefix() + flySelfOff);
                             target.sendMessage(plugin.getPrefix() + "§cDu kannst nun nicht mehr Fliegen!");
-                        sender.sendMessage(plugin.getPrefix() + "§6" + target.getName() + " §ckann nun nicht mehr Fliegen!");
+                        }
+                        String flyOtherOff = plugin.getCustomMessagesConfig().getString("FlyOtherOff");
+                        if(flyOtherOff.contains("&"))
+                            flyOtherOff = flyOtherOff.replace('&', '§');
+                        if(flyOtherOff.contains("%Player%"))
+                            flyOtherOff = flyOtherOff.replace("%Player%", target.getName());
+                        sender.sendMessage(plugin.getPrefix() + flyOtherOff);
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));

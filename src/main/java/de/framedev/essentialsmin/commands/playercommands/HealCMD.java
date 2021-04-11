@@ -40,7 +40,10 @@ public class HealCMD extends CommandBase {
                     player.setHealth(20);
                     player.setFireTicks(0);
                     player.setFoodLevel(20);
-                    player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
+                    String heal = plugin.getCustomMessagesConfig().getString("Heal.Self");
+                    if(heal.contains("&"))
+                        heal = heal.replace('&','§');
+                    player.sendMessage(plugin.getPrefix() + heal);
                     return true;
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -58,11 +61,18 @@ public class HealCMD extends CommandBase {
                             player.setHealth(20);
                             player.setFireTicks(0);
                             player.setFoodLevel(20);
-                            if (!Main.getSilent().contains(sender.getName()))
-                                player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
-                            sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §awurde geheilt!");
-                        } else {
-                            sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler ist nicht Online!");
+                            if (!Main.getSilent().contains(sender.getName())) {
+                                String heal = plugin.getCustomMessagesConfig().getString("Heal.Self");
+                                if (heal.contains("&"))
+                                    heal = heal.replace('&', '§');
+                                player.sendMessage(plugin.getPrefix() + heal);
+                            }
+                            String healOther = plugin.getCustomMessagesConfig().getString("Heal.Other");
+                            if(healOther.contains("&"))
+                                healOther = healOther.replace('&', '§');
+                            if(healOther.contains("%Player%"))
+                                healOther = healOther.replace("%Player%", player.getName());
+                            sender.sendMessage(plugin.getPrefix() + healOther);
                         }
                     }
                     return true;
@@ -77,9 +87,18 @@ public class HealCMD extends CommandBase {
                         player.setHealth(20);
                         player.setFireTicks(0);
                         player.setFoodLevel(20);
-                        if (!Main.getSilent().contains(sender.getName()))
-                            player.sendMessage(plugin.getPrefix() + "§aDu wurdest geheilt!");
-                        sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §awurde geheilt!");
+                        if (!Main.getSilent().contains(sender.getName())) {
+                            String heal = plugin.getCustomMessagesConfig().getString("Heal.Self");
+                            if (heal.contains("&"))
+                                heal = heal.replace('&', '§');
+                            player.sendMessage(plugin.getPrefix() + heal);
+                        }
+                        String healOther = plugin.getCustomMessagesConfig().getString("Heal.Other");
+                        if(healOther.contains("&"))
+                            healOther = healOther.replace('&', '§');
+                        if(healOther.contains("%Player%"))
+                            healOther = healOther.replace("%Player%", player.getName());
+                        sender.sendMessage(plugin.getPrefix() + healOther);
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                     }

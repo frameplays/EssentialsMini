@@ -1,14 +1,11 @@
 package de.framedev.essentialsmin.managers;
 
-import com.google.gson.Gson;
 import com.mongodb.Block;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.InsertOneOptions;
 import de.framedev.essentialsmin.main.Main;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;

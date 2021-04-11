@@ -42,10 +42,16 @@ public class GodCMD implements CommandExecutor {
             }
             if (player.isInvulnerable()) {
                 player.setInvulnerable(false);
-                player.sendMessage(plugin.getPrefix() + "§cDu bist nun verwundbar!");
+                String godSelfOff = plugin.getCustomMessagesConfig().getString("God.Self.Off");
+                if(godSelfOff.contains("&"))
+                    godSelfOff = godSelfOff.replace('&', '§');
+                player.sendMessage(plugin.getPrefix() + godSelfOff);
             } else {
                 player.setInvulnerable(true);
-                player.sendMessage(plugin.getPrefix() + "§aDu bist nun unverwundbar!");
+                String godSelfOn = plugin.getCustomMessagesConfig().getString("God.Self.On");
+                if(godSelfOn.contains("&"))
+                    godSelfOn = godSelfOn.replace('&', '§');
+                player.sendMessage(plugin.getPrefix() + godSelfOn);
             }
             return true;
         } else if (args.length == 1) {
@@ -57,14 +63,32 @@ public class GodCMD implements CommandExecutor {
                 }
                 if (player.isInvulnerable()) {
                     player.setInvulnerable(false);
-                    if (!Main.getSilent().contains(sender.getName()))
-                        player.sendMessage(plugin.getPrefix() + "§cDu bist nun verwundbar!");
-                    sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §cist nun verwundbar!");
+                    if (!Main.getSilent().contains(sender.getName())) {
+                        String godSelfOff = plugin.getCustomMessagesConfig().getString("God.Self.Off");
+                        if(godSelfOff.contains("&"))
+                            godSelfOff = godSelfOff.replace('&', '§');
+                        player.sendMessage(plugin.getPrefix() + godSelfOff);
+                    }
+                    String godOtherOff = plugin.getCustomMessagesConfig().getString("God.Other.Off");
+                    if(godOtherOff.contains("%Player%"))
+                        godOtherOff = godOtherOff.replace("%Player%", player.getName());
+                    if(godOtherOff.contains("&"))
+                        godOtherOff = godOtherOff.replace('&', '§');
+                    sender.sendMessage(plugin.getPrefix() + godOtherOff);
                 } else {
                     player.setInvulnerable(true);
-                    if (!Main.getSilent().contains(sender.getName()))
-                        player.sendMessage(plugin.getPrefix() + "§aDu bist nun unverwundbar!");
-                    sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §aist nun unverwundbar!");
+                    if (!Main.getSilent().contains(sender.getName())) {
+                        String godSelfOn = plugin.getCustomMessagesConfig().getString("God.Self.On");
+                        if(godSelfOn.contains("&"))
+                            godSelfOn = godSelfOn.replace('&', '§');
+                        player.sendMessage(plugin.getPrefix() + godSelfOn);
+                    }
+                    String godOtherOff = plugin.getCustomMessagesConfig().getString("God.Other.On");
+                    if(godOtherOff.contains("%Player%"))
+                        godOtherOff = godOtherOff.replace("%Player%", player.getName());
+                    if(godOtherOff.contains("&"))
+                        godOtherOff = godOtherOff.replace('&', '§');
+                    sender.sendMessage(plugin.getPrefix() + godOtherOff);
                 }
                 return true;
             } else {

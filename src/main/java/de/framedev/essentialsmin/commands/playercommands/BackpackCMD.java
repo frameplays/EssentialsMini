@@ -25,7 +25,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,9 +64,9 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
     // Restore BackPack into HashMap
     public static void restore(OfflinePlayer player) {
         if (cfg.contains(player.getUniqueId().toString() + ".Inventory")) {
-                String content = cfg.getString(player.getUniqueId().toString() + ".Inventory");
-                if (content != null)
-                    itemsStringHashMap.put(player.getUniqueId().toString(), content);
+            String content = cfg.getString(player.getUniqueId().toString() + ".Inventory");
+            if (content != null)
+                itemsStringHashMap.put(player.getUniqueId().toString(), content);
         }
     }
 
@@ -134,11 +133,23 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
                 if (args[0].equalsIgnoreCase("delete")) {
                     if (player.hasPermission("essentialsmini.backpack.delete")) {
                         itemsStringHashMap.clear();
+                        String locale = player.getLocale();
+                        final boolean b = locale.equalsIgnoreCase("en_us") || locale.equalsIgnoreCase("en_au") ||
+                                locale.equalsIgnoreCase("en_gb") || locale.equalsIgnoreCase("en_nz") ||
+                                locale.equalsIgnoreCase("en_za") || locale.equalsIgnoreCase("en_pt");
                         if (file.exists()) {
                             file.delete();
-                            player.sendMessage(plugin.getPrefix() + "§6BackPacks gelöscht!");
+                            if (b) {
+                                player.sendMessage(plugin.getPrefix() + "§6Backpacks deleted!");
+                            } else {
+                                player.sendMessage(plugin.getPrefix() + "§6BackPacks gelöscht!");
+                            }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cError beim Löschen der Backpacks");
+                            if (b) {
+                                player.sendMessage(plugin.getPrefix() + "§cError while Deleting BackPacks!");
+                            } else {
+                                player.sendMessage(plugin.getPrefix() + "§cError beim Löschen der Backpacks");
+                            }
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

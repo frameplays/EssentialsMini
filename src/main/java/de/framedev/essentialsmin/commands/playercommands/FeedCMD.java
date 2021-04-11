@@ -32,7 +32,10 @@ public class FeedCMD implements CommandExecutor {
                 if (sender.hasPermission("essentialsmini.feed")) {
                     Player player = (Player) sender;
                     player.setFoodLevel(20);
-                    player.sendMessage(plugin.getPrefix() + "§aDein Hunger wurde gestillt!");
+                    String feedSet = plugin.getCustomMessagesConfig().getString("FeedSet");
+                    if(feedSet.contains("&"))
+                        feedSet = feedSet.replace('&', '§');
+                    player.sendMessage(plugin.getPrefix() + feedSet);
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
@@ -44,9 +47,18 @@ public class FeedCMD implements CommandExecutor {
                 Player player = Bukkit.getPlayer(args[0]);
                 if (player != null) {
                     player.setFoodLevel(20);
-                    if (!Main.getSilent().contains(sender.getName()))
-                        player.sendMessage(plugin.getPrefix() + "§aDein Hunger wurde gestillt!");
-                    sender.sendMessage(plugin.getPrefix() + "§6" + player.getName() + "'s §aHunger wurde gestillt!");
+                    if (!Main.getSilent().contains(sender.getName())) {
+                        String feedSet = plugin.getCustomMessagesConfig().getString("FeedSet");
+                        if (feedSet.contains("&"))
+                            feedSet = feedSet.replace('&', '§');
+                        player.sendMessage(plugin.getPrefix() + feedSet);
+                    }
+                    String feedOther = plugin.getCustomMessagesConfig().getString("FeedOtherSet");
+                    if(feedOther.contains("&"))
+                        feedOther = feedOther.replace('&', '§');
+                    if(feedOther.contains("%Player%"))
+                        feedOther = feedOther.replace("%Player%", player.getName());
+                    sender.sendMessage(plugin.getPrefix() + feedOther);
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                 }
@@ -54,7 +66,7 @@ public class FeedCMD implements CommandExecutor {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
             }
         } else {
-            sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/feed §coder §6/feed <PlayerName>"));
+            sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/feed §cor §6/feed <PlayerName>"));
         }
         return false;
     }

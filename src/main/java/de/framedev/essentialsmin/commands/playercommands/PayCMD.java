@@ -2,6 +2,7 @@ package de.framedev.essentialsmin.commands.playercommands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.CommandBase;
+import de.framedev.essentialsmin.utils.ReplaceCharConfig;
 import de.framedev.essentialsmin.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -60,7 +61,10 @@ public class PayCMD extends CommandBase {
                                             player.sendMessage(plugin.getPrefix() + got);
                                             sender.sendMessage(plugin.getPrefix() + send);
                                         } else {
-                                            sender.sendMessage(plugin.getPrefix() + "§cNicht genug Geld! §aBalance §6: " + plugin.getVaultManager().getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
+                                            String moneySet = plugin.getCustomMessagesConfig().getString("Money.MSG.NotEnough");
+                                            moneySet = ReplaceCharConfig.replaceParagraph(moneySet);
+                                            moneySet = ReplaceCharConfig.replaceObjectWithData(moneySet, "%Money%", plugin.getVaultManager().getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
+                                            sender.sendMessage(plugin.getPrefix() + moneySet);
                                         }
                                     }
                                 }
@@ -83,14 +87,17 @@ public class PayCMD extends CommandBase {
                                         player.sendMessage(plugin.getPrefix() + got);
                                         sender.sendMessage(plugin.getPrefix() + send);
                                     } else {
-                                        sender.sendMessage(plugin.getPrefix() + "§cNicht genug Geld! §aBalance §6: " + plugin.getVaultManager().getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
+                                        String moneySet = plugin.getCustomMessagesConfig().getString("Money.MSG.NotEnough");
+                                        moneySet = ReplaceCharConfig.replaceParagraph(moneySet);
+                                        moneySet = ReplaceCharConfig.replaceObjectWithData(moneySet, "%Money%", plugin.getVaultManager().getEco().getBalance((Player) sender) + plugin.getCurrencySymbol());
+                                        sender.sendMessage(plugin.getPrefix() + moneySet);
                                     }
                                 } else {
                                     sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[1]));
                                 }
                             }
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + "§6" + args[0] + " §cist keine Zahl!");
+                            sender.sendMessage(plugin.getPrefix() + "§6" + args[0] + " §cist not a Number!");
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/pay <Amount> <PlayerName>"));
@@ -154,17 +161,13 @@ public class PayCMD extends CommandBase {
                                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                             }
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + "§6" + args[1] + " §cist keine Zahl!");
+                            sender.sendMessage(plugin.getPrefix() + "§6" + args[0] + " §cist not a Number!");
                         }
                     } else if (args.length == 3) {
                         if (sender.hasPermission(plugin.getPermissionName() + "eco.set.others")) {
                             if (isDouble(args[1])) {
                                 double amount = Double.parseDouble(args[1]);
                                 OfflinePlayer player = Bukkit.getOfflinePlayer(args[2]);
-                                if (player == null) {
-                                    sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler existiert nicht!");
-                                    return true;
-                                }
                                 plugin.getVaultManager().getEco().withdrawPlayer(player, plugin.getVaultManager().getEco().getBalance(player));
                                 plugin.getVaultManager().getEco().depositPlayer(player, amount);
                                 String setOther = plugin.getCustomMessagesConfig().getString("Money.MoneySet.Other.MSG");
@@ -185,7 +188,7 @@ public class PayCMD extends CommandBase {
                                         online.sendMessage(plugin.getPrefix() + set);
                                     }
                             } else {
-                                sender.sendMessage(plugin.getPrefix() + "§6" + args[1] + " §cist keine Zahl!");
+                                sender.sendMessage(plugin.getPrefix() + "§6" + args[0] + " §cist not a Number!");
                             }
                         } else {
                             sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

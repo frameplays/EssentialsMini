@@ -3,7 +3,8 @@ package de.framedev.essentialsmin.utils;
 
 public class ReplaceCharConfig {
     public static String replaceParagraph(String text) {
-        text = text.replace('&', '§');
+        if (text.contains("&"))
+            text = text.replace('&', '§');
         return text;
     }
 
@@ -29,7 +30,8 @@ public class ReplaceCharConfig {
     }
 
     public static String replaceObjectWithData(String text, String object, String data) {
-        text = text.replace(object, data);
+        if (text.contains(object))
+            text = text.replace(object, data);
         return text;
     }
 

@@ -7,6 +7,7 @@ package de.framedev.essentialsmin.commands.playercommands;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.CommandBase;
 import de.framedev.essentialsmin.managers.LocationsManager;
+import de.framedev.essentialsmin.utils.ReplaceCharConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -53,7 +54,10 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
             if (command.getName().equalsIgnoreCase("sethome")) {
                 if (sender instanceof Player) {
                     new LocationsManager(sender.getName() + ".home.home").setLocation(((Player) sender).getLocation());
-                    sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt!");
+                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSet");
+                    if (homeSet.contains("&"))
+                        homeSet = homeSet.replace('&', '§');
+                    sender.sendMessage(plugin.getPrefix() + homeSet);
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                 }
@@ -62,14 +66,19 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                 try {
                     if (sender instanceof Player) {
                         ((Player) sender).teleport(new LocationsManager(sender.getName() + ".home.home").getLocation());
-                        sender.sendMessage(plugin.getPrefix() + "§aDu wurdest zu deinem §6Home §aTeleportiert!");
+                        String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleport");
+                        if (homeTeleport.contains("&"))
+                            homeTeleport = homeTeleport.replace('&', '§');
+                        sender.sendMessage(plugin.getPrefix() + homeTeleport);
                         homes.clear();
 
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                     }
                 } catch (IllegalArgumentException x) {
-                    sender.sendMessage(plugin.getPrefix() + "§cDas §6Home §cwurde noch nicht gesetzt!");
+                    String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
+                    homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
+                    sender.sendMessage(plugin.getPrefix() + homeExist);
                 }
             }
             if (command.getName().equalsIgnoreCase("delhome")) {
@@ -78,13 +87,18 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                         this.locationsManager = new LocationsManager(sender.getName() + ".home.home");
                         locationsManager.getCfg().set(sender.getName() + ".home.home", " ");
                         locationsManager.saveCfg();
-                        sender.sendMessage(plugin.getPrefix() + "§aDein Home §awurde §centfernt!");
+                        String homeDeleted = plugin.getCustomMessagesConfig().getString("HomeDelete");
+                        if (homeDeleted.contains("&"))
+                            homeDeleted = ReplaceCharConfig.replaceParagraph(homeDeleted);
+                        sender.sendMessage(plugin.getPrefix() + homeDeleted);
                         homes.clear();
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                     }
                 } catch (IllegalArgumentException ex) {
-                    sender.sendMessage(plugin.getPrefix() + "§cDein §6Home §cwurde noch nicht gesetzt!");
+                    String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
+                    homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
+                    sender.sendMessage(plugin.getPrefix() + homeExist);
                 }
             }
         } else if (args.length == 1) {
@@ -112,29 +126,42 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                             if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
                                                 new LocationsManager(sender.getName() + ".home." + name)
                                                         .setLocation(((Player) sender).getLocation());
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                sender.sendMessage(plugin.getPrefix() + homeSet);
                                                 homes.clear();
                                                 limited.clear();
                                             } else {
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §6" + name + " §cexistiert schon!");
+                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                sender.sendMessage(plugin.getPrefix() + exist);
                                                 limited.clear();
                                                 homes.clear();
                                             }
                                         } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Default") || limited.size() > plugin.getConfig().getInt("LimitedHomes.Default")) {
-                                            sender.sendMessage(plugin.getPrefix() + "§cDu kannst keine Homes mehr erstellen!");
+                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                            sender.sendMessage(plugin.getPrefix() + notSet);
                                             limited.clear();
                                             homes.clear();
                                         }
                                     } else {
                                         new LocationsManager(sender.getName() + ".home." + name)
                                                 .setLocation(((Player) sender).getLocation());
-                                        sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
                                         homes.clear();
                                     }
                                 } else {
                                     new LocationsManager(sender.getName() + ".home." + name)
                                             .setLocation(((Player) sender).getLocation());
-                                    sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                    sender.sendMessage(plugin.getPrefix() + homeSet);
                                     homes.clear();
                                 }
                             } else {
@@ -154,29 +181,42 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                             if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
                                                 new LocationsManager(sender.getName() + ".home." + name)
                                                         .setLocation(((Player) sender).getLocation());
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                sender.sendMessage(plugin.getPrefix() + homeSet);
                                                 homes.clear();
                                                 limited.clear();
                                             } else {
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §6" + name + " §cexistiert schon!");
+                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                sender.sendMessage(plugin.getPrefix() + exist);
                                                 homes.clear();
                                                 limited.clear();
                                             }
                                         } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                            sender.sendMessage(plugin.getPrefix() + "§cDu kannst keine Homes mehr erstellen!");
+                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                            sender.sendMessage(plugin.getPrefix() + notSet);
                                             homes.clear();
                                             limited.clear();
                                         }
                                     } else {
                                         new LocationsManager(sender.getName() + ".home." + name)
                                                 .setLocation(((Player) sender).getLocation());
-                                        sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
                                         homes.clear();
                                     }
                                 } else {
                                     new LocationsManager(sender.getName() + ".home." + name)
                                             .setLocation(((Player) sender).getLocation());
-                                    sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                    sender.sendMessage(plugin.getPrefix() + homeSet);
                                     homes.clear();
                                 }
                             }
@@ -198,29 +238,42 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                             if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
                                                 new LocationsManager(sender.getName() + ".home." + name)
                                                         .setLocation(((Player) sender).getLocation());
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                sender.sendMessage(plugin.getPrefix() + homeSet);
                                                 homes.clear();
                                                 limited.clear();
                                             } else {
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §6" + name + " §cexistiert schon!");
+                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                sender.sendMessage(plugin.getPrefix() + exist);
                                                 limited.clear();
                                                 homes.clear();
                                             }
                                         } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Medium") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Medium")) {
-                                            sender.sendMessage(plugin.getPrefix() + "§cDu kannst keine Homes mehr erstellen!");
+                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                            sender.sendMessage(plugin.getPrefix() + notSet);
                                             limited.clear();
                                             homes.clear();
                                         }
                                     } else {
                                         new LocationsManager(sender.getName() + ".home." + name)
                                                 .setLocation(((Player) sender).getLocation());
-                                        sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
                                         homes.clear();
                                     }
                                 } else {
                                     new LocationsManager(sender.getName() + ".home." + name)
                                             .setLocation(((Player) sender).getLocation());
-                                    sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                    sender.sendMessage(plugin.getPrefix() + homeSet);
                                     homes.clear();
                                 }
                             } else {
@@ -240,29 +293,42 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                             if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
                                                 new LocationsManager(sender.getName() + ".home." + name)
                                                         .setLocation(((Player) sender).getLocation());
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                sender.sendMessage(plugin.getPrefix() + homeSet);
                                                 homes.clear();
                                                 limited.clear();
                                             } else {
-                                                sender.sendMessage(plugin.getPrefix() + "§6Home §6" + name + " §cexistiert schon!");
+                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                sender.sendMessage(plugin.getPrefix() + exist);
                                                 homes.clear();
                                                 limited.clear();
                                             }
                                         } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                            sender.sendMessage(plugin.getPrefix() + "§cDu kannst keine Homes mehr erstellen!");
+                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                            sender.sendMessage(plugin.getPrefix() + notSet);
                                             homes.clear();
                                             limited.clear();
                                         }
                                     } else {
                                         new LocationsManager(sender.getName() + ".home." + name)
                                                 .setLocation(((Player) sender).getLocation());
-                                        sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
                                         homes.clear();
                                     }
                                 } else {
                                     new LocationsManager(sender.getName() + ".home." + name)
                                             .setLocation(((Player) sender).getLocation());
-                                    sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                    sender.sendMessage(plugin.getPrefix() + homeSet);
                                     homes.clear();
                                 }
                             }
@@ -283,29 +349,42 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                         if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
                                             new LocationsManager(sender.getName() + ".home." + name)
                                                     .setLocation(((Player) sender).getLocation());
-                                            sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                            String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                            homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                            homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                            sender.sendMessage(plugin.getPrefix() + homeSet);
                                             homes.clear();
                                             limited.clear();
                                         } else {
-                                            sender.sendMessage(plugin.getPrefix() + "§6Home §6" + name + " §cexistiert schon!");
+                                            String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                            exist = ReplaceCharConfig.replaceParagraph(exist);
+                                            sender.sendMessage(plugin.getPrefix() + exist);
                                             homes.clear();
                                             limited.clear();
                                         }
                                     } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                        sender.sendMessage(plugin.getPrefix() + "§cDu kannst keine Homes mehr erstellen!");
+                                        String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                        notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                        sender.sendMessage(plugin.getPrefix() + notSet);
                                         homes.clear();
                                         limited.clear();
                                     }
                                 } else {
                                     new LocationsManager(sender.getName() + ".home." + name)
                                             .setLocation(((Player) sender).getLocation());
-                                    sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                    sender.sendMessage(plugin.getPrefix() + homeSet);
                                     homes.clear();
                                 }
                             } else {
                                 new LocationsManager(sender.getName() + ".home." + name)
                                         .setLocation(((Player) sender).getLocation());
-                                sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                sender.sendMessage(plugin.getPrefix() + homeSet);
                                 homes.clear();
                             }
                         }
@@ -313,10 +392,15 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                         if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
                             new LocationsManager(sender.getName() + ".home." + name)
                                     .setLocation(((Player) sender).getLocation());
-                            sender.sendMessage(plugin.getPrefix() + "§6Home §awurde gesetzt mit dem Namen §6" + name + "§a!");
+                            String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                            homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                            homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                            sender.sendMessage(plugin.getPrefix() + homeSet);
                             homes.clear();
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + "§6Home §6" + name + " §cexistiert schon!");
+                            String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                            exist = ReplaceCharConfig.replaceParagraph(exist);
+                            sender.sendMessage(plugin.getPrefix() + exist);
                         }
                     }
                 } else {
@@ -329,11 +413,15 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                     try {
                         ((Player) sender)
                                 .teleport(new LocationsManager(sender.getName() + ".home." + name).getLocation());
-                        sender.sendMessage(plugin.getPrefix() + "§aDu wurdest zu deinem §6Home §amit dem Namen §6"
-                                + name + " §aTeleportiert!");
+                        String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleportOther");
+                        homeTeleport = ReplaceCharConfig.replaceParagraph(homeTeleport);
+                        homeTeleport = ReplaceCharConfig.replaceObjectWithData(homeTeleport, "%Name%", name);
+                        sender.sendMessage(plugin.getPrefix() + homeTeleport);
                         homes.clear();
                     } catch (IllegalArgumentException ex) {
-                        sender.sendMessage(plugin.getPrefix() + "§cDein Home mit dem Namen §6" + name + " §cwurde noch nicht gesetzt!");
+                        String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
+                        homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
+                        sender.sendMessage(plugin.getPrefix() + homeExist);
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -342,24 +430,33 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
             if (command.getName().equalsIgnoreCase("delhome")) {
                 if (sender instanceof Player) {
                     String name = args[0].toLowerCase();
-                    if(plugin.getConfig().getBoolean("JsonFormat")) {
+                    if (plugin.getConfig().getBoolean("JsonFormat")) {
                         if (new LocationsManager().getLocation(sender.getName() + ".home." + name) != null && new LocationsManager().existsHome(sender.getName() + ".home." + name)) {
                             new LocationsManager().removeLocation(sender.getName() + ".home." + name);
-                            sender.sendMessage(plugin.getPrefix() + "§aDein Home mit dem Namen §6" + name + " §awurde §centfernt!");
+                            String homeDelete = plugin.getCustomMessagesConfig().getString("HomeDeleteOther");
+                            homeDelete = ReplaceCharConfig.replaceParagraph(homeDelete);
+                            homeDelete = ReplaceCharConfig.replaceObjectWithData(homeDelete, "%Name%", name);
+                            sender.sendMessage(plugin.getPrefix() + homeDelete);
                             homes.clear();
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + "§cDieses Home wurde noch nicht gesetzt!");
-                            sender.sendMessage(plugin.getPrefix() + "§cOder wurde schon entfernt!");
+                            String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
+                            homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
+                            sender.sendMessage(plugin.getPrefix() + homeExist);
                         }
                     } else {
                         try {
                             this.locationsManager = new LocationsManager(sender.getName() + ".home." + name);
                             locationsManager.getCfg().set(sender.getName() + ".home." + name, " ");
                             locationsManager.saveCfg();
-                            sender.sendMessage(plugin.getPrefix() + "§aDein Home mit dem Namen §6" + name + " §awurde §centfernt!");
+                            String homeDelete = plugin.getCustomMessagesConfig().getString("HomeDeleteOther");
+                            homeDelete = ReplaceCharConfig.replaceParagraph(homeDelete);
+                            homeDelete = ReplaceCharConfig.replaceObjectWithData(homeDelete, "%Name%", name);
+                            sender.sendMessage(plugin.getPrefix() + homeDelete);
                             homes.clear();
                         } catch (IllegalArgumentException ex) {
-                            sender.sendMessage(plugin.getPrefix() + "§cDein Home mit dem Namen §6" + name + " §cwurde noch nicht gesetzt!");
+                            String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
+                            homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
+                            sender.sendMessage(plugin.getPrefix() + homeExist);
                         }
                     }
                 } else {
@@ -383,8 +480,8 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                 if (sender.hasPermission(new Permission("essentialsmini.deletehome.others", PermissionDefault.OP))) {
                     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
                     String name = args[0];
-                    if(plugin.getConfig().getBoolean("JsonFormat")) {
-                        if(new LocationsManager().getLocation(target.getName() + ".home." + name) != null && new LocationsManager().existsHome(target.getName() + ".home." + name)) {
+                    if (plugin.getConfig().getBoolean("JsonFormat")) {
+                        if (new LocationsManager().getLocation(target.getName() + ".home." + name) != null && new LocationsManager().existsHome(target.getName() + ".home." + name)) {
                             new LocationsManager().removeLocation(target.getName() + ".home." + name);
                             sender.sendMessage(plugin.getPrefix() + "§aDen Home von §6" + target.getName() + " §amit dem Namen §6" + name + " §awurde §centfernt!");
                             homes.clear();
@@ -440,23 +537,23 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                     Collections.sort(homes);
                     return homes;
                 } else {*/
-                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                        if (cs != null) {
-                            for (String s : cs.getKeys(false)) {
-                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                        if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
-                                            if (!s.equalsIgnoreCase("home")) {
-                                                homes.add(s);
-                                            }
+                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                    if (cs != null) {
+                        for (String s : cs.getKeys(false)) {
+                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                    if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                                        if (!s.equalsIgnoreCase("home")) {
+                                            homes.add(s);
                                         }
                                     }
                                 }
                             }
-                            Collections.sort(homes);
-                            return homes;
                         }
+                        Collections.sort(homes);
+                        return homes;
+                    }
                 }
             }
         }
@@ -477,21 +574,21 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                     Collections.sort(homes);
                     return homes;
                 } else {*/
-                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                        if (cs != null) {
-                            for (String s : cs.getKeys(false)) {
-                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                        if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
-                                            homes.add(s);
-                                        }
+                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                    if (cs != null) {
+                        for (String s : cs.getKeys(false)) {
+                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                    if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                                        homes.add(s);
                                     }
                                 }
                             }
-                            Collections.sort(homes);
-                            return homes;
                         }
+                        Collections.sort(homes);
+                        return homes;
+                    }
                 }
             }
         }

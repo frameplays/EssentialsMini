@@ -4,6 +4,39 @@ UnkownCommand: '&cDieser Befehl existiert nicht &6%CMD%&4&l!'
 OnlyPlayer: '&cDieser Befehl kann nur ein Spieler ausführen!'
 PlayerNotOnline: '&cDieser Spieler ist nicht Online!'
 PlayerNameNotOnline: '&cDieser Spieler ist nicht Online! &6%Player%'
+FeedSet: '&aDein Hunger wurde gestillt!!'
+FeedOtherSet: '&6%Player% &asein Hunger wurde gestillt!'
+FlySelfOn: '&aDu kannst nun Fliegen!'
+FlySelfOff: '&cDu kannst nun nicht mehr Fliegen!'
+FlyOtherOn: '&6%Player% &ckann nun Fliegen!'
+FlyOtherOff: '&6%Player% &ckann nun nicht mehr Fliegen!'
+GameModeChanged: '&aDein SpielModus wurde gesetzt auf &6%GameMode%!'
+GameModeOtherChanged: '&aDenn SpielModus von &6%Player% &awurde auf &6%GameMode% &agesetzt'
+God:
+  Self:
+    On: '&aDu bist nun unverwundbar'
+    Off: '&cDu bist nun wieder &6verwundbar'
+  Other:
+    On: '&6%Player% &aist nun unverwundbar'
+    Off: '&6%Player% &cist nun wieder verwundbar'
+Heal:
+  Self: '&aDu wurdest geheilt!'
+  Other: '&6%Player% &awurde geheilt!'
+HomeSet: '&aDein Home wurde gesetzt'
+HomeSetOther: '&aDein Home mit dem Namen &6%Name% wurde gesetzt!'
+HomeTeleport: '&aDu wurdest zu deinem Home Teleportiert'
+HomeTeleportOther: '&aDu wurdest zu deinem Home mit dem Namen &6%Name% &aTeleportiert'
+HomeDelete: '§cDein Home wurde gelöscht!'
+HomeDeleteOther: '&cDein Home mit dem Namen &6%Name% &cwurde gelöscht!'
+HomeNotExist: '&cDieses Home existiert nocht nicht!'
+HomeExist: '&cDieses Home existiert schon!'
+NoMoreHomesSet: '&cDu kannst keine weitern Homes setzten!'
+SpyMessage: '&6%Player% &ahat eine Nachricht an &6%Target% &agesendet mit dem Text &6: §c%Message%'
+Spy:
+  On: '&aDir werden nun die Msg"s geschickt von anderen Spielern!'
+  Off: '&aDir werden nun nicht mehr die Msg"s geschickt von anderen Spielern!'
+
+
 
 Warp:
   Created:  '&aWarp wurde erstellt mit dem Namen &6%WarpName%&c!'
@@ -18,6 +51,7 @@ TpaMessages:
 
 Money:
   MSG:
+    NotEnough: '&cDu hast nicht genug Geld &6: %Money%'
     Balance: '&aYour money is &b[Money]'
     Pay: '&aYou gave &b[Target] &b[Money]'
     GotPay: '&aYou got &b[Money] &afrom &b[Player]'

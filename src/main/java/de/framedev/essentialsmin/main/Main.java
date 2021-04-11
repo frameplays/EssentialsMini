@@ -18,7 +18,6 @@ import de.framedev.mongodbconnections.main.MongoManager;
 import de.framedev.mysqlapi.api.SQL;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
@@ -34,10 +33,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main extends JavaPlugin {
 
@@ -72,6 +68,8 @@ public class Main extends JavaPlugin {
 
     /* Instance */
     private static Main instance;
+
+    // RegisterManager
     private RegisterManager registerManager;
 
     /* FileM CfgM MongoDBConnection Plugin */
@@ -80,6 +78,7 @@ public class Main extends JavaPlugin {
 
     private Map<String, Object> limitedHomes;
 
+    private boolean mongoDB;
     private boolean mysql;
 
 
@@ -98,6 +97,7 @@ public class Main extends JavaPlugin {
 
         new EssentialsMiniAPI();
         createCustomMessagesConfig();
+        Config.saveDefaultConfigValues("messages");
         try {
             reloadCustomConfig();
         } catch (UnsupportedEncodingException e) {
@@ -126,6 +126,7 @@ public class Main extends JavaPlugin {
         /* TPS Command Timer */
         this.spigotTimer = new LagCMD.SpigotTimer();
 
+        // Variables
         this.variables = new Variables();
 
         this.keyGenerator = new KeyGenerator();
@@ -553,7 +554,7 @@ public class Main extends JavaPlugin {
         customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 
 
-        Reader defConfigStream = new InputStreamReader(Main.getInstance().getResource("messages.yml"), StandardCharsets.UTF_8);
+        Reader defConfigStream = new InputStreamReader(Objects.requireNonNull(Main.getInstance().getResource("messages.yml")), StandardCharsets.UTF_8);
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
             customConfig.setDefaults(defConfig);

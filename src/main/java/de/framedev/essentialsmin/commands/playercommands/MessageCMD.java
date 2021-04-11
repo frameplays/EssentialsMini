@@ -10,6 +10,7 @@ package de.framedev.essentialsmin.commands.playercommands;
  */
 
 import de.framedev.essentialsmin.main.Main;
+import de.framedev.essentialsmin.utils.ReplaceCharConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -72,7 +73,12 @@ public class MessageCMD implements CommandExecutor {
                                 for (Player opPlayer : Bukkit.getOnlinePlayers()) {
                                     if (opPlayer.hasPermission("essentialsmini.spy")) {
                                         if (spy.contains(opPlayer)) {
-                                            opPlayer.sendMessage("§6" + player.getName() + " §ahat eine Nachricht an §6" + target.getName() + " §agesendet mit dem Text §6: §c" + message);
+                                            String spy = plugin.getCustomMessagesConfig().getString("SpyMessage");
+                                            spy = ReplaceCharConfig.replaceParagraph(spy);
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy,"%Player%", player.getName());
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Target%", target.getName());
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Message%", message);
+                                            opPlayer.sendMessage(spy);
                                         }
                                     }
                                 }
@@ -89,7 +95,12 @@ public class MessageCMD implements CommandExecutor {
                                 for (Player opPlayer : Bukkit.getOnlinePlayers()) {
                                     if (opPlayer.hasPermission("essentialsmini.spy")) {
                                         if (spy.contains(opPlayer)) {
-                                            opPlayer.sendMessage("§6" + player.getName() + " §ahat eine Nachricht an §6" + target.getName() + " §agesendet mit dem Text §6: §c" + message);
+                                            String spy = plugin.getCustomMessagesConfig().getString("SpyMessage");
+                                            spy = ReplaceCharConfig.replaceParagraph(spy);
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy,"%Player%", player.getName());
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Target%", target.getName());
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Message%", message);
+                                            opPlayer.sendMessage(spy);
                                         }
                                     }
                                 }
@@ -129,7 +140,12 @@ public class MessageCMD implements CommandExecutor {
                                     for (Player opPlayer : Bukkit.getOnlinePlayers()) {
                                         if (opPlayer.hasPermission("essentialsmini.spy")) {
                                             if (spy.contains(opPlayer)) {
-                                                opPlayer.sendMessage("§6" + player.getName() + " §ahat eine Nachricht an §6" + target.getName() + " §agesendet mit dem Text §6: §c" + message);
+                                                String spy = plugin.getCustomMessagesConfig().getString("SpyMessage");
+                                                spy = ReplaceCharConfig.replaceParagraph(spy);
+                                                spy = ReplaceCharConfig.replaceObjectWithData(spy,"%Player%", player.getName());
+                                                spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Target%", target.getName());
+                                                spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Message%", message);
+                                                opPlayer.sendMessage(spy);
                                             }
                                         }
                                     }
@@ -157,10 +173,14 @@ public class MessageCMD implements CommandExecutor {
                 Player player = (Player) sender;
                 if (player.hasPermission("essentialsmini.spy")) {
                     if (!spy.contains(player)) {
-                        player.sendMessage(plugin.getPrefix() + "§aDir werden nun die Msg's geschickt von anderen Spielern!");
+                        String spyMessage = plugin.getCustomMessagesConfig().getString("Spy.On");
+                        spyMessage = ReplaceCharConfig.replaceParagraph(spyMessage);
+                        player.sendMessage(plugin.getPrefix() + spyMessage);
                         spy.add(player);
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§aDir werden nun nicht mehr die Msg's geschickt von anderen Spielern!");
+                        String spyMessage = plugin.getCustomMessagesConfig().getString("Spy.Off");
+                        spyMessage = ReplaceCharConfig.replaceParagraph(spyMessage);
+                        player.sendMessage(plugin.getPrefix() + spyMessage);
                         spy.remove(player);
                     }
                 } else {

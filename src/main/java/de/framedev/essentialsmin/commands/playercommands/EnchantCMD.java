@@ -49,7 +49,10 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
                             player.sendMessage(plugin.getPrefix() + "§cDieses Enchantment existiert nicht!");
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cKein Item in der Hand gefunden!");
+                        String noItemInHand = plugin.getCustomMessagesConfig().getString("NoItemFoundInHand");
+                        if(noItemInHand.contains("&"))
+                            noItemInHand = noItemInHand.replace('&','§');
+                        player.sendMessage(plugin.getPrefix() + noItemInHand);
                     }
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
