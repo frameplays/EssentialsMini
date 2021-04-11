@@ -244,6 +244,7 @@ permissions:
       essentialsmini.tptoggle: true
       essentialsmini.tptoggle.bypass: true
       essentialsmini.silent: true
+      essentialsmini.home: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -395,4 +396,6 @@ permissions:
     children:
       essentialsmini.tptoggle: true
   essentialsmini.silent:
+    default: op
+  essentialsmini.home:
     default: op

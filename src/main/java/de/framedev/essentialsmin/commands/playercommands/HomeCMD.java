@@ -69,12 +69,16 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
             if (command.getName().equalsIgnoreCase("home")) {
                 try {
                     if (sender instanceof Player) {
-                        ((Player) sender).teleport(new LocationsManager(sender.getName() + ".home.home").getLocation());
-                        String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleport");
-                        if (homeTeleport.contains("&"))
-                            homeTeleport = homeTeleport.replace('&', '§');
-                        sender.sendMessage(plugin.getPrefix() + homeTeleport);
-                        homes.clear();
+                        if (sender.hasPermission("home")) {
+                            ((Player) sender).teleport(new LocationsManager(sender.getName() + ".home.home").getLocation());
+                            String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleport");
+                            if (homeTeleport.contains("&"))
+                                homeTeleport = homeTeleport.replace('&', '§');
+                            sender.sendMessage(plugin.getPrefix() + homeTeleport);
+                            homes.clear();
+                        } else {
+                            sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                        }
 
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -419,13 +423,17 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                 if (sender instanceof Player) {
                     String name = args[0].toLowerCase();
                     try {
-                        ((Player) sender)
-                                .teleport(new LocationsManager(sender.getName() + ".home." + name).getLocation());
-                        String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleportOther");
-                        homeTeleport = ReplaceCharConfig.replaceParagraph(homeTeleport);
-                        homeTeleport = ReplaceCharConfig.replaceObjectWithData(homeTeleport, "%Name%", name);
-                        sender.sendMessage(plugin.getPrefix() + homeTeleport);
-                        homes.clear();
+                        if (sender.hasPermission("home")) {
+                            ((Player) sender)
+                                    .teleport(new LocationsManager(sender.getName() + ".home." + name).getLocation());
+                            String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleportOther");
+                            homeTeleport = ReplaceCharConfig.replaceParagraph(homeTeleport);
+                            homeTeleport = ReplaceCharConfig.replaceObjectWithData(homeTeleport, "%Name%", name);
+                            sender.sendMessage(plugin.getPrefix() + homeTeleport);
+                            homes.clear();
+                        } else {
+                            sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                        }
                     } catch (IllegalArgumentException ex) {
                         String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
                         homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
