@@ -53,11 +53,15 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
         if (args.length == 0) {
             if (command.getName().equalsIgnoreCase("sethome")) {
                 if (sender instanceof Player) {
-                    new LocationsManager(sender.getName() + ".home.home").setLocation(((Player) sender).getLocation());
-                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSet");
-                    if (homeSet.contains("&"))
-                        homeSet = homeSet.replace('&', '§');
-                    sender.sendMessage(plugin.getPrefix() + homeSet);
+                    if(sender.hasPermission("essentialsmini.sethome")) {
+                        new LocationsManager(sender.getName() + ".home.home").setLocation(((Player) sender).getLocation());
+                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSet");
+                        if (homeSet.contains("&"))
+                            homeSet = homeSet.replace('&', '§');
+                        sender.sendMessage(plugin.getPrefix() + homeSet);
+                    } else {
+                        sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                    }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                 }
@@ -104,249 +108,50 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
         } else if (args.length == 1) {
             if (command.getName().equalsIgnoreCase("sethome")) {
                 if (sender instanceof Player) {
-                    Map<String, String> limitedHomepermissions = plugin.getLimitedHomesPermission();
-                    String name = args[0].toLowerCase();
-                    if (plugin.getConfig().getBoolean("Limited")) {
-                        ArrayList<String> limited = new ArrayList<>();
-                        if (sender.hasPermission(new Permission(limitedHomepermissions.get("Default"), PermissionDefault.OP))) {
-                            if (!sender.isOp()) {
-                                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                                    if (cs != null) {
-                                        for (String s : cs.getKeys(false)) {
-                                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                                if (!s.equalsIgnoreCase("home")) {
-                                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                                        limited.add(s);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Default")) {
-                                            if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
-                                                new LocationsManager(sender.getName() + ".home." + name)
-                                                        .setLocation(((Player) sender).getLocation());
-                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                                sender.sendMessage(plugin.getPrefix() + homeSet);
-                                                homes.clear();
-                                                limited.clear();
-                                            } else {
-                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
-                                                exist = ReplaceCharConfig.replaceParagraph(exist);
-                                                sender.sendMessage(plugin.getPrefix() + exist);
-                                                limited.clear();
-                                                homes.clear();
-                                            }
-                                        } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Default") || limited.size() > plugin.getConfig().getInt("LimitedHomes.Default")) {
-                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
-                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
-                                            sender.sendMessage(plugin.getPrefix() + notSet);
-                                            limited.clear();
-                                            homes.clear();
-                                        }
-                                    } else {
-                                        new LocationsManager(sender.getName() + ".home." + name)
-                                                .setLocation(((Player) sender).getLocation());
-                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                        sender.sendMessage(plugin.getPrefix() + homeSet);
-                                        homes.clear();
-                                    }
-                                } else {
-                                    new LocationsManager(sender.getName() + ".home." + name)
-                                            .setLocation(((Player) sender).getLocation());
-                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                    sender.sendMessage(plugin.getPrefix() + homeSet);
-                                    homes.clear();
-                                }
-                            } else {
-                                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                                    if (cs != null) {
-                                        for (String s : cs.getKeys(false)) {
-                                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                    if(sender.hasPermission("essentialsmini.sethome")) {
+                        Map<String, String> limitedHomepermissions = plugin.getLimitedHomesPermission();
+                        String name = args[0].toLowerCase();
+                        if (plugin.getConfig().getBoolean("Limited")) {
+                            ArrayList<String> limited = new ArrayList<>();
+                            if (sender.hasPermission(new Permission(limitedHomepermissions.get("Default"), PermissionDefault.OP))) {
+                                if (!sender.isOp()) {
+                                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                                        if (cs != null) {
+                                            for (String s : cs.getKeys(false)) {
+                                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
                                                     if (!s.equalsIgnoreCase("home")) {
-                                                        limited.add(s);
+                                                        if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                                            limited.add(s);
+                                                        }
                                                     }
                                                 }
                                             }
-                                        }
-                                        if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                            if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
-                                                new LocationsManager(sender.getName() + ".home." + name)
-                                                        .setLocation(((Player) sender).getLocation());
-                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                                sender.sendMessage(plugin.getPrefix() + homeSet);
-                                                homes.clear();
-                                                limited.clear();
-                                            } else {
-                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
-                                                exist = ReplaceCharConfig.replaceParagraph(exist);
-                                                sender.sendMessage(plugin.getPrefix() + exist);
-                                                homes.clear();
-                                                limited.clear();
-                                            }
-                                        } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
-                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
-                                            sender.sendMessage(plugin.getPrefix() + notSet);
-                                            homes.clear();
-                                            limited.clear();
-                                        }
-                                    } else {
-                                        new LocationsManager(sender.getName() + ".home." + name)
-                                                .setLocation(((Player) sender).getLocation());
-                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                        sender.sendMessage(plugin.getPrefix() + homeSet);
-                                        homes.clear();
-                                    }
-                                } else {
-                                    new LocationsManager(sender.getName() + ".home." + name)
-                                            .setLocation(((Player) sender).getLocation());
-                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                    sender.sendMessage(plugin.getPrefix() + homeSet);
-                                    homes.clear();
-                                }
-                            }
-                        } else if (sender.hasPermission(new Permission(limitedHomepermissions.get("Medium"), PermissionDefault.OP))) {
-                            if (!sender.isOp()) {
-                                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                                    if (cs != null) {
-                                        for (String s : cs.getKeys(false)) {
-                                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                                    if (!s.equalsIgnoreCase("home")) {
-                                                        limited.add(s);
-                                                    }
+                                            if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Default")) {
+                                                if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
+                                                    new LocationsManager(sender.getName() + ".home." + name)
+                                                            .setLocation(((Player) sender).getLocation());
+                                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                    sender.sendMessage(plugin.getPrefix() + homeSet);
+                                                    homes.clear();
+                                                    limited.clear();
+                                                } else {
+                                                    String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                    exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                    sender.sendMessage(plugin.getPrefix() + exist);
+                                                    limited.clear();
+                                                    homes.clear();
                                                 }
-                                            }
-                                        }
-                                        if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Medium")) {
-                                            if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
-                                                new LocationsManager(sender.getName() + ".home." + name)
-                                                        .setLocation(((Player) sender).getLocation());
-                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                                sender.sendMessage(plugin.getPrefix() + homeSet);
-                                                homes.clear();
-                                                limited.clear();
-                                            } else {
-                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
-                                                exist = ReplaceCharConfig.replaceParagraph(exist);
-                                                sender.sendMessage(plugin.getPrefix() + exist);
+                                            } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Default") || limited.size() > plugin.getConfig().getInt("LimitedHomes.Default")) {
+                                                String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                                notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                                sender.sendMessage(plugin.getPrefix() + notSet);
                                                 limited.clear();
                                                 homes.clear();
                                             }
-                                        } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Medium") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Medium")) {
-                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
-                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
-                                            sender.sendMessage(plugin.getPrefix() + notSet);
-                                            limited.clear();
-                                            homes.clear();
-                                        }
-                                    } else {
-                                        new LocationsManager(sender.getName() + ".home." + name)
-                                                .setLocation(((Player) sender).getLocation());
-                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                        sender.sendMessage(plugin.getPrefix() + homeSet);
-                                        homes.clear();
-                                    }
-                                } else {
-                                    new LocationsManager(sender.getName() + ".home." + name)
-                                            .setLocation(((Player) sender).getLocation());
-                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                    sender.sendMessage(plugin.getPrefix() + homeSet);
-                                    homes.clear();
-                                }
-                            } else {
-                                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                                    if (cs != null) {
-                                        for (String s : cs.getKeys(false)) {
-                                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                                    if (!s.equalsIgnoreCase("home")) {
-                                                        limited.add(s);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                            if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
-                                                new LocationsManager(sender.getName() + ".home." + name)
-                                                        .setLocation(((Player) sender).getLocation());
-                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                                sender.sendMessage(plugin.getPrefix() + homeSet);
-                                                homes.clear();
-                                                limited.clear();
-                                            } else {
-                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
-                                                exist = ReplaceCharConfig.replaceParagraph(exist);
-                                                sender.sendMessage(plugin.getPrefix() + exist);
-                                                homes.clear();
-                                                limited.clear();
-                                            }
-                                        } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
-                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
-                                            sender.sendMessage(plugin.getPrefix() + notSet);
-                                            homes.clear();
-                                            limited.clear();
-                                        }
-                                    } else {
-                                        new LocationsManager(sender.getName() + ".home." + name)
-                                                .setLocation(((Player) sender).getLocation());
-                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                        sender.sendMessage(plugin.getPrefix() + homeSet);
-                                        homes.clear();
-                                    }
-                                } else {
-                                    new LocationsManager(sender.getName() + ".home." + name)
-                                            .setLocation(((Player) sender).getLocation());
-                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                                    sender.sendMessage(plugin.getPrefix() + homeSet);
-                                    homes.clear();
-                                }
-                            }
-                        } else if (sender.hasPermission(new Permission(limitedHomepermissions.get("Admin"), PermissionDefault.OP))) {
-                            if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
-                                ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
-                                if (cs != null) {
-                                    for (String s : cs.getKeys(false)) {
-                                        if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
-                                            if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
-                                                if (!s.equalsIgnoreCase("home")) {
-                                                    limited.add(s);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                        if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
+                                        } else {
                                             new LocationsManager(sender.getName() + ".home." + name)
                                                     .setLocation(((Player) sender).getLocation());
                                             String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
@@ -354,20 +159,229 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                             homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
                                             sender.sendMessage(plugin.getPrefix() + homeSet);
                                             homes.clear();
-                                            limited.clear();
+                                        }
+                                    } else {
+                                        new LocationsManager(sender.getName() + ".home." + name)
+                                                .setLocation(((Player) sender).getLocation());
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
+                                        homes.clear();
+                                    }
+                                } else {
+                                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                                        if (cs != null) {
+                                            for (String s : cs.getKeys(false)) {
+                                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                                        if (!s.equalsIgnoreCase("home")) {
+                                                            limited.add(s);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Admin")) {
+                                                if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
+                                                    new LocationsManager(sender.getName() + ".home." + name)
+                                                            .setLocation(((Player) sender).getLocation());
+                                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                    sender.sendMessage(plugin.getPrefix() + homeSet);
+                                                    homes.clear();
+                                                    limited.clear();
+                                                } else {
+                                                    String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                    exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                    sender.sendMessage(plugin.getPrefix() + exist);
+                                                    homes.clear();
+                                                    limited.clear();
+                                                }
+                                            } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
+                                                String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                                notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                                sender.sendMessage(plugin.getPrefix() + notSet);
+                                                homes.clear();
+                                                limited.clear();
+                                            }
                                         } else {
-                                            String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
-                                            exist = ReplaceCharConfig.replaceParagraph(exist);
-                                            sender.sendMessage(plugin.getPrefix() + exist);
+                                            new LocationsManager(sender.getName() + ".home." + name)
+                                                    .setLocation(((Player) sender).getLocation());
+                                            String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                            homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                            homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                            sender.sendMessage(plugin.getPrefix() + homeSet);
+                                            homes.clear();
+                                        }
+                                    } else {
+                                        new LocationsManager(sender.getName() + ".home." + name)
+                                                .setLocation(((Player) sender).getLocation());
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
+                                        homes.clear();
+                                    }
+                                }
+                            } else if (sender.hasPermission(new Permission(limitedHomepermissions.get("Medium"), PermissionDefault.OP))) {
+                                if (!sender.isOp()) {
+                                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                                        if (cs != null) {
+                                            for (String s : cs.getKeys(false)) {
+                                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                                        if (!s.equalsIgnoreCase("home")) {
+                                                            limited.add(s);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Medium")) {
+                                                if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
+                                                    new LocationsManager(sender.getName() + ".home." + name)
+                                                            .setLocation(((Player) sender).getLocation());
+                                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                    sender.sendMessage(plugin.getPrefix() + homeSet);
+                                                    homes.clear();
+                                                    limited.clear();
+                                                } else {
+                                                    String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                    exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                    sender.sendMessage(plugin.getPrefix() + exist);
+                                                    limited.clear();
+                                                    homes.clear();
+                                                }
+                                            } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Medium") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Medium")) {
+                                                String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                                notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                                sender.sendMessage(plugin.getPrefix() + notSet);
+                                                limited.clear();
+                                                homes.clear();
+                                            }
+                                        } else {
+                                            new LocationsManager(sender.getName() + ".home." + name)
+                                                    .setLocation(((Player) sender).getLocation());
+                                            String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                            homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                            homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                            sender.sendMessage(plugin.getPrefix() + homeSet);
+                                            homes.clear();
+                                        }
+                                    } else {
+                                        new LocationsManager(sender.getName() + ".home." + name)
+                                                .setLocation(((Player) sender).getLocation());
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
+                                        homes.clear();
+                                    }
+                                } else {
+                                    if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                                        if (cs != null) {
+                                            for (String s : cs.getKeys(false)) {
+                                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                                        if (!s.equalsIgnoreCase("home")) {
+                                                            limited.add(s);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Admin")) {
+                                                if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
+                                                    new LocationsManager(sender.getName() + ".home." + name)
+                                                            .setLocation(((Player) sender).getLocation());
+                                                    String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                    homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                    homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                    sender.sendMessage(plugin.getPrefix() + homeSet);
+                                                    homes.clear();
+                                                    limited.clear();
+                                                } else {
+                                                    String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                    exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                    sender.sendMessage(plugin.getPrefix() + exist);
+                                                    homes.clear();
+                                                    limited.clear();
+                                                }
+                                            } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
+                                                String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                                notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                                sender.sendMessage(plugin.getPrefix() + notSet);
+                                                homes.clear();
+                                                limited.clear();
+                                            }
+                                        } else {
+                                            new LocationsManager(sender.getName() + ".home." + name)
+                                                    .setLocation(((Player) sender).getLocation());
+                                            String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                            homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                            homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                            sender.sendMessage(plugin.getPrefix() + homeSet);
+                                            homes.clear();
+                                        }
+                                    } else {
+                                        new LocationsManager(sender.getName() + ".home." + name)
+                                                .setLocation(((Player) sender).getLocation());
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
+                                        homes.clear();
+                                    }
+                                }
+                            } else if (sender.hasPermission(new Permission(limitedHomepermissions.get("Admin"), PermissionDefault.OP))) {
+                                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                                    if (cs != null) {
+                                        for (String s : cs.getKeys(false)) {
+                                            if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                                if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                                    if (!s.equalsIgnoreCase("home")) {
+                                                        limited.add(s);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (limited.size() < plugin.getConfig().getInt("LimitedHomes.Admin")) {
+                                            if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
+                                                new LocationsManager(sender.getName() + ".home." + name)
+                                                        .setLocation(((Player) sender).getLocation());
+                                                String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                                homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                                homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                                sender.sendMessage(plugin.getPrefix() + homeSet);
+                                                homes.clear();
+                                                limited.clear();
+                                            } else {
+                                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                                exist = ReplaceCharConfig.replaceParagraph(exist);
+                                                sender.sendMessage(plugin.getPrefix() + exist);
+                                                homes.clear();
+                                                limited.clear();
+                                            }
+                                        } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
+                                            String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
+                                            notSet = ReplaceCharConfig.replaceParagraph(notSet);
+                                            sender.sendMessage(plugin.getPrefix() + notSet);
                                             homes.clear();
                                             limited.clear();
                                         }
-                                    } else if (limited.size() == plugin.getConfig().getInt("LimitedHomes.Admin") || limited.size() >= plugin.getConfig().getInt("LimitedHomes.Admin")) {
-                                        String notSet = plugin.getCustomMessagesConfig().getString("NoMoreHomesSet");
-                                        notSet = ReplaceCharConfig.replaceParagraph(notSet);
-                                        sender.sendMessage(plugin.getPrefix() + notSet);
+                                    } else {
+                                        new LocationsManager(sender.getName() + ".home." + name)
+                                                .setLocation(((Player) sender).getLocation());
+                                        String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
+                                        homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
+                                        homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
+                                        sender.sendMessage(plugin.getPrefix() + homeSet);
                                         homes.clear();
-                                        limited.clear();
                                     }
                                 } else {
                                     new LocationsManager(sender.getName() + ".home." + name)
@@ -378,7 +392,9 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                     sender.sendMessage(plugin.getPrefix() + homeSet);
                                     homes.clear();
                                 }
-                            } else {
+                            }
+                        } else {
+                            if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
                                 new LocationsManager(sender.getName() + ".home." + name)
                                         .setLocation(((Player) sender).getLocation());
                                 String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
@@ -386,22 +402,14 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                                 homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
                                 sender.sendMessage(plugin.getPrefix() + homeSet);
                                 homes.clear();
+                            } else {
+                                String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
+                                exist = ReplaceCharConfig.replaceParagraph(exist);
+                                sender.sendMessage(plugin.getPrefix() + exist);
                             }
                         }
                     } else {
-                        if (!new LocationsManager(sender.getName() + ".home." + name).getCfg().contains(sender.getName() + ".home." + name) || new LocationsManager().getCfg().getString(sender.getName() + ".home." + name).equalsIgnoreCase(" ")) {
-                            new LocationsManager(sender.getName() + ".home." + name)
-                                    .setLocation(((Player) sender).getLocation());
-                            String homeSet = plugin.getCustomMessagesConfig().getString("HomeSetOther");
-                            homeSet = ReplaceCharConfig.replaceParagraph(homeSet);
-                            homeSet = ReplaceCharConfig.replaceObjectWithData(homeSet, "%Name%", name);
-                            sender.sendMessage(plugin.getPrefix() + homeSet);
-                            homes.clear();
-                        } else {
-                            String exist = plugin.getCustomMessagesConfig().getString("HomeExist");
-                            exist = ReplaceCharConfig.replaceParagraph(exist);
-                            sender.sendMessage(plugin.getPrefix() + exist);
-                        }
+                        sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
