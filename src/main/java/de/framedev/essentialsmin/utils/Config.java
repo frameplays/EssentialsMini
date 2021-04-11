@@ -42,7 +42,7 @@ public class Config {
     }
 
     public static void saveDefaultConfigValues(String fileName) {
-        File file = new File(Main.getInstance().getDataFolder() + fileName + ".yml");
+        File file = new File(Main.getInstance().getDataFolder(), fileName + ".yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         //Defaults in jar
         Reader defConfigStream = null;
@@ -52,6 +52,11 @@ public class Config {
             cfg.setDefaults(defConfig);
             //Copy default values
             cfg.options().copyDefaults(true);
+            try {
+                cfg.save(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Main.getInstance().saveConfig();
             //OR use this to copy default values
             //this.saveDefaultConfig();
@@ -59,7 +64,7 @@ public class Config {
     }
 
     public static void saveDefaultConfigValues() {
-        File file = new File(Main.getInstance().getDataFolder() + "config.yml");
+        File file = new File(Main.getInstance().getDataFolder(), "config.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         //Defaults in jar
         Reader defConfigStream = null;
