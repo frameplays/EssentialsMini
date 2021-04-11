@@ -30,7 +30,7 @@ public class SpawnCMD implements CommandExecutor {
             if (sender.hasPermission("essentialsmini.setspawn")) {
                 if (sender instanceof Player) {
                     new LocationsManager("spawn").setLocation(((Player) sender).getLocation());
-                    sender.sendMessage(plugin.getPrefix() + "§6Spawn §awurde gesetzt!");
+                    sender.sendMessage(plugin.getPrefix() + "§6Spawn §aset!");
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                 }
@@ -42,7 +42,7 @@ public class SpawnCMD implements CommandExecutor {
             if (sender instanceof Player) {
                 try {
                     ((Player) sender).teleport(new LocationsManager("spawn").getLocation());
-                    sender.sendMessage(plugin.getPrefix() + "§aDu wurdest zum §6Spawn §aTeleportiert!");
+                    sender.sendMessage(plugin.getPrefix() + "§aTeleport to Spawn!");
                 } catch (IllegalArgumentException ignored) {
                     ((Player) sender).teleport(((Player) sender).getWorld().getSpawnLocation());
                 }
