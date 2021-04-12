@@ -43,11 +43,25 @@ public class LocationsManager {
     private boolean jsonFormat;
 
     public void setJsonLocation(String name, Location location) {
-        if (!getLocations().containsKey(name)) {
+        if(getLocations() != null) {
+            if (!getLocations().containsKey(name)) {
+                HashMap<String, String> locs = getLocations();
+                try {
+                    FileWriter writer = new FileWriter(new File(Main.getInstance().getDataFolder(), "locs.json"));
+                    locs.put(name, locationToString(location));
+                    writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(locs));
+                    writer.flush();
+                    writer.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } else {
+            HashMap<String, String> locs = new HashMap<>();
             try {
                 FileWriter writer = new FileWriter(new File(Main.getInstance().getDataFolder(), "locs.json"));
-                getLocations().put(name, locationToString(location));
-                writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(getLocations()));
+                locs.put(name, locationToString(location));
+                writer.write(new GsonBuilder().setPrettyPrinting().create().toJson(locs));
                 writer.flush();
                 writer.close();
             } catch (Exception ex) {

@@ -80,6 +80,7 @@ public class Main extends JavaPlugin {
 
     private boolean mongoDB;
     private boolean mysql;
+    private boolean sql;
 
 
     private String currencySymbol;
@@ -244,6 +245,7 @@ public class Main extends JavaPlugin {
         //EssentialsMiniAPI.getInstance().printAllHomesFromPlayers();
 
         this.mysql = getConfig().getBoolean("MySQL");
+        this.sql = getConfig().getBoolean("SQLite");
 
         if (getConfig().getBoolean("Economy.Activate")) {
             if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
@@ -364,6 +366,10 @@ public class Main extends JavaPlugin {
         }
         if (thread != null && thread.isAlive())
             thread.getThreadGroup().destroy();
+    }
+
+    public boolean isSQL() {
+        return sql;
     }
 
     /**

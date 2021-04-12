@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.frame-dev:MySQLAPI:master-8915af1366-1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/frame-dev/MySQLAPI/master-8915af1366-1/MySQLAPI-master-8915af1366-1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/frame-dev/MySQLAPI/master-8915af1366-1/MySQLAPI-master-8915af1366-1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/frame-dev/MySQLAPI/master-8915af1366-1/MySQLAPI-master-8915af1366-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

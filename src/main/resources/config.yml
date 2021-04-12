@@ -55,6 +55,7 @@ MoneySign:
 
 # Require ==MySQLAPI== https://github.com/TrAxMC/MySQLAPI/releases
 MySQL: false
+SQLite: false
 
 PlayerInfoSave: false
 OnlineMode: true

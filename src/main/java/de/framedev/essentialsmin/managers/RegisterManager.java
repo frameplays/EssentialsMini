@@ -103,8 +103,10 @@ public class RegisterManager {
         this.backup = new BackUpCMD(plugin);
         new MySQLCMD(plugin);
         new EconomyCMD(plugin);
-        if (plugin.getConfig().getBoolean("Economy.Activate"))
+        if (plugin.getConfig().getBoolean("Economy.Activate")) {
             new PayCMD(plugin);
+            new BankCMD(plugin);
+        }
         if (plugin.getConfig().getBoolean("AFK.Boolean"))
             new AFK(plugin);
         new SilentCMD(plugin);
