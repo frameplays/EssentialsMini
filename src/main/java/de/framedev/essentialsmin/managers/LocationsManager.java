@@ -232,11 +232,7 @@ public class LocationsManager {
                     if (location != null) {
                         return location;
                     }
-
-                    throw new NullPointerException("Location is Null");
-                } catch (IllegalArgumentException ex) {
-                    ex.printStackTrace();
-                    return null;
+                } catch (IllegalArgumentException ignored) {
                 }
             }
             return null;
@@ -289,11 +285,7 @@ public class LocationsManager {
                     if (location != null) {
                         return location;
                     }
-
-                    throw new NullPointerException("Location is Null");
-                } catch (IllegalArgumentException ex) {
-                    ex.printStackTrace();
-                    return null;
+                } catch (IllegalArgumentException ignored) {
                 }
             }
             return null;

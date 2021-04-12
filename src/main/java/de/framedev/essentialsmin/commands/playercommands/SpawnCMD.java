@@ -39,15 +39,19 @@ public class SpawnCMD implements CommandExecutor {
             }
         }
         if (command.getName().equalsIgnoreCase("spawn")) {
-            if (sender instanceof Player) {
-                try {
-                    ((Player) sender).teleport(new LocationsManager("spawn").getLocation());
-                    sender.sendMessage(plugin.getPrefix() + "§aTeleport to Spawn!");
-                } catch (IllegalArgumentException ignored) {
-                    ((Player) sender).teleport(((Player) sender).getWorld().getSpawnLocation());
+            if(sender.hasPermission(plugin.getPermissionName() + "spawn")) {
+                if (sender instanceof Player) {
+                    try {
+                        ((Player) sender).teleport(new LocationsManager("spawn").getLocation());
+                        sender.sendMessage(plugin.getPrefix() + "§aTeleport to Spawn!");
+                    } catch (IllegalArgumentException ignored) {
+                        ((Player) sender).teleport(((Player) sender).getWorld().getSpawnLocation());
+                    }
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                 }
             } else {
-                sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
+                sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
             }
         }
         return false;

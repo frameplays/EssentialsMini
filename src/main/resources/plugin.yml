@@ -246,6 +246,13 @@ permissions:
       essentialsmini.tptoggle.bypass: true
       essentialsmini.silent: true
       essentialsmini.home: true
+      essentialsmini.bank.create: true
+      essentialsmini.bank.remove: true
+      essentialsmini.bank.deposit: true
+      essentialsmini.bank.withdraw: true
+      essentialsmini.bank.addmember: true
+      essentialsmini.bank.removemember: true
+      essentialsmini.spawn: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -399,4 +406,18 @@ permissions:
   essentialsmini.silent:
     default: op
   essentialsmini.home:
+    default: op
+  essentialsmini.bank.create:
+    default: op
+  essentialsmini.bank.remove:
+    default: op
+  essentialsmini.bank.deposit:
+    default: op
+  essentialsmini.bank.withdraw:
+    default: op
+  essentialsmini.bank.addmember:
+    default: op
+  essentialsmini.bank.removemember:
+    default: op
+  essentialsmini.spawn:
     default: op

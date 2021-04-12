@@ -11,6 +11,7 @@ package de.framedev.essentialsmin.commands.playercommands;
 
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.MaterialManager;
+import de.framedev.essentialsmin.utils.ReplaceCharConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -46,7 +47,11 @@ public class ItemCMD implements CommandExecutor, TabCompleter {
                         String name = args[0];
                         if (new MaterialManager().existsMaterial(Material.getMaterial(name.toUpperCase()))) {
                             player.getInventory().addItem(new ItemStack(new MaterialManager().getMaterial(name.toUpperCase())));
-                            player.sendMessage(plugin.getPrefix() + "§aDu hast das Item §6" + name + " §abekommen! Menge §6" + 1);
+                            String message = plugin.getCustomMessagesConfig().getString("Item.Get");
+                            message = ReplaceCharConfig.replaceParagraph(message);
+                            message = ReplaceCharConfig.replaceObjectWithData(message, "%Item%", name);
+                            message = ReplaceCharConfig.replaceObjectWithData(message, "%Amount%", "" + 1);
+                            player.sendMessage(plugin.getPrefix() + message);
                         } else {
                             player.sendMessage(plugin.getPrefix() + "§cDieses Item existiert nicht! §6" + name);
                         }
@@ -66,8 +71,13 @@ public class ItemCMD implements CommandExecutor, TabCompleter {
                                 if (new MaterialManager().existsMaterial(Material.getMaterial(name.toUpperCase()))) {
                                     int amount = Integer.parseInt(args[1]);
                                     player.getInventory().addItem(new ItemStack(new MaterialManager().getMaterial(name.toUpperCase()), amount));
-                                    if (!Main.getSilent().contains(sender.getName()))
-                                        player.sendMessage(plugin.getPrefix() + "§aDu hast das Item §6" + name + " §abekommen! Menge §6" + amount);
+                                    if (!Main.getSilent().contains(sender.getName())) {
+                                        String message = plugin.getCustomMessagesConfig().getString("Item.Get");
+                                        message = ReplaceCharConfig.replaceParagraph(message);
+                                        message = ReplaceCharConfig.replaceObjectWithData(message, "%Item%", name);
+                                        message = ReplaceCharConfig.replaceObjectWithData(message, "%Amount%", "" + amount);
+                                        player.sendMessage(plugin.getPrefix() + message);
+                                    }
                                 } else {
                                     player.sendMessage(plugin.getPrefix() + "§cDieses Item existiert nicht! §6" + name);
                                 }
@@ -85,9 +95,14 @@ public class ItemCMD implements CommandExecutor, TabCompleter {
                             Player player1 = Bukkit.getPlayer(args[1]);
                             if (player1 != null) {
                                 player1.getInventory().addItem(new ItemStack(new MaterialManager().getMaterial(name.toUpperCase())));
-                                sender.sendMessage(plugin.getPrefix() + "§6" + player1.getName() + " §ahat das Item §6" + name + " §abekommen!");
+                                String message = plugin.getCustomMessagesConfig().getString("Item.Other");
+                                message = ReplaceCharConfig.replaceParagraph(message);
+                                message = ReplaceCharConfig.replaceObjectWithData(message, "%Item%", name);
+                                message = ReplaceCharConfig.replaceObjectWithData(message, "%Player%", player1.getName());
+                                message = ReplaceCharConfig.replaceObjectWithData(message, "%Amount%", "" + 1);
+                                sender.sendMessage(plugin.getPrefix() + message);
                             } else {
-                                sender.sendMessage(plugin.getPrefix() + "§cDieser Spieler existiert nicht! §6" + args[1]);
+                                sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[1]));
                             }
                         } else {
                             sender.sendMessage(plugin.getPrefix() + "§cDieses Item existiert nicht! §6" + name);
@@ -104,7 +119,12 @@ public class ItemCMD implements CommandExecutor, TabCompleter {
                         Player player1 = Bukkit.getPlayer(args[2]);
                         if (player1 != null) {
                             player1.getInventory().addItem(new ItemStack(new MaterialManager().getMaterial(name.toUpperCase()), amount));
-                            sender.sendMessage(plugin.getPrefix() + "§6" + player1.getName() + " §ahat das Item §6" + name + " §abekommen! Menge §6" + amount);
+                            String message = plugin.getCustomMessagesConfig().getString("Item.Other");
+                            message = ReplaceCharConfig.replaceParagraph(message);
+                            message = ReplaceCharConfig.replaceObjectWithData(message, "%Item%", name);
+                            message = ReplaceCharConfig.replaceObjectWithData(message, "%Player%", player1.getName());
+                            message = ReplaceCharConfig.replaceObjectWithData(message, "%Amount%", "" + amount);
+                            sender.sendMessage(plugin.getPrefix() + message);
                         } else {
                             sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[2]));
                         }
