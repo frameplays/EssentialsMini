@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import de.framedev.essentialsmin.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class KitManager {
         customConfig = new YamlConfiguration();
         try {
             customConfig.load(customConfigFile);
-        } catch (IOException | org.bukkit.configuration.InvalidConfigurationException e) {
+        } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }

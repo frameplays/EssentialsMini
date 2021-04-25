@@ -26,17 +26,22 @@
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>repository</id>
+            <url>http://framedev.stream:82/releases</url>
+        </repository>
+    </distributionManagement>
     <dependencies>
+        <dependency>
+            <groupId>de.framedev</groupId>
+            <artifactId>MySQLAPI</artifactId>
+            <version>1.0.5-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.frame-dev</groupId>
-            <artifactId>MySQLAPI</artifactId>
-            <version>master-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -153,6 +158,20 @@
                         <id>java-test-compile</id>
                         <phase>test-compile</phase>
                         <goals> <goal>testCompile</goal> </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>repository</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

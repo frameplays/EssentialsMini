@@ -22,13 +22,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.FileNotFoundException;
@@ -66,6 +64,25 @@ public class PlayerListeners implements Listener {
 
     public boolean isJsonFormat() {
         return jsonFormat;
+    }
+
+    @EventHandler
+    public void onColorChat(AsyncPlayerChatEvent event) {
+        String message = event.getMessage();
+        if(message.contains("&"))
+            message = message.replace('&', '§');
+        event.setMessage(message);
+    }
+
+    @EventHandler
+    public void onSignColo(SignChangeEvent event) {
+        for(int i = 0; i <= event.getLines().length; i++) {
+            if(event.getLines()[i].contains("&")) {
+                String line = event.getLines()[i];
+                line = line.replace('&', '§');
+                event.setLine(i, line);
+            }
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

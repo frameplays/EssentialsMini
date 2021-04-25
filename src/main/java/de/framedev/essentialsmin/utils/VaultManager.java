@@ -76,12 +76,12 @@ public class VaultManager {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             new MySQLManager().addBankMember(bankName, player);
         } else if (Main.getInstance().isMongoDb()) {
-            List<String> users = (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "eco");
+            List<String> users = (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "essentialsmini_data");
             if (!users.contains(player.getName()))
                 users.add(player.getName());
-            Main.getInstance().getBackendManager().updateUser(player, "bankname", bankName, "eco");
-            Main.getInstance().getBackendManager().updateUser(player, "bankmembers", users, "eco");
-            Main.getInstance().getBackendManager().updataData("bankname", bankName, "bankmembers", users, "eco");
+            Main.getInstance().getBackendManager().updateUser(player, "bankname", bankName, "essentialsmini_data");
+            Main.getInstance().getBackendManager().updateUser(player, "bankmembers", users, "essentialsmini_data");
+            Main.getInstance().getBackendManager().updataData("bankname", bankName, "bankmembers", users, "essentialsmini_data");
         } else {
             try {
                 cfg.load(file);
@@ -117,12 +117,12 @@ public class VaultManager {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             new MySQLManager().removeBankMember(bankName, player);
         } else if (Main.getInstance().isMongoDb()) {
-            List<String> users = (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "eco");
+            List<String> users = (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "essentialsmini_data");
             if (users.contains(player.getName()))
                 users.remove(player.getName());
-            Main.getInstance().getBackendManager().updateUser(player, "bankname", "", "eco");
-            Main.getInstance().getBackendManager().updateUser(player, "bankmembers", users, "eco");
-            Main.getInstance().getBackendManager().updataData("bankname", bankName, "bankmembers", users, "eco");
+            Main.getInstance().getBackendManager().updateUser(player, "bankname", "", "essentialsmini_data");
+            Main.getInstance().getBackendManager().updateUser(player, "bankmembers", users, "essentialsmini_data");
+            Main.getInstance().getBackendManager().updataData("bankname", bankName, "bankmembers", users, "essentialsmini_data");
         } else {
             try {
                 cfg.load(file);
@@ -154,7 +154,7 @@ public class VaultManager {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             return new MySQLManager().getBankMembers(bankName);
         } else if (Main.getInstance().isMongoDb()) {
-            return (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "eco");
+            return (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "essentialsmini_data");
         } else {
             return cfg.getStringList("Banks." + bankName + ".members");
         }

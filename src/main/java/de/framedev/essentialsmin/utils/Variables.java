@@ -25,6 +25,7 @@ public class Variables {
     private final boolean onlineMode;
     private final boolean jsonFormat;
     private String playerNameNotOnline;
+    private String playerNotOnline;
 
     public Variables() {
         this.instance = Main.getInstance();
@@ -38,6 +39,12 @@ public class Variables {
         this.onlineMode = instance.getConfig().getBoolean("OnlineMode");
         this.jsonFormat = instance.getConfig().getBoolean("JsonFormat");
         this.playerNameNotOnline = instance.getCustomMessagesConfig().getString("PlayerNameNotOnline");
+        this.playerNotOnline = instance.getCustomMessagesConfig().getString("PlayerNotOnline");
+    }
+
+    public String getPlayerNotOnline() {
+        playerNotOnline = ReplaceCharConfig.replaceParagraph(playerNotOnline);
+        return playerNotOnline;
     }
 
     public String getPlayerNameNotOnline(String playerName) {
@@ -100,6 +107,9 @@ public class Variables {
                 ", version='" + version + '\'' +
                 ", apiVersion='" + apiVersion + '\'' +
                 ", onlineMode=" + onlineMode +
+                ", jsonFormat=" + jsonFormat +
+                ", playerNameNotOnline='" + playerNameNotOnline + '\'' +
+                ", playerNotOnline='" + playerNotOnline + '\'' +
                 '}';
     }
 }

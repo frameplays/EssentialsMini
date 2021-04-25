@@ -163,7 +163,7 @@ public class Main extends JavaPlugin {
             this.mongoDbUtils = new MongoDbUtils();
             if (isMongoDb()) {
                 for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-                    getBackendManager().createUserMoney(player, "test");
+                    getBackendManager().createUserMoney(player, "essentialsmini_data");
                 }
             }
         }
@@ -294,7 +294,7 @@ public class Main extends JavaPlugin {
             savePlayers();
         }
 
-        if (isMysql() && getConfig().getBoolean("PlayerInfoSave")) {
+        if (isMysql() || isSQL() && getConfig().getBoolean("PlayerInfoSave")) {
             if (!SQL.isTableExists(getName().toLowerCase() + "_data")) {
                 SQL.createTable(getName().toLowerCase() + "_data",
                         "playeruuid VARCHAR(1200)",
@@ -312,8 +312,11 @@ public class Main extends JavaPlugin {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aMySQL Table Created!");
             }
         }
+
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
+
         checkUpdate(getConfig().getBoolean("AutoDownload"));
+
         info.set("MongoDB", isMongoDb());
         info.set("MySQL", isMysql());
         info.set("isOnlineMode", getVariables().isOnlineMode());
