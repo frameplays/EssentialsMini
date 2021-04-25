@@ -34,9 +34,9 @@
     </distributionManagement>
     <dependencies>
         <dependency>
-            <groupId>de.framedev</groupId>
+            <groupId>com.github.frame-dev</groupId>
             <artifactId>MySQLAPI</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
+            <version>1.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
