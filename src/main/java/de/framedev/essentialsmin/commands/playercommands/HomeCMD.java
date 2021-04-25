@@ -69,7 +69,7 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
             if (command.getName().equalsIgnoreCase("home")) {
                 try {
                     if (sender instanceof Player) {
-                        if (sender.hasPermission("home")) {
+                        if (sender.hasPermission(plugin.getPermissionName() + "home")) {
                             ((Player) sender).teleport(new LocationsManager(sender.getName() + ".home.home").getLocation());
                             String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleport");
                             if (homeTeleport.contains("&"))

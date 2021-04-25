@@ -18,11 +18,11 @@ GameModeOtherChanged: '&aDenn SpielModus von &6%Player% &awurde auf &6%GameMode%
 
 God:
   Self:
-    On: '&aDu bist nun unverwundbar'
-    Off: '&cDu bist nun wieder &6verwundbar'
+    Activated: '&aDu bist nun unverwundbar'
+    Deactivated: '&cDu bist nun wieder &6verwundbar'
   Other:
-    On: '&6%Player% &aist nun unverwundbar'
-    Off: '&6%Player% &cist nun wieder verwundbar'
+    Activated: '&6%Player% &aist nun unverwundbar'
+    Deactivated: '&6%Player% &cist nun wieder verwundbar'
 
 Heal:
   Self: '&aDu wurdest geheilt!'

@@ -46,10 +46,10 @@ public class UpdateScheduler implements Runnable {
                 } else {
                     s[2] = false;
                 }
-                if (s[0] == false && s[1] == false && s[2] == false) {
+                if (!s[0] && !s[1] && !s[2]) {
                     cancel();
                 }
             }
-        }.runTaskTimerAsynchronously(Main.getInstance(), 0, 20 * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
+        }.runTaskTimerAsynchronously(Main.getInstance(), 0, 20L * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
     }
 }
