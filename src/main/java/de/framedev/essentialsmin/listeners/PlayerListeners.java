@@ -76,7 +76,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onSignColo(SignChangeEvent event) {
-        for(int i = 0; i <= event.getLines().length; i++) {
+        for(int i = 0; i < event.getLines().length; i++) {
             if(event.getLines()[i].contains("&")) {
                 String line = event.getLines()[i];
                 line = line.replace('&', '§');
