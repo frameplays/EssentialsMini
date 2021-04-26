@@ -9,8 +9,49 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="HomeCMD Bug Fixes">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes / NullPointer Fixes">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/darrylhuber.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/EssentialsMini.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EssentialsMini.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_12_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_12_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_12_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/api/EssentialsMiniAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/api/EssentialsMiniAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/DisallowCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/DisallowCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/MoneySignListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/MoneySignListeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/BossBarManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/BossBarManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/KitManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/KitManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/LocationsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/LocationsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/RegisterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/managers/YAMLConfigurator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/utils/InventoryStringDeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/utils/InventoryStringDeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/EssentialsMini.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/api/EssentialsMiniAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/api/EssentialsMiniAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/api/MySQLManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/commands/playercommands/BackCMD 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/commands/playercommands/BankCMD 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/commands/playercommands/PlayerDataCMD 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/commands/playercommands/RegisterCMD 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/commands/servercommands/BackUpCMD 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/commands/servercommands/BackUpCMD$1 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/commands/worldcommands/SunRainThunderCMD 2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/LocationsManager$LocationJson.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/LocationsManager$LocationJson.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/LocationsManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/LocationsManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/RegisterManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/RegisterManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/YAMLConfigurator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/utils/InventoryStringDeSerializer 3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/utils/InventoryStringDeSerializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/utils/InventoryStringDeSerializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/utils/UUIDFetcher 3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/java-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/java-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/java-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/java-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +104,7 @@
     <property name="project.structure.proportion" value="0.15504587" />
     <property name="project.structure.side.proportion" value="0.2019544" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+    <property name="settings.editor.selected.configurable" value="proofread" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -311,8 +352,25 @@
       <option name="project" value="LOCAL" />
       <updated>1619377950900</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Bug Fixes / NullPointer Fixes">
+      <created>1619379004208</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1619379004208</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -345,7 +403,8 @@
     <MESSAGE value="NullPointerException Fix" />
     <MESSAGE value="1.2.2-SNAPSHOT Release" />
     <MESSAGE value="HomeCMD Bug Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="HomeCMD Bug Fixes" />
+    <MESSAGE value="Bug Fixes / NullPointer Fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes / NullPointer Fixes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

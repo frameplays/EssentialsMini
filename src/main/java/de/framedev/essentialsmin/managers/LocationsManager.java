@@ -40,7 +40,7 @@ public class LocationsManager {
     private final FileConfiguration cfgBackup = YamlConfiguration.loadConfiguration(fileBackup);
 
     private final Main instance = Main.getInstance();
-    private boolean jsonFormat;
+    private final boolean jsonFormat;
 
     public void setJsonLocation(String name, Location location) {
         if(getLocations() != null) {
@@ -332,16 +332,13 @@ public class LocationsManager {
                         if (getCfg().get(ss + ".home." + s) != null && !getCfg().get(ss + ".home." + s).equals(" ")) {
                             cfgBackup.set(ss + ".home." + s, locationToString(getLocation(ss + ".home." + s)));
                             backups.put(ss + ".home." + s, locationToString(getLocation(ss + ".home." + s)));
-
-                            /* Test */
-                            new Locations(ss + ".home." + s, getLocation(ss + ".home." + s)).setLocation();
                         }
                     }
                 }
             }
         }
         saveBackupCfg();
-        saveBackUps();
+        // saveBackUps();
     }
 
     public void deleteLocations() {

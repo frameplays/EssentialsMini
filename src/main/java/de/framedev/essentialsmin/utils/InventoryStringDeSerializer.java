@@ -88,6 +88,30 @@ public class InventoryStringDeSerializer {
             throw new IOException("Unable to decode class type.", e);
         }
     }
+
+    public static String itemToBase64(ItemStack itemStack) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+            dataOutput.writeObject(itemStack);
+            dataOutput.close();
+            return Base64Coder.encodeLines(outputStream.toByteArray());
+        } catch (Exception e) {
+            throw new IllegalStateException("Unable to save item stacks.", e);
+        }
+    }
+
+    public static ItemStack itemFromBase64(String base) throws IOException {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(base));
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+            ItemStack itemStack = (ItemStack) dataInput.readObject();
+            dataInput.close();
+            return itemStack;
+        } catch (Exception exception) {
+            throw new IOException("Unable to decode class type.", exception);
+        }
+    }
 }
 
 

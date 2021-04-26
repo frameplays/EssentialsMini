@@ -13,6 +13,7 @@ import org.bukkit.help.HelpTopic;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
  * ===================================================
@@ -30,12 +31,12 @@ public class DisallowCommands extends ListenerBase {
     public DisallowCommands(Main plugin) {
         super(plugin);
         this.plugin = getPlugin();
-        blockedCMDString.put("essentialsmini.setspawn", "setspawn");
+        /*blockedCMDString.put("essentialsmini.setspawn", "setspawn");
         blockedCMDString.put("essentialsmini.fly", "fly");
         blockedCMDString.put("essentialsmini.invsee", "invsee");
         blockedCMDString.put("essentialsmini.invsee", "enderchest");
         blockedCMDString.put("essentialsmini.invsee", "ec");
-        blockedCMDString.put("essentialsmini.resethealth", "resethealth");
+        blockedCMDString.put("essentialsmini.resethealth", "resethealth");*/
         setupListener(this);
     }
 
@@ -245,6 +246,10 @@ public class DisallowCommands extends ListenerBase {
             blockedCommands.add("delhome");
             blockedCommands.add("delotherhomes");
         }
+        /*for (Map.Entry<String, String> entry : blockedCMDString.entrySet()) {
+            if (!event.getPlayer().hasPermission(entry.getKey()))
+                blockedCommands.add(entry.getValue());
+        }*/
         event.getCommands().removeAll(blockedCommands);
         event.getCommands().removeIf(string -> string.contains(":"));
     }
@@ -260,8 +265,8 @@ public class DisallowCommands extends ListenerBase {
         if (!event.getPlayer().hasPermission("essentialsmini.plugins")) {
             if (event.getMessage().split(" ")[0].equalsIgnoreCase("/pl") || event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:pl") || event.getMessage().split(" ")[0].equalsIgnoreCase("/plugins")
                     || event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:plugins")) {
-                    event.getPlayer().sendMessage(ChatColor.WHITE + "Plugins(3): " + ChatColor.GREEN + "Nichts" + ChatColor.WHITE + ", " + ChatColor.GREEN + "zu" + ChatColor.WHITE + ", " + ChatColor.GREEN + "sehen!");
-                    event.setCancelled(true);
+                event.getPlayer().sendMessage(ChatColor.WHITE + "Plugins(3): " + ChatColor.GREEN + "Nichts" + ChatColor.WHITE + ", " + ChatColor.GREEN + "zu" + ChatColor.WHITE + ", " + ChatColor.GREEN + "sehen!");
+                event.setCancelled(true);
             }
         }
         if (!event.getPlayer().hasPermission("essentialsmini.me")) {
@@ -284,8 +289,8 @@ public class DisallowCommands extends ListenerBase {
                 event.setCancelled(true);
             }
         }
-        if (event.getMessage().split(" ")[0].equalsIgnoreCase("/?")  || event.getMessage().split(" ")[0].equalsIgnoreCase("/help") ||
-                event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:help")  || event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:?")) {
+        if (event.getMessage().split(" ")[0].equalsIgnoreCase("/?") || event.getMessage().split(" ")[0].equalsIgnoreCase("/help") ||
+                event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:help") || event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:?")) {
             if (!event.getPlayer().hasPermission("essentialsmini.help")) {
                 String message = plugin.getConfig().getString("NotAllowCommand");
                 if (message.contains("&"))

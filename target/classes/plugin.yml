@@ -1,7 +1,7 @@
 name: EssentialsMini
 author: FrameDev
 api-version: 1.13
-version: 1.2.2-SNAPSHOT
+version: 1.2.3-SNAPSHOT
 main: de.framedev.essentialsmin.main.Main
 softdepend:
   - Vault

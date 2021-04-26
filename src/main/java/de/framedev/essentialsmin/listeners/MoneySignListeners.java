@@ -3,7 +3,6 @@ package de.framedev.essentialsmin.listeners;
 import de.framedev.essentialsmin.main.Main;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +25,7 @@ public class MoneySignListeners implements Listener {
 
     public MoneySignListeners(Main plugin) {
         plugin.getListeners().add(this);
-        if(plugin.getConfig().getBoolean("Economy.Activate")) {
+        if (plugin.getConfig().getBoolean("Economy.Activate")) {
             eco = plugin.getVaultManager().getEco();
         }
     }
@@ -52,7 +51,7 @@ public class MoneySignListeners implements Listener {
             }
             if (e.getHand().equals(EquipmentSlot.HAND) &&
                     e.getClickedBlock().getState() instanceof Sign) {
-                Sign s = (Sign)e.getClickedBlock().getState();
+                Sign s = (Sign) e.getClickedBlock().getState();
                 String signName = Main.getInstance().getConfig().getString("MoneySign.Balance");
                 signName = signName.replace('&', '§');
                 if (s.getLine(0).equalsIgnoreCase(signName)) {
@@ -69,7 +68,6 @@ public class MoneySignListeners implements Listener {
             }
         }
     }
-
 
 
     @EventHandler
@@ -127,7 +125,7 @@ public class MoneySignListeners implements Listener {
                 String signName = Main.getInstance().getConfig().getString("MoneySign.Free");
                 signName = signName.replace('&', '§');
                 if (e.getClickedBlock().getState() instanceof Sign) {
-                    Sign s = (Sign)e.getClickedBlock().getState();
+                    Sign s = (Sign) e.getClickedBlock().getState();
                     if (s.getLine(0).equalsIgnoreCase(signName)) {
                         if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
                             String[] args = s.getLines();
@@ -135,7 +133,6 @@ public class MoneySignListeners implements Listener {
                             int amount = Integer.parseInt(args[2]);
                             if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "")) {
                                 e.getPlayer().getInventory().addItem(new ItemStack(name, amount));
-                                return;
                             }
                         } else {
                             e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
@@ -157,7 +154,7 @@ public class MoneySignListeners implements Listener {
             if (e.getHand().equals(EquipmentSlot.HAND)) {
                 String signName = Main.getInstance().getConfig().getString("MoneySign.Buy");
                 signName = signName.replace('&', '§');
-                Sign s = (Sign)e.getClickedBlock().getState();
+                Sign s = (Sign) e.getClickedBlock().getState();
                 if (s.getLine(0).equalsIgnoreCase(signName)) {
                     if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
                         String[] args = s.getLines();
@@ -176,7 +173,6 @@ public class MoneySignListeners implements Listener {
                             e.getPlayer().getInventory().addItem(item);
                             eco.withdrawPlayer(e.getPlayer(), money);
                             e.getPlayer().sendMessage("§aYou bought §6" + name.name() + " §afor §6" + money);
-                            return;
                         }
                     } else {
                         e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
@@ -206,9 +202,7 @@ public class MoneySignListeners implements Listener {
                     e.setLine(3, money + "");
                 }
 
-            }
-            else {
-
+            } else {
                 e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
             }
         }
@@ -224,7 +218,7 @@ public class MoneySignListeners implements Listener {
                     e.getClickedBlock().getState() instanceof Sign) {
                 String signName = Main.getInstance().getConfig().getString("MoneySign.Sell");
                 signName = signName.replace('&', '§');
-                Sign s = (Sign)e.getClickedBlock().getState();
+                Sign s = (Sign) e.getClickedBlock().getState();
                 if (s.getLine(0).equalsIgnoreCase(signName))
                     if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
                         String[] args = s.getLines();
@@ -243,10 +237,6 @@ public class MoneySignListeners implements Listener {
                                 return;
                             }
                             e.getPlayer().sendMessage("Not enought " + name.name());
-
-
-
-                            return;
                         }
                     } else {
                         e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());

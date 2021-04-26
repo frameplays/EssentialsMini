@@ -86,7 +86,8 @@ public class Main extends JavaPlugin {
     private String currencySymbol;
 
     private ArrayList<String> offlinePlayers;
-    private YAMLConfigurator info;
+    private File infoFile;
+    private FileConfiguration info;
 
     private MongoDbUtils mongoDbUtils;
 
@@ -94,7 +95,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        this.info = new YAMLConfigurator("info");
+        this.infoFile = new File(getDataFolder(), "info.yml");
+        this.info = YamlConfiguration.loadConfiguration(infoFile);
 
         new EssentialsMiniAPI();
         createCustomMessagesConfig();
@@ -320,7 +322,11 @@ public class Main extends JavaPlugin {
         info.set("isOnlineMode", getVariables().isOnlineMode());
         info.set("PlayerDataSave", getConfig().getBoolean("PlayerInfoSave"));
         info.set("Economy", getConfig().getBoolean("Economy.Activate"));
-        info.saveConfig();
+        try {
+            info.save(infoFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -352,19 +358,12 @@ public class Main extends JavaPlugin {
             });
         }
         new SaveLists().saveVanishList();
-        if (!VanishCMD.hided.isEmpty()) {
-            VanishCMD.hided.forEach(players -> {
-                if (Bukkit.getPlayer(players) != null) {
-                    Bukkit.getPlayer(players).sendMessage(getPrefix() + "§cNach dem Reload wirst du nicht mehr im Vanish sein!");
-                }
-            });
-        }
+        if (!VanishCMD.hided.isEmpty()) VanishCMD.hided.forEach(players -> {
+            if (Bukkit.getPlayer(players) != null) {
+                Objects.requireNonNull(Bukkit.getPlayer(players)).sendMessage(getPrefix() + "§cNach dem Reload wirst du nicht mehr im Vanish sein!");
+            }
+        });
         savePlayers();
-        if (false) {
-            CustomJson json = new CustomJson("playersss");
-            json.set("Offline", offlinePlayers);
-            json.saveConfig();
-        }
         if (thread != null && thread.isAlive())
             thread.getThreadGroup().destroy();
     }
@@ -405,10 +404,14 @@ public class Main extends JavaPlugin {
             ex.printStackTrace();
         }
         info.set("OfflinePlayers", offlinePlayers);
-        info.saveConfig();
+        try {
+            info.save(infoFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public YAMLConfigurator getInfo() {
+    public FileConfiguration getInfo() {
         return info;
     }
 
@@ -528,7 +531,7 @@ public class Main extends JavaPlugin {
     }
 
     /**
-     * @return die variablen die gespeichert wurden verfügbar mit dem Getter
+     * @return die Variablen die gespeichert wurden verfügbar mit dem Getter
      */
     public Variables getVariables() {
         return variables;

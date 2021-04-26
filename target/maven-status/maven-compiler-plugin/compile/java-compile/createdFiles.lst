@@ -104,7 +104,6 @@ de/framedev/essentialsmin/commands/servercommands/BackUpCMD$1.class
 de/framedev/essentialsmin/commands/playercommands/FeedCMD.class
 de/framedev/essentialsmin/main/Main.class
 de/framedev/essentialsmin/managers/PlayerManagerMongoDB.class
-de/framedev/essentialsmin/managers/YAMLConfigurator.class
 de/framedev/essentialsmin/managers/FileManager.class
 de/framedev/essentialsmin/api/MySQLManager.class
 de/framedev/essentialsmin/commands/servercommands/LagCMD$1.class

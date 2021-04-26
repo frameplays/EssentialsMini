@@ -26,7 +26,6 @@
 /Users/darrylhuber/Documents/GitHub/EssentialsMini/src/main/java/de/framedev/essentialsmin/commands/playercommands/RepairCMD.java
 /Users/darrylhuber/Documents/GitHub/EssentialsMini/src/main/java/de/framedev/essentialsmin/commands/playercommands/EssentialsMiniCMD.java
 /Users/darrylhuber/Documents/GitHub/EssentialsMini/src/main/java/de/framedev/essentialsmin/commands/playercommands/AFK.java
-/Users/darrylhuber/Documents/GitHub/EssentialsMini/src/main/java/de/framedev/essentialsmin/managers/YAMLConfigurator.java
 /Users/darrylhuber/Documents/GitHub/EssentialsMini/src/main/java/de/framedev/essentialsmin/api/VaultAPI.java
 /Users/darrylhuber/Documents/GitHub/EssentialsMini/src/main/java/de/framedev/essentialsmin/commands/playercommands/RenameItemCMD.java
 /Users/darrylhuber/Documents/GitHub/EssentialsMini/src/main/java/de/framedev/essentialsmin/managers/UpdateScheduler.java

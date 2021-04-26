@@ -45,15 +45,6 @@ public class BossBarManager {
         this.title = title;
         this.barColor = barColor;
         this.barStyle = barStyle;
-        if (title == null) {
-            throw new NullPointerException("Title cannot be null!");
-        }
-        if (barColor == null) {
-            throw new NullPointerException("BarColor cannot be Null!");
-        }
-        if (barStyle == null) {
-            throw new NullPointerException("BarStyle cannot be Null!");
-        }
     }
 
     /**
@@ -65,22 +56,19 @@ public class BossBarManager {
         this.title = title;
         this.barStyle = BarStyle.SEGMENTED_12;
         this.barColor = BarColor.BLUE;
-        if (title == null) {
-            throw new NullPointerException("Title cannot be null!");
-        }
     }
 
     /**
      * @param barStyle set's the BarStyle new
      */
-    public void setBarStyle(BarStyle barStyle) {
+    public void setBarStyle(@NonNull BarStyle barStyle) {
         this.barStyle = barStyle;
     }
 
     /**
      * @param barColor set's the Color for the BossBar new!
      */
-    public void setBarColor(BarColor barColor) {
+    public void setBarColor(@NonNull BarColor barColor) {
         this.barColor = barColor;
     }
 
@@ -102,14 +90,14 @@ public class BossBarManager {
     /**
      * @return the BossBar Style
      */
-    public BarStyle getBarStyle() {
+    public @NonNull BarStyle getBarStyle() {
         return barStyle;
     }
 
     /**
      * @return the Title from the BossBar
      */
-    public String getTitle() {
+    public @NonNull String getTitle() {
         return title;
     }
 
@@ -122,11 +110,11 @@ public class BossBarManager {
         return this;
     }
 
-    public BarColor getBarColor() {
+    public @NonNull BarColor getBarColor() {
         return barColor;
     }
 
-    public BossBar getBossBar() {
+    public @NonNull BossBar getBossBar() {
         return bossBar;
     }
 

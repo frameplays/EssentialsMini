@@ -16,8 +16,8 @@ import java.util.Objects;
 
 public class RegisterManager {
 
-
     private final Main plugin;
+    private ThunderCMD thunderCMD;
     private BackUpCMD backup;
 
     public RegisterManager(Main plugin) {
@@ -25,14 +25,8 @@ public class RegisterManager {
         registerCommands();
         registerListeners();
         registerTabCompleters();
-
     }
 
-    public void data() {
-        YAMLConfigurator data = plugin.getInfo();
-        HashMap<String, Object> dataYml = data.getData();
-        plugin.debug(dataYml);
-    }
 
     private void registerTabCompleters() {
         plugin.getTabCompleters().forEach((key, value) -> plugin.getCommand(key).setTabCompleter(value));
@@ -46,11 +40,6 @@ public class RegisterManager {
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
-    private ThunderCMD thunderCMD;
-
-    /**
-     * @param plugin
-     */
     private void registerCommands() {
         new EssentialsMiniCMD(plugin);
         new SpawnCMD(plugin);

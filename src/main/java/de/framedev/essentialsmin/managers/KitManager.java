@@ -52,7 +52,7 @@ public class KitManager {
         try {
             for (String s : getCustomConfig().getStringList("Items." + name)) {
                 String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0]), Integer.parseInt(x[1]));
+                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
                 this.kitname.addItem(item);
             }
             for (ItemStack items : this.kitname.getContents()) {
@@ -86,11 +86,24 @@ public class KitManager {
         }
     }
 
+    public void createKit(String kitName, ItemStack[] items) {
+        ArrayList<String> kit = new ArrayList<>();
+        for (ItemStack itemStack : items) {
+            kit.add(itemStack.getType() + ":" + itemStack.getAmount());
+        }
+        customConfig.set("Items." + kitName, kit);
+        try {
+            customConfig.save(customConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Inventory getKit(String name) {
         try {
             for (String s : getCustomConfig().getStringList("Items." + name)) {
                 String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0]), Integer.parseInt(x[1]));
+                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
                 this.kitname.addItem(item);
             }
         } catch (Exception ex) {
@@ -104,19 +117,12 @@ public class KitManager {
         this.kitname.clear();
     }
 
-    @Override
-    public String toString() {
-        return "KitManager{" +
-                "kitname=" + kitname +
-                '}';
-    }
-
     public List<ItemStack> loadKit(String name) {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (String s : getCustomConfig().getStringList("Items." + name)) {
             if (s != null) {
                 String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0]));
+                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()));
                 item.setAmount(Integer.parseInt(x[1]));
                 items.add(item);
             }
@@ -158,6 +164,13 @@ public class KitManager {
             }
         }
         return inventory;
+    }
+
+    @Override
+    public String toString() {
+        return "KitManager{" +
+                "kitname=" + kitname +
+                '}';
     }
 }
 
