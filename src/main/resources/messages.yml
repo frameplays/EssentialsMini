@@ -48,7 +48,7 @@ Item:
   Other: '&6%Player% &ahat das Item &6%Item% &abekommen! Menge &6%Amount%'
 
 Warp:
-  Created:  '&aWarp wurde erstellt mit dem Namen &6%WarpName%&c!'
+  Created: '&aWarp wurde erstellt mit dem Namen &6%WarpName%&c!'
   Teleport: '&aDu wurdest erfolgreich zum Warp &6%WarpName% &aTeleportiert!'
   Delete: '&aWarp mit dem Namen &6%WarpName% &awurde &cgelöscht!'
   NotExist: '&cDieser Warp wurde noch nicht erstellt!'

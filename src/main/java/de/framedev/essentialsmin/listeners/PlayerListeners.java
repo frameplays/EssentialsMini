@@ -41,7 +41,7 @@ public class PlayerListeners implements Listener {
     PlayerManagerCfgLoss cfgLoss;
     private final boolean jsonFormat;
     private final String permissionBase;
-    private String collection = "essentialsmini_data";
+    private final String collection = "essentialsmini_data";
 
     private final boolean onlyEssentialsFeatures;
 
