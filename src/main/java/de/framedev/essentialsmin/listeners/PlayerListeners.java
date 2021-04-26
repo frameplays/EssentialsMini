@@ -47,11 +47,9 @@ public class PlayerListeners implements Listener {
 
     public PlayerListeners(Main plugin) {
         this.plugin = plugin;
-        plugin.getListeners()
-                .add(this);
+        plugin.getListeners().add(this);
         permissionBase = plugin.getPermissionName();
-        jsonFormat = plugin.getConfig()
-                .getBoolean("JsonFormat");
+        jsonFormat = plugin.getConfig().getBoolean("JsonFormat");
         this.onlyEssentialsFeatures = plugin.getConfig().getBoolean("OnlyEssentialsFeatures");
     }
 
@@ -69,19 +67,23 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onColorChat(AsyncPlayerChatEvent event) {
-        String message = event.getMessage();
-        if(message.contains("&"))
-            message = message.replace('&', '§');
-        event.setMessage(message);
+        if (plugin.getConfig().getBoolean("ColoredChat")) {
+            String message = event.getMessage();
+            if (message.contains("&"))
+                message = message.replace('&', '§');
+            event.setMessage(message);
+        }
     }
 
     @EventHandler
     public void onSignColo(SignChangeEvent event) {
-        for(int i = 0; i < event.getLines().length; i++) {
-            if(event.getLines()[i].contains("&")) {
-                String line = event.getLines()[i];
-                line = line.replace('&', '§');
-                event.setLine(i, line);
+        if (plugin.getConfig().getBoolean("ColoredSigns")) {
+            for (int i = 0; i < event.getLines().length; i++) {
+                if (event.getLines()[i].contains("&")) {
+                    String line = event.getLines()[i];
+                    line = line.replace('&', '§');
+                    event.setLine(i, line);
+                }
             }
         }
     }
@@ -98,45 +100,33 @@ public class PlayerListeners implements Listener {
             }
             plugin.getVaultManager().getEco().createPlayerAccount(event.getPlayer());
         }
-        if (plugin.getConfig()
-                .getBoolean("JoinBoolean")) {
-            if (plugin.getConfig()
-                    .getBoolean("IgnoreJoinLeave")) {
-                if (event.getPlayer()
-                        .hasPermission("essentialsmini.ignorejoin")) {
+        if (plugin.getConfig().getBoolean("JoinBoolean")) {
+            if (plugin.getConfig().getBoolean("IgnoreJoinLeave")) {
+                if (event.getPlayer().hasPermission("essentialsmini.ignorejoin")) {
                     event.setJoinMessage(null);
                 } else {
-                    String joinMessage = plugin.getConfig()
-                            .getString("JoinMessage");
+                    String joinMessage = plugin.getConfig().getString("JoinMessage");
                     joinMessage = joinMessage.replace('&', '§');
-                    joinMessage = joinMessage.replace("%Player%", event.getPlayer()
-                            .getName());
+                    joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setJoinMessage(joinMessage);
                 }
             } else {
-                String joinMessage = plugin.getConfig()
-                        .getString("JoinMessage");
+                String joinMessage = plugin.getConfig().getString("JoinMessage");
                 joinMessage = joinMessage.replace('&', '§');
-                joinMessage = joinMessage.replace("%Player%", event.getPlayer()
-                        .getName());
+                joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                 event.setJoinMessage(joinMessage);
             }
         }
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (plugin.getConfig()
-                        .getBoolean("SpawnTP")) {
+                if (plugin.getConfig().getBoolean("SpawnTP")) {
                     if (!event.getPlayer().getWorld().getName().equalsIgnoreCase("plotme1")) {
                         LocationsManager spawnLocation = new LocationsManager("spawn");
                         try {
-                            event.getPlayer()
-                                    .teleport(spawnLocation.getLocation());
+                            event.getPlayer().teleport(spawnLocation.getLocation());
                         } catch (IllegalArgumentException ex) {
-                            event.getPlayer()
-                                    .teleport(event.getPlayer()
-                                            .getWorld()
-                                            .getSpawnLocation());
+                            event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
                         }
                     }
                 }
@@ -146,51 +136,37 @@ public class PlayerListeners implements Listener {
         }.runTaskLater(plugin, 20);
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (!isJsonFormat()) {
-                new PlayerManager(event.getPlayer()
-                        .getUniqueId()).setLastLogin(System.currentTimeMillis());
+                new PlayerManager(event.getPlayer().getUniqueId()).setLastLogin(System.currentTimeMillis());
             } else {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
                         try {
-                            if (!plugin.getCfgLossHashMap()
-                                    .containsKey(event.getPlayer())) {
+                            if (!plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
                                 if (plugin.isMysql()) {
                                     if (PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
-                                        plugin.getCfgLossHashMap()
-                                                .put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
-                                        plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
+                                        plugin.getCfgLossHashMap().put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
                                     } else {
-                                        plugin.getCfgLossHashMap()
-                                                .put(event.getPlayer(), new PlayerManagerCfgLoss(event.getPlayer()));
-                                        plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
+                                        plugin.getCfgLossHashMap().put(event.getPlayer(), new PlayerManagerCfgLoss(event.getPlayer()));
                                     }
+                                    plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
                                 } else {
-                                    plugin.getCfgLossHashMap()
-                                            .put(event.getPlayer(), PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()));
-                                    plugin.getCfgLossHashMap()
-                                            .get(event.getPlayer())
-                                            .setLastLogin(System.currentTimeMillis());
+                                    plugin.getCfgLossHashMap().put(event.getPlayer(), PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()));
+                                    plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
                                 }
                             }
                         } catch (FileNotFoundException e) {
-                            if (!plugin.getCfgLossHashMap()
-                                    .containsKey(event.getPlayer())) {
+                            if (!plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
                                 if (plugin.isMysql()) {
                                     if (PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()) != null) {
-                                        plugin.getCfgLossHashMap()
-                                                .put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
+                                        plugin.getCfgLossHashMap().put(event.getPlayer(), PlayerManagerCfgLoss.loadPlayerData(event.getPlayer()));
                                     } else {
-                                        plugin.getCfgLossHashMap()
-                                                .put(event.getPlayer(), new PlayerManagerCfgLoss(event.getPlayer()));
+                                        plugin.getCfgLossHashMap().put(event.getPlayer(), new PlayerManagerCfgLoss(event.getPlayer()));
                                     }
                                 } else {
                                     PlayerManagerCfgLoss cfgLoss = new PlayerManagerCfgLoss(event.getPlayer());
-                                    plugin.getCfgLossHashMap()
-                                            .put(event.getPlayer(), cfgLoss);
-                                    plugin.getCfgLossHashMap()
-                                            .get(event.getPlayer())
-                                            .setLastLogin(System.currentTimeMillis());
+                                    plugin.getCfgLossHashMap().put(event.getPlayer(), cfgLoss);
+                                    plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogin(System.currentTimeMillis());
                                 }
                             }
                         }
@@ -206,7 +182,7 @@ public class PlayerListeners implements Listener {
                     plugin.getBackendManager().createUserMoney(event.getPlayer(), collection);
                     plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogin", System.currentTimeMillis() + "", collection);
                     plugin.getBackendManager().updateUser(event.getPlayer(), "offline", false, collection);
-                    PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),collection).save(collection);
+                    PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(), collection).save(collection);
                 }
             }
 
@@ -227,54 +203,36 @@ public class PlayerListeners implements Listener {
             plugin.addOfflinePlayer(event.getPlayer());
             plugin.savePlayers();
             if (!isJsonFormat()) {
-                new PlayerManager(event.getPlayer()
-                        .getUniqueId()).setLastLogout(System.currentTimeMillis());
+                new PlayerManager(event.getPlayer().getUniqueId()).setLastLogout(System.currentTimeMillis());
             } else {
-                if (plugin.getCfgLossHashMap()
-                        .containsKey(event.getPlayer())) {
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .setLastLogout(System.currentTimeMillis());
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .saveTimePlayed();
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .savePlayerManager();
+                if (plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).saveTimePlayed();
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
                     if (plugin.isMysql()) {
-                        plugin.getCfgLossHashMap()
-                                .get(event.getPlayer())
-                                .setLastLogout(System.currentTimeMillis());
-                        plugin.getCfgLossHashMap()
-                                .get(event.getPlayer()).savePlayerData(event.getPlayer());
+                        plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
+                        plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerData(event.getPlayer());
                     }
                 }
             }
         }
-        if (plugin.getConfig()
-                .getBoolean("LeaveBoolean")) {
-            if (plugin.getConfig()
-                    .getBoolean("IgnoreJoinLeave")) {
-                if (event.getPlayer()
-                        .hasPermission("essentialsmini.ignoreleave")) {
+        if (plugin.getConfig().getBoolean("LeaveBoolean")) {
+            if (plugin.getConfig().getBoolean("IgnoreJoinLeave")) {
+                if (event.getPlayer().hasPermission("essentialsmini.ignoreleave")) {
                     event.setQuitMessage(null);
                 } else {
-                    String joinMessage = plugin.getConfig()
-                            .getString("LeaveMessage");
+                    String joinMessage = plugin.getConfig().getString("LeaveMessage");
                     if (joinMessage.contains("&")) {
                         joinMessage = joinMessage.replace('&', '§');
                     }
-                    joinMessage = joinMessage.replace("%Player%", event.getPlayer()
-                            .getName());
+                    joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setQuitMessage(joinMessage);
                 }
             } else {
-                String joinMessage = plugin.getConfig()
-                        .getString("LeaveMessage");
+                String joinMessage = plugin.getConfig().getString("LeaveMessage");
                 joinMessage = joinMessage.replace('&', '§');
-                joinMessage = joinMessage.replace("%Player%", event.getPlayer()
-                        .getName());
+                joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                 event.setQuitMessage(joinMessage);
             }
         }
@@ -295,27 +253,16 @@ public class PlayerListeners implements Listener {
         plugin.savePlayers();
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (!isJsonFormat()) {
-                new PlayerManager(event.getPlayer()
-                        .getUniqueId()).setLastLogout(System.currentTimeMillis());
+                new PlayerManager(event.getPlayer().getUniqueId()).setLastLogout(System.currentTimeMillis());
             } else {
-                if (plugin.getCfgLossHashMap()
-                        .containsKey(event.getPlayer())) {
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .setLastLogout(System.currentTimeMillis());
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .saveTimePlayed();
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .savePlayerManager();
+                if (plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).saveTimePlayed();
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
                     if (plugin.isMysql()) {
-                        plugin.getCfgLossHashMap()
-                                .get(event.getPlayer())
-                                .setLastLogout(System.currentTimeMillis());
-                        plugin.getCfgLossHashMap()
-                                .get(event.getPlayer()).savePlayerData(event.getPlayer());
+                        plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
+                        plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerData(event.getPlayer());
                     }
                 }
             }
@@ -334,11 +281,8 @@ public class PlayerListeners implements Listener {
             if (isEnabled() && !onlyEssentialsFeatures) {
                 Player damager = (Player) event.getDamager();
                 if (isJsonFormat()) {
-                    if (plugin.getCfgLossHashMap()
-                            .containsKey(damager)) {
-                        plugin.getCfgLossHashMap()
-                                .get(damager)
-                                .addDamage(event.getFinalDamage());
+                    if (plugin.getCfgLossHashMap().containsKey(damager)) {
+                        plugin.getCfgLossHashMap().get(damager).addDamage(event.getFinalDamage());
                     }
                 } else {
                     new PlayerManager(damager).addDamage(event.getFinalDamage());
@@ -359,10 +303,9 @@ public class PlayerListeners implements Listener {
         LivingEntity livingEntity = event.getEntity();
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (livingEntity.getKiller() != null) {
-                if (livingEntity.getKiller() instanceof Player) {
+                if (livingEntity.getKiller() != null) {
                     if (isJsonFormat()) {
-                        if (plugin.getCfgLossHashMap()
-                                .containsKey(livingEntity.getKiller())) {
+                        if (plugin.getCfgLossHashMap().containsKey(livingEntity.getKiller())) {
                             plugin.getCfgLossHashMap().get(livingEntity.getKiller()).addEntityType(event.getEntityType());
                             plugin.getCfgLossHashMap().get(livingEntity.getKiller()).addEntityKill();
                         }
@@ -395,13 +338,12 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if(KillCMD.suicid) {
-            event.setDeathMessage("");
+        if (KillCMD.suicid) {
+            event.setDeathMessage(null);
             KillCMD.suicid = false;
         } else {
-            if (event.getEntity()
-                    .getKiller() != null) {
-                if (event.getEntity().getKiller() instanceof Player) {
+            if (event.getEntity().getKiller() != null) {
+                if (event.getEntity().getKiller() != null) {
                     if (isEnabled() && !onlyEssentialsFeatures) {
                         if (isJsonFormat()) {
                             if (plugin.getCfgLossHashMap().containsKey(event.getEntity().getKiller())) {
@@ -429,11 +371,8 @@ public class PlayerListeners implements Listener {
             Player player = (Player) event.getEntity();
             if (isEnabled() && !onlyEssentialsFeatures) {
                 if (isJsonFormat()) {
-                    if (plugin.getCfgLossHashMap()
-                            .containsKey(player)) {
-                        plugin.getCfgLossHashMap()
-                                .get(player)
-                                .addDeath();
+                    if (plugin.getCfgLossHashMap().containsKey(player)) {
+                        plugin.getCfgLossHashMap().get(player).addDeath();
                     }
                 } else {
                     new PlayerManager(player).addDeath();
@@ -453,20 +392,13 @@ public class PlayerListeners implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (isJsonFormat()) {
-                if (plugin.getCfgLossHashMap()
-                        .containsKey(event.getPlayer())) {
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .addBlockBroken();
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .addBlockBrokensMaterial(event.getBlock()
-                                    .getType());
+                if (plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).addBlockBroken();
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).addBlockBrokensMaterial(event.getBlock().getType());
                 }
             } else {
                 new PlayerManager(event.getPlayer()).addBlockBroken();
-                new PlayerManager(event.getPlayer()).addBlocksBroken(event.getBlock()
-                        .getType());
+                new PlayerManager(event.getPlayer()).addBlocksBroken(event.getBlock().getType());
             }
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
                 if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
@@ -475,7 +407,7 @@ public class PlayerListeners implements Listener {
                         materis.add(event.getBlock().getType().name());
                         plugin.getBackendManager().updateUser(event.getPlayer(), "blocksBroken", materis, collection);
                     }
-                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),collection);
+                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(), collection);
                     pl.setBlockBroken(pl.getBlockBroken() + 1);
                     pl.save(collection);
                 }
@@ -487,20 +419,13 @@ public class PlayerListeners implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (isJsonFormat()) {
-                if (plugin.getCfgLossHashMap()
-                        .containsKey(event.getPlayer())) {
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .addBlockPlace();
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .addBlocksPlace(event.getBlock()
-                                    .getType());
+                if (plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).addBlockPlace();
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).addBlocksPlace(event.getBlock().getType());
                 }
             } else {
                 new PlayerManager(event.getPlayer()).addBlockPlace();
-                new PlayerManager(event.getPlayer()).addBlocksPlace(event.getBlock()
-                        .getType());
+                new PlayerManager(event.getPlayer()).addBlocksPlace(event.getBlock().getType());
             }
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
                 if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
@@ -509,7 +434,7 @@ public class PlayerListeners implements Listener {
                         materis.add(event.getBlock().getType().name());
                         plugin.getBackendManager().updateUser(event.getPlayer(), "blocksPlacen", materis, collection);
                     }
-                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(),collection);
+                    PlayerManagerMongoDB pl = PlayerManagerMongoDB.getPlayerManager(event.getPlayer().getUniqueId(), collection);
                     pl.setBlockPlacen(pl.getBlockPlacen() + 1);
                     pl.save(collection);
                 }
@@ -521,11 +446,8 @@ public class PlayerListeners implements Listener {
     public void onCommandUsed(PlayerCommandPreprocessEvent event) {
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (isJsonFormat()) {
-                if (plugin.getCfgLossHashMap()
-                        .containsKey(event.getPlayer())) {
-                    plugin.getCfgLossHashMap()
-                            .get(event.getPlayer())
-                            .addCommandsUsed();
+                if (plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
+                    plugin.getCfgLossHashMap().get(event.getPlayer()).addCommandsUsed();
                 }
             } else {
                 new PlayerManager(event.getPlayer()).addCommandsUsed();

@@ -9,13 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes / NullPointer Fixes&#10;.jar Size changed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/commands/playercommands/KillCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/commands/playercommands/KillCMD.java" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Suicid CMD Update">
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/PlayerListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/PlayerListeners.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/api/EssentialsMiniAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/api/EssentialsMiniAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,7 +332,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619428837094</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Suicid CMD Update">
+      <created>1619429868724</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1619429868724</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -376,7 +385,8 @@
     <MESSAGE value="HomeCMD Bug Fixes" />
     <MESSAGE value="Bug Fixes / NullPointer Fixes" />
     <MESSAGE value="Bug Fixes / NullPointer Fixes&#10;.jar Size changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes / NullPointer Fixes&#10;.jar Size changed" />
+    <MESSAGE value="Suicid CMD Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Suicid CMD Update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
