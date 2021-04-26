@@ -660,15 +660,14 @@ public class Main extends JavaPlugin {
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             if (player.hasPermission("essentialsmini.checkupdates")) {
                 try {
-                    int resource = 82775;
-                    URLConnection conn = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + resource).openConnection();
+                    URLConnection conn = new URL("https://framedev.stream/sites/downloads/essentialsminiversion.txt").openConnection();
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String oldVersion = Main.getInstance().getDescription().getVersion();
                     String newVersion = br.readLine();
                     if (!newVersion.equalsIgnoreCase(oldVersion)) {
                         BaseComponent base = new TextComponent();
                         base.addExtra(getPrefix() + "§aNew Version = §6" + newVersion + " §b§l[Please Click Here to Download the newest Plugin!]");
-                        base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/essentialsmini.82775"));
+                        base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.stream/sites/downloads/essentialsmini"));
                         base.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§6Click Here to Open the Download Link").create()));
                         player.spigot().sendMessage(base);
                         return true;

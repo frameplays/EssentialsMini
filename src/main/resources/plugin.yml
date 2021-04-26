@@ -11,37 +11,50 @@ website: https://framedev.stream
 
 commands:
   balance:
+    permission: essentialsmini.balance
     aliases:
       - bal
   eco:
   srestart:
+    permission: essentialsmini.restart
     description: Custom restart feature
   tpaheredeny:
   home:
+    permission: essentialsmini.home
     description: teleport you to our home Location
   sethome:
+    permission: essentialsmini.sethome
     description: set your home location
   setspawn:
+    permission: essentialsmini.setspawn
     description: sets the worldSpawn point if enabled
   spawn:
     description: Teleports you to our WorldSpawnPoint
   tpa:
+    description: Send a Teleport Request to another Player
   tpaaccept:
+    description: accept the Teleport Request
   tpadeny:
+    description: Disallow the Teleport Request
   fly:
+    permission: essentialsmini.fly
+    description: Do you want to Fly
   delhome:
     description: delete your home
   invsee:
+    permission: essentialsmini.invsee
     description: sere others inventory
   saveinventory:
     description: opens an Inventory that will save
   enderchest:
+    permission: essentialsmini.enderchest
     aliases:
       - ec
     description: show your enderchest or from other Players
   back:
     description: Teleports to your last death location
   backup:
+    description: Create a World Backup
   gamemode:
     aliases:
       - gm
@@ -72,6 +85,7 @@ commands:
   backpack:
     description: Opens an Backpack
   essentialsmini:
+    description: Command for all Children Commands
   sleep:
     description: Use this command as Sleepback the Bed despawn at 7 seconds
   playerdata:
@@ -103,10 +117,13 @@ commands:
   msg:
     aliases:
       - tell
+      - message
     description: send player a Message
   spy:
     aliases:
       - spymsg
+      - spymessage
+      - spytell
     description: spy other messages from Players
   enchant:
     aliases:
@@ -137,6 +154,8 @@ commands:
   trash:
     description: opens an Trash Inventory
   feed:
+    aliases:
+      - feedme
     description: fill your saturation or our Hunger
   key:
     description: this is used for Generate key to connect to protected Worlds
@@ -150,6 +169,7 @@ commands:
     aliases:
       - god
   spawnmob:
+    description: Spawn a Custom Mob
   sethealth:
   getlocationfromstring:
   register:
@@ -162,25 +182,31 @@ commands:
   lightningstrike:
     aliases:
       - lightning
+    description: Summon a Lightningstrike
   pay:
+    description: Pay Money to another Player
   pltime:
   resetpltime:
   fuck:
   lag:
   delwarp:
+    description: Delete a Warp Location
   msgtoggle:
     description: This will allow or deny messages from other players
   tptoggle:
     description: This will allow or deny Teleports from other players
   mysql:
+    description: Check if MySQL is Enabled
   infoeconomy:
     description: Infos About Economy
   balancetop:
+    description: Who has the Most Money
     aliases:
       - baltop
   afk:
   silent:
   bank:
+    description: Main Command for all Bank Commands
 permissions:
   essentialsmini.*:
     children:

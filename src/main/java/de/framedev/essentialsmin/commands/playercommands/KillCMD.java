@@ -24,6 +24,7 @@ import java.util.List;
 public class KillCMD implements CommandExecutor, TabCompleter {
 
     private final Main plugin;
+    public static boolean suicid = false;
 
     public KillCMD(Main plugin) {
         this.plugin = plugin;
@@ -82,6 +83,7 @@ public class KillCMD implements CommandExecutor, TabCompleter {
             if(args.length == 0) {
                 if (sender.hasPermission(plugin.getPermissionName() + "suicid")) {
                     if (sender instanceof Player) {
+                        suicid = true;
                         ((Player) sender).setHealth(0);
                         ((Player) sender).setFoodLevel(0);
                         ((Player) sender).getWorld().getPlayers().forEach(players -> players.sendMessage("§6" + sender.getName() + " §ahat Suicid begangen!"));
@@ -98,6 +100,7 @@ public class KillCMD implements CommandExecutor, TabCompleter {
                         sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                         return true;
                     }
+                    suicid = true;
                     player.setHealth(0);
                     player.setFoodLevel(0);
                     player.getWorld().getPlayers().forEach(players -> players.sendMessage("§6" + player.getName() + " §ahat Suicid begangen!"));

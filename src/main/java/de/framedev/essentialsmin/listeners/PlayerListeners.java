@@ -9,6 +9,7 @@ package de.framedev.essentialsmin.listeners;
  * This Class was created at 18.08.2020 22:47
  */
 
+import de.framedev.essentialsmin.commands.playercommands.KillCMD;
 import de.framedev.essentialsmin.main.Main;
 import de.framedev.essentialsmin.managers.LocationsManager;
 import de.framedev.essentialsmin.managers.PlayerManager;
@@ -394,22 +395,27 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (event.getEntity()
-                .getKiller() != null) {
-            if (event.getEntity().getKiller() instanceof Player) {
-                if (isEnabled() && !onlyEssentialsFeatures) {
-                    if (isJsonFormat()) {
-                        if (plugin.getCfgLossHashMap().containsKey(event.getEntity().getKiller())) {
-                            plugin.getCfgLossHashMap().get(event.getEntity().getKiller()).addPlayerKill();
+        if(KillCMD.suicid) {
+            event.setDeathMessage("");
+            KillCMD.suicid = false;
+        } else {
+            if (event.getEntity()
+                    .getKiller() != null) {
+                if (event.getEntity().getKiller() instanceof Player) {
+                    if (isEnabled() && !onlyEssentialsFeatures) {
+                        if (isJsonFormat()) {
+                            if (plugin.getCfgLossHashMap().containsKey(event.getEntity().getKiller())) {
+                                plugin.getCfgLossHashMap().get(event.getEntity().getKiller()).addPlayerKill();
+                            }
+                        } else {
+                            new PlayerManager(event.getEntity().getKiller()).addPlayerKill();
                         }
-                    } else {
-                        new PlayerManager(event.getEntity().getKiller()).addPlayerKill();
-                    }
-                    if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
-                        if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
-                            int kills = (int) plugin.getBackendManager().get(event.getEntity().getKiller(), "kills", collection);
-                            kills++;
-                            plugin.getBackendManager().updateUser(event.getEntity().getKiller(), "kills", kills, collection);
+                        if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
+                            if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
+                                int kills = (int) plugin.getBackendManager().get(event.getEntity().getKiller(), "kills", collection);
+                                kills++;
+                                plugin.getBackendManager().updateUser(event.getEntity().getKiller(), "kills", kills, collection);
+                            }
                         }
                     }
                 }
