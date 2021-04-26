@@ -81,3 +81,8 @@ AFK:
   IsNotAFK: '&7[Player] is no longer AFK'
 NotAllowCommand: '&cNope'
 AutoDownload: false
+# Colored Chat
+ColoredChat: true
+
+# Colored Signs
+ColoredSigns: true

@@ -29,7 +29,7 @@ Heal:
   Other: '&6%Player% &awurde geheilt!'
 
 HomeSet: '&aDein Home wurde gesetzt'
-HomeSetOther: '&aDein Home mit dem Namen &6%Name% wurde gesetzt!'
+HomeSetOther: '&aDein Home mit dem Namen &6%Name% &awurde gesetzt!'
 HomeTeleport: '&aDu wurdest zu deinem Home Teleportiert'
 HomeTeleportOther: '&aDu wurdest zu deinem Home mit dem Namen &6%Name% &aTeleportiert'
 HomeDelete: '§cDein Home wurde gelöscht!'
@@ -93,7 +93,7 @@ WeatherThunder: '&aIn der Welt &6%World% &agewittert es nun!'
 
 VanishOn:
   Single: '&aDu bist nun im Vanish'
-  Multi: '&6%Player% &ait nun im Vanish'
+  Multi: '&6%Player% &aist nun im Vanish'
 VanishOff:
   Single: '&cDu bist nun nicht mehr im Vanish'
   Multi: '&6%Player% &c ist nun nicht mehr im Vanish'
