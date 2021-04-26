@@ -9,15 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Suicid CMD Update">
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/PlayerListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmin/listeners/PlayerListeners.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/api/EssentialsMiniAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/api/EssentialsMiniAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/framedev/essentialsmin/managers/KitManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Cleanup Code">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/styles/essentialsmini.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/styles/projects.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/styles/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/styles/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/styles" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15504587" />
     <property name="project.structure.side.proportion" value="0.2019544" />
@@ -339,7 +338,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619429868724</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Cleanup Code">
+      <created>1619430224070</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1619430224070</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Cleanup Code">
+      <created>1619430228031</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1619430228031</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -386,7 +399,8 @@
     <MESSAGE value="Bug Fixes / NullPointer Fixes" />
     <MESSAGE value="Bug Fixes / NullPointer Fixes&#10;.jar Size changed" />
     <MESSAGE value="Suicid CMD Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Suicid CMD Update" />
+    <MESSAGE value="Cleanup Code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup Code" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

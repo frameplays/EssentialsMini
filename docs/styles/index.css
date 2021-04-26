@@ -1,16 +1,93 @@
 .download {
     margin: auto;
-    font-size: 16px;
+    font-size: 14px;
 }
 .download h1 {
+    margin: auto;
     font-size: 20px;
     margin: auto;
 }
 .download h2 {
+    margin: auto;
     font-size: 20px;
     margin: auto;
 }
-#downloadHeader {
-    font-size: 26px;
+.download h3 {
     margin: auto;
+    font-size: 20px;
+    margin: auto;
+}
+.none {
+    margin: auto;
+    font-size: 10px;
+    align-content: center;
+}
+.p {
+    
+    font-size: 14px;
+    margin: auto;
+}
+#downloadHeader {
+    font-size: 32px;
+    margin: auto;
+}
+#changelogs {
+    margin: auto;
+    font-size: 28px;
+}
+.ps#email {
+    opacity: 50%;
+    font-style: italic;
+}
+.footer {
+    align-content: center;
+    align-self: center;
+    text-align: center;
+    display: block;
+    margin: auto;
+    padding: auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+    color: darkgray;
+}
+.footer h5 a{
+    opacity: 50%;
+    border-style: solid;
+    border-color: cyan;
+    border-width: 4px;
+    background-color: cyan;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+}
+.footer a {
+    color: blue;
+    text-decoration: none;
+    font-size: 12px;
+}
+#login a{
+    overflow: visible;
+    text-decoration: underline;
+    color: white;
+    font-size: 12px;
+    float: right;
+    margin-right: 0.5%;
+    margin-top: 0.5%;
+}
+#register a{
+    overflow: visible;
+    text-decoration: underline;
+    color: white;
+    font-size: 12px;
+    float: right;
+    margin-right: 1%;
+    margin-top: 0.5%;
+}
+
+#bugreport {
+    text-align: center;
+    align-content: center;
+    display: block;
 }
