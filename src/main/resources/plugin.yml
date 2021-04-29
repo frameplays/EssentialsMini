@@ -2,7 +2,7 @@ name: EssentialsMini
 author: FrameDev
 api-version: 1.13
 version: ${project.version}
-main: de.framedev.essentialsmin.main.Main
+main: de.framedev.essentialsmini.main.Main
 softdepend:
   - Vault
 loadbefore:
