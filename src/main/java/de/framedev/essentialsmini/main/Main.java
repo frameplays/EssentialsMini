@@ -651,8 +651,10 @@ public class Main extends JavaPlugin {
         if (prefix == null) {
             throw new NullPointerException("Perfix cannot be Found in Config.yml");
         }
-        prefix = prefix.replace('&', '§');
-        prefix = prefix.replace(">>", "»");
+        if (prefix.contains("&"))
+            prefix = prefix.replace('&', '§');
+        if (prefix.contains(">>"))
+            prefix = prefix.replace(">>", "»");
         return prefix;
     }
 
