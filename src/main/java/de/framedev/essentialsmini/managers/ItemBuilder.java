@@ -86,14 +86,11 @@ public class ItemBuilder {
             this.itemMeta.setLore(lore);
         } else {
             List<String> lore = this.itemMeta.getLore();
-            if (this.itemMeta.getLore() != null) {
-                lore.add(str);
-                this.itemMeta.setLore(lore);
-            } else {
+            if (lore == null) {
                 lore = new ArrayList<>();
-                lore.add(str);
-                this.itemMeta.setLore(lore);
             }
+            lore.add(str);
+            this.itemMeta.setLore(lore);
         }
         return this;
     }

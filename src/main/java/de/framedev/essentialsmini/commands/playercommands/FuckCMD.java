@@ -61,7 +61,7 @@ public class FuckCMD extends CommandBase {
                         firework.setFireworkMeta(fireworkMeta);
                     }
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                    sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                 }
             } else if (args.length == 1) {
                 Player target = Bukkit.getPlayer(args[0]);

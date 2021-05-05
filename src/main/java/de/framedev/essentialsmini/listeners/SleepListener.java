@@ -25,6 +25,7 @@ public class SleepListener implements Listener {
 
     private final Main plugin;
     private boolean sleep;
+    private final String collection = "essentialsmini_data";
 
     public SleepListener(Main plugin) {
         this.plugin = plugin;
@@ -44,9 +45,9 @@ public class SleepListener implements Listener {
                             event.getPlayer().getWorld().setThundering(false);
                             event.getPlayer().getWorld().setStorm(false);
                             if (plugin.isMongoDb()) {
-                                int sleepTimes = (int) plugin.getBackendManager().get(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), "test");
+                                int sleepTimes = (int) plugin.getBackendManager().get(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), collection);
                                 sleepTimes++;
-                                plugin.getBackendManager().updateUser(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), sleepTimes, "test");
+                                plugin.getBackendManager().updateUser(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), sleepTimes, collection);
                             }
                             if (plugin.getConfig().getBoolean("JsonFormat")) {
                                 try {

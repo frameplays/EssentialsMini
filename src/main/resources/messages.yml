@@ -97,3 +97,11 @@ VanishOn:
 VanishOff:
   Single: '&cDu bist nun nicht mehr im Vanish'
   Multi: '&6%Player% &c ist nun nicht mehr im Vanish'
+
+Repair:
+  Success: '&aDas Item &6: %Item% &awurde repariert!'
+  Failed: '&cDas Item &6: %Item% &cmuss nicht Repariert werden!'
+  AirRepair: '&cLuft kann nicht Repariert werden!'
+  OtherSuccess: '&aDas Item &6: %Item% &avon &6: %Player% &awurde repariert!'
+  OtherFailed: '&cDas Item &6: %Item% &cvon &6: %Player% &cmuss nicht Repariert werden!'
+  Irreparable: '&cDas Item &6: %Item% &cvon &6: %Player%&c kann nicht Repariert werden!'

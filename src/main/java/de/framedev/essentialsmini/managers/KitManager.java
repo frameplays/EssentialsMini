@@ -89,7 +89,7 @@ public class KitManager {
     public void createKit(String kitName, ItemStack[] items) {
         ArrayList<String> kit = new ArrayList<>();
         for (ItemStack itemStack : items) {
-            kit.add(itemStack.getType() + ":" + itemStack.getAmount());
+            kit.add(itemStack.getType() + "," + itemStack.getAmount());
         }
         customConfig.set("Items." + kitName, kit);
         try {

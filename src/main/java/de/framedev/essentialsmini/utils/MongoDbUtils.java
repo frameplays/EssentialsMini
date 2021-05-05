@@ -5,6 +5,8 @@ import de.framedev.essentialsmini.managers.BackendManager;
 import de.framedev.mongodbconnections.main.MongoManager;
 import org.bukkit.Bukkit;
 
+import java.util.logging.Level;
+
 /**
  * This Plugin was Created by FrameDev
  * Package : de.framedev.essentialsmin.utils
@@ -31,10 +33,12 @@ public class MongoDbUtils {
             if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost")) {
                 this.mongoManager = new MongoManager();
                 this.mongoManager.connectLocalHost();
+                Main.getInstance().getLogger().log(Level.INFO, "MongoDB Enabled");
             }
             if (Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {
                 this.mongoManager = new MongoManager();
                 this.mongoManager.connect();
+                Main.getInstance().getLogger().log(Level.INFO, "MongoDB Enabled");
             }
             if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost")) {
                 this.backendManager = new BackendManager(Main.getInstance());

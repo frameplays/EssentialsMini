@@ -10,6 +10,7 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,14 +48,22 @@ public class RepairCMD implements CommandExecutor {
                                     if (damageable.hasDamage()) {
                                         damageable.setDamage(0);
                                         item.setItemMeta((ItemMeta) damageable);
-                                        player.sendMessage(plugin.getPrefix() + "§aDas Item §6: " + item.getType().name() + " §awurde repariert!");
+                                        String repair = plugin.getCustomMessagesConfig().getString("Repair.Success");
+                                        repair = ReplaceCharConfig.replaceParagraph(repair);
+                                        repair = ReplaceCharConfig.replaceObjectWithData(repair, "%Item%", item.getType().name());
+                                        player.sendMessage(plugin.getPrefix() + repair);
                                     } else {
-                                        player.sendMessage(plugin.getPrefix() + "§cDas Item §6: " + item.getType().name() + " §cmuss nicht Repariert werden!");
+                                        String repair = plugin.getCustomMessagesConfig().getString("Repair.Failed");
+                                        repair = ReplaceCharConfig.replaceParagraph(repair);
+                                        repair = ReplaceCharConfig.replaceObjectWithData(repair, "%Item%", item.getType().name());
+                                        player.sendMessage(plugin.getPrefix() + repair);
                                     }
                                 }
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cLuft kann nicht Repariert werden!");
+                            String repair = plugin.getCustomMessagesConfig().getString("Repair.AirRepair");
+                            repair = ReplaceCharConfig.replaceParagraph(repair);
+                            sender.sendMessage(plugin.getPrefix() + repair);
                         }
                     } else {
                         player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -74,20 +83,42 @@ public class RepairCMD implements CommandExecutor {
                                     if (damageable.hasDamage()) {
                                         damageable.setDamage(0);
                                         item.setItemMeta((ItemMeta) damageable);
-                                        if (!Main.getSilent().contains(sender.getName()))
-                                            player.sendMessage(plugin.getPrefix() + "§aDas Item §6: " + item.getType().name() + " §awurde repariert!");
-                                        sender.sendMessage(plugin.getPrefix() + "§aDas Item §6: " + item.getType().name() + " §avon §6: " + player.getName() + " §awurde repariert!");
+                                        if (!Main.getSilent().contains(sender.getName())) {
+                                            String repair = plugin.getCustomMessagesConfig().getString("Repair.Success");
+                                            repair = ReplaceCharConfig.replaceParagraph(repair);
+                                            repair = ReplaceCharConfig.replaceObjectWithData(repair, "%Item%", item.getType().name());
+                                            player.sendMessage(plugin.getPrefix() + repair);
+                                        }
+                                        String repairOther = plugin.getCustomMessagesConfig().getString("Repair.OtherSuccess");
+                                        repairOther = ReplaceCharConfig.replaceParagraph(repairOther);
+                                        repairOther = ReplaceCharConfig.replaceObjectWithData(repairOther, "%Item%", item.getType().name());
+                                        repairOther = ReplaceCharConfig.replaceObjectWithData(repairOther, "%Player%", player.getName());
+                                        sender.sendMessage(plugin.getPrefix() + repairOther);
                                     } else {
-                                        sender.sendMessage(plugin.getPrefix() + "§cDas Item §6: " + item.getType().name() + " §cvon §6: " + player.getName() + " §cmuss nicht Repariert werden!");
+                                        String repair = plugin.getCustomMessagesConfig().getString("Repair.OtherFailed");
+                                        repair = ReplaceCharConfig.replaceParagraph(repair);
+                                        repair = ReplaceCharConfig.replaceObjectWithData(repair, "%Item%", item.getType().name());
+                                        repair = ReplaceCharConfig.replaceObjectWithData(repair, "%Player%", player.getName());
+                                        sender.sendMessage(plugin.getPrefix() + repair);
                                     }
                                 } else {
-                                    sender.sendMessage(plugin.getPrefix() + "§cDas Item §6: " + item.getType().name() + " §cvon §6: " + player.getName() + "§c kann nicht Repariert werden!");
+                                    String notAble = plugin.getCustomMessagesConfig().getString("Repair.Irreparable");
+                                    notAble = ReplaceCharConfig.replaceParagraph(notAble);
+                                    notAble = ReplaceCharConfig.replaceObjectWithData(notAble, "%Item%", item.getType().name());
+                                    notAble = ReplaceCharConfig.replaceObjectWithData(notAble, "%Player%", player.getName());
+                                    sender.sendMessage(plugin.getPrefix() + notAble);
                                 }
                             } else {
-                                sender.sendMessage(plugin.getPrefix() + "§cDas Item §6: " + item.getType().name() + " §cvon §6: " + player.getName() + "§c kann nicht Repariert werden!");
+                                String notAble = plugin.getCustomMessagesConfig().getString("Repair.Irreparable");
+                                notAble = ReplaceCharConfig.replaceParagraph(notAble);
+                                notAble = ReplaceCharConfig.replaceObjectWithData(notAble, "%Item%", item.getType().name());
+                                notAble = ReplaceCharConfig.replaceObjectWithData(notAble, "%Player%", player.getName());
+                                sender.sendMessage(plugin.getPrefix() + notAble);
                             }
                         } else {
-                            sender.sendMessage(plugin.getPrefix() + "§cDas Item §6: " + AIR.name() + " §cvon §6: " + player.getName() + "§c kann nicht Repariert werden!");
+                            String repair = plugin.getCustomMessagesConfig().getString("Repair.AirRepair");
+                            repair = ReplaceCharConfig.replaceParagraph(repair);
+                            sender.sendMessage(plugin.getPrefix() + repair);
                         }
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 public class InventoryManager {
 
     private String title;
-    private int size;
+    private int size = 0;
     private Inventory inventory;
 
     public InventoryManager() {
@@ -65,6 +65,8 @@ public class InventoryManager {
     }
 
     public InventoryManager create() {
+        if(title == null) title = "Inventory";
+        if(size == 0) size = 1;
         this.inventory = Bukkit.createInventory(null, getSize(), getTitle());
         return this;
     }
