@@ -19,21 +19,38 @@ import java.util.List;
 public abstract class CommandBase implements CommandExecutor, TabCompleter {
 
     private final Main plugin;
+    private final String cmdName;
 
-    public void setup(@NonNull String cmdName,@NonNull CommandExecutor executor) {
-        plugin.getCommands().put(cmdName,executor);
+    public void setup(@NonNull String cmdName, @NonNull CommandExecutor executor) {
+        plugin.getCommands().put(cmdName, executor);
     }
 
-    public void setupTabCompleter(@NonNull String cmdName,@NonNull TabCompleter tabCompleter) {
-        plugin.getTabCompleters().put(cmdName,tabCompleter);
+    public void setupTabCompleter(@NonNull String cmdName, @NonNull TabCompleter tabCompleter) {
+        plugin.getTabCompleters().put(cmdName, tabCompleter);
     }
 
     public CommandBase(Main plugin) {
         this.plugin = plugin;
+        this.cmdName = null;
+    }
+
+    public CommandBase(Main plugin, @NonNull String cmdName) {
+        this.plugin = plugin;
+        this.cmdName = cmdName;
     }
 
     public Main getPlugin() {
         return plugin;
+    }
+
+    public void setup(@NonNull CommandExecutor executor) {
+        if (cmdName == null) return;
+        plugin.getCommands().put(cmdName, executor);
+    }
+
+    public void setupTabCompleter(@NonNull TabCompleter tabCompleter) {
+        if (cmdName == null) return;
+        plugin.getTabCompleters().put(cmdName, tabCompleter);
     }
 
     @Override

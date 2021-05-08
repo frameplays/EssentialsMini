@@ -658,7 +658,7 @@ public class Main extends JavaPlugin {
         return prefix;
     }
 
-    public boolean hasNewUpdate(Player player) {
+    public void hasNewUpdate(Player player) {
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             if (player.hasPermission("essentialsmini.checkupdates")) {
                 try {
@@ -672,19 +672,12 @@ public class Main extends JavaPlugin {
                         base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.stream/sites/downloads/essentialsmini"));
                         base.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§6Click Here to Open the Download Link").create()));
                         player.spigot().sendMessage(base);
-                        return true;
-                    } else {
-                        return false;
                     }
                 } catch (IOException e) {
                     player.sendMessage(getPrefix() + "Failed to check for updates on spigotmc.org");
-                    return false;
                 }
-            } else {
-                return false;
             }
         }
-        return false;
     }
 
     /**
@@ -714,6 +707,10 @@ public class Main extends JavaPlugin {
         return limited;
     }
 
+    /**
+     * This is used for returning the SpigotTimer for the Lag Command
+     * @return returns the Lag Timer
+     */
     public LagCMD.SpigotTimer getSpigotTimer() {
         return spigotTimer;
     }

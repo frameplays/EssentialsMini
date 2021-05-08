@@ -9,16 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Prefix Fix">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Messages Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FuckCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FuckCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/RepairCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/RepairCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/SleepListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/SleepListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/InventoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/InventoryManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/ItemBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/ItemBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/KitManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/KitManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/MongoDbUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/MongoDbUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/worldcommands/DayNightCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/worldcommands/DayNightCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandBase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -436,7 +431,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620055428165</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Messages Added">
+      <created>1620235279963</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1620235279963</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -472,7 +474,6 @@
     <MESSAGE value="Pages Edited" />
     <MESSAGE value="Home Permissions Added" />
     <MESSAGE value="1.2.1-SNAPSHOT Release, Bug Fixes&#10;&#10;- JsonFormat Fix&#10;- BankCMD added &#10;- MySQL Updated&#10;- VaultAPI Updated&#10;- WarpCMD Updated&#10;- MongoDB Updated" />
-    <MESSAGE value="Messages Added" />
     <MESSAGE value="Colored Sign Added / Colored Chat Added" />
     <MESSAGE value="NullPointerException Fix" />
     <MESSAGE value="1.2.2-SNAPSHOT Release" />
@@ -487,7 +488,8 @@
     <MESSAGE value="Updated" />
     <MESSAGE value="Package Updated" />
     <MESSAGE value="Prefix Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prefix Fix" />
+    <MESSAGE value="Messages Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Messages Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
