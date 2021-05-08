@@ -10,6 +10,7 @@ package de.framedev.essentialsmini.commands.worldcommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -91,7 +92,59 @@ public class SunRainThunderCMD implements CommandExecutor {
                 }
             }
         } else {
-            sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
+            if (command.getName().equalsIgnoreCase("sun")) {
+                String message = "sun";
+                if(sender.hasPermission(plugin.getPermissionName() + "sun")) {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            Bukkit.getWorlds().forEach(world -> {
+                                world.setStorm(false);
+                                world.setThundering(false);
+                            });
+                        }
+                    }.runTaskLater(plugin,60);
+                    sender.sendMessage(plugin.getPrefix() + message);
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                }
+            }
+            if (command.getName().equalsIgnoreCase("rain")) {
+                if(sender.hasPermission(plugin.getPermissionName() + "rain")) {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    Bukkit.getWorlds().forEach(world -> {
+                                        world.setStorm(true);
+                                    });
+                                }
+                            }.runTaskLater(plugin,60);
+                        }
+                    }.runTaskLater(plugin,60);
+                    sender.sendMessage(plugin.getPrefix() + "Rain");
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                }
+            }
+            if (command.getName().equalsIgnoreCase("thunder")) {
+                if(sender.hasPermission(plugin.getPermissionName() + "thunder")) {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            Bukkit.getWorlds().forEach(world -> {
+                                world.setStorm(true);
+                                world.setThundering(true);
+                            });
+                        }
+                    }.runTaskLater(plugin,60);
+                    sender.sendMessage(plugin.getPrefix() + "Thunder");
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                }
+            }
         }
         return false;
     }

@@ -25,7 +25,6 @@ public class SleepListener implements Listener {
 
     private final Main plugin;
     private boolean sleep;
-    private final String collection = "essentialsmini_data";
 
     public SleepListener(Main plugin) {
         this.plugin = plugin;
@@ -34,6 +33,23 @@ public class SleepListener implements Listener {
 
     @EventHandler
     public void onPlayerSleep(PlayerBedEnterEvent event) {
+        if(!plugin.getConfig().getBoolean("OnlyEssentialsFeatures")) {
+            if (plugin.isMongoDb()) {
+                String collection = "essentialsmini_data";
+                int sleepTimes = (int) plugin.getBackendManager().get(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), collection);
+                sleepTimes++;
+                plugin.getBackendManager().updateUser(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), sleepTimes, collection);
+            }
+            if (plugin.getConfig().getBoolean("JsonFormat")) {
+                try {
+                    PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()).setSleepTimes(PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()).getSleepTimes() + 1);
+                } catch (FileNotFoundException ignored) {
+
+                }
+            } else {
+                new PlayerManager(event.getPlayer()).addSleepTimes();
+            }
+        }
         if (plugin.getConfig().getBoolean("SkipNight")) {
             if (event.getPlayer().getWorld().getTime() >= 12542 && event.getPlayer().getWorld().getTime() <= 23460 || event.getPlayer().getWorld().isThundering()) {
                 if(!sleep) {
@@ -44,20 +60,6 @@ public class SleepListener implements Listener {
                             event.getPlayer().getWorld().setTime(0);
                             event.getPlayer().getWorld().setThundering(false);
                             event.getPlayer().getWorld().setStorm(false);
-                            if (plugin.isMongoDb()) {
-                                int sleepTimes = (int) plugin.getBackendManager().get(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), collection);
-                                sleepTimes++;
-                                plugin.getBackendManager().updateUser(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), sleepTimes, collection);
-                            }
-                            if (plugin.getConfig().getBoolean("JsonFormat")) {
-                                try {
-                                    PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()).setSleepTimes(PlayerManagerCfgLoss.getPlayerManagerCfgLoss(event.getPlayer()).getSleepTimes() + 1);
-                                } catch (FileNotFoundException ignored) {
-
-                                }
-                            } else {
-                                new PlayerManager(event.getPlayer()).addSleepTimes();
-                            }
                             event.setCancelled(true);
                             sleep = true;
                             new BukkitRunnable() {
