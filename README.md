@@ -1,5 +1,5 @@
 ## Essentials Mini
-https://framedev.stream/sites/downloads/essentialsmini.html
+https://framedev.stream/sites/downloads/essentialsmini
 
 Build by your own:
 
