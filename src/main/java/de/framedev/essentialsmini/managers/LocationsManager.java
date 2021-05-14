@@ -43,7 +43,7 @@ public class LocationsManager {
     private final boolean jsonFormat;
 
     public void setJsonLocation(String name, Location location) {
-        if(getLocations() != null) {
+        if (getLocations() != null) {
             if (!getLocations().containsKey(name)) {
                 HashMap<String, String> locs = getLocations();
                 try {
@@ -70,6 +70,10 @@ public class LocationsManager {
         }
     }
 
+    /**
+     * @param name the Location Name
+     * @return return true if an Home exist or otherwise
+     */
     public boolean existsHome(String name) {
         return getLocations().containsKey(name) && !getLocations().get(name).equalsIgnoreCase(" ");
     }
@@ -97,6 +101,9 @@ public class LocationsManager {
         this.jsonFormat = Main.getInstance().getConfig().getBoolean("JsonFormat");
     }
 
+    /**
+     * Save Locations Config
+     */
     public void saveCfg() {
         try {
             cfg.save(file);
@@ -105,10 +112,17 @@ public class LocationsManager {
         }
     }
 
+    /**
+     * @return returns the Locations Config
+     */
     public FileConfiguration getCfg() {
         return cfg;
     }
 
+    /**
+     * @param name     the Location Name
+     * @param location the Location to save
+     */
     public void setLocation(String name, Location location) {
         if (jsonFormat) {
             setJsonLocation(name, location);
@@ -124,6 +138,11 @@ public class LocationsManager {
         }
     }
 
+    /**
+     * use the Name variable from Constructor
+     *
+     * @param location the Location to Save
+     */
     public void setLocation(Location location) {
         if (jsonFormat) {
             setJsonLocation(name, location);
@@ -193,12 +212,21 @@ public class LocationsManager {
         }
     }
 
+    /**
+     * remove the Json Location
+     *
+     * @param name the Location Name
+     */
     public void removeLocation(String name) {
+        if (getLocations() == null) return;
         if (getLocations().containsKey(name))
             getLocations().remove(name);
         setJsonLocation(name, " ");
     }
 
+    /**
+     * @return returns all found Locations
+     */
     public HashMap<String, String> getLocations() {
         HashMap<String, String> locs = new HashMap<>();
         try {
@@ -211,6 +239,11 @@ public class LocationsManager {
         return locs;
     }
 
+    /**
+     * @param s the Location Name
+     * @return returns the Location from the File
+     * @throws NullPointerException throw an Nullpointerexception if the Location was not found
+     */
     public Location getLocation(String s) throws NullPointerException {
         if (jsonFormat) {
             return locationFromString(getLocations().get(s));
@@ -264,6 +297,11 @@ public class LocationsManager {
         return file;
     }
 
+    /**
+     * uses the Variable Name from the Constructor
+     *
+     * @return return the Location from the file
+     */
     public Location getLocation() {
         if (jsonFormat) {
             return locationFromString(getLocations().get(name));
@@ -292,6 +330,12 @@ public class LocationsManager {
         }
     }
 
+    /**
+     * throw Nullpointerexception if the World is null
+     *
+     * @param location the Location to convert to an string
+     * @return the Location convertet to String
+     */
     public String locationToString(Location location) {
         String s = "";
         if (location.getWorld() == null) {
@@ -307,11 +351,18 @@ public class LocationsManager {
         return s;
     }
 
+    /**
+     * @param string the convertet StringLocation
+     * @return returns an completet Location from the String
+     */
     public Location locationFromString(String string) {
         String[] s = string.split(";");
         return new Location(Bukkit.getWorld(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]), Double.parseDouble(s[3]), Float.parseFloat(s[4]), Float.parseFloat(s[5]));
     }
 
+    /**
+     * Saves the Backups
+     */
     public void saveBackupCfg() {
         try {
             cfgBackup.save(fileBackup);
@@ -341,6 +392,9 @@ public class LocationsManager {
         // saveBackUps();
     }
 
+    /**
+     * Deletes the Postion Locations every Reload or restart
+     */
     public void deleteLocations() {
         ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("position");
         if (cs != null) {
@@ -367,11 +421,16 @@ public class LocationsManager {
         }
     }
 
+    /**
+     * uses for convert an Location to an Json Location
+     * otherwise it will throw an Serialize Stackoverflow exception
+     */
     public static class LocationJson {
 
         private String locationName, worldName;
         private double x, y, z;
         private float yaw, pitch;
+        private final long createdAt = System.currentTimeMillis();
 
         public LocationJson(String name, Location location) {
             this.locationName = name;
@@ -440,6 +499,10 @@ public class LocationsManager {
 
         public void setPitch(float pitch) {
             this.pitch = pitch;
+        }
+
+        public long getCreatedAt() {
+            return createdAt;
         }
 
         public Location getLocation() {

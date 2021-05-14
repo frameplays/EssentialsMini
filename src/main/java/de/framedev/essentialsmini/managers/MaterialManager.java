@@ -28,8 +28,8 @@ import java.util.Arrays;
 
 public class MaterialManager {
 
-    File file;
-    FileConfiguration cfg;
+    private final File file;
+    private final FileConfiguration cfg;
 
 
     public MaterialManager() {
@@ -54,6 +54,10 @@ public class MaterialManager {
         saveCfg();
     }
 
+    /**
+     *
+     * @return returns a list of all Materials
+     */
     public ArrayList<Material> getMaterials() {
         if (!Main.getInstance().getConfig().getBoolean("JsonFormat")) {
             ArrayList<String> mats = (ArrayList<String>) cfg.getStringList("Materials");
@@ -70,6 +74,11 @@ public class MaterialManager {
         }
     }
 
+    /**
+     *
+     * @param name the Material Name
+     * @return return the Material if not null
+     */
     public Material getMaterial(@NonNull String name) {
         for (Material material : getMaterials()) {
             if (material != null) {
@@ -81,6 +90,11 @@ public class MaterialManager {
         return null;
     }
 
+    /**
+     *
+     * @param material the Material
+     * @return if exists or not
+     */
     public boolean existsMaterial(Material material) {
         for (Material mats : getMaterials()) {
             if (mats == material) {

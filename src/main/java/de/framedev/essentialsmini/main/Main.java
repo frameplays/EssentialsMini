@@ -78,7 +78,6 @@ public class Main extends JavaPlugin {
 
     private Map<String, Object> limitedHomes;
 
-    private boolean mongoDB;
     private boolean mysql;
     private boolean sql;
 
@@ -386,6 +385,10 @@ public class Main extends JavaPlugin {
         System.out.println(data);
     }
 
+    /**
+     *
+     * @return returns all OfflinePlayers
+     */
     public ArrayList<String> getOfflinePlayers() {
         return offlinePlayers;
     }
@@ -411,6 +414,10 @@ public class Main extends JavaPlugin {
         }
     }
 
+    /**
+     *
+     * @return returns the Info Config
+     */
     public FileConfiguration getInfo() {
         return info;
     }
