@@ -1,6 +1,7 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -21,14 +22,15 @@ import java.util.ArrayList;
  * ===================================================
  * This Class was created at 15.07.2020 11:59
  */
-public class VanishCMD implements CommandExecutor, Listener {
+public class VanishCMD extends CommandBase implements Listener {
 
     private final Main plugin;
     public static ArrayList<String> hided = new ArrayList<>();
 
     public VanishCMD(Main plugin) {
+        super(plugin, "vanish");
         this.plugin = plugin;
-        plugin.getCommands().put("vanish", this);
+        setup(this);
         plugin.getListeners().add(this);
     }
 

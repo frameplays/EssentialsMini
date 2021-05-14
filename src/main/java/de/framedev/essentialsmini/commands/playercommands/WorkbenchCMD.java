@@ -11,6 +11,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import com.google.gson.Gson;
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,13 +21,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-public class WorkbenchCMD implements CommandExecutor {
+public class WorkbenchCMD extends CommandBase {
 
     private final Main plugin;
 
     public WorkbenchCMD(Main plugin) {
+        super(plugin, "workbench");
         this.plugin = plugin;
-        plugin.getCommands().put("workbench",this);
+        setup(this);
     }
 
     @Override

@@ -100,6 +100,7 @@ public class RegisterManager {
         if (plugin.getConfig().getBoolean("AFK.Boolean"))
             new AFK(plugin);
         new SilentCMD(plugin);
+        new FlySpeedCMD(plugin);
         plugin.getCommands().entrySet().stream().filter(Objects::nonNull).filter(command -> command.getKey() != null && command.getValue() != null).forEach(command -> Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue()));
     }
 

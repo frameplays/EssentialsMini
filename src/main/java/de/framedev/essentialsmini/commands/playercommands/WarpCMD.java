@@ -1,6 +1,7 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.LocationsManager;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -24,17 +25,18 @@ import java.util.List;
  * ===================================================
  * This Class was created at 15.07.2020 19:28
  */
-public class WarpCMD implements CommandExecutor, TabCompleter {
+public class WarpCMD extends CommandBase {
 
     private final Main plugin;
 
     public WarpCMD(Main plugin) {
+        super(plugin);
         this.plugin = plugin;
-        plugin.getCommands().put("setwarp", this);
-        plugin.getCommands().put("warp", this);
-        plugin.getCommands().put("warps", this);
-        plugin.getTabCompleters().put("warp", this);
-        plugin.getCommands().put("delwarp", this);
+        setup("setwarp", this);
+        setup("warp", this);
+        setup("warps", this);
+        setupTabCompleter("warp", this);
+        setup("delwarp", this);
     }
 
     private final LocationsManager locationsManager = new LocationsManager();

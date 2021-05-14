@@ -207,6 +207,8 @@ commands:
   silent:
   bank:
     description: Main Command for all Bank Commands
+  flyspeed:
+    description: Change your Fly Speed
 permissions:
   essentialsmini.*:
     children:
@@ -271,6 +273,8 @@ permissions:
       essentialsmini.tptoggle: true
       essentialsmini.tptoggle.bypass: true
       essentialsmini.silent: true
+      essentialsmini.flyspeed: true
+      essentialsmini.flyspeed.others: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -423,3 +427,9 @@ permissions:
       essentialsmini.tptoggle: true
   essentialsmini.silent:
     default: op
+  essentialsmini.flyspeed:
+    default: op
+  essentialsmini.flyspeed.others:
+    default: op
+    children:
+      essentialsmini.flyspeed: true

@@ -11,6 +11,7 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -25,14 +26,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SummonCMD implements CommandExecutor, TabCompleter {
+public class SummonCMD extends CommandBase {
 
     private final Main plugin;
 
     public SummonCMD(Main plugin) {
+        super(plugin, "spawnmob");
         this.plugin = plugin;
-        plugin.getCommands().put("spawnmob",this);
-        plugin.getTabCompleters().put("spawnmob",this);
+        setup(this);
+        setupTabCompleter(this);
     }
 
     @SuppressWarnings("deprecation")

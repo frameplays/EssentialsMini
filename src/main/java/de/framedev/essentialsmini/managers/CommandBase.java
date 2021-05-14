@@ -21,10 +21,20 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
     private final Main plugin;
     private final String cmdName;
 
+    /**
+     * Register an Command
+     * @param cmdName the CommandName for registering
+     * @param executor the Executor who executes the Command
+     */
     public void setup(@NonNull String cmdName, @NonNull CommandExecutor executor) {
         plugin.getCommands().put(cmdName, executor);
     }
 
+    /**
+     * Register an TabCompleter
+     * @param cmdName the CommandName for registering
+     * @param tabCompleter the TabCompleter who used for the Command
+     */
     public void setupTabCompleter(@NonNull String cmdName, @NonNull TabCompleter tabCompleter) {
         plugin.getTabCompleters().put(cmdName, tabCompleter);
     }
@@ -43,11 +53,19 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
         return plugin;
     }
 
+    /**
+     * Register an Command
+     * @param executor the Executor who executes the Command
+     */
     public void setup(@NonNull CommandExecutor executor) {
         if (cmdName == null) return;
         plugin.getCommands().put(cmdName, executor);
     }
 
+    /**
+     * Register an TabCompleter
+     * @param tabCompleter the TabCompleter who used for the Command
+     */
     public void setupTabCompleter(@NonNull TabCompleter tabCompleter) {
         if (cmdName == null) return;
         plugin.getTabCompleters().put(cmdName, tabCompleter);

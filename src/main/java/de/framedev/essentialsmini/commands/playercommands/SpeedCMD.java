@@ -18,14 +18,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SpeedCMD extends CommandBase implements CommandExecutor {
+public class SpeedCMD extends CommandBase {
 
     private final Main plugin;
 
     public SpeedCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "speed");
         this.plugin = plugin;
-        setup("speed",this);
+        setup(this);
     }
 
     @Override
@@ -40,6 +40,6 @@ public class SpeedCMD extends CommandBase implements CommandExecutor {
                 }
             }
         }
-        return false;
+        return super.onCommand(sender, command, label, args);
     }
 }
