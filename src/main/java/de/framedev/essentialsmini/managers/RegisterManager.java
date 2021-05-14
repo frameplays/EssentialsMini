@@ -6,7 +6,10 @@ package de.framedev.essentialsmini.managers;
 
 import de.framedev.essentialsmini.commands.playercommands.*;
 import de.framedev.essentialsmini.commands.servercommands.*;
-import de.framedev.essentialsmini.commands.worldcommands.*;
+import de.framedev.essentialsmini.commands.worldcommands.DayNightCMD;
+import de.framedev.essentialsmini.commands.worldcommands.SunRainThunderCMD;
+import de.framedev.essentialsmini.commands.worldcommands.ThunderCMD;
+import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmini.listeners.*;
 import de.framedev.essentialsmini.main.Main;
 

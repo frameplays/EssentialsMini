@@ -4,14 +4,18 @@ import de.framedev.essentialsmini.main.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 
 public class Config {
     public static void loadConfig() {
         Main.getInstance().getConfig().options().copyHeader(true);
-        Main.getInstance().getConfig().getDefaults().options().copyDefaults(true);
+        Objects.requireNonNull(Main.getInstance().getConfig().getDefaults()).options().copyDefaults(true);
         Main.getInstance().getConfig().options().copyDefaults(true);
         Main.getInstance().saveDefaultConfig();
     }

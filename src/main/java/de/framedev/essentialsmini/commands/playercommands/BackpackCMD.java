@@ -28,10 +28,7 @@ import org.bukkit.inventory.Inventory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
 
@@ -164,12 +161,22 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        ArrayList<String> cmds = new ArrayList<>();
+        ArrayList<OfflinePlayer> players = new ArrayList<>(Arrays.asList(Bukkit.getOfflinePlayers()));
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (OfflinePlayer player : players) {
+            playerNames.add(player.getName());
+        }
+        ArrayList<String> cmds = new ArrayList<>(playerNames);
+        cmds.add("delete");
+        ArrayList<String> empty = new ArrayList<>();
         if (args.length == 1) {
-            if (sender.hasPermission("essentialsmini.backpack.delete")) {
-                cmds.add("delete");
-                return cmds;
+            for (String s : cmds) {
+                if (s.toLowerCase().startsWith(args[0])) {
+                    empty.add(s);
+                }
             }
+            Collections.sort(empty);
+            return empty;
         }
         return null;
     }

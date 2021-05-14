@@ -55,7 +55,6 @@ public class MaterialManager {
     }
 
     /**
-     *
      * @return returns a list of all Materials
      */
     public ArrayList<Material> getMaterials() {
@@ -67,7 +66,7 @@ public class MaterialManager {
             }
             return materials;
         } else {
-            if(getMaterialsFromJson() != null) {
+            if (getMaterialsFromJson() != null) {
                 return getMaterialsFromJson();
             }
             return new ArrayList<>();
@@ -75,7 +74,6 @@ public class MaterialManager {
     }
 
     /**
-     *
      * @param name the Material Name
      * @return return the Material if not null
      */
@@ -91,7 +89,6 @@ public class MaterialManager {
     }
 
     /**
-     *
      * @param material the Material
      * @return if exists or not
      */
@@ -140,7 +137,8 @@ public class MaterialManager {
         if (file.exists()) {
             try {
                 FileReader fileReader = new FileReader(file);
-                Type type = new TypeToken<ArrayList<Material>>(){}.getType();
+                Type type = new TypeToken<ArrayList<Material>>() {
+                }.getType();
                 return new Gson().fromJson(fileReader, type);
             } catch (IOException e) {
                 e.printStackTrace();

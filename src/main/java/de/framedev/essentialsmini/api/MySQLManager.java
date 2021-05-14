@@ -351,9 +351,7 @@ public class MySQLManager {
                     Type type = new TypeToken<List<String>>() {
                     }.getType();
                     List<String> players = new Gson().fromJson((String) SQL.get(tableName, "BankMembers", "BankName", bankName), type);
-                    if (players.contains(player.getName())) {
-                        players.remove(player.getName());
-                    }
+                    players.remove(player.getName());
                     if (isOnlineMode()) {
                         SQL.updateData(tableName, "BankOwner", "'" + null + "'", "Player = '" + player.getUniqueId().toString() + "'");
                         SQL.updateData(tableName, "BankName", "'" + null + "'", "Player = '" + player.getUniqueId().toString() + "'");
@@ -434,13 +432,9 @@ public class MySQLManager {
     protected boolean hasAccount(OfflinePlayer player) {
         if (SQL.isTableExists("essentialsmini_accounts")) {
             if (isOnlineMode()) {
-                if (SQL.exists("essentialsmini_accounts", "uuid", "" + player.getUniqueId())) {
-                    return true;
-                }
+                return SQL.exists("essentialsmini_accounts", "uuid", "" + player.getUniqueId());
             } else {
-                if (SQL.exists("essentialsmini_accounts", "name", "" + player.getName())) {
-                    return true;
-                }
+                return SQL.exists("essentialsmini_accounts", "name", "" + player.getName());
             }
         }
         return false;
@@ -456,8 +450,7 @@ public class MySQLManager {
                 if (SQL.get(tableName, "BankMembers", "BankName", bankName) != null) {
                     Type type = new TypeToken<List<String>>() {
                     }.getType();
-                    List<String> players = new Gson().fromJson((String) SQL.get(tableName, "BankMembers", "BankName", bankName), type);
-                    return players;
+                    return new Gson().fromJson((String) SQL.get(tableName, "BankMembers", "BankName", bankName), type);
                 }
             }
         }

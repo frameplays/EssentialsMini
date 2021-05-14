@@ -8,6 +8,7 @@ package de.framedev.essentialsmini.managers;
  * This Class was created at 16.08.2020 22:17
  */
 
+import de.framedev.essentialsmini.utils.UUIDFetcher;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,11 +25,10 @@ public class SkullBuilder {
     private final OfflinePlayer player;
     private final ItemStack itemStack;
 
-    @Deprecated
     public SkullBuilder(String skullOwner) {
         itemStack = new ItemStack(Material.PLAYER_HEAD);
         this.skullOwner = skullOwner;
-        this.player = Bukkit.getOfflinePlayer(skullOwner);
+        this.player = Bukkit.getOfflinePlayer(UUIDFetcher.getUUID(skullOwner));
     }
 
     public SkullBuilder(UUID uuid) {

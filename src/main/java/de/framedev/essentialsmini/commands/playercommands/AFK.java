@@ -47,7 +47,7 @@ public class AFK implements CommandExecutor {
         plugin.getCommands().put("afk",this);
         plugin.getCommand("afk").setExecutor(this);
         Bukkit.getPluginManager().registerEvents(new Events(), plugin);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new IdleTimer(plugin), (afkTime * 20), (afkTime * 20));
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new IdleTimer(plugin), (afkTime * 20L), (afkTime * 20L));
     }
 
     public static void putPlayerToAfkMap(String PlayerName) {
