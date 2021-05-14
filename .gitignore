@@ -8,3 +8,5 @@
 .project
 .idea
 /jars/
+/.idea
+.DS_STORE
