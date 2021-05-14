@@ -9,13 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/LocationsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/LocationsManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/MaterialManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/MaterialManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,34 +110,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00001" summary="SilentCMD Added">
-      <created>1616800057789</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1616800057789</updated>
-    </task>
-    <task id="LOCAL-00002" summary="SilentCMD Added">
-      <created>1616800551043</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1616800551043</updated>
-    </task>
-    <task id="LOCAL-00003" summary="SilentCMD Added">
-      <created>1616960081428</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1616960081428</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Bug Fixes">
-      <created>1617456130177</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1617456130177</updated>
     </task>
     <task id="LOCAL-00005" summary="Bug Fixes">
       <created>1617466940127</created>
@@ -453,7 +419,42 @@
       <option name="project" value="LOCAL" />
       <updated>1620513728989</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Bug Fixes">
+      <created>1621012848690</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1621012848690</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Bug Fixes">
+      <created>1621013014433</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1621013014433</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Bug Fixes">
+      <created>1621013045680</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1621013045680</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Bug Fixes">
+      <created>1621013069915</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1621013069915</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Bug Fixes">
+      <created>1621013431559</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1621013431559</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
