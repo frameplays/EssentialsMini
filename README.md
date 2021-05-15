@@ -14,10 +14,10 @@ mvn clean package
 
 then in the Directory target should be a file called EssentialsMini-(version).jar
 
-### *Future Features*
+### ***Future Features***
 - [ ] More Commands
 - [ ] More TabCompleter
-- [ ] NullPointerFixes
+- [ ] **NullPointerFixes** [in Progress]
 - [ ] PlayerData Features
 
 <br><br><br><br>
