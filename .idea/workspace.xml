@@ -9,11 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes &#10;WorldCMD Updated&#10;FlySpeedCMD Updated&#10;SpeedCMD Updated">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EssentialsMini.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssentialsMini.iml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="README.md updated">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,27 +117,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00008" summary="MongoDB Update">
-      <created>1617487039063</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1617487039063</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Auto Latest File Downloader Added">
-      <created>1617561343017</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1617561343017</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Api Features added">
-      <created>1617641443036</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1617641443037</updated>
     </task>
     <task id="LOCAL-00011" summary="Setup as Maven Project">
       <created>1617723306325</created>
@@ -464,7 +440,28 @@
       <option name="project" value="LOCAL" />
       <updated>1621086890126</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="README.md updated">
+      <created>1621090560131</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1621090560131</updated>
+    </task>
+    <task id="LOCAL-00058" summary="README.md updated">
+      <created>1621090582135</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1621090582135</updated>
+    </task>
+    <task id="LOCAL-00059" summary="README.md updated">
+      <created>1621090639557</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1621090639557</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -502,7 +499,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="MongoDB Update" />
     <MESSAGE value="Website Removed from Directory" />
     <MESSAGE value="SetHome Permissions added" />
     <MESSAGE value="Pages Edited" />
@@ -527,7 +523,8 @@
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Updated / BackbackCMD tabcompleter updated&#10;MySQLManager Updated&#10;SkullBuilder Deprecated Method changed&#10;VaultAPI changed" />
     <MESSAGE value="Bug Fixes &#10;WorldCMD Updated&#10;FlySpeedCMD Updated&#10;SpeedCMD Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes &#10;WorldCMD Updated&#10;FlySpeedCMD Updated&#10;SpeedCMD Updated" />
+    <MESSAGE value="README.md updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="README.md updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
