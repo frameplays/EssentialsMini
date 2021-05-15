@@ -105,3 +105,11 @@ Repair:
   OtherSuccess: '&aDas Item &6: %Item% &avon &6: %Player% &awurde repariert!'
   OtherFailed: '&cDas Item &6: %Item% &cvon &6: %Player% &cmuss nicht Repariert werden!'
   Irreparable: '&cDas Item &6: %Item% &cvon &6: %Player%&c kann nicht Repariert werden!'
+
+Mute:
+  Self:
+    Activate: '&cYou has been Muted!'
+    Deactivate: '&aYou has been Unmuted!'
+  Other:
+    Activate: '&6%Player% &chas been Muted!'
+    Deactivate: '&6%Player% &chas been Unmuted!'

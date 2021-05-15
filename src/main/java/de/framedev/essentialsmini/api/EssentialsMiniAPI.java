@@ -21,6 +21,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -117,16 +118,15 @@ public class EssentialsMiniAPI {
         return new SkullBuilder(player);
     }
 
-    @Deprecated
     public SkullBuilder createSkullBuilder(String playerName) {
         return new SkullBuilder(playerName);
     }
 
-    public BossBarManager createNewBossBarManager(String title, BarColor barColor, BarStyle barStyle) {
+    public BossBarManager createNewBossBarManager(@NotNull String title, @NotNull BarColor barColor, @NotNull BarStyle barStyle) {
         return new BossBarManager(title, barColor, barStyle);
     }
 
-    public BossBarManager createNewBossBarManager(String title) {
+    public BossBarManager createNewBossBarManager(@NotNull String title) {
         return new BossBarManager(title);
     }
 
@@ -137,6 +137,22 @@ public class EssentialsMiniAPI {
         return null;
     }
 
+    /**
+     * This Method saves an Location to the Location File
+     *
+     * @param locationName the LocationName to save
+     * @param location     the Location to save
+     */
+    public void setLocation(String locationName, Location location) {
+        new LocationsManager(locationName).setLocation(location);
+    }
+
+    /**
+     * This Method Returns the Saved Location
+     *
+     * @param locationName the LocationName
+     * @return returns the Saved Location
+     */
     public Location getLocation(String locationName) {
         return new LocationsManager(locationName).getLocation();
     }
@@ -164,6 +180,12 @@ public class EssentialsMiniAPI {
         return null;
     }
 
+    /**
+     * This Method returns the MongoDB PlayerManager when Mongo is Enabled
+     *
+     * @param player the Player
+     * @return returns the PlayerManagerMongoDB
+     */
     public PlayerManagerMongoDB getPlayerManagerMongoDb(OfflinePlayer player) {
         if (plugin.isMongoDb()) {
             return PlayerManagerMongoDB.getPlayerManager(player.getName(), "test");
@@ -204,14 +226,16 @@ public class EssentialsMiniAPI {
         } else {
             PlayerManagerCfgLoss playerManager = null;
             if (player.isOnline()) {
-                playerManager = plugin.getCfgLossHashMap().get(player);
+                if (plugin.getCfgLossHashMap().containsKey(player))
+                    playerManager = plugin.getCfgLossHashMap().get(player);
             } else {
                 try {
                     playerManager = PlayerManagerCfgLoss.getPlayerManagerCfgLoss(player);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                } catch (FileNotFoundException ignored) {
+                    playerManager = new PlayerManagerCfgLoss(player);
                 }
             }
+            if (playerManager == null) return;
             long login = playerManager.getLastlogin();
             sender.sendMessage("§6Info About §a" + player.getName());
             sender.sendMessage(
@@ -258,11 +282,18 @@ public class EssentialsMiniAPI {
         return inventory;
     }
 
-    public ArrayList<String> getWarps() {
+    /**
+     * @return Returns a List of all Warp Names
+     */
+    public ArrayList<Location> getWarps() {
+        ArrayList<Location> locations = new ArrayList<>();
         if (new LocationsManager().getCfg().contains("warps")) {
-            return (ArrayList<String>) new LocationsManager().getCfg().getStringList("warps");
+            ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("warps");
+            if (cs != null)
+                for (String s : cs.getKeys(false))
+                    locations.add(new LocationsManager(s).getLocation());
         }
-        return new ArrayList<>();
+        return locations;
     }
 
     private int time = 100;

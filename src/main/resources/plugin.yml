@@ -209,6 +209,11 @@ commands:
     description: Main Command for all Bank Commands
   flyspeed:
     description: Change your Fly Speed
+  mute:
+    description: Mute a Player
+  tempban:
+  eban:
+  eunban:
 permissions:
   essentialsmini.*:
     children:
@@ -275,6 +280,10 @@ permissions:
       essentialsmini.silent: true
       essentialsmini.flyspeed: true
       essentialsmini.flyspeed.others: true
+      essentialsmini.mute: true
+      essentialsmini.tempban: true
+      essentialsmini.ban: true
+      essentialsmini.unban: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -433,3 +442,11 @@ permissions:
     default: op
     children:
       essentialsmini.flyspeed: true
+  essentialsmini.mute:
+    default: op
+  essentialsmini.tempban:
+    default: op
+  essentialsmini.ban:
+    default: op
+  essentialsmini.unban:
+    default: op

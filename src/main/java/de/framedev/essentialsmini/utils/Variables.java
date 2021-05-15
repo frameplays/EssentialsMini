@@ -11,6 +11,9 @@ package de.framedev.essentialsmini.utils;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import org.bukkit.OfflinePlayer;
+
+import java.util.ArrayList;
 
 public class Variables {
 
@@ -26,6 +29,8 @@ public class Variables {
     private final boolean jsonFormat;
     private String playerNameNotOnline;
     private String playerNotOnline;
+
+    private ArrayList<OfflinePlayer> players = new ArrayList<>();
 
     public Variables() {
         this.instance = Main.getInstance();
@@ -111,6 +116,10 @@ public class Variables {
                 ", playerNameNotOnline='" + playerNameNotOnline + '\'' +
                 ", playerNotOnline='" + playerNotOnline + '\'' +
                 '}';
+    }
+
+    public ArrayList<OfflinePlayer> getPlayers() {
+        return players;
     }
 }
 

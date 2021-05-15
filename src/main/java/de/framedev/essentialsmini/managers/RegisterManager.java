@@ -38,6 +38,7 @@ public class RegisterManager {
         new SleepListener(plugin);
         new PlayerListeners(plugin);
         new MoneySignListeners(plugin);
+        new BanListner(plugin);
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
@@ -101,6 +102,10 @@ public class RegisterManager {
             new AFK(plugin);
         new SilentCMD(plugin);
         new FlySpeedCMD(plugin);
+        new MuteCMD(plugin);
+        new TempBanCMD(plugin);
+        new BanCMD(plugin);
+        new UnBanCMD(plugin);
         plugin.getCommands().entrySet().stream().filter(Objects::nonNull).filter(command -> command.getKey() != null && command.getValue() != null).forEach(command -> Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue()));
     }
 
