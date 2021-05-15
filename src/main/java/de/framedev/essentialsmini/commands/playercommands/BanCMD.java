@@ -19,13 +19,19 @@ public class BanCMD extends CommandBase {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.hasPermission("essentialsmini.ban")) {
-				String message = "";
-				for(int i = 1; i < args.length; i++) {
-					message = message + args[i] + " ";
+			if(args.length >= 1) {
+				StringBuilder message = new StringBuilder();
+				for (int i = 1; i < args.length; i++) {
+					message.append(args[i]).append(" ");
 				}
-			BanFile.banPlayer(args[0], message);
-			if(Bukkit.getPlayer(args[0]) != null) {
-				Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You are Banned while " + ChatColor.GOLD+ BanFile.cfg.getString( args[0] + ".reason"));
+				BanFile.banPlayer(args[0], message.toString());
+				if (Bukkit.getPlayer(args[0]) != null) {
+					Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You are Banned while " + ChatColor.GOLD + BanFile.cfg.getString(args[0] + ".reason"));
+				} else {
+					sender.sendMessage(getPlugin().getPrefix() + getPlugin().getVariables().getPlayerNotOnline());
+				}
+			} else {
+				sender.sendMessage(getPlugin().getPrefix() + getPlugin().getWrongArgs("/eban <Player> <Reason>"));
 			}
 		}
 		return false;

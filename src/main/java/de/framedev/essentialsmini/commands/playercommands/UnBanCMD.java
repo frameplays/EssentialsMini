@@ -17,7 +17,11 @@ public class UnBanCMD extends CommandBase {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.hasPermission("essentialsmini.unban")) {
-			BanFile.UnBanned(args[0]);
+			if(args.length == 1) {
+				BanFile.UnBanned(args[0]);
+			} else {
+				sender.sendMessage(getPlugin().getPrefix() + getPlugin().getWrongArgs("/eunban <Player>"));
+			}
 		}
 		return super.onCommand(sender,cmd,label,args);
 	}

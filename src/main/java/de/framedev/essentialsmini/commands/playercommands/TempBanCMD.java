@@ -22,15 +22,16 @@ import java.util.Date;
 
 public class TempBanCMD extends CommandBase {
     public TempBanCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "tempban");
+        setup(this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("tempban")) {
             if (sender.hasPermission(getPlugin().getPermissionName() + "tempban")) {
-                Player target = Bukkit.getPlayer(args[0]);
-                if (args[0].equalsIgnoreCase(target.getName())) {
+                if (args.length == 4) {
+                    Player target = Bukkit.getPlayer(args[0]);
                     String grund = args[1];
                     if (Bukkit.getOnlineMode()) {
                         DateUnit unit = DateUnit.valueOf(args[3].toUpperCase());
@@ -39,7 +40,7 @@ public class TempBanCMD extends CommandBase {
                         long millis = value * unit.getToSec() * 1000;
                         long newValue = current + millis;
                         Date date = new Date(newValue);
-                        Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(target.getName(), "§aYou are Banned. Reason:ｧc " + grund, date, "true");
+                        Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(target.getName(), "§aYou are Banned. Reason:§c " + grund, date, "true");
                         target.kickPlayer("§bBan while §c" + grund + "§b for §a" + value + " " + unit.getOutput() + "!");
                         return true;
                     } else {
@@ -49,13 +50,16 @@ public class TempBanCMD extends CommandBase {
                         long millis = value * unit.getToSec() * 1000;
                         long newValue = current + millis;
                         Date date = new Date(newValue);
-                        Bukkit.getServer().getBanList(BanList.Type.IP).addBan(target.getAddress().getHostString(), "§aYou are Banned. Reason:ｧc " + grund, date, "true");
+                        Bukkit.getServer().getBanList(BanList.Type.IP).addBan(target.getAddress().getHostString(), "§aYou are Banned. Reason:§c " + grund, date, "true");
                         target.kickPlayer("§bBan while §c" + grund + "§b for §a" + value + " " + unit.getOutput() + "!");
                         return true;
                     }
+                } else {
+                    sender.sendMessage(getPlugin().getPrefix() + getPlugin().getWrongArgs("/tempban <Player> <Reason> <time> <SEC or MIN or DAY or WEEK or MONTH or YEAR>"));
+                    return true;
                 }
             }
         }
-        return false;
+        return super.onCommand(sender, cmd, label, args);
     }
 }

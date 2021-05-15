@@ -9,16 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Github Page Updated">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BookCMD.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Commands Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EssentialsMini.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssentialsMini.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/EssentialsMiniAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/EssentialsMiniAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BanCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BanCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BookCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BookCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/TempBanCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/TempBanCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/UnBanCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/UnBanCMD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/Variables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/Variables.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +69,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15504587" />
     <property name="project.structure.side.proportion" value="0.2019544" />
@@ -81,8 +78,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils" />
+      <recent name="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers" />
+      <recent name="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners" />
+      <recent name="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands" />
       <recent name="$PROJECT_DIR$/docs/styles" />
-      <recent name="$PROJECT_DIR$/docs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs" />
@@ -126,13 +126,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Bug Fixes">
-      <created>1618148788391</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1618148788391</updated>
     </task>
     <task id="LOCAL-00016" summary="Bug Fixes">
       <created>1618149198929</created>
@@ -470,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621092587151</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Commands Added">
+      <created>1621097491439</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1621097491439</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -508,7 +508,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="SetHome Permissions added" />
     <MESSAGE value="Pages Edited" />
     <MESSAGE value="Home Permissions Added" />
     <MESSAGE value="1.2.1-SNAPSHOT Release, Bug Fixes&#10;&#10;- JsonFormat Fix&#10;- BankCMD added &#10;- MySQL Updated&#10;- VaultAPI Updated&#10;- WarpCMD Updated&#10;- MongoDB Updated" />
@@ -533,7 +532,8 @@
     <MESSAGE value="Bug Fixes &#10;WorldCMD Updated&#10;FlySpeedCMD Updated&#10;SpeedCMD Updated" />
     <MESSAGE value="README.md updated" />
     <MESSAGE value="Github Page Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Github Page Updated" />
+    <MESSAGE value="Commands Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commands Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
