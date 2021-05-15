@@ -40,7 +40,7 @@ public class FlySpeedCMD extends CommandBase {
             }
             float flyspeed = Float.parseFloat(args[0]) / 10F;
             player.setFlySpeed(flyspeed);
-            player.sendMessage("§aDeine Flug Gehschwindigkeit wurde geändert auf §6" + flyspeed);
+            player.sendMessage("§aDeine Flug Gehschwindigkeit wurde geändert auf §6" + flyspeed * 10F);
             return true;
         } else if (args.length == 2) {
             if(!sender.hasPermission(plugin.getPermissionName() + "flyspeed.others")) {
@@ -54,8 +54,8 @@ public class FlySpeedCMD extends CommandBase {
                 return true;
             }
             player.setFlySpeed(flyspeed);
-            player.sendMessage("§aDeine Flug Gehschwindigkeit wurde geändert auf §6" + flyspeed);
-            sender.sendMessage("§6" + player.getName() + "'s §aFlug Gehschwindigkeit wurde geändert auf §6" + flyspeed);
+            player.sendMessage("§aDeine Flug Gehschwindigkeit wurde geändert auf §6" + flyspeed * 10F);
+            sender.sendMessage("§6" + player.getName() + "'s §aFlug Gehschwindigkeit wurde geändert auf §6" + flyspeed * 10F);
             return true;
         }
         return super.onCommand(sender, command, label, args);

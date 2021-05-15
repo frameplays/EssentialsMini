@@ -34,7 +34,7 @@ public class SpeedCMD extends CommandBase {
             if(sender instanceof Player) {
                 if(sender.hasPermission(plugin.getPermissionName() + "speed")) {
                     ((Player) sender).setWalkSpeed(Integer.parseInt(args[0]) / 10F);
-                    sender.sendMessage(plugin.getPrefix() + "§aDeine Geh Geschwindigkeit wurde geändert auf §6" + Integer.parseInt(args[0]) / 10F);
+                    sender.sendMessage(plugin.getPrefix() + "§aDeine Geh Geschwindigkeit wurde geändert auf §6" + Integer.parseInt(args[0]));
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }

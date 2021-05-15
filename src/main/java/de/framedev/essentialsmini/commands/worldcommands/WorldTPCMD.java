@@ -85,12 +85,7 @@ public class WorldTPCMD implements CommandExecutor, Listener {
                         sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/worldtp <WorldName> §coder §6/worldtp <WorldName> <PlayerName>"));
                     }
                 }
-            } else {
-                sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
-            }
-        } else {
-            if (command.getName().equalsIgnoreCase("addworld")) {
-                if (sender.hasPermission(new Permission(plugin.getVariables().getPermissionBase() + "worldutils", PermissionDefault.OP))) {
+                if (command.getName().equalsIgnoreCase("addworld")) {
                     if (args.length == 1) {
                         String worldName = args[0];
                         if (Bukkit.getWorld(worldName) != null) {
@@ -110,12 +105,12 @@ public class WorldTPCMD implements CommandExecutor, Listener {
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/addworld <WorldName>"));
                     }
-                } else {
-                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
             } else {
-                sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
+                sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
             }
+        } else {
+            sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
         }
         return false;
     }
