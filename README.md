@@ -16,5 +16,5 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 - [ ] NullPointerFixes
 - [ ] PlayerData Features
 
-
+<br><br><br><br>
 <div style="text-align:center"><img src="https://framedev.stream/logo.jpg" /></div>
