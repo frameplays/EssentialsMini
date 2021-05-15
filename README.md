@@ -17,6 +17,4 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 - [ ] PlayerData Features
 
 
-https://framedev.stream/logo.jpg
-
 <div style="text-align:center"><img src="https://framedev.stream/logo.jpg" /></div>
