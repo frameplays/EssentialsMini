@@ -2,8 +2,8 @@
 #### [Website and Download](https://framedev.stream/sites/downloads/essentialsmini)
 ___
 # Index
-- [Build by your own](###Build by your own)
-- [Future Features](###*Future Features*)
+- [Build by your own](#build-by-your-own)
+- [Future Features](#future-features)
 
 ### Build by your own:
 ```
