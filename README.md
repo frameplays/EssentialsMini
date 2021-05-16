@@ -20,5 +20,8 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 - [ ] **NullPointerFixes** [in Progress]
 - [ ] PlayerData Features
 
-<br><br><br><br>
+<br>
+# Donwload Pre-Release
+https://github.com/frame-dev/EssentialsMini/releases/tag/1.2.4.1-PRE-RELEASE
+<br><br><br>
 <div style="text-align:center"><img src="https://framedev.stream/logo.jpg" /></div>
