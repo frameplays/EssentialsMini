@@ -6,10 +6,10 @@
 
     <groupId>de.framedev</groupId>
     <artifactId>EssentialsMini</artifactId>
-    <version>1.2.4-RELEASE</version>
+    <version>1.2.4.1-PRE-RELEASE</version>
 
     <properties>
-        <repo_version>release</repo_version>
+        <repo_version>pre-release</repo_version>
         <java.version>1.8</java.version>
     </properties>
 
@@ -26,6 +26,10 @@
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>repo</id>
+            <url>http://framedev.stream:82/releases</url>
+        </repository>
     </repositories>
     <distributionManagement>
         <repository>
@@ -35,9 +39,9 @@
     </distributionManagement>
     <dependencies>
         <dependency>
-            <groupId>com.github.frame-dev</groupId>
+            <groupId>de.framedev</groupId>
             <artifactId>MySQLAPI</artifactId>
-            <version>1.0.5</version>
+            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
