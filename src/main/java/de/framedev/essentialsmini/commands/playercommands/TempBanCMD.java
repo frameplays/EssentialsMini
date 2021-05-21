@@ -1,11 +1,11 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
-import com.sun.org.apache.xerces.internal.xs.StringList;
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.DateUnit;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,29 +33,18 @@ public class TempBanCMD extends CommandBase {
         if (cmd.getName().equalsIgnoreCase("tempban")) {
             if (sender.hasPermission(getPlugin().getPermissionName() + "tempban")) {
                 if (args.length == 4) {
-                    Player target = Bukkit.getPlayer(args[0]);
+                    OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
                     Ban grund = Ban.valueOf(args[1].toUpperCase());
-                    if (Bukkit.getOnlineMode()) {
-                        DateUnit unit = DateUnit.valueOf(args[3].toUpperCase());
-                        long value = Long.parseLong(args[2]);
-                        long current = System.currentTimeMillis();
-                        long millis = value * unit.getToSec() * 1000;
-                        long newValue = current + millis;
-                        Date date = new Date(newValue);
-                        Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(target.getName(), "§aYou are Banned. Reason:§c " + grund.getReason(), date, "true");
-                        target.kickPlayer("§bBan while §c" + grund.getReason() + "§b for §a" + value + " " + unit.getOutput() + "!");
-                        return true;
-                    } else {
-                        DateUnit unit = DateUnit.valueOf(args[3].toUpperCase());
-                        long value = Long.parseLong(args[2]);
-                        long current = System.currentTimeMillis();
-                        long millis = value * unit.getToSec() * 1000;
-                        long newValue = current + millis;
-                        Date date = new Date(newValue);
-                        Bukkit.getServer().getBanList(BanList.Type.IP).addBan(target.getAddress().getHostString(), "§aYou are Banned. Reason:§c " + grund.getReason(), date, "true");
-                        target.kickPlayer("§bBan while §c" + grund.getReason() + "§b for §a" + value + " " + unit.getOutput() + "!");
-                        return true;
-                    }
+                    DateUnit unit = DateUnit.valueOf(args[3].toUpperCase());
+                    long value = Long.parseLong(args[2]);
+                    long current = System.currentTimeMillis();
+                    long millis = value * unit.getToSec() * 1000;
+                    long newValue = current + millis;
+                    Date date = new Date(newValue);
+                    Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(target.getName(), "§aYou are Banned. Reason:§c " + grund.getReason(), date, "true");
+                    if (target.isOnline())
+                        ((Player) target).kickPlayer("§bBan while §c" + grund.getReason() + "§b for §a" + value + " " + unit.getOutput() + "!");
+                    return true;
                 } else {
                     sender.sendMessage(getPlugin().getPrefix() + getPlugin().getWrongArgs("/tempban <Player> <Reason> <time> <SEC or MIN or DAY or WEEK or MONTH or YEAR>"));
                     return true;
@@ -67,11 +56,11 @@ public class TempBanCMD extends CommandBase {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 2) {
+        if (args.length == 2) {
             List<String> reasons = new ArrayList<>();
             Arrays.asList(Ban.values()).forEach(ban -> reasons.add(ban.name()));
             ArrayList<String> empt = new ArrayList<>();
-            for(String s : reasons) {
+            for (String s : reasons) {
                 if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
                     empt.add(s);
                 }
@@ -79,14 +68,14 @@ public class TempBanCMD extends CommandBase {
             Collections.sort(empt);
             return empt;
         }
-        if(args.length == 3) {
+        if (args.length == 3) {
             return new ArrayList<String>(Collections.singletonList("Time"));
         }
-        if(args.length == 4) {
+        if (args.length == 4) {
             ArrayList<String> dateFormat = new ArrayList<>();
             Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
             ArrayList<String> empty = new ArrayList<>();
-            for(String s : dateFormat) {
+            for (String s : dateFormat) {
                 if (s.toLowerCase().startsWith(args[3].toLowerCase())) {
                     empty.add(s);
                 }
