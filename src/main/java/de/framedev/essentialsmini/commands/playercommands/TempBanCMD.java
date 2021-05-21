@@ -69,9 +69,7 @@ public class TempBanCMD extends CommandBase {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if(args.length == 2) {
             List<String> reasons = new ArrayList<>();
-            for(Ban s : TempBanCMD.Ban.values()) {
-                reasons.add(s.name());
-            }
+            Arrays.asList(Ban.values()).forEach(ban -> reasons.add(ban.name()));
             ArrayList<String> empt = new ArrayList<>();
             for(String s : reasons) {
                 if(args[1].toLowerCase().startsWith(s)) {
@@ -86,9 +84,7 @@ public class TempBanCMD extends CommandBase {
         }
         if(args.length == 4) {
             ArrayList<String> dateFormat = new ArrayList<>();
-            for(DateUnit unit : DateUnit.values()) {
-                dateFormat.add(unit.name());
-            }
+            Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
             ArrayList<String> empty = new ArrayList<>();
             for(String s : dateFormat) {
                 if(args[3].toLowerCase().startsWith(s))
