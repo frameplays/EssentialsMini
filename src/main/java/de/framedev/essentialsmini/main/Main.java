@@ -611,6 +611,8 @@ public class Main extends JavaPlugin {
                     }
                     Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
                     return true;
+                } else {
+                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cThis Plugin is a Pre-Release | §6There could still be errors");
                 }
             } else {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
