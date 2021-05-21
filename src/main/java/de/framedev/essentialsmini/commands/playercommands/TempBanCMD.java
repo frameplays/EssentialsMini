@@ -72,7 +72,7 @@ public class TempBanCMD extends CommandBase {
             Arrays.asList(Ban.values()).forEach(ban -> reasons.add(ban.name()));
             ArrayList<String> empt = new ArrayList<>();
             for(String s : reasons) {
-                if(args[1].toLowerCase().startsWith(s)) {
+                if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
                     empt.add(s);
                 }
             }
@@ -87,8 +87,9 @@ public class TempBanCMD extends CommandBase {
             Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
             ArrayList<String> empty = new ArrayList<>();
             for(String s : dateFormat) {
-                if(args[3].toLowerCase().startsWith(s))
+                if (s.toLowerCase().startsWith(args[3].toLowerCase())) {
                     empty.add(s);
+                }
             }
             Collections.sort(empty);
             return empty;
