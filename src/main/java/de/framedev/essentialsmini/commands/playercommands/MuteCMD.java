@@ -53,7 +53,7 @@ public class MuteCMD extends CommandBase implements Listener {
                 selfUnMute = ReplaceCharConfig.replaceParagraph(selfUnMute);
                 if(player.isOnline())
                     ((Player) player).sendMessage(plugin.getPrefix() + selfUnMute);
-                String otherUnMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
+                String otherUnMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Deactivate");
                 otherUnMute = ReplaceCharConfig.replaceParagraph(otherUnMute);
                 otherUnMute = ReplaceCharConfig.replaceObjectWithData(otherUnMute, "%Player%", player.getName());
                 sender.sendMessage(plugin.getPrefix() + otherUnMute);
@@ -62,7 +62,7 @@ public class MuteCMD extends CommandBase implements Listener {
                 String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
                 selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
                 if(player.isOnline())
-                    ((Player) player).sendMessage(plugin.getPrefix() + "§cYou has been Muted!");
+                    ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
                 String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
                 otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
                 otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
