@@ -105,7 +105,12 @@ public class Main extends JavaPlugin {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.stream/sites/downloads/mysqlapi]");
+        getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.stream/sites/downloads/mysqlapi] \n" +
+                "Position activates /position Command \n" +
+                "SkipNight activates skipnight \n" +
+                "LocationsBackup Activates creating Backup from all Homes \n" +
+                "OnlyEssentialsFeatures activates the PlayerData saving \n" +
+                "Economy.Activate activates the integration of the Vault API use for Economy");
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
