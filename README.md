@@ -19,6 +19,7 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 - [ ] More TabCompleter
 - [ ] **NullPointerFixes** [in Progress]
 - [ ] PlayerData Features
+- [ ] Java 11 Update
 
 <br>
 

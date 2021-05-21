@@ -604,7 +604,7 @@ public class Main extends JavaPlugin {
             String oldVersion = Main.getInstance().getDescription().getVersion();
             String newVersion = br.readLine();
             if (!newVersion.equalsIgnoreCase(oldVersion)) {
-                if(!oldVersion.contains("PRE-RELEASE") || !oldVersion.contains("SNAPSHOT")) {
+                if(!oldVersion.contains("PRE-RELEASE")) {
                     if (download) {
                         downloadLatest();
                         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Latest Version will be Downloaded");
@@ -683,7 +683,7 @@ public class Main extends JavaPlugin {
                     String oldVersion = Main.getInstance().getDescription().getVersion();
                     String newVersion = br.readLine();
                     if (!newVersion.equalsIgnoreCase(oldVersion)) {
-                        if(!oldVersion.contains("PRE-RELEASE") || !oldVersion.contains("SNAPSHOT")) {
+                        if(!oldVersion.endsWith("PRE-RELEASE")) {
                             BaseComponent base = new TextComponent();
                             base.addExtra(getPrefix() + "§aNew Version = §6" + newVersion + " §b§l[Please Click Here to Download the newest Plugin!]");
                             base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.stream/sites/downloads/essentialsmini"));
