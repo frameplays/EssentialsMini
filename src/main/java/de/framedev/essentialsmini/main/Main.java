@@ -109,6 +109,8 @@ public class Main extends JavaPlugin {
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+        Config.updateConfig();
+        Config.loadConfig();
         Config.saveDefaultConfigValues();
 
         if (getConfig().getBoolean("HomeTP")) {
