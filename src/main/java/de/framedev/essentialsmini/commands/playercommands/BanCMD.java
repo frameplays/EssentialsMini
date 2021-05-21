@@ -57,7 +57,7 @@ public class BanCMD extends CommandBase {
 
 	public static enum BanType {
 		HACKING("hacking"),
-		TRY_BYPASS_BAN("try bypassing a Ban");
+		TRY_BYPASSING_BAN("try bypassing a Ban");
 
 		private final String reason;
 
