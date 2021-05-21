@@ -105,10 +105,10 @@ public class Main extends JavaPlugin {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.stream/sites/downloads/mysqlapi]");
+        getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-        Config.loadConfig();
-        Config.updateConfig();
         Config.saveDefaultConfigValues();
 
         if (getConfig().getBoolean("HomeTP")) {
