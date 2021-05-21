@@ -124,15 +124,7 @@ public class MuteCMD extends CommandBase implements Listener {
         if (cfg.contains(player.getName() + ".reason")) {
             Date date = (Date) cfg.get(player.getName() + ".expire");
             if (date != null)
-                if(date.getTime() < System.currentTimeMillis()) {
-                    cfg.set(player.getName(), null);
-                    try {
-                        cfg.save(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return false;
-                }
+                return date.getTime() >= System.currentTimeMillis();
         }
         return true;
     }
@@ -142,6 +134,16 @@ public class MuteCMD extends CommandBase implements Listener {
         if(!isExpired(event.getPlayer())) {
             event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason"));
             event.setCancelled(true);
+        } else {
+            Player player = event.getPlayer();
+            if (cfg.contains(player.getName() + ".reason")) {
+                cfg.set(player.getName(), null);
+                try {
+                    cfg.save(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         if (muted.contains(event.getPlayer())) {
             event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted!");
