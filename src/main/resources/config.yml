@@ -49,7 +49,6 @@ MoneySign:
   Sell: '&a[§6Sell§a]'
   Free: '&a[§6Free§a]'
 
-# Require ==MySQLAPI== https://github.com/TrAxMC/MySQLAPI/releases
 MySQL: false
 SQLite: false
 
