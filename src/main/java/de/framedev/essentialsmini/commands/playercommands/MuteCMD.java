@@ -91,7 +91,7 @@ public class MuteCMD extends CommandBase implements Listener {
                     return true;
                 }
 
-                MuteReason muteReason = MuteReason.valueOf(args[1].toUpperCase());
+                MuteReason muteReason = MuteReason.valueOf(args[1].toLowerCase());
                 DateUnit unit = DateUnit.valueOf(args[3].toUpperCase());
                 long value = Long.parseLong(args[2]);
                 long current = System.currentTimeMillis();
