@@ -210,6 +210,8 @@ commands:
   flyspeed:
     description: Change your Fly Speed
   tempmute:
+  muteinfo:
+  removetempmute:
   mute:
     description: Mute a Player
   tempban:
@@ -289,6 +291,9 @@ permissions:
       essentialsmini.tempban: true
       essentialsmini.ban: true
       essentialsmini.unban: true
+      essentialsmini.tempmute: true
+      essentialsmini.muteinfo: true
+      essentialsmini.removetempmute: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -454,4 +459,8 @@ permissions:
   essentialsmini.ban:
     default: op
   essentialsmini.unban:
+    default: op
+  essentialsmini.muteinfo:
+    default: op
+  essentialsmini.removetempmute:
     default: op

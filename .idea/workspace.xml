@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="BanCMD Updated">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="MuteCMD TabCompleter Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,20 +122,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00041" summary=".gitignore Updated">
-      <created>1619431106411</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1619431106411</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Files Deleted">
-      <created>1619431159660</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1619431159660</updated>
     </task>
     <task id="LOCAL-00043" summary="Updated">
       <created>1619431680479</created>
@@ -465,7 +452,21 @@
       <option name="project" value="LOCAL" />
       <updated>1621634249938</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="MuteCMD Updated">
+      <created>1621636829482</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1621636829482</updated>
+    </task>
+    <task id="LOCAL-00091" summary="MuteCMD TabCompleter Updated">
+      <created>1621637081371</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1621637081371</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -503,8 +504,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cleanup Code" />
-    <MESSAGE value="Github Page Added" />
     <MESSAGE value=".gitignore Updated" />
     <MESSAGE value="Files Deleted" />
     <MESSAGE value="Updated" />
@@ -528,7 +527,9 @@
     <MESSAGE value="TempBan Updated / Mute Updated" />
     <MESSAGE value="TempMuteCMD Updated" />
     <MESSAGE value="BanCMD Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="BanCMD Updated" />
+    <MESSAGE value="MuteCMD Updated" />
+    <MESSAGE value="MuteCMD TabCompleter Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="MuteCMD TabCompleter Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

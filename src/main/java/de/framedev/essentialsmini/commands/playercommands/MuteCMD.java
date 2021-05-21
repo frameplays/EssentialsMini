@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -41,6 +42,8 @@ public class MuteCMD extends CommandBase implements Listener {
         super(plugin);
         setup("mute", this);
         setup("tempmute", this);
+        setup("muteinfo", this);
+        setup("removetempmute", this);
         setupTabCompleter("tempmute", this);
         this.plugin = plugin;
         plugin.getListeners().add(this);
@@ -85,7 +88,7 @@ public class MuteCMD extends CommandBase implements Listener {
         }
         if (command.getName().equalsIgnoreCase("tempmute")) {
             if (args.length == 4) {
-                if (!sender.hasPermission(plugin.getPermissionName() + "mute")) {
+                if (!sender.hasPermission(plugin.getPermissionName() + "tempmute")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     return true;
                 }
@@ -115,6 +118,51 @@ public class MuteCMD extends CommandBase implements Listener {
                 sender.sendMessage(plugin.getPrefix() + otherMute);
                 return true;
             }
+        }
+        if (command.getName().equalsIgnoreCase("removetempmute")) {
+            if (args.length == 1) {
+                if (!sender.hasPermission(plugin.getPermissionName() + "removetempmute")) {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                    return true;
+                }
+
+                OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+                if(cfg.contains(player.getName())) {
+                    cfg.set(player.getName(), null);
+                    try {
+                        cfg.save(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String selfUnMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Deactivate");
+                    selfUnMute = ReplaceCharConfig.replaceParagraph(selfUnMute);
+                    if (player.isOnline())
+                        ((Player) player).sendMessage(plugin.getPrefix() + selfUnMute);
+                    String otherUnMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Deactivate");
+                    otherUnMute = ReplaceCharConfig.replaceParagraph(otherUnMute);
+                    otherUnMute = ReplaceCharConfig.replaceObjectWithData(otherUnMute, "%Player%", player.getName());
+                    sender.sendMessage(plugin.getPrefix() + otherUnMute);
+                    return true;
+                }
+            }
+        }
+        if(command.getName().equalsIgnoreCase("muteinfo")) {
+            if (!sender.hasPermission(plugin.getPermissionName() + "muteinfo")) {
+                sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                return true;
+            }
+
+            ArrayList<OfflinePlayer> players = new ArrayList<>();
+            for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                if(cfg.contains(offlinePlayer.getName())) {
+                    players.add(offlinePlayer);
+                }
+            }
+
+            players.forEach(player -> {
+                sender.sendMessage("§6" + player.getName() + " §ais Muted while : §6" + cfg.getString(player.getName() + ".reason"));
+                sender.sendMessage("§aExpired at §6: " + cfg.getString(player.getName() + ".expire"));
+            });
         }
         return super.onCommand(sender, command, label, args);
     }
