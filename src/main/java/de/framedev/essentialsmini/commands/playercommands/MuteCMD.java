@@ -124,7 +124,7 @@ public class MuteCMD extends CommandBase implements Listener {
         if (cfg.contains(player.getName() + ".reason")) {
             Date date = (Date) cfg.get(player.getName() + ".expire");
             if (date != null)
-                return date.getTime() >= System.currentTimeMillis();
+                return date.getTime() < System.currentTimeMillis();
         }
         return true;
     }
