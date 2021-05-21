@@ -604,17 +604,19 @@ public class Main extends JavaPlugin {
             String oldVersion = Main.getInstance().getDescription().getVersion();
             String newVersion = br.readLine();
             if (!newVersion.equalsIgnoreCase(oldVersion)) {
-                if (download) {
-                    downloadLatest();
-                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "Latest Version will be Downloaded");
+                if(!oldVersion.contains("PRE-RELEASE") || !oldVersion.contains("SNAPSHOT")) {
+                    if (download) {
+                        downloadLatest();
+                        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Latest Version will be Downloaded");
+                    }
+                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
+                    return true;
                 }
-                Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
-                return true;
             } else {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
             }
         } catch (IOException e) {
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on spigotmc.org");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on framedev.stream");
         }
         return false;
     }
@@ -681,14 +683,16 @@ public class Main extends JavaPlugin {
                     String oldVersion = Main.getInstance().getDescription().getVersion();
                     String newVersion = br.readLine();
                     if (!newVersion.equalsIgnoreCase(oldVersion)) {
-                        BaseComponent base = new TextComponent();
-                        base.addExtra(getPrefix() + "§aNew Version = §6" + newVersion + " §b§l[Please Click Here to Download the newest Plugin!]");
-                        base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.stream/sites/downloads/essentialsmini"));
-                        base.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§6Click Here to Open the Download Link").create()));
-                        player.spigot().sendMessage(base);
+                        if(!oldVersion.contains("PRE-RELEASE") || !oldVersion.contains("SNAPSHOT")) {
+                            BaseComponent base = new TextComponent();
+                            base.addExtra(getPrefix() + "§aNew Version = §6" + newVersion + " §b§l[Please Click Here to Download the newest Plugin!]");
+                            base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.stream/sites/downloads/essentialsmini"));
+                            base.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§6Click Here to Open the Download Link").create()));
+                            player.spigot().sendMessage(base);
+                        }
                     }
                 } catch (IOException e) {
-                    player.sendMessage(getPrefix() + "Failed to check for updates on spigotmc.org");
+                    player.sendMessage(getPrefix() + "Failed to check for updates on framedev.stream");
                 }
             }
         }
