@@ -94,7 +94,8 @@ public class TempBanCMD extends CommandBase {
         DESTROY_BUILDINGS("destroy other buildings"),
         TROLLING("trolling"),
         TEAMING("teaming"),
-        GRIEFING("griefing");
+        GRIEFING("griefing"),
+        OFFENSIVE_INAPPROPROATE_BUILDING("Offensive / inappropriate building");
 
         private final String reason;
 

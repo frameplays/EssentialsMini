@@ -209,6 +209,7 @@ commands:
     description: Main Command for all Bank Commands
   flyspeed:
     description: Change your Fly Speed
+  tempmute:
   mute:
     description: Mute a Player
   tempban:
