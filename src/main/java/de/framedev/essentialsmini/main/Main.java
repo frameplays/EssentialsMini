@@ -545,6 +545,7 @@ public class Main extends JavaPlugin {
     }
 
     /**
+     * Diese Methode gibt die Klasse Variables zurück
      * @return die Variablen die gespeichert wurden verfügbar mit dem Getter
      */
     public Variables getVariables() {
@@ -574,9 +575,7 @@ public class Main extends JavaPlugin {
 
     public void reloadCustomConfig() throws UnsupportedEncodingException {
         if (customConfig == null) ;
-
         customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-
 
         Reader defConfigStream = new InputStreamReader(Objects.requireNonNull(Main.getInstance().getResource("messages.yml")), StandardCharsets.UTF_8);
         if (defConfigStream != null) {

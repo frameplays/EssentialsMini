@@ -112,4 +112,4 @@ Mute:
     Deactivate: '&aYou has been Unmuted!'
   Other:
     Activate: '&6%Player% &chas been Muted!'
-    Deactivate: '&6%Player% &chas been Unmuted!'
+    Deactivate: '&6%Player% &ahas been Unmuted!'

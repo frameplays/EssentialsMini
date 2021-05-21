@@ -9,9 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Updater Bug Fixes | 1.2.4.2 Pre-Release Opend">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="MuteCMD Bug Fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/TempBanCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/TempBanCMD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,27 +123,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00025" summary="1.2.2-SNAPSHOT Release">
-      <created>1619375842502</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1619375842502</updated>
-    </task>
-    <task id="LOCAL-00026" summary="1.2.2-SNAPSHOT Release">
-      <created>1619375883002</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1619375883002</updated>
-    </task>
-    <task id="LOCAL-00027" summary="HomeCMD Bug Fixes">
-      <created>1619376677273</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1619376677273</updated>
     </task>
     <task id="LOCAL-00028" summary="HomeCMD Bug Fixes">
       <created>1619377944432</created>
@@ -465,7 +446,28 @@
       <option name="project" value="LOCAL" />
       <updated>1621629113221</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Updater Bug Fixes">
+      <created>1621629312733</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1621629312733</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Updater Bug Fixes">
+      <created>1621629450775</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1621629450776</updated>
+    </task>
+    <task id="LOCAL-00076" summary="MuteCMD Bug Fix">
+      <created>1621629569430</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1621629569430</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -503,8 +505,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="NullPointerException Fix" />
-    <MESSAGE value="1.2.2-SNAPSHOT Release" />
     <MESSAGE value="HomeCMD Bug Fixes" />
     <MESSAGE value="Bug Fixes / NullPointer Fixes" />
     <MESSAGE value="Bug Fixes / NullPointer Fixes&#10;.jar Size changed" />
@@ -528,7 +528,9 @@
     <MESSAGE value="Updates" />
     <MESSAGE value="Config.yml updated / Bug Fixes" />
     <MESSAGE value="Updater Bug Fixes | 1.2.4.2 Pre-Release Opend" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updater Bug Fixes | 1.2.4.2 Pre-Release Opend" />
+    <MESSAGE value="Updater Bug Fixes" />
+    <MESSAGE value="MuteCMD Bug Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="MuteCMD Bug Fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
