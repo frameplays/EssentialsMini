@@ -17,8 +17,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 /**
  * This Plugin was Created by FrameDev
@@ -42,8 +41,8 @@ public class MuteCMD extends CommandBase implements Listener {
         super(plugin);
         setup("mute", this);
         setup("tempmute", this);
+        setupTabCompleter("tempmute", this);
         this.plugin = plugin;
-        setup(this);
         plugin.getListeners().add(this);
         this.muted = plugin.getVariables().getPlayers();
         this.file = new File(plugin.getDataFolder(), "tempmutes.yml");
@@ -132,7 +131,8 @@ public class MuteCMD extends CommandBase implements Listener {
     @EventHandler
     public void onChatWrite(AsyncPlayerChatEvent event) {
         if(!isExpired(event.getPlayer())) {
-            event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason"));
+            Date date = (Date) cfg.get(event.getPlayer().getName() + ".expire");
+            event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason") + " | §aExpired at : §6" + date.toString());
             event.setCancelled(true);
         } else {
             Player player = event.getPlayer();
@@ -149,6 +149,22 @@ public class MuteCMD extends CommandBase implements Listener {
             event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted!");
             event.setCancelled(true);
         }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if(args.length == 2) {
+            ArrayList<String> reason = new ArrayList<>();
+            Arrays.asList(MuteReason.values()).forEach(reasons -> reason.add(reasons.name()));
+            ArrayList<String> empty = new ArrayList<>();
+            for(String s : reason) {
+                if(s.toLowerCase().startsWith(args[1].toLowerCase()))
+                    empty.add(s);
+            }
+            Collections.sort(empty);
+            return empty;
+        }
+        return super.onTabComplete(sender, command, label, args);
     }
 
     public static enum MuteReason {
