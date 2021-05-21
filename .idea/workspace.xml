@@ -9,12 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="TempBan Updated">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/TempBanCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/TempBanCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
-    </list>
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="TempMuteCMD Updated" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,34 +118,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Suicid CMD Update">
-      <created>1619429868724</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1619429868724</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Cleanup Code">
-      <created>1619430224070</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1619430224070</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Cleanup Code">
-      <created>1619430228031</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1619430228031</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Github Page Added">
-      <created>1619430555481</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1619430555481</updated>
     </task>
     <task id="LOCAL-00036" summary="Github Page Added">
       <created>1619430632332</created>
@@ -467,7 +434,35 @@
       <option name="project" value="LOCAL" />
       <updated>1621631382984</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="TempBan Updated / Mute Updated">
+      <created>1621632347150</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1621632347150</updated>
+    </task>
+    <task id="LOCAL-00082" summary="TempBan Updated / Mute Updated">
+      <created>1621632435064</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1621632435064</updated>
+    </task>
+    <task id="LOCAL-00083" summary="TempBan Updated / Mute Updated">
+      <created>1621632488971</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1621632488971</updated>
+    </task>
+    <task id="LOCAL-00084" summary="TempMuteCMD Updated">
+      <created>1621632661792</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1621632661792</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -505,8 +500,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Bug Fixes / NullPointer Fixes" />
-    <MESSAGE value="Bug Fixes / NullPointer Fixes&#10;.jar Size changed" />
     <MESSAGE value="Suicid CMD Update" />
     <MESSAGE value="Cleanup Code" />
     <MESSAGE value="Github Page Added" />
@@ -530,7 +523,9 @@
     <MESSAGE value="Updater Bug Fixes" />
     <MESSAGE value="MuteCMD Bug Fix" />
     <MESSAGE value="TempBan Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="TempBan Updated" />
+    <MESSAGE value="TempBan Updated / Mute Updated" />
+    <MESSAGE value="TempMuteCMD Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="TempMuteCMD Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
