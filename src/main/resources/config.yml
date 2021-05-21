@@ -11,13 +11,12 @@ SpawnTP: false
 SkipNight: false
 
 LocationsBackup: false
-# minutes
+
 BackupTime: 5
 LocationsBackupMessage: false
 
 IgnoreJoinLeave: false
 
-# LimtedHomes
 Limited: false
 LimitedHomes:
   Default: 4
@@ -33,13 +32,10 @@ ShowItem: false
 ShowCrafting: false
 ShowLocation: false
 
-# activates the Command /position (/pos)
 Position: true
 
-# Sets the Json Format for the DataSave from Players
 JsonFormat: false
 
-# Send to the Console updates from PlayerData
 BackupMessages: false
 SendPlayerUpdateMessage: true
 ZeitgesteuerterRestart: 30
@@ -69,7 +65,7 @@ TeleportInOtherWorld: true
 
 
 WorldBackup: false
-# Minutes 60 = 1 Hour
+
 BackupWorldTime: 60
 
 OnlyEssentialsFeatures: true
@@ -81,8 +77,7 @@ AFK:
   IsNotAFK: '&7[Player] is no longer AFK'
 NotAllowCommand: '&cNope'
 AutoDownload: false
-# Colored Chat
+
 ColoredChat: true
 
-# Colored Signs
 ColoredSigns: true
