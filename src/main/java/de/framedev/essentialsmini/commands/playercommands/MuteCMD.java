@@ -164,6 +164,21 @@ public class MuteCMD extends CommandBase implements Listener {
             Collections.sort(empty);
             return empty;
         }
+        if (args.length == 3) {
+            return new ArrayList<String>(Collections.singletonList("Time"));
+        }
+        if (args.length == 4) {
+            ArrayList<String> dateFormat = new ArrayList<>();
+            Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
+            ArrayList<String> empty = new ArrayList<>();
+            for (String s : dateFormat) {
+                if (s.toLowerCase().startsWith(args[3].toLowerCase())) {
+                    empty.add(s);
+                }
+            }
+            Collections.sort(empty);
+            return empty;
+        }
         return super.onTabComplete(sender, command, label, args);
     }
 
