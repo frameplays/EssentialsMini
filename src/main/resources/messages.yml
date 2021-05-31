@@ -40,8 +40,8 @@ NoMoreHomesSet: '&cDu kannst keine weitern Homes setzten!'
 
 SpyMessage: '&6%Player% &ahat eine Nachricht an &6%Target% &agesendet mit dem Text &6: §c%Message%'
 Spy:
-  On: '&aDir werden nun die Msg"s geschickt von anderen Spielern!'
-  Off: '&aDir werden nun nicht mehr die Msg"s geschickt von anderen Spielern!'
+  Activate: '&aDir werden nun die Msg"s geschickt von anderen Spielern!'
+  Deactivate: '&aDir werden nun nicht mehr die Msg"s geschickt von anderen Spielern!'
 
 Item:
   Get: '&aDu hast das Item &6%Item% &abekommen! Menge &6%Amount%'

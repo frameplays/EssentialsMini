@@ -27,8 +27,7 @@ public class BanCMD extends CommandBase {
 				BanType type = BanType.valueOf(args[1].toUpperCase());
 				BanFile.banPlayer(args[0], type.getReason());
 				if (Bukkit.getPlayer(args[0]) != null) {
-					Bukkit.getPlayer(args[0]).kickPlayer(ChatColor.RED + "You are Banned while " + type.getReason());
-				} else {
+					Objects.requireNonNull(Bukkit.getPlayer(args[0])).kickPlayer(ChatColor.RED + "You are Banned while "+ ChatColor.GOLD + type.getReason());
 					sender.sendMessage(getPlugin().getPrefix() + getPlugin().getVariables().getPlayerNotOnline());
 				}
 			} else {
@@ -56,6 +55,7 @@ public class BanCMD extends CommandBase {
 	}
 
 	public static enum BanType {
+
 		HACKING("hacking"),
 		TRY_BYPASSING_BAN("try bypassing a Ban");
 

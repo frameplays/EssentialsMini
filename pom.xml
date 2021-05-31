@@ -6,10 +6,10 @@
 
     <groupId>de.framedev</groupId>
     <artifactId>EssentialsMini</artifactId>
-    <version>1.2.4.2-PRE-RELEASE</version>
+    <version>1.2.5-RELEASE</version>
 
     <properties>
-        <repo_version>pre-release</repo_version>
+        <repo_version>release</repo_version>
         <java.version>1.8</java.version>
     </properties>
 

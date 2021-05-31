@@ -86,7 +86,7 @@ public class TempBanCMD extends CommandBase {
         return super.onTabComplete(sender, command, label, args);
     }
 
-    public static enum Ban {
+    public enum Ban {
 
         CLIENT_MODIFICATIONS("client modifications"),
         BUG_USING("exploit bugs"),

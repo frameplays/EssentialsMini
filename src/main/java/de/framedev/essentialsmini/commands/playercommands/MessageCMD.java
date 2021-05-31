@@ -11,6 +11,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
+import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -173,12 +174,12 @@ public class MessageCMD implements CommandExecutor {
                 Player player = (Player) sender;
                 if (player.hasPermission("essentialsmini.spy")) {
                     if (!spy.contains(player)) {
-                        String spyMessage = plugin.getCustomMessagesConfig().getString("Spy.On");
-                        spyMessage = ReplaceCharConfig.replaceParagraph(spyMessage);
+                        String spyMessage = plugin.getCustomMessagesConfig().getString("Spy.Activate");
+                        spyMessage = new TextUtils().replaceAndToParagraph(spyMessage);
                         player.sendMessage(plugin.getPrefix() + spyMessage);
                         spy.add(player);
                     } else {
-                        String spyMessage = plugin.getCustomMessagesConfig().getString("Spy.Off");
+                        String spyMessage = plugin.getCustomMessagesConfig().getString("Spy.Deactivate");
                         spyMessage = ReplaceCharConfig.replaceParagraph(spyMessage);
                         player.sendMessage(plugin.getPrefix() + spyMessage);
                         spy.remove(player);

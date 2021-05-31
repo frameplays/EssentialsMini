@@ -18,20 +18,16 @@ public enum DateUnit {
 	MON("Month(s)",30*24*60*60),
 	YEAR("Year(s)",365*24*60*60);
 	
-	private String output;
-	private long toSec;
+	private final String output;
+	private final long toSec;
+
 	/**
 	 * @return the output
 	 */
 	public String getOutput() {
 		return output;
 	}
-	/**
-	 * @param output the output to set
-	 */
-	public void setOutput(String output) {
-		this.output = output;
-	}
+
 	/**
 	 * @return the toSec
 	 */
@@ -39,17 +35,19 @@ public enum DateUnit {
 		return toSec;
 	}
 	/**
-	 * @param toSec the toSec to set
-	 */
-	public void setToSec(long toSec) {
-		this.toSec = toSec;
-	}
-	/**
 	 * 
 	 */
 	private DateUnit(String output,long toSec) {
 		this.output = output;
 		this.toSec = toSec;
+	}
+
+	/**
+	 * Convert toSeconds to Milliseconds
+	 * @return returns the selected DateUnit to MilliSeconds
+	 */
+	public long toMillis() {
+		return toSec * 1000;
 	}
 
 }
