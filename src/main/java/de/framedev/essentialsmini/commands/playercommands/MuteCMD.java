@@ -18,6 +18,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -102,7 +104,15 @@ public class MuteCMD extends CommandBase implements Listener {
                 Date date = new Date(newValue);
                 OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
                 if (plugin.isMysql() || plugin.isSQL()) {
-                    new BanMuteManager().setTempMute(player, muteReason, date.toString());
+                    new BanMuteManager().setTempMute(player, muteReason, new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(date));
+                    String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
+                    selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
+                    if (player.isOnline())
+                        ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
+                    String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
+                    otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
+                    otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
+                    sender.sendMessage(plugin.getPrefix() + otherMute);
                 } else {
                     cfg.set(player.getName() + ".reason", muteReason.getReason());
                     cfg.set(player.getName() + ".expire", date);
@@ -133,6 +143,14 @@ public class MuteCMD extends CommandBase implements Listener {
                 OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
                 if (plugin.isMysql() || plugin.isSQL()) {
                     new BanMuteManager().removeTempMute(player);
+                    String selfUnMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Deactivate");
+                    selfUnMute = ReplaceCharConfig.replaceParagraph(selfUnMute);
+                    if (player.isOnline())
+                        ((Player) player).sendMessage(plugin.getPrefix() + selfUnMute);
+                    String otherUnMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Deactivate");
+                    otherUnMute = ReplaceCharConfig.replaceParagraph(otherUnMute);
+                    otherUnMute = ReplaceCharConfig.replaceObjectWithData(otherUnMute, "%Player%", player.getName());
+                    sender.sendMessage(plugin.getPrefix() + otherUnMute);
                 } else {
                     if (cfg.contains(player.getName())) {
                         cfg.set(player.getName(), null);
@@ -176,10 +194,27 @@ public class MuteCMD extends CommandBase implements Listener {
     }
 
     private boolean isExpired(Player player) {
-        if (cfg.contains(player.getName() + ".reason")) {
-            Date date = (Date) cfg.get(player.getName() + ".expire");
-            if (date != null)
-                return date.getTime() < System.currentTimeMillis();
+        if (plugin.isMysql() || plugin.isSQL()) {
+            if (new BanMuteManager().isTempMute(player)) {
+                final Date[] date = {new Date()};
+                new BanMuteManager().getTempMute(player).forEach((s, s2) -> {
+                    try {
+                        date[0] = new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").parse(s);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+                if (date[0] != null)
+                    return date[0].getTime() < System.currentTimeMillis();
+            } else {
+                return true;
+            }
+        } else {
+            if (cfg.contains(player.getName() + ".reason")) {
+                Date date = (Date) cfg.get(player.getName() + ".expire");
+                if (date != null)
+                    return date.getTime() < System.currentTimeMillis();
+            }
         }
         return true;
     }
@@ -188,9 +223,19 @@ public class MuteCMD extends CommandBase implements Listener {
     public void onChatWrite(AsyncPlayerChatEvent event) {
         if (!isExpired(event.getPlayer())) {
             if (plugin.isMysql() || plugin.isSQL()) {
-                final Date[] date = {new Date()};
-                new BanMuteManager().getTempMute(event.getPlayer()).forEach((s, s2) -> date[0] = new Date(s));
-                event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason") + " | §aExpired at : §6" + date[0].toString());
+                if (new BanMuteManager().isTempMute(event.getPlayer())) {
+                    final Date[] date = {new Date()};
+                    final String[] reason = {""};
+                    new BanMuteManager().getTempMute(event.getPlayer()).forEach((s, s2) -> {
+                        reason[0] = s2;
+                        try {
+                            date[0] = new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").parse(s);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + reason[0] + " | §aExpired at : §6" + date[0].toString());
+                }
             } else {
                 Date date = (Date) cfg.get(event.getPlayer().getName() + ".expire");
                 event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason") + " | §aExpired at : §6" + date.toString());

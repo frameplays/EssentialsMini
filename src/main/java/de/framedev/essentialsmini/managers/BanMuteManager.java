@@ -4,6 +4,8 @@ import de.framedev.essentialsmini.commands.playercommands.BanCMD;
 import de.framedev.essentialsmini.commands.playercommands.MuteCMD;
 import de.framedev.essentialsmini.commands.playercommands.TempBanCMD;
 import de.framedev.mysqlapi.api.SQL;
+import org.bukkit.BanList;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.HashMap;
@@ -38,8 +40,8 @@ public class BanMuteManager {
     public void removeTempMute(OfflinePlayer player) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
-                SQL.updateData(table, "TempMute", "'" + null + "'", "Player = '" + player.getName() + "'");
-                SQL.updateData(table, "TempMuteReason", "'" + null + "'", "Player = '" + player.getName() + "'");
+                SQL.updateData(table, "TempMute", "'" + " " + "'", "Player = '" + player.getName() + "'");
+                SQL.updateData(table, "TempMuteReason", "'" + " " + "'", "Player = '" + player.getName() + "'");
             }
         }
     }
@@ -50,10 +52,22 @@ public class BanMuteManager {
             if (SQL.exists(table, "Player", player.getName())) {
                 if (SQL.get(table, "TempMute", "Player", player.getName()) != null) {
                     tempMute.put((String) SQL.get(table, "TempMute", "Player", player.getName()), (String) SQL.get(table, "TempMuteReason", "Player", player.getName()));
+                    return tempMute;
                 }
             }
         }
-        return tempMute;
+        return null;
+    }
+
+    public boolean isTempMute(OfflinePlayer player) {
+        if (SQL.isTableExists(table)) {
+            if (SQL.exists(table, "Player", player.getName())) {
+                if (SQL.get(table, "TempMute", "Player", player.getName()) != null) {
+                    return !((String) SQL.get(table, "TempMute", "Player", player.getName())).equalsIgnoreCase(" ");
+                }
+            }
+        }
+        return false;
     }
 
     public void setTempBan(OfflinePlayer player, TempBanCMD.Ban reason, String date) {
@@ -73,8 +87,9 @@ public class BanMuteManager {
     public void removeTempBan(OfflinePlayer player) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
-                SQL.updateData(table, "TempBan", "'" + null + "'", "Player = '" + player.getName() + "'");
-                SQL.updateData(table, "TempBanReason", "'" + null + "'", "Player = '" + player.getName() + "'");
+                Bukkit.getServer().getBanList(BanList.Type.NAME).pardon(player.getName());
+                SQL.updateData(table, "TempBan", "'" + " " + "'", "Player = '" + player.getName() + "'");
+                SQL.updateData(table, "TempBanReason", "'" + " " + "'", "Player = '" + player.getName() + "'");
             }
         }
     }
@@ -85,17 +100,18 @@ public class BanMuteManager {
             if (SQL.exists(table, "Player", player.getName())) {
                 if (SQL.get(table, "TempBan", "Player", player.getName()) != null) {
                     tempBan.put((String) SQL.get(table, "TempBan", "Player", player.getName()), (String) SQL.get(table, "TempBanReason", "Player", player.getName()));
+                    return tempBan;
                 }
             }
         }
-        return tempBan;
+        return null;
     }
 
     public boolean isTempBan(OfflinePlayer player) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
                 if (SQL.get(table, "TempBan", "Player", player.getName()) != null) {
-                    return SQL.get(table, "TempBan","Player", player.getName()) == null;
+                    return !((String) SQL.get(table, "TempBan", "Player", player.getName())).equalsIgnoreCase(" ");
                 }
             }
         }

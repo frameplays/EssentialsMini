@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -43,7 +44,7 @@ public class TempBanCMD extends CommandBase {
                     long newValue = current + millis;
                     Date date = new Date(newValue);
                     if(getPlugin().isMysql() || getPlugin().isSQL()) {
-                        new BanMuteManager().setTempBan(target, grund, date.toString());
+                        new BanMuteManager().setTempBan(target, grund, new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(date));
                     } else {
                         Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(Objects.requireNonNull(target.getName()), "§aYou are Banned. Reason:§c " + grund.getReason(), date, "true");
                     }
@@ -53,6 +54,17 @@ public class TempBanCMD extends CommandBase {
                 } else {
                     sender.sendMessage(getPlugin().getPrefix() + getPlugin().getWrongArgs("/tempban <Player> <Reason> <time> <SEC or MIN or DAY or WEEK or MONTH or YEAR>"));
                     return true;
+                }
+            }
+        }
+        if(cmd.getName().equalsIgnoreCase("removetempban")) {
+            OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            if (sender.hasPermission(getPlugin().getPermissionName() + "tempban")) {
+                if(getPlugin().isMysql() || getPlugin().isSQL()) {
+                    new BanMuteManager().removeTempBan(target);
+                    Bukkit.getServer().getBanList(BanList.Type.NAME).pardon(target.getName());
+                } else {
+                    Bukkit.getServer().getBanList(BanList.Type.NAME).pardon(target.getName());
                 }
             }
         }

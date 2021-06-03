@@ -221,6 +221,7 @@ commands:
     description: Open an Written Book and edited it
   copybook:
     description: Copy an Written Book
+  removetempban:
 permissions:
   essentialsmini.*:
     children:
