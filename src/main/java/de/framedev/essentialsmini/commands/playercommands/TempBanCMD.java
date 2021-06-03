@@ -1,6 +1,7 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.BanMuteManager;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.DateUnit;
 import org.bukkit.BanList;
@@ -41,7 +42,11 @@ public class TempBanCMD extends CommandBase {
                     long millis = value * unit.getToSec() * 1000;
                     long newValue = current + millis;
                     Date date = new Date(newValue);
-                    Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(target.getName(), "§aYou are Banned. Reason:§c " + grund.getReason(), date, "true");
+                    if(getPlugin().isMysql() || getPlugin().isSQL()) {
+                        new BanMuteManager().setTempBan(target, grund, date.toString());
+                    } else {
+                        Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(Objects.requireNonNull(target.getName()), "§aYou are Banned. Reason:§c " + grund.getReason(), date, "true");
+                    }
                     if (target.isOnline())
                         ((Player) target).kickPlayer("§bBan while §c" + grund.getReason() + "§b for §a" + value + " " + unit.getOutput() + "!");
                     return true;

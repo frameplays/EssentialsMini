@@ -1,6 +1,7 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.BanMuteManager;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.DateUnit;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
@@ -8,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -101,21 +101,25 @@ public class MuteCMD extends CommandBase implements Listener {
                 long newValue = current + millis;
                 Date date = new Date(newValue);
                 OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                cfg.set(player.getName() + ".reason", muteReason.getReason());
-                cfg.set(player.getName() + ".expire", date);
-                try {
-                    cfg.save(file);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (plugin.isMysql() || plugin.isSQL()) {
+                    new BanMuteManager().setTempMute(player, muteReason, date.toString());
+                } else {
+                    cfg.set(player.getName() + ".reason", muteReason.getReason());
+                    cfg.set(player.getName() + ".expire", date);
+                    try {
+                        cfg.save(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
+                    selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
+                    if (player.isOnline())
+                        ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
+                    String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
+                    otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
+                    otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
+                    sender.sendMessage(plugin.getPrefix() + otherMute);
                 }
-                String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
-                selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
-                if (player.isOnline())
-                    ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
-                String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
-                otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
-                otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
-                sender.sendMessage(plugin.getPrefix() + otherMute);
                 return true;
             }
         }
@@ -127,26 +131,30 @@ public class MuteCMD extends CommandBase implements Listener {
                 }
 
                 OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                if(cfg.contains(player.getName())) {
-                    cfg.set(player.getName(), null);
-                    try {
-                        cfg.save(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if (plugin.isMysql() || plugin.isSQL()) {
+                    new BanMuteManager().removeTempMute(player);
+                } else {
+                    if (cfg.contains(player.getName())) {
+                        cfg.set(player.getName(), null);
+                        try {
+                            cfg.save(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        String selfUnMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Deactivate");
+                        selfUnMute = ReplaceCharConfig.replaceParagraph(selfUnMute);
+                        if (player.isOnline())
+                            ((Player) player).sendMessage(plugin.getPrefix() + selfUnMute);
+                        String otherUnMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Deactivate");
+                        otherUnMute = ReplaceCharConfig.replaceParagraph(otherUnMute);
+                        otherUnMute = ReplaceCharConfig.replaceObjectWithData(otherUnMute, "%Player%", player.getName());
+                        sender.sendMessage(plugin.getPrefix() + otherUnMute);
                     }
-                    String selfUnMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Deactivate");
-                    selfUnMute = ReplaceCharConfig.replaceParagraph(selfUnMute);
-                    if (player.isOnline())
-                        ((Player) player).sendMessage(plugin.getPrefix() + selfUnMute);
-                    String otherUnMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Deactivate");
-                    otherUnMute = ReplaceCharConfig.replaceParagraph(otherUnMute);
-                    otherUnMute = ReplaceCharConfig.replaceObjectWithData(otherUnMute, "%Player%", player.getName());
-                    sender.sendMessage(plugin.getPrefix() + otherUnMute);
-                    return true;
                 }
+                return true;
             }
         }
-        if(command.getName().equalsIgnoreCase("muteinfo")) {
+        if (command.getName().equalsIgnoreCase("muteinfo")) {
             if (!sender.hasPermission(plugin.getPermissionName() + "muteinfo")) {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 return true;
@@ -154,7 +162,7 @@ public class MuteCMD extends CommandBase implements Listener {
 
             ArrayList<OfflinePlayer> players = new ArrayList<>();
             for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-                if(cfg.contains(offlinePlayer.getName())) {
+                if (cfg.contains(offlinePlayer.getName())) {
                     players.add(offlinePlayer);
                 }
             }
@@ -178,18 +186,28 @@ public class MuteCMD extends CommandBase implements Listener {
 
     @EventHandler
     public void onChatWrite(AsyncPlayerChatEvent event) {
-        if(!isExpired(event.getPlayer())) {
-            Date date = (Date) cfg.get(event.getPlayer().getName() + ".expire");
-            event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason") + " | §aExpired at : §6" + date.toString());
+        if (!isExpired(event.getPlayer())) {
+            if (plugin.isMysql() || plugin.isSQL()) {
+                final Date[] date = {new Date()};
+                new BanMuteManager().getTempMute(event.getPlayer()).forEach((s, s2) -> date[0] = new Date(s));
+                event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason") + " | §aExpired at : §6" + date[0].toString());
+            } else {
+                Date date = (Date) cfg.get(event.getPlayer().getName() + ".expire");
+                event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted! While §6" + cfg.getString(event.getPlayer().getName() + ".reason") + " | §aExpired at : §6" + date.toString());
+            }
             event.setCancelled(true);
         } else {
             Player player = event.getPlayer();
-            if (cfg.contains(player.getName() + ".reason")) {
-                cfg.set(player.getName(), null);
-                try {
-                    cfg.save(file);
-                } catch (IOException e) {
-                    e.printStackTrace();
+            if (plugin.isMysql() || plugin.isSQL()) {
+                new BanMuteManager().removeTempBan(player);
+            } else {
+                if (cfg.contains(player.getName() + ".reason")) {
+                    cfg.set(player.getName(), null);
+                    try {
+                        cfg.save(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -201,12 +219,12 @@ public class MuteCMD extends CommandBase implements Listener {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 2) {
+        if (args.length == 2) {
             ArrayList<String> reason = new ArrayList<>();
             Arrays.asList(MuteReason.values()).forEach(reasons -> reason.add(reasons.name()));
             ArrayList<String> empty = new ArrayList<>();
-            for(String s : reason) {
-                if(s.toLowerCase().startsWith(args[1].toLowerCase()))
+            for (String s : reason) {
+                if (s.toLowerCase().startsWith(args[1].toLowerCase()))
                     empty.add(s);
             }
             Collections.sort(empty);
