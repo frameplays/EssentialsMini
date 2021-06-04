@@ -62,7 +62,8 @@ public class BookCMD extends CommandBase {
                 ItemStack itemStack = player.getInventory().getItemInMainHand();
                 ItemStack itemStackCopy = itemStack.clone();
                 BookMeta bookMeta = (BookMeta) itemStackCopy.getItemMeta();
-                bookMeta.setGeneration(BookMeta.Generation.COPY_OF_ORIGINAL);
+                if (bookMeta != null)
+                    bookMeta.setGeneration(BookMeta.Generation.COPY_OF_ORIGINAL);
                 itemStackCopy.setItemMeta(bookMeta);
                 if (args.length == 0) {
                     itemStackCopy.setAmount(1);

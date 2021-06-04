@@ -6,10 +6,10 @@
 
     <groupId>de.framedev</groupId>
     <artifactId>EssentialsMini</artifactId>
-    <version>1.2.6-RELEASE</version>
+    <version>1.2.5.2-PRE-RELEASE</version>
 
     <properties>
-        <repo_version>release</repo_version>
+        <repo_version>pre-release</repo_version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>de.framedev</groupId>
             <artifactId>MySQLAPI</artifactId>
-            <version>LATEST</version>
+            <version>1.0.6-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

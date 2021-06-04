@@ -21,8 +21,16 @@ import java.util.HashMap;
 
 public class BanMuteManager {
 
+    // Database for MySQl / SQLite
     private final String table = "essentialsmini_banmute";
 
+    /**
+     * Set TempMute to Database for Syncing
+     *
+     * @param player the Player
+     * @param reason Reason {@link MuteCMD.MuteReason}
+     * @param date the actual date
+     */
     public void setTempMute(OfflinePlayer player, MuteCMD.MuteReason reason, String date) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {

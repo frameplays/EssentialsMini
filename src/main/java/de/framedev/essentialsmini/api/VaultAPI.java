@@ -159,9 +159,9 @@ public class VaultAPI extends AbstractEconomy {
                 new MySQLManager().removeMoney(Bukkit.getOfflinePlayer(playerName), amount);
             } else if (Main.getInstance().isMongoDb()) {
                 if (Main.getInstance().getBackendManager().exists(Bukkit.getOfflinePlayer(playerName), "money", "essentialsmini_data"))
-                    Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(playerName), "money", amount, "essentialsmini_data");
+                    Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(playerName), "money", balance, "essentialsmini_data");
             } else {
-                new FileManager().setMoney(Bukkit.getOfflinePlayer(playerName), balance);
+                new FileManager().removeMoney(Bukkit.getOfflinePlayer(playerName), amount);
             }
 
         }
@@ -188,7 +188,7 @@ public class VaultAPI extends AbstractEconomy {
             new MySQLManager().addMoney(Bukkit.getOfflinePlayer(playerName), amount);
         } else if (Main.getInstance().isMongoDb()) {
             if (Main.getInstance().getBackendManager().exists(Bukkit.getOfflinePlayer(playerName), "money", "essentialsmini_data"))
-                Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(playerName), "money", amount, "essentialsmini_data");
+                Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(playerName), "money", balance, "essentialsmini_data");
         } else {
             new FileManager().setMoney(Bukkit.getOfflinePlayer(playerName), balance);
         }
