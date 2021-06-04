@@ -31,6 +31,6 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 - [1.2.4.2](https://github.com/frame-dev/EssentialsMini/commit/c70967c78ab67f6fcfc3d9acf3159a7249eb3788) tempmuteCMD Added / removetempmute added / muteinfo added / More TabCompleter Added (Quick access)
 
 <br><br><br>
-#### [Download Pre-Release](https://github.com/frame-dev/EssentialsMini/releases/download/1.2.4.2-PRE-RELEASE/EssentialsMini-1.2.4.2-PRE-RELEASE.jar)
+#### [Download Pre-Release](https://github.com/frame-dev/EssentialsMini/releases/download/1.2.5.1-PRE-RELEASE/EssentialsMini-1.2.5.1-PRE-RELEASE.jar)
 <br><br><br>
 <div style="text-align:center"><img src="https://framedev.stream/logo.jpg" /></div>
