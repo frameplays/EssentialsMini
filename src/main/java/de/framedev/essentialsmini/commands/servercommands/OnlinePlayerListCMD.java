@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,15 +26,15 @@ public class OnlinePlayerListCMD implements CommandExecutor {
 
     public OnlinePlayerListCMD(Main plugin) {
         this.plugin = plugin;
-        plugin.getCommands().put("online",this);
+        plugin.getCommands().put("online", this);
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(command.getName().equalsIgnoreCase("online")) {
-            if(sender.hasPermission("essentialsmini.online")) {
+    public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("online")) {
+            if (sender.hasPermission("essentialsmini.online")) {
                 /* Online Spieler */
-                for(Player player : Bukkit.getOnlinePlayers()) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     players.add(player.getName());
                 }
                 sender.sendMessage("§6==§cPlayers§6==");

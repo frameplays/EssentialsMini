@@ -239,6 +239,24 @@ public class DisallowCommands extends ListenerBase {
             blockedCommands.add("i");
         }
 
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "tempban")) {
+            blockedCommands.add("tempban");
+            blockedCommands.add("removetempban");
+        }
+
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "mute")) {
+            blockedCommands.add("mute");
+        }
+
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "tempmute")) {
+            blockedCommands.add("tempmute");
+            blockedCommands.add("removetempmute");
+        }
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "muteinfo")) blockedCommands.add("muteinfo");
+
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "ban")) blockedCommands.add("eban");
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "unban")) blockedCommands.add("eunban");
+
         if (!plugin.getConfig().getBoolean("HomeTP")) {
             blockedCommands.add("sethome");
             blockedCommands.add("home");

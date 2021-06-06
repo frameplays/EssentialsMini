@@ -37,8 +37,8 @@ public class MuteCMD extends CommandBase implements Listener {
 
     private final ArrayList<OfflinePlayer> muted;
 
-    private File file;
-    private FileConfiguration cfg;
+    public static File file;
+    public static FileConfiguration cfg;
 
     public MuteCMD(Main plugin) {
         super(plugin);
@@ -50,8 +50,8 @@ public class MuteCMD extends CommandBase implements Listener {
         this.plugin = plugin;
         plugin.getListeners().add(this);
         this.muted = plugin.getVariables().getPlayers();
-        this.file = new File(plugin.getDataFolder(), "tempmutes.yml");
-        this.cfg = YamlConfiguration.loadConfiguration(file);
+        file = new File(plugin.getDataFolder(), "tempmutes.yml");
+        cfg = YamlConfiguration.loadConfiguration(file);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class MuteCMD extends CommandBase implements Listener {
         }
         if (command.getName().equalsIgnoreCase("removetempmute")) {
             if (args.length == 1) {
-                if (!sender.hasPermission(plugin.getPermissionName() + "removetempmute")) {
+                if (!sender.hasPermission(plugin.getPermissionName() + "tempmute")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     return true;
                 }
@@ -193,7 +193,7 @@ public class MuteCMD extends CommandBase implements Listener {
         return super.onCommand(sender, command, label, args);
     }
 
-    private boolean isExpired(Player player) {
+    public boolean isExpired(Player player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             if (new BanMuteManager().isTempMute(player)) {
                 final Date[] date = {new Date()};

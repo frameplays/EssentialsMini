@@ -20,6 +20,7 @@ public class RegisterManager {
     private final Main plugin;
     private ThunderCMD thunderCMD;
     private BackUpCMD backup;
+    private MuteCMD muteCMD;
 
     public RegisterManager(Main plugin) {
         this.plugin = plugin;
@@ -102,12 +103,16 @@ public class RegisterManager {
             new AFK(plugin);
         new SilentCMD(plugin);
         new FlySpeedCMD(plugin);
-        new MuteCMD(plugin);
+        this.muteCMD = new MuteCMD(plugin);
         new TempBanCMD(plugin);
         new BanCMD(plugin);
         new UnBanCMD(plugin);
         new BookCMD(plugin);
         plugin.getCommands().entrySet().stream().filter(Objects::nonNull).filter(command -> command.getKey() != null && command.getValue() != null).forEach(command -> Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue()));
+    }
+
+    public MuteCMD getMuteCMD() {
+        return muteCMD;
     }
 
     public BackUpCMD getBackup() {

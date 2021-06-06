@@ -22,7 +22,7 @@ public class BanCMD extends CommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender.hasPermission("essentialsmini.ban")) {
+        if (sender.hasPermission(getPlugin().getPermissionName() + "ban")) {
             if (args.length == 2) {
                 BanType type = BanType.valueOf(args[1].toUpperCase());
                 if (getPlugin().isMysql() || getPlugin().isSQL()) {

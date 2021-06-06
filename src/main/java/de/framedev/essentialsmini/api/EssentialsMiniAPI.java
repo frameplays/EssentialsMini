@@ -1,10 +1,7 @@
 package de.framedev.essentialsmini.api;
 
 import com.google.gson.GsonBuilder;
-import de.framedev.essentialsmini.commands.playercommands.BackpackCMD;
-import de.framedev.essentialsmini.commands.playercommands.GameModeCMD;
-import de.framedev.essentialsmini.commands.playercommands.RegisterCMD;
-import de.framedev.essentialsmini.commands.playercommands.VanishCMD;
+import de.framedev.essentialsmini.commands.playercommands.*;
 import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.*;
@@ -407,7 +404,63 @@ public class EssentialsMiniAPI {
         return villager;
     }
 
+    /**
+     * Create a new Kit for the Plugin
+     *
+     * @param kitName the KitName for the new Created Kit
+     * @param items   a Array of Items with all Items witch are contained in the Kit
+     */
     public void createKit(String kitName, ItemStack[] items) {
         new KitManager().createKit(kitName, items);
+    }
+
+    /**
+     * @param player the selected Player
+     * @return if Player is tempmuted or not
+     */
+    public boolean isPlayerTempMuted(OfflinePlayer player) {
+        return !plugin.getRegisterManager().getMuteCMD().isExpired((Player) player);
+    }
+
+    public boolean isPlayerTempBanned(OfflinePlayer player) {
+        if (plugin.isMysql() || plugin.isSQL()) {
+            return new BanMuteManager().isTempBan(player);
+        }
+
+        return Bukkit.getServer().getBanList(BanList.Type.NAME).isBanned(Objects.requireNonNull(player.getName()));
+    }
+
+    public boolean isPlayerPermaBanned(OfflinePlayer player) {
+        if (plugin.isMysql() || plugin.isSQL()) {
+            return new BanMuteManager().isPermaBan(player);
+        }
+        return BanFile.isBanned(player.getName());
+    }
+
+    public HashMap<String, String> getTempMuteReasonAndExpireDateFromPlayer(OfflinePlayer player) {
+        if (plugin.isMysql() || plugin.isSQL()) {
+            return new BanMuteManager().getTempMute(player);
+        }
+        HashMap<String, String> hash = new HashMap<>();
+        hash.put(MuteCMD.cfg.getString(player.getName() + ".expire"), MuteCMD.cfg.getString(player.getName() + ".reason"));
+        return hash;
+    }
+
+    public HashMap<String, String> getTempBanReasonAndExpireDateFromPlayer(OfflinePlayer player) {
+        if (plugin.isMysql() || plugin.isSQL()) {
+            return new BanMuteManager().getTempBan(player);
+        }
+        HashMap<String, String> hash = new HashMap<>();
+        String date = new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(Bukkit.getServer().getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getExpiration());
+        String reason = Bukkit.getServer().getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getReason();
+        hash.put(date, reason);
+        return hash;
+    }
+
+    public String getPermaBanReason(OfflinePlayer player) {
+        if (plugin.isMysql() || plugin.isSQL()) {
+            return new BanMuteManager().getPermaBanReason(player);
+        }
+        return BanFile.getBannedReason(player.getName());
     }
 }

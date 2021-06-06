@@ -3,10 +3,10 @@ package de.framedev.essentialsmini.commands.servercommands;
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.TextUtils;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import lombok.NonNull;
 
 /**
  * This Plugin was Created by FrameDev
@@ -22,12 +22,12 @@ public class ClearChatCMD extends CommandBase {
     public ClearChatCMD(Main plugin) {
         super(plugin);
         this.plugin = plugin;
-        setup("chatclear",this);
+        setup("chatclear", this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String[] args) {
-        if(sender.hasPermission(plugin.getPermissionName() + "chatclear")) {
+        if (sender.hasPermission(plugin.getPermissionName() + "chatclear")) {
             clearChat(sender);
         } else {
             sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -36,13 +36,13 @@ public class ClearChatCMD extends CommandBase {
     }
 
     public void clearChat(CommandSender sender) {
-        for(int i = 0; i <= 500; i++) {
+        for (int i = 0; i <= 500; i++) {
             Bukkit.broadcastMessage(" ");
         }
         String message = plugin.getCustomMessagesConfig().getString("ChatClear");
         if (message != null) {
             message = new TextUtils().replaceAndToParagraph(message);
-            message = new TextUtils().replaceObject(message,"%Player%",sender.getName());
+            message = new TextUtils().replaceObject(message, "%Player%", sender.getName());
         }
         Bukkit.broadcastMessage(plugin.getPrefix() + message);
     }

@@ -26,7 +26,7 @@ public class MySQLCMD extends CommandBase {
         if (args[0].equalsIgnoreCase("status")) {
             //EssentialsMiniAPI.getInstance().villagerCreate((Player) sender);
             if (sender.hasPermission(plugin.getPermissionName() + "status")) {
-                if(plugin.getServer().getPluginManager().getPlugin("MySQLAPI") != null) {
+                if (plugin.getServer().getPluginManager().getPlugin("MySQLAPI") != null) {
                     enabled = plugin.getServer().getPluginManager().getPlugin("MySQLAPI") != null || MySQL.con != null;
                 } else {
                     enabled = false;

@@ -39,7 +39,7 @@ public class LagCMD extends CommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender.hasPermission(plugin.getPermissionName() + "lag")) {
+        if (sender.hasPermission(plugin.getPermissionName() + "lag")) {
             final double tps = plugin.getSpigotTimer().getAverageTPS();
             final ChatColor color;
             if (tps >= 18.0) {
@@ -99,8 +99,8 @@ public class LagCMD extends CommandBase {
         // Temporary 50ms time buffer added to avoid display truncation due to code execution delays
         toDate.add(Calendar.MILLISECOND, future ? 50 : -50);
         final StringBuilder sb = new StringBuilder();
-        final int[] types = new int[] {Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND};
-        final String[] names = new String[] {"year", "years", "month", "months", "day", "days", "hour", "hours", "minute", "minutes", "second", "seconds"};
+        final int[] types = new int[]{Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND};
+        final String[] names = new String[]{"year", "years", "month", "months", "day", "days", "hour", "hours", "minute", "minutes", "second", "seconds"};
         int accuracy = 0;
         for (int i = 0; i < types.length; i++) {
             if (accuracy > 2) {
@@ -159,11 +159,13 @@ public class LagCMD extends CommandBase {
         public SpigotTimer() {
             history.add(20d);
         }
+
         private final LinkedList<Double> history = new LinkedList<>();
         @SuppressWarnings("unused")
         private final long maxTime = 10 * 1000000;
         private final long tickInterval = 50;
         private final transient long lastPoll = System.nanoTime();
+
         @SuppressWarnings("unused")
         @Override
         public void run() {
@@ -181,6 +183,7 @@ public class LagCMD extends CommandBase {
                 history.add(tps);
             }
         }
+
         public double getAverageTPS() {
             double avg = 0;
             for (final Double f : history) {

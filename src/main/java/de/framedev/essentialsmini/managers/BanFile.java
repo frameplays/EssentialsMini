@@ -28,6 +28,17 @@ public class BanFile {
 			e.printStackTrace();
 		}
 	}
+
+	public static boolean isBanned(String playername) {
+		return cfg.getBoolean(playername + ".isBanned");
+	}
+
+	public static String getBannedReason(String playername) {
+		if(cfg.getBoolean(playername + ".isBanned")) {
+			return cfg.getString(playername + ".reason");
+		}
+		return "";
+	}
 	public static void banPlayer(String playername, String reason) {
 		if(cfg.getBoolean(playername + ".isBanned")) {
 			Bukkit.getConsoleSender().sendMessage(playername + " ist schon gebannt!");

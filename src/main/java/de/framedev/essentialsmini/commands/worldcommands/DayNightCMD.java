@@ -74,7 +74,7 @@ public class DayNightCMD extends CommandBase {
             }
             if (command.getName().equalsIgnoreCase("pltime")) {
                 Player player = (Player) sender;
-                if (player.hasPermission("essentialsmini.playertimer")) {
+                if (player.hasPermission("essentialsmini.playertime")) {
                     try {
                         player.setPlayerTime(Integer.parseInt(args[0]), false);
                     } catch (Exception ex) {
@@ -95,7 +95,7 @@ public class DayNightCMD extends CommandBase {
             }
             if (command.getName().equalsIgnoreCase("resetpltime")) {
                 Player player = (Player) sender;
-                if (player.hasPermission("essentialsmini.playertimer")) {
+                if (player.hasPermission("essentialsmini.playertime")) {
                     player.resetPlayerTime();
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
