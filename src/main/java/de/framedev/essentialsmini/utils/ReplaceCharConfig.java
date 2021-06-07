@@ -3,7 +3,7 @@ package de.framedev.essentialsmini.utils;
 
 public class ReplaceCharConfig {
     public static String replaceParagraph(String text) {
-        if(text == null) return "";
+        if (text == null) return "";
         if (text.contains("&"))
             text = text.replace('&', '§');
         return text;

@@ -88,7 +88,7 @@ public class Main extends JavaPlugin {
     private File infoFile;
     private FileConfiguration info;
 
-    private MongoDbUtils mongoDbUtils;
+    private MongoDBUtils mongoDbUtils;
 
     @Override
     public void onEnable() {
@@ -168,7 +168,7 @@ public class Main extends JavaPlugin {
         saveCfg();*/
 
         if (Bukkit.getServer().getPluginManager().getPlugin("MDBConnection") != null) {
-            this.mongoDbUtils = new MongoDbUtils();
+            this.mongoDbUtils = new MongoDBUtils();
             if (isMongoDb()) {
                 for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
                     getBackendManager().createUserMoney(player, "essentialsmini_data");

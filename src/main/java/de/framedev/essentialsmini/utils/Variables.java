@@ -53,10 +53,10 @@ public class Variables {
     }
 
     public String getPlayerNameNotOnline(String playerName) {
-        if(playerNameNotOnline.contains("&"))
-            playerNameNotOnline = playerNameNotOnline.replace('&','§');
-        if(playerNameNotOnline.contains("%Player%"))
-            playerNameNotOnline = playerNameNotOnline.replace("%Player%",playerName);
+        if (playerNameNotOnline.contains("&"))
+            playerNameNotOnline = playerNameNotOnline.replace('&', '§');
+        if (playerNameNotOnline.contains("%Player%"))
+            playerNameNotOnline = playerNameNotOnline.replace("%Player%", playerName);
         return playerNameNotOnline;
     }
 

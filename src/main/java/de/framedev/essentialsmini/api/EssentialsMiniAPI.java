@@ -415,6 +415,8 @@ public class EssentialsMiniAPI {
     }
 
     /**
+     * return is the Player Tempmuted or not
+     *
      * @param player the selected Player
      * @return if Player is tempmuted or not
      */
@@ -422,6 +424,12 @@ public class EssentialsMiniAPI {
         return !plugin.getRegisterManager().getMuteCMD().isExpired((Player) player);
     }
 
+    /**
+     * return is the Player Tempbanned or not
+     *
+     * @param player the selected Player
+     * @return return is the Player is Tempbanned or not
+     */
     public boolean isPlayerTempBanned(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             return new BanMuteManager().isTempBan(player);
@@ -430,6 +438,12 @@ public class EssentialsMiniAPI {
         return Bukkit.getServer().getBanList(BanList.Type.NAME).isBanned(Objects.requireNonNull(player.getName()));
     }
 
+    /**
+     * return is the Player Permabanned or not
+     *
+     * @param player the selected Player
+     * @return return is the Player is permaban or not
+     */
     public boolean isPlayerPermaBanned(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             return new BanMuteManager().isPermaBan(player);
@@ -437,6 +451,12 @@ public class EssentialsMiniAPI {
         return BanFile.isBanned(player.getName());
     }
 
+    /**
+     * get the Tempmute Reason and the Expire Date
+     *
+     * @param player the selected Player
+     * @return return the Tempmute Reason and Expire Date
+     */
     public HashMap<String, String> getTempMuteReasonAndExpireDateFromPlayer(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             return new BanMuteManager().getTempMute(player);
@@ -446,6 +466,12 @@ public class EssentialsMiniAPI {
         return hash;
     }
 
+    /**
+     * get the Tempban Reason and the Expire Date
+     *
+     * @param player the selected Player
+     * @return return the Tempban Reason and Expire Date
+     */
     public HashMap<String, String> getTempBanReasonAndExpireDateFromPlayer(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             return new BanMuteManager().getTempBan(player);
@@ -457,6 +483,12 @@ public class EssentialsMiniAPI {
         return hash;
     }
 
+    /**
+     * Get the Perma ban Reason from the selected Player
+     *
+     * @param player the selected Player
+     * @return return the Perma ban Reason from the selected Player
+     */
     public String getPermaBanReason(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             return new BanMuteManager().getPermaBanReason(player);

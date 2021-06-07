@@ -16,13 +16,13 @@ import java.util.logging.Level;
  * Copyrighted by FrameDev
  */
 
-public class MongoDbUtils {
+public class MongoDBUtils {
 
     private boolean mongoDb = false;
     private MongoManager mongoManager;
     private BackendManager backendManager;
 
-    public MongoDbUtils() {
+    public MongoDBUtils() {
         /* MongoDB */
         if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
             if (Main.cfgMongoDB.getBoolean("MongoDB.LocalHost") || Main.cfgMongoDB.getBoolean("MongoDB.Boolean")) {

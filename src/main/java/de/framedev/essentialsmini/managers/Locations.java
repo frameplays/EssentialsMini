@@ -23,7 +23,8 @@ public class Locations {
     private static class Utils {
         public String locationToString(Location location) {
             String s = "";
-            s += location.getWorld().getName() + ";";
+            if (location.getWorld() != null)
+                s += location.getWorld().getName() + ";";
             s += location.getX() + ";";
             s += location.getY() + ";";
             s += location.getZ() + ";";
@@ -46,9 +47,9 @@ public class Locations {
     private double z;
     private float yaw;
     private float pitch;
-    private final File file = new File(Main.getInstance().getDataFolder(),"Locations.json");
+    private final File file = new File(Main.getInstance().getDataFolder(), "Locations.json");
 
-    CustomJson json = new CustomJson(file);
+    private final CustomJson json = new CustomJson(file);
 
     public Locations(String name) {
         this.name = name;
@@ -61,7 +62,8 @@ public class Locations {
         this.z = location.getZ();
         this.yaw = location.getYaw();
         this.pitch = location.getPitch();
-        this.world = location.getWorld().getName();
+        if (location.getWorld() != null)
+            this.world = location.getWorld().getName();
     }
 
     public String getName() {
@@ -121,12 +123,12 @@ public class Locations {
     }
 
     public void setLocation() {
-        json.set(name, new Utils().locationToString(new Location(Bukkit.getWorld(world),x,y,z,yaw,pitch)));
+        json.set(name, new Utils().locationToString(new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch)));
         json.saveConfig();
     }
 
     public Location getLocation() {
-        if(json.contains(name)) {
+        if (json.contains(name)) {
             return new Utils().locationFromString(json.getString(name));
         }
         return null;

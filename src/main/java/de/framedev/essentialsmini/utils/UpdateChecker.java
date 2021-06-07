@@ -17,9 +17,9 @@ import java.net.URL;
 
 public class UpdateChecker {
 
-    public boolean download(String fileUrl, String fileName, String name) {
+    public void download(String fileUrl, String fileName, String name) {
         File file = new File(fileName, name);
-        if(!file.exists())
+        if (!file.exists())
             file.getParentFile().mkdirs();
         BufferedInputStream in = null;
         FileOutputStream fout = null;
@@ -53,6 +53,5 @@ public class UpdateChecker {
         }
         new File("plugins/update/" + name).getParentFile().mkdirs();
         file.renameTo(new File("plugins/update/" + name));
-        return true;
     }
 }

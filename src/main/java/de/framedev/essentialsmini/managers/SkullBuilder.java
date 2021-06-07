@@ -59,7 +59,7 @@ public class SkullBuilder {
 
     public ItemStack create() {
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
-        if(skullMeta != null) {
+        if (skullMeta != null) {
             if (displayName == null) {
                 skullMeta.setDisplayName(skullOwner);
             } else {
