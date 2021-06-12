@@ -3,11 +3,16 @@ package de.framedev.essentialsmini.managers;
 import de.framedev.essentialsmini.commands.playercommands.BanCMD;
 import de.framedev.essentialsmini.commands.playercommands.MuteCMD;
 import de.framedev.essentialsmini.commands.playercommands.TempBanCMD;
+import de.framedev.essentialsmini.main.Main;
 import de.framedev.mysqlapi.api.SQL;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -29,7 +34,7 @@ public class BanMuteManager {
      *
      * @param player the Player
      * @param reason Reason {@link MuteCMD.MuteReason}
-     * @param date the actual date
+     * @param date   the actual date
      */
     public void setTempMute(OfflinePlayer player, MuteCMD.MuteReason reason, String date) {
         if (SQL.isTableExists(table)) {
@@ -45,6 +50,11 @@ public class BanMuteManager {
         }
     }
 
+    /**
+     * Remove the Registered TempMute in the Database
+     *
+     * @param player the selected Player for removing the tempmute
+     */
     public void removeTempMute(OfflinePlayer player) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
@@ -54,6 +64,12 @@ public class BanMuteManager {
         }
     }
 
+    /**
+     * Get the Data for the TempMute by the Player
+     *
+     * @param player the selected Player
+     * @return return an HashMap of the Expire Date and the Reason
+     */
     public HashMap<String, String> getTempMute(OfflinePlayer player) {
         HashMap<String, String> tempMute = new HashMap<>();
         if (SQL.isTableExists(table)) {
@@ -67,6 +83,12 @@ public class BanMuteManager {
         return null;
     }
 
+    /**
+     * Return if the selected Player is TempMuted
+     *
+     * @param player the selected Player
+     * @return return if the selected Player is TempMuted
+     */
     public boolean isTempMute(OfflinePlayer player) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
@@ -113,6 +135,32 @@ public class BanMuteManager {
             }
         }
         return null;
+    }
+
+    public boolean isExpired(OfflinePlayer player) {
+        if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
+            if (new BanMuteManager().isTempBan(player)) {
+                final Date[] date = {new Date()};
+                new BanMuteManager().getTempBan(player).forEach((s, s2) -> {
+                    try {
+                        date[0] = new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").parse(s);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+                if (date[0] != null)
+                    return date[0].getTime() < System.currentTimeMillis();
+            } else {
+                return true;
+            }
+        } else {
+            if (BanFile.cfg.contains(player.getName() + ".reason")) {
+                Date date = (Date) BanFile.cfg.get(player.getName() + ".expire");
+                if (date != null)
+                    return date.getTime() < System.currentTimeMillis();
+            }
+        }
+        return true;
     }
 
     public boolean isTempBan(OfflinePlayer player) {
