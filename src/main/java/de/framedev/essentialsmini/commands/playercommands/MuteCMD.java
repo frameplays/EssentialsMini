@@ -179,16 +179,33 @@ public class MuteCMD extends CommandBase implements Listener {
             }
 
             ArrayList<OfflinePlayer> players = new ArrayList<>();
-            for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-                if (cfg.contains(offlinePlayer.getName())) {
-                    players.add(offlinePlayer);
+            if (plugin.isMysql() || plugin.isSQL()) {
+                for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                    if (cfg.contains(offlinePlayer.getName())) {
+                        players.add(offlinePlayer);
+                    }
                 }
-            }
 
-            players.forEach(player -> {
-                sender.sendMessage("§6" + player.getName() + " §ais Muted while : §6" + cfg.getString(player.getName() + ".reason"));
-                sender.sendMessage("§aExpired at §6: " + cfg.getString(player.getName() + ".expire"));
-            });
+                players.forEach(player -> {
+                    sender.sendMessage("§6" + player.getName() + " §ais Muted while : §6" + cfg.getString(player.getName() + ".reason"));
+                    sender.sendMessage("§aExpired at §6: " + cfg.getString(player.getName() + ".expire"));
+                });
+            } else {
+                for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+                    if(new BanMuteManager().isTempMute(player))
+                        players.add(player);
+                }
+                players.forEach(player -> {
+                    new BanMuteManager().getTempMute(player).forEach((s, s2) -> {
+                        sender.sendMessage("§6" + player.getName() + " §ais Muted while : §6" + s2);
+                        try {
+                            sender.sendMessage("§aExpired at §6: " + new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").parse(s));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                });
+            }
         }
         return super.onCommand(sender, command, label, args);
     }
