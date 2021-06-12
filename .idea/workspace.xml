@@ -9,7 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="TempBan / TempMute Bug Fix" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Perma Ban / TempBan / TempMute Bug Fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanMuteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanMuteManager.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -148,13 +153,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00054" summary="Bug Fixes">
-      <created>1621013467646</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1621013467646</updated>
     </task>
     <task id="LOCAL-00055" summary="Updated / BackbackCMD tabcompleter updated&#10;MySQLManager Updated&#10;SkullBuilder Deprecated Method changed&#10;VaultAPI changed">
       <created>1621014057610</created>
@@ -492,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623519647201</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="Perma Ban / TempBan / TempMute Bug Fix">
+      <created>1623520068016</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1623520068016</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -530,7 +535,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="README.md updated" />
     <MESSAGE value="Github Page Updated" />
     <MESSAGE value="Commands Added" />
     <MESSAGE value="Commands Updated" />
@@ -555,7 +559,8 @@
     <MESSAGE value="1.2.6-RELEASE" />
     <MESSAGE value="Temp ban Bug Fix" />
     <MESSAGE value="TempBan / TempMute Bug Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="TempBan / TempMute Bug Fix" />
+    <MESSAGE value="Perma Ban / TempBan / TempMute Bug Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Perma Ban / TempBan / TempMute Bug Fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
