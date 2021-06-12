@@ -9,9 +9,9 @@ ___
 
 ### Build by your own:
 ```
-git clone https://github.com/frame-dev/EssentialsMini.git
-cd EssentialsMini
-mvn clean package
+git clone https://github.com/frame-dev/EssentialsMini.git // This Clones the GitHub Repo
+cd EssentialsMini // This changes the Directory to EssentialsMini Directory
+mvn clean package //This Generates the .jar File
 ```
 
 then in the Directory target should be a file called EssentialsMini-(version).jar
