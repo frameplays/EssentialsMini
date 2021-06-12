@@ -9,163 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="1.2.6-RELEASE">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EssentialsMini.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssentialsMini.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/allclasses-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/allclasses-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/allpackages-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/allpackages-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/constant-values.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/EssentialsMiniAPI.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/EssentialsMiniAPI.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/MySQLManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/MySQLManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/VaultAPI.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/VaultAPI.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/api/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.Events.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.Events.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/BackCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/BackCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/BackpackCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/BackpackCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/BankCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/BankCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EconomyCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EconomyCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EnchantCMD.Enchantments.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EnchantCMD.Enchantments.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EnchantCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EnchantCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EssentialsMiniCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/EssentialsMiniCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FeedCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FeedCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FlyCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FlyCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FlySpeedCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FlySpeedCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FuckCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/FuckCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/GameModeCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/GameModeCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/GenerateKeyCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/GenerateKeyCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/GodCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/GodCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/HealCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/HealCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/HomeCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/HomeCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/InvseeCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/InvseeCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/ItemCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/ItemCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/KillCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/KillCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/KitCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/KitCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/MessageCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/MessageCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/PayCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/PayCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/PlayerDataCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/PlayerDataCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/PlayerHeadsCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/PlayerHeadsCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/RegisterCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/RegisterCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/RenameItemCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/RenameItemCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/RepairCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/RepairCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SaveInventoryCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SaveInventoryCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SetHealthCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SetHealthCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/ShowCraftingCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/ShowCraftingCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/ShowLocationCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/ShowLocationCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SignItemCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SignItemCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SilentCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SilentCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SleepCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SleepCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SpawnCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SpawnCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SpeedCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SpeedCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SummonCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/SummonCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/TeleportCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/TeleportCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/VanishCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/VanishCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/WarpCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/WarpCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/WorkbenchCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/WorkbenchCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/BackUpCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/BackUpCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/ClearChatCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/ClearChatCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/LagCMD.SpigotTimer.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/LagCMD.SpigotTimer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/LagCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/LagCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/MySQLCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/MySQLCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/OnlinePlayerListCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/OnlinePlayerListCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/RestartCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/RestartCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/servercommands/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/DayNightCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/DayNightCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/SunRainThunderCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/SunRainThunderCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/ThunderCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/ThunderCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/WorldTPCMD.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/WorldTPCMD.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/worldcommands/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/DisallowCommands.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/DisallowCommands.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/MoneySignListeners.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/MoneySignListeners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/PlayerListeners.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/PlayerListeners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/SleepListener.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/SleepListener.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/TrashInventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/TrashInventory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/listeners/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/main/Main.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/main/Main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/main/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/main/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/main/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/main/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BackendManager.DATA.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BackendManager.DATA.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BackendManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BackendManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BackupManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BackupManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BossBarManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/BossBarManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/CommandBase.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/CommandBase.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/FileManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/FileManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/InventoryManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/InventoryManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/ItemBuilder.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/ItemBuilder.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/KitManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/KitManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/ListenerBase.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/ListenerBase.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/Locations.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/Locations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/LocationsManager.LocationJson.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/LocationsManager.LocationJson.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/LocationsManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/LocationsManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/MaterialManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/MaterialManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/PlayerManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/PlayerManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/PlayerManagerCfgLoss.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/PlayerManagerCfgLoss.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/PlayerManagerMongoDB.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/PlayerManagerMongoDB.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/ReflectionUtil.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/ReflectionUtil.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/RegisterManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/RegisterManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/SaveLists.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/SaveLists.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/SkullBuilder.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/SkullBuilder.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/UpdateScheduler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/UpdateScheduler.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/managers/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/Config.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/Config.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/CustomJson.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/CustomJson.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/InventoryStringDeSerializer.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/InventoryStringDeSerializer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/JsonConfig.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/JsonConfig.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/JsonHandler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/JsonHandler.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/KeyGenerator.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/KeyGenerator.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/MongoDbUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/MongoDbUtils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/NotFoundException.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/NotFoundException.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/ReplaceCharConfig.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/ReplaceCharConfig.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/TextUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/TextUtils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/UUIDFetcher.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/UUIDFetcher.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/UpdateChecker.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/UpdateChecker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/Variables.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/Variables.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/VaultManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/VaultManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/utils/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/deprecated-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/deprecated-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/help-doc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-10.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-11.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-12.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-13.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-14.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-15.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-16.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-16.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-17.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-17.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-18.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-18.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-19.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-19.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-20.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-20.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-21.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-21.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-22.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-22.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-4.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-5.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-7.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-8.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index-files/index-9.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/member-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/member-search-index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/overview-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/overview-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/overview-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/serialized-form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/type-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/type-search-index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/UnBanCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/UnBanCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/BanListner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/BanListner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanMuteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanMuteManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="TempBan / TempMute Bug Fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -304,20 +148,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Bug Fixes">
-      <created>1621013069915</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1621013069915</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Bug Fixes">
-      <created>1621013431559</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1621013431559</updated>
     </task>
     <task id="LOCAL-00054" summary="Bug Fixes">
       <created>1621013467646</created>
@@ -648,7 +478,21 @@
       <option name="project" value="LOCAL" />
       <updated>1623077627324</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="Temp ban Bug Fix">
+      <created>1623519502781</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1623519502781</updated>
+    </task>
+    <task id="LOCAL-00102" summary="TempBan / TempMute Bug Fix">
+      <created>1623519647201</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1623519647201</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -686,8 +530,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated / BackbackCMD tabcompleter updated&#10;MySQLManager Updated&#10;SkullBuilder Deprecated Method changed&#10;VaultAPI changed" />
-    <MESSAGE value="Bug Fixes &#10;WorldCMD Updated&#10;FlySpeedCMD Updated&#10;SpeedCMD Updated" />
     <MESSAGE value="README.md updated" />
     <MESSAGE value="Github Page Updated" />
     <MESSAGE value="Commands Added" />
@@ -711,7 +553,9 @@
     <MESSAGE value="API Updated" />
     <MESSAGE value="Messages File Updated and Example Added for editing and Replace with the old one." />
     <MESSAGE value="1.2.6-RELEASE" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.2.6-RELEASE" />
+    <MESSAGE value="Temp ban Bug Fix" />
+    <MESSAGE value="TempBan / TempMute Bug Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="TempBan / TempMute Bug Fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

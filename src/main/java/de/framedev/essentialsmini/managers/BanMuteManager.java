@@ -192,7 +192,7 @@ public class BanMuteManager {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
                 if (SQL.get(table, "Ban", "Player", player.getName()) != null)
-                    return (boolean) SQL.get(table, "Ban", "Player", player.getName());
+                    return Boolean.parseBoolean((String) SQL.get(table, "Ban", "Player", player.getName()));
             }
         }
         return false;

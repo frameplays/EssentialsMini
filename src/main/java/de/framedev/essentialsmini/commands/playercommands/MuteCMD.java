@@ -179,7 +179,7 @@ public class MuteCMD extends CommandBase implements Listener {
             }
 
             ArrayList<OfflinePlayer> players = new ArrayList<>();
-            if (plugin.isMysql() || plugin.isSQL()) {
+            if (!plugin.isMysql() || !plugin.isSQL()) {
                 for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
                     if (cfg.contains(offlinePlayer.getName())) {
                         players.add(offlinePlayer);
