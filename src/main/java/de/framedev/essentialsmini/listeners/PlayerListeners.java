@@ -9,12 +9,14 @@ package de.framedev.essentialsmini.listeners;
  * This Class was created at 18.08.2020 22:47
  */
 
+import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmini.commands.playercommands.KillCMD;
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.LocationsManager;
 import de.framedev.essentialsmini.managers.PlayerManager;
 import de.framedev.essentialsmini.managers.PlayerManagerCfgLoss;
 import de.framedev.essentialsmini.managers.PlayerManagerMongoDB;
+import de.framedev.mysqlapi.api.SQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -203,13 +205,48 @@ public class PlayerListeners implements Listener {
             plugin.savePlayers();
             if (!isJsonFormat()) {
                 new PlayerManager(event.getPlayer().getUniqueId()).setLastLogout(System.currentTimeMillis());
+                if (plugin.isMysql() || plugin.isSQL()) {
+                    new PlayerManager(event.getPlayer()).savePlayerData(event.getPlayer());
+                    String table = "essentialsmini_playerdata";
+                    if (SQL.isTableExists("essentialsmini_playerdata")) {
+                        if (SQL.exists(table, "UUID", event.getPlayer().getUniqueId().toString())) {
+                            SQL.updateData(table, "PlayerData", "'" + new GsonBuilder().serializeNulls().create().
+                                    toJson(PlayerManager.loadPlayerData(event.getPlayer())) + "'", "UUID ='" + event.getPlayer().getUniqueId().toString() + "'");
+                        } else {
+                            SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                    "'" + new GsonBuilder().serializeNulls().create().
+                                    toJson(PlayerManager.loadPlayerData(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                        }
+                    } else {
+                        SQL.createTable("essentialsmini_playerdata", "UUID VARCHAR(1225)", "PlayerName TEXT", "PlayerData TEXT");
+                        SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                "'" + new GsonBuilder().serializeNulls().create().
+                                toJson(PlayerManager.loadPlayerData(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                    }
+                }
             } else {
                 if (plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
                     plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
                     plugin.getCfgLossHashMap().get(event.getPlayer()).saveTimePlayed();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
-                    if (plugin.isMysql()) {
+                    if (plugin.isMysql() || plugin.isSQL()) {
+                        String table = "essentialsmini_playerdata";
+                        if (SQL.isTableExists("essentialsmini_playerdata")) {
+                            if (SQL.exists(table, "UUID", event.getPlayer().getUniqueId().toString())) {
+                                SQL.updateData(table, "PlayerData",  "'" + new GsonBuilder().serializeNulls().create().
+                                        toJson(plugin.getCfgLossHashMap().get(event.getPlayer())) + "'", "UUID ='" + event.getPlayer().getUniqueId().toString() + "'");
+                            } else {
+                                SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                        "'" + new GsonBuilder().serializeNulls().create().
+                                        toJson(plugin.getCfgLossHashMap().get(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                            }
+                        } else {
+                            SQL.createTable("essentialsmini_playerdata", "UUID VARCHAR(1225)", "PlayerName TEXT", "PlayerData TEXT");
+                            SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                    "'" + new GsonBuilder().serializeNulls().create().
+                                    toJson(plugin.getCfgLossHashMap().get(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                        }
                         plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
                         plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerData(event.getPlayer());
                     }
@@ -253,13 +290,48 @@ public class PlayerListeners implements Listener {
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (!isJsonFormat()) {
                 new PlayerManager(event.getPlayer().getUniqueId()).setLastLogout(System.currentTimeMillis());
+                if (plugin.isMysql() || plugin.isSQL()) {
+                    new PlayerManager(event.getPlayer()).savePlayerData(event.getPlayer());
+                    String table = "essentialsmini_playerdata";
+                    if (SQL.isTableExists("essentialsmini_playerdata")) {
+                        if (SQL.exists(table, "UUID", event.getPlayer().getUniqueId().toString())) {
+                            SQL.updateData(table, "PlayerData", "'" + new GsonBuilder().serializeNulls().create().
+                                    toJson(PlayerManager.loadPlayerData(event.getPlayer())) + "'", "UUID ='" + event.getPlayer().getUniqueId().toString() + "'");
+                        } else {
+                            SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                    "'" + new GsonBuilder().serializeNulls().create().
+                                    toJson(PlayerManager.loadPlayerData(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                        }
+                    } else {
+                        SQL.createTable("essentialsmini_playerdata", "UUID VARCHAR(1225)", "PlayerName TEXT", "PlayerData TEXT");
+                        SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                "'" + new GsonBuilder().serializeNulls().create().
+                                toJson(PlayerManager.loadPlayerData(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                    }
+                }
             } else {
                 if (plugin.getCfgLossHashMap().containsKey(event.getPlayer())) {
                     plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
                     plugin.getCfgLossHashMap().get(event.getPlayer()).saveTimePlayed();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
                     plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerManager();
-                    if (plugin.isMysql()) {
+                    if (plugin.isMysql() || plugin.isSQL()) {
+                        String table = "essentialsmini_playerdata";
+                        if (SQL.isTableExists("essentialsmini_playerdata")) {
+                            if (SQL.exists(table, "UUID", event.getPlayer().getUniqueId().toString())) {
+                                SQL.updateData(table, "PlayerData", "'" + new GsonBuilder().serializeNulls().create().
+                                        toJson(plugin.getCfgLossHashMap().get(event.getPlayer())) + "'", "UUID ='" + event.getPlayer().getUniqueId().toString() + "'");
+                            } else {
+                                SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                        "'" + new GsonBuilder().serializeNulls().create().
+                                        toJson(plugin.getCfgLossHashMap().get(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                            }
+                        } else {
+                            SQL.createTable("essentialsmini_playerdata", "UUID VARCHAR(1225)", "PlayerName TEXT", "PlayerData TEXT");
+                            SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
+                                    "'" + new GsonBuilder().serializeNulls().create().
+                                    toJson(plugin.getCfgLossHashMap().get(event.getPlayer())) + "'", "UUID", "PlayerName", "PlayerData");
+                        }
                         plugin.getCfgLossHashMap().get(event.getPlayer()).setLastLogout(System.currentTimeMillis());
                         plugin.getCfgLossHashMap().get(event.getPlayer()).savePlayerData(event.getPlayer());
                     }

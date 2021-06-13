@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,11 +54,20 @@ public class FuckCMD extends CommandBase {
                                 .trail(true)
                                 .withColor(Color.MAROON, Color.OLIVE, Color.LIME, Color.GREEN)
                                 .with(FireworkEffect.Type.BURST)
-                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).build();
-                        List<FireworkEffect> effects = new ArrayList<>();
-                        effects.add(fireworkEffect);
-                        effects.add(fireworkEffect1);
-                        fireworkMeta.addEffects(effects);
+                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).withTrail().build();
+                        FireworkEffect fireworkEffect2 = FireworkEffect.builder()
+                                .flicker(true)
+                                .trail(true)
+                                .withColor(Color.MAROON, Color.OLIVE, Color.LIME, Color.GREEN)
+                                .with(FireworkEffect.Type.STAR)
+                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).withTrail().build();
+                        FireworkEffect fireworkEffect3 = FireworkEffect.builder()
+                                .flicker(true)
+                                .trail(true)
+                                .withColor(Color.MAROON, Color.OLIVE, Color.LIME, Color.GREEN)
+                                .with(FireworkEffect.Type.CREEPER)
+                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).withTrail().build();
+                        fireworkMeta.addEffects(Arrays.asList(fireworkEffect, fireworkEffect1, fireworkEffect2, fireworkEffect3));
                         firework.setFireworkMeta(fireworkMeta);
                     }
                 } else {
@@ -81,11 +91,20 @@ public class FuckCMD extends CommandBase {
                                 .trail(true)
                                 .withColor(Color.MAROON, Color.OLIVE, Color.LIME, Color.GREEN)
                                 .with(FireworkEffect.Type.BURST)
-                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).build();
-                        List<FireworkEffect> effects = new ArrayList<>();
-                        effects.add(fireworkEffect);
-                        effects.add(fireworkEffect1);
-                        fireworkMeta.addEffects(effects);
+                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).withTrail().build();
+                        FireworkEffect fireworkEffect2 = FireworkEffect.builder()
+                                .flicker(true)
+                                .trail(true)
+                                .withColor(Color.MAROON, Color.OLIVE, Color.LIME, Color.GREEN)
+                                .with(FireworkEffect.Type.STAR)
+                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).withTrail().build();
+                        FireworkEffect fireworkEffect3 = FireworkEffect.builder()
+                                .flicker(true)
+                                .trail(true)
+                                .withColor(Color.MAROON, Color.OLIVE, Color.LIME, Color.GREEN)
+                                .with(FireworkEffect.Type.CREEPER)
+                                .withFade(Color.AQUA, Color.NAVY, Color.TEAL).withTrail().build();
+                        fireworkMeta.addEffects(Arrays.asList(fireworkEffect, fireworkEffect1, fireworkEffect2, fireworkEffect3));
                         firework.setFireworkMeta(fireworkMeta);
                     }
                     target.sendMessage(plugin.getPrefix() + "§aYou got Fucked!");

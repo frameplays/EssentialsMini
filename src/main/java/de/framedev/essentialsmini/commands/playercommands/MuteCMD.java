@@ -261,7 +261,7 @@ public class MuteCMD extends CommandBase implements Listener {
         } else {
             Player player = event.getPlayer();
             if (plugin.isMysql() || plugin.isSQL()) {
-                new BanMuteManager().removeTempBan(player);
+                new BanMuteManager().removeTempMute(player);
             } else {
                 if (cfg.contains(player.getName() + ".reason")) {
                     cfg.set(player.getName(), null);
@@ -311,8 +311,8 @@ public class MuteCMD extends CommandBase implements Listener {
     }
 
     public static enum MuteReason {
-        advertising("advertising"),
-        caps("caps");
+        ADVERTISING("advertising"),
+        CAPS("caps");
 
         private final String reason;
 

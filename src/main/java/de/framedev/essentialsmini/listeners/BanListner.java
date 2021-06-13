@@ -28,7 +28,7 @@ public class BanListner extends ListenerBase {
     @EventHandler
     public void onJoin(AsyncPlayerPreLoginEvent e) {
         if(getPlugin().isMysql() || getPlugin().isSQL()) {
-            if(!new BanMuteManager().isExpired(Bukkit.getOfflinePlayer(e.getName()))) {
+            if(!new BanMuteManager().isExpiredTempBan(Bukkit.getOfflinePlayer(e.getName()))) {
                 final String[] reason = new String[1];
                 if(new BanMuteManager().getTempBan(Bukkit.getOfflinePlayer(e.getName())) != null) {
                     new BanMuteManager().getTempBan(Bukkit.getOfflinePlayer(e.getName())).forEach((s, s2) -> {

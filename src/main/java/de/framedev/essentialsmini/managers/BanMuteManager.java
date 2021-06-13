@@ -137,7 +137,7 @@ public class BanMuteManager {
         return null;
     }
 
-    public boolean isExpired(OfflinePlayer player) {
+    public boolean isExpiredTempBan(OfflinePlayer player) {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             if (new BanMuteManager().isTempBan(player)) {
                 final Date[] date = {new Date()};
