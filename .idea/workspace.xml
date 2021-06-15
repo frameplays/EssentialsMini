@@ -9,15 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="README.md Updated">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FuckCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FuckCMD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/MuteCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/BanListner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/BanListner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/PlayerListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/PlayerListeners.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanMuteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BanMuteManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/PlayerManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,9 +166,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Maven.EssentialsMini [clean,deploy]" />
       <item itemvalue="Maven.EssentialsMini [clean,package]" />
       <item itemvalue="Maven.EssentialsMini [clean,package,deploy]" />
-      <item itemvalue="Maven.EssentialsMini [clean,deploy]" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -185,13 +179,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00056" summary="Bug Fixes &#10;WorldCMD Updated&#10;FlySpeedCMD Updated&#10;SpeedCMD Updated">
-      <created>1621086890126</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1621086890126</updated>
     </task>
     <task id="LOCAL-00057" summary="README.md updated">
       <created>1621090560131</created>
@@ -529,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623520186307</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="Bug Fixes">
+      <created>1623583541721</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1623583541722</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +575,6 @@
     <MESSAGE value="MuteCMD Updated" />
     <MESSAGE value="MuteCMD TabCompleter Updated" />
     <MESSAGE value="Updated | Bug Fixes" />
-    <MESSAGE value="Bug Fixes" />
     <MESSAGE value="MySQL Ban Mute CMD Added" />
     <MESSAGE value="MySQL Ban Mute CMD Bug Fixing" />
     <MESSAGE value="Bug Fixes / MongoDB VaultAPI Bug Fixing" />
@@ -592,7 +585,8 @@
     <MESSAGE value="TempBan / TempMute Bug Fix" />
     <MESSAGE value="Perma Ban / TempBan / TempMute Bug Fix" />
     <MESSAGE value="README.md Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="README.md Updated" />
+    <MESSAGE value="Bug Fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
