@@ -23,7 +23,7 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 - [x] More TabCompleter
 - [x] **NullPointerFixes** [in Progress]
 - [ ] PlayerData Features
-- [ ] Java 11 Update
+- [ ] Java 16 Update
 
 <br><br><br><br><br>
 
