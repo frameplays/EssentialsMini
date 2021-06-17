@@ -9,41 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes">
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.0.7-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.0.9-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.0-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.1-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.2-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.3-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.4-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.5-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.6-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.7-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.8-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.9-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.1.9.1-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.2.0-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.2.1-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.2.2-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.2.3-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.2.4-RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/EssentialsMini-1.2.5-RELEASE.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/FrameAPI-4.4.7.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/FrameAPI-Latest.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/FrameEconomy-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/FrameEconomy-1.5-SNAPSHOT-all.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/FrameEconomy-1.6-SNAPSHOT-all.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/FrameEconomy-1.7-SNAPSHOT-all.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/MongoDBConnection-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/MongoDBConnection-LATEST.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/MySQLAPI-1.0.4-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/MySQLAPI-1.0.5-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/MySQLAPI-LATEST.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/downloads/UHC-Latest.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/PlayerManager.java" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="ReadMe Updated">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,27 +178,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00058" summary="README.md updated">
-      <created>1621090582135</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1621090582135</updated>
-    </task>
-    <task id="LOCAL-00059" summary="README.md updated">
-      <created>1621090639557</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1621090639557</updated>
-    </task>
-    <task id="LOCAL-00060" summary="README.md updated">
-      <created>1621090752923</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1621090752923</updated>
     </task>
     <task id="LOCAL-00061" summary="README.md updated">
       <created>1621090859090</created>
@@ -555,7 +501,28 @@
       <option name="project" value="LOCAL" />
       <updated>1623783680477</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="Player Manager Bug Fixes">
+      <created>1623941193805</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1623941193806</updated>
+    </task>
+    <task id="LOCAL-00108" summary="ReadMe Updated">
+      <created>1623941422586</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1623941422586</updated>
+    </task>
+    <task id="LOCAL-00109" summary="ReadMe Updated">
+      <created>1623941470409</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1623941470409</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -593,8 +560,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commands Added" />
-    <MESSAGE value="Commands Updated" />
     <MESSAGE value="Updates" />
     <MESSAGE value="Config.yml updated / Bug Fixes" />
     <MESSAGE value="Updater Bug Fixes | 1.2.4.2 Pre-Release Opend" />
@@ -618,7 +583,9 @@
     <MESSAGE value="Perma Ban / TempBan / TempMute Bug Fix" />
     <MESSAGE value="README.md Updated" />
     <MESSAGE value="Bug Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes" />
+    <MESSAGE value="Player Manager Bug Fixes" />
+    <MESSAGE value="ReadMe Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="ReadMe Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

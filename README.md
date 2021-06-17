@@ -5,7 +5,7 @@ ___
 - [Build by your own](#build-by-your-own)
 - [Future Features](#future-features)
 - [Changes](#changes)
-- [Download Pre-Release](#download-pre-releasehttpsgithubcomframe-devessentialsminireleasestag1241-pre-release)
+- [Download Pre-Release](#pre-releases)
 
 ### Build by your own:
 ```
@@ -32,6 +32,7 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 - [1.2.6.1](https://github.com/frame-dev/EssentialsMini/commit/9cfc6a71501a28fb9f4620fab8090d0d0b05e073) TempBan Bug Fixes / PermaBan Bug Fixes / MuteCMD Bug Fixes
 - [1.2.6.2](https://github.com/frame-dev/EssentialsMini/commit/eccef677ab34dbaf1affe5ef106462518788c54d) 1.17 Pre-Release
 <br><br><br>
+###Pre-Releases
 #### [Download Pre-Release 1.13 - 1.16.5](https://github.com/frame-dev/EssentialsMini/releases/download/1.2.6.1-PRE-RELEASE/EssentialsMini-1.2.6.1-PRE-RELEASE.jar)
 #### [Download Pre-Release 1.17](https://github.com/frame-dev/EssentialsMini/releases/download/1.2.6.2-PRE-RELEASE/EssentialsMini-1.2.6.2-PRE-RELEASE.jar)
 <br><br><br>
