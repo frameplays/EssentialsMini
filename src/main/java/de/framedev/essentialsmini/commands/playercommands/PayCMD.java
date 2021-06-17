@@ -124,6 +124,7 @@ public class PayCMD extends CommandBase {
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
+                return true;
             } else if (args.length == 1) {
                 if (sender.hasPermission(plugin.getPermissionName() + "balance.others")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
@@ -135,6 +136,10 @@ public class PayCMD extends CommandBase {
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
+                return true;
+            } else {
+                sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/balance §cor §6/balance <PlayerName>"));
+                return true;
             }
         }
         if (command.getName().equalsIgnoreCase("eco")) {
@@ -195,20 +200,34 @@ public class PayCMD extends CommandBase {
                         }
                     }
                 }
-            } catch (Exception e) {
-
+            } catch (Exception ignored) {
+                sender.sendMessage(plugin.getPrefix() + "§cPlease use §6/eco set <Amount> §cor §6/eco set <Amount> <PlayerName>§4§l!");
+                return true;
             }
         }
         if (command.getName().equalsIgnoreCase("balancetop")) {
             if (sender.hasPermission(plugin.getPermissionName() + "balancetop")) {
                 HashMap<String, Double> mostplayers = new HashMap<>();
                 ValueComparator bvc = new ValueComparator(mostplayers);
-                TreeMap<String, Double> sorted_map = new TreeMap<String, Double>(bvc);
+                TreeMap<String, Double> sorted_map = new TreeMap<>(bvc);
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
+                    for (String bank : plugin.getVaultManager().getEco().getBanks()) {
+                        if (plugin.getVaultManager().getEco().isBankMember(bank, all).transactionSuccess()) {
+                            mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
+                        } else {
+                            mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
+                        }
+                    }
                 }
                 for (OfflinePlayer alloffline : Bukkit.getOfflinePlayers()) {
-                    mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
+                    if (mostplayers.containsKey(alloffline.getName())) continue;
+                    for (String bank : plugin.getVaultManager().getEco().getBanks()) {
+                        if (plugin.getVaultManager().getEco().isBankMember(bank, alloffline).transactionSuccess()) {
+                            mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
+                        } else {
+                            mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
+                        }
+                    }
                 }
                 sorted_map.putAll(mostplayers);
                 int i = 0;
