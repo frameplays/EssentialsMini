@@ -43,9 +43,9 @@ public class PlayerManager implements Serializable {
     private int sleepTimes;
     private int blockBroken;
     private int blockPlace;
-    private ArrayList<String> blocksBroken = new ArrayList<>();
-    private ArrayList<String> blocksPlace = new ArrayList<>();
-    private ArrayList<String> entityTypes = new ArrayList<>();
+    private ArrayList<Material> blocksBroken = new ArrayList<>();
+    private ArrayList<Material> blocksPlace = new ArrayList<>();
+    private ArrayList<EntityType> entityTypes = new ArrayList<>();
     private int commandsUsed;
 
     public PlayerManager(UUID uuid) {
@@ -136,10 +136,13 @@ public class PlayerManager implements Serializable {
         player.setStatistic(statistic, material, i);
     }
 
-
-    public void setEntityTypes(ArrayList<String> entityTypes) {
+    public void setEntityTypes(ArrayList<EntityType> entityTypes) {
         this.entityTypes = entityTypes;
-        cfg.set("EntityTypesKilled", entityTypes);
+        List<String> types = new ArrayList<>();
+        for (EntityType type : entityTypes) {
+            types.add(type.name());
+        }
+        cfg.set("EntityTypesKilled", types);
         try {
             cfg.save(file);
         } catch (IOException e) {
@@ -147,20 +150,22 @@ public class PlayerManager implements Serializable {
         }
     }
 
-    public ArrayList<String> getEntityTypes() {
+    public ArrayList<EntityType> getEntityTypes() {
         if (cfg.contains("EntityTypesKilled")) {
-            this.entityTypes = (ArrayList<String>) cfg.getStringList("EntityTypesKilled");
-            return (ArrayList<String>) cfg.getStringList("EntityTypesKilled");
+            ArrayList<EntityType> types = new ArrayList<>();
+            List<String> typeNames = cfg.getStringList("EntityTypesKilled");
+            for (String s : typeNames) {
+                types.add(EntityType.valueOf(s));
+            }
+            this.entityTypes = types;
         }
         return entityTypes;
     }
 
     public void addEntityType(EntityType entityType) {
-        for (String type : getEntityTypes()) {
-            if (!type.equalsIgnoreCase(entityType.name())) {
-                entityTypes.add(entityType.name());
-            }
-        }
+        this.entityTypes = getEntityTypes();
+        if (!entityTypes.contains(entityType))
+            entityTypes.add(entityType);
         setEntityTypes(entityTypes);
     }
 
@@ -183,53 +188,63 @@ public class PlayerManager implements Serializable {
         setCommandsUsed(commands);
     }
 
-    public ArrayList<String> getBlocksPlace() {
-        if (cfg.contains("BlocksPlace"))
-            this.blocksPlace = (ArrayList<String>) cfg.getStringList("BlocksPlace");
+    public ArrayList<Material> getBlocksPlace() {
+        if (cfg.contains("BlocksPlace")) {
+            List<String> typeNames = cfg.getStringList("BlocksPlace");
+            ArrayList<Material> mats = new ArrayList<>();
+            for (String s : typeNames) {
+                mats.add(Material.getMaterial(s));
+            }
+            this.blocksPlace = mats;
+        }
         return blocksPlace;
     }
 
-    public void setBlocksPlace(ArrayList<String> blocksPlace) {
+    public void setBlocksPlace(ArrayList<Material> blocksPlace) {
         this.blocksPlace = blocksPlace;
-        cfg.set("BlocksPlace", blocksPlace);
+        ArrayList<String> names = new ArrayList<>();
+        for (Material material : blocksPlace) {
+            names.add(material.name());
+        }
+        cfg.set("BlocksPlace", names);
         saveConfig();
     }
 
-    public ArrayList<String> getBlocksBroken() {
-        if (cfg.contains("BlocksBroken"))
-            this.blocksBroken = (ArrayList<String>) cfg.getStringList("BlocksBroken");
+    public ArrayList<Material> getBlocksBroken() {
+        if (cfg.contains("BlocksBroken")) {
+            List<String> typeNames = cfg.getStringList("BlocksBroken");
+            ArrayList<Material> mats = new ArrayList<>();
+            for (String s : typeNames) {
+                mats.add(Material.getMaterial(s));
+            }
+            this.blocksBroken = mats;
+        }
         return blocksBroken;
     }
 
     public void addBlocksPlace(Material material) {
-        if (getBlocksPlace() != null) {
-            if (!getBlocksPlace().contains(material.name())) {
-                getBlocksPlace().add(material.name());
-                setBlocksPlace(getBlocksPlace());
-            }
-        } else {
-            ArrayList<String> blocksBrocken = new ArrayList<>();
-            blocksBrocken.add(material.name());
-            setBlocksPlace(blocksBrocken);
+        this.blocksPlace = getBlocksPlace();
+        if (!blocksPlace.contains(material)) {
+            getBlocksPlace().add(material);
+            setBlocksPlace(blocksPlace);
         }
     }
 
-    public void setBlocksBroken(ArrayList<String> blocksBroken) {
+    public void setBlocksBroken(ArrayList<Material> blocksBroken) {
         this.blocksBroken = blocksBroken;
-        cfg.set("BlocksBroken", blocksBroken);
+        ArrayList<String> names = new ArrayList<>();
+        for (Material material : blocksBroken) {
+            names.add(material.name());
+        }
+        cfg.set("BlocksBroken", names);
         saveConfig();
     }
 
     public void addBlocksBroken(Material material) {
-        if (getBlocksBroken() != null) {
-            if (!getBlocksBroken().contains(material.name())) {
-                getBlocksBroken().add(material.name());
-                setBlocksBroken(getBlocksBroken());
-            }
-        } else {
-            ArrayList<String> blocksBrocken = new ArrayList<>();
-            blocksBrocken.add(material.name());
-            setBlocksBroken(blocksBrocken);
+        this.blocksBroken = getBlocksBroken();
+        if (!blocksBroken.contains(material)) {
+            blocksBroken.add(material);
+            setBlocksBroken(blocksBroken);
         }
     }
 
@@ -550,8 +565,8 @@ public class PlayerManager implements Serializable {
                 String lastlogin = String.valueOf(SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "lastlogin", "playeruuid", player.getUniqueId() + ""));
                 String lastlogout = String.valueOf(SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "lastlogout", "playeruuid", player.getUniqueId() + ""));
                 int commandsused = (int) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "commandsused", "playeruuid", player.getUniqueId() + "");
-                String[] blocksBrokenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "playeruuid", player.getUniqueId() + ""), String[].class);
-                String[] blocksPlacenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "playeruuid", player.getUniqueId() + ""), String[].class);
+                Material[] blocksBrokenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "playeruuid", player.getUniqueId() + ""), Material[].class);
+                Material[] blocksPlacenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "playeruuid", player.getUniqueId() + ""), Material[].class);
                 playerManager.setSleepTimes(level);
                 playerManager.setDamage(damage);
                 playerManager.setPlayerKills(playerkills);
@@ -562,8 +577,8 @@ public class PlayerManager implements Serializable {
                 playerManager.setLastLogin(Long.parseLong(lastlogin));
                 playerManager.setLastLogout(Long.parseLong(lastlogout));
                 playerManager.setCommandsUsed(commandsused);
-                playerManager.setBlocksPlace(new ArrayList<String>(Arrays.asList(blocksPlacenList)));
-                playerManager.setBlocksBroken(new ArrayList<String>(Arrays.asList(blocksBrokenList)));
+                playerManager.setBlocksPlace(new ArrayList<Material>(Arrays.asList(blocksPlacenList)));
+                playerManager.setBlocksBroken(new ArrayList<Material>(Arrays.asList(blocksBrokenList)));
             }
         } else {
             if (SQL.exists(Main.getInstance().getName().toLowerCase() + "_data", "playername", player.getName() + "")) {
@@ -578,8 +593,8 @@ public class PlayerManager implements Serializable {
                 String lastlogin = String.valueOf(SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "lastlogin", "playername", player.getName() + ""));
                 String lastlogout = String.valueOf(SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "lastlogout", "playername", player.getName() + ""));
                 int commandsused = (int) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "commandsused", "playername", player.getName() + "");
-                String[] blocksBrokenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "playername", player.getName() + ""), String[].class);
-                String[] blocksPlacenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "playername", player.getName() + ""), String[].class);
+                Material[] blocksBrokenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "playername", player.getName() + ""), Material[].class);
+                Material[] blocksPlacenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "playername", player.getName() + ""), Material[].class);
                 playerManager.setSleepTimes(level);
                 playerManager.setDamage(damage);
                 playerManager.setPlayerKills(playerkills);
@@ -590,8 +605,8 @@ public class PlayerManager implements Serializable {
                 playerManager.setLastLogin(Long.parseLong(lastlogin));
                 playerManager.setLastLogout(Long.parseLong(lastlogout));
                 playerManager.setCommandsUsed(commandsused);
-                playerManager.setBlocksPlace(new ArrayList<String>(Arrays.asList(blocksPlacenList)));
-                playerManager.setBlocksBroken(new ArrayList<String>(Arrays.asList(blocksBrokenList)));
+                playerManager.setBlocksPlace(new ArrayList<Material>(Arrays.asList(blocksPlacenList)));
+                playerManager.setBlocksBroken(new ArrayList<Material>(Arrays.asList(blocksBrokenList)));
             }
         }
         return playerManager;
