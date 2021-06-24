@@ -24,7 +24,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.net.URL;
@@ -84,7 +83,7 @@ public class Main extends JavaPlugin {
 
     private ArrayList<String> offlinePlayers;
     private File infoFile;
-    private FileConfiguration info;
+    private FileConfiguration infoCfg;
 
     private MongoDBUtils mongoDbUtils;
 
@@ -93,7 +92,7 @@ public class Main extends JavaPlugin {
         instance = this;
 
         this.infoFile = new File(getDataFolder(), "info.yml");
-        this.info = YamlConfiguration.loadConfiguration(infoFile);
+        this.infoCfg = YamlConfiguration.loadConfiguration(infoFile);
 
         new EssentialsMiniAPI();
         createCustomMessagesConfig();
@@ -120,7 +119,7 @@ public class Main extends JavaPlugin {
             homeTP = true;
         }
 
-        /* Listener Initialling */
+        /* HashMaps / Lists Initialling */
         this.commands = new HashMap<>();
         this.listeners = new ArrayList<>();
         this.tabCompleters = new HashMap<>();
@@ -167,7 +166,7 @@ public class Main extends JavaPlugin {
 
         if (Bukkit.getServer().getPluginManager().getPlugin("MDBConnection") != null) {
             this.mongoDbUtils = new MongoDBUtils();
-            if (isMongoDb()) {
+            if (isMongoDB()) {
                 for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
                     getBackendManager().createUserMoney(player, "essentialsmini_data");
                 }
@@ -324,15 +323,17 @@ public class Main extends JavaPlugin {
 
         checkUpdate(getConfig().getBoolean("AutoDownload"));
 
-        info.set("PluginVersion", this.getDescription().getVersion());
-        info.set("API-Version", this.getDescription().getAPIVersion());
-        info.set("MongoDB", isMongoDb());
-        info.set("MySQL", isMysql());
-        info.set("isOnlineMode", getVariables().isOnlineMode());
-        info.set("PlayerDataSave", getConfig().getBoolean("PlayerInfoSave"));
-        info.set("Economy", getConfig().getBoolean("Economy.Activate"));
+        infoCfg.set("PluginVersion", this.getVariables().getVersion());
+        infoCfg.set("API-Version", this.getVariables().getApiVersion());
+        infoCfg.set("Authors", this.getVariables().getAuthors());
+        infoCfg.set("MongoDB", isMongoDB());
+        infoCfg.set("MySQL", isMysql());
+        infoCfg.set("SQLite", isSQL());
+        infoCfg.set("isOnlineMode", getVariables().isOnlineMode());
+        infoCfg.set("PlayerDataSave", getConfig().getBoolean("PlayerInfoSave"));
+        infoCfg.set("Economy", getConfig().getBoolean("Economy.Activate"));
         try {
-            info.save(infoFile);
+            infoCfg.save(infoFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -421,9 +422,9 @@ public class Main extends JavaPlugin {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        info.set("OfflinePlayers", offlinePlayers);
+        infoCfg.set("OfflinePlayers", offlinePlayers);
         try {
-            info.save(infoFile);
+            infoCfg.save(infoFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -433,8 +434,8 @@ public class Main extends JavaPlugin {
      * Return the Info File for this Plugin
      * @return returns the Info Config
      */
-    public FileConfiguration getInfo() {
-        return info;
+    public FileConfiguration getInfoCfg() {
+        return infoCfg;
     }
 
     public void matchConfig(FileConfiguration config, File file) {
@@ -482,7 +483,7 @@ public class Main extends JavaPlugin {
         return currencySymbol;
     }
 
-    public boolean isMongoDb() {
+    public boolean isMongoDB() {
         if (mongoDbUtils == null) return false;
         return this.mongoDbUtils.isMongoDb();
     }
@@ -614,9 +615,10 @@ public class Main extends JavaPlugin {
                 if(!oldVersion.contains("PRE-RELEASE")) {
                     if (download) {
                         downloadLatest();
-                        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Latest Version will be Downloaded");
+                        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Latest Version will be Downloaded : New Version : " + newVersion);
+                    } else {
+                        Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
                     }
-                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
                     return true;
                 } else {
                     Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cThis Plugin is a Pre-Release | §6There could still be errors");

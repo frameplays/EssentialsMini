@@ -92,7 +92,7 @@ public class PlayerListeners implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         if (plugin.getVaultManager() != null && plugin.getVaultManager().getEco() != null) {
-            if (plugin.isMongoDb()) {
+            if (plugin.isMongoDB()) {
                 if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
                     if (plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
                         plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), collection);

@@ -11,7 +11,6 @@ package de.framedev.essentialsmini.utils;
  */
 
 import de.framedev.essentialsmini.main.Main;
-import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class Variables {
     private final String onlyPlayer;
     private final String noPermission;
     private final String permissionBase;
-    private final String author;
+    private final ArrayList<String> authors;
     private final String version;
     private final String apiVersion;
     private final boolean onlineMode;
@@ -30,7 +29,7 @@ public class Variables {
     private String playerNameNotOnline;
     private String playerNotOnline;
 
-    private ArrayList<OfflinePlayer> players = new ArrayList<>();
+    private final ArrayList<String> players;
 
     public Variables() {
         this.instance = Main.getInstance();
@@ -38,13 +37,14 @@ public class Variables {
         this.onlyPlayer = instance.getOnlyPlayer();
         this.noPermission = instance.getNOPERMS();
         this.permissionBase = instance.getPermissionName();
-        this.author = instance.getDescription().getAuthors().get(0);
+        this.authors = (ArrayList<String>) instance.getDescription().getAuthors();
         this.version = instance.getDescription().getVersion();
         this.apiVersion = instance.getDescription().getAPIVersion();
         this.onlineMode = instance.getConfig().getBoolean("OnlineMode");
         this.jsonFormat = instance.getConfig().getBoolean("JsonFormat");
         this.playerNameNotOnline = instance.getCustomMessagesConfig().getString("PlayerNameNotOnline");
         this.playerNotOnline = instance.getCustomMessagesConfig().getString("PlayerNotOnline");
+        this.players = instance.getPlayers();
     }
 
     public String getPlayerNotOnline() {
@@ -80,8 +80,8 @@ public class Variables {
         return apiVersion;
     }
 
-    public String getAuthor() {
-        return author;
+    public ArrayList<String> getAuthors() {
+        return authors;
     }
 
     public String getPermissionBase() {
@@ -108,17 +108,18 @@ public class Variables {
                 ", onlyPlayer='" + onlyPlayer + '\'' +
                 ", noPermission='" + noPermission + '\'' +
                 ", permissionBase='" + permissionBase + '\'' +
-                ", author='" + author + '\'' +
+                ", author='" + authors + '\'' +
                 ", version='" + version + '\'' +
                 ", apiVersion='" + apiVersion + '\'' +
                 ", onlineMode=" + onlineMode +
                 ", jsonFormat=" + jsonFormat +
                 ", playerNameNotOnline='" + playerNameNotOnline + '\'' +
                 ", playerNotOnline='" + playerNotOnline + '\'' +
+                ", players=" + players +
                 '}';
     }
 
-    public ArrayList<OfflinePlayer> getPlayers() {
+    public ArrayList<String> getPlayers() {
         return players;
     }
 }

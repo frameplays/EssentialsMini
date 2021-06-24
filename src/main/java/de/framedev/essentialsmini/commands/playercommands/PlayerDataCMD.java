@@ -63,7 +63,7 @@ public class PlayerDataCMD implements CommandExecutor {
                     sender.sendMessage("§aCommandsUsed : §6" + playerManager.getCommandsUsed());
                     sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlockBroken());
                     sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlockPlace());
-                } else if(!plugin.isMongoDb()) {
+                } else if(!plugin.isMongoDB()) {
                     PlayerManagerCfgLoss playerManager = null;
                     //noinspection deprecation
                     if(Bukkit.getOfflinePlayer(args[0]).isOnline()) {

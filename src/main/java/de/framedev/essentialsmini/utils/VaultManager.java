@@ -75,7 +75,7 @@ public class VaultManager {
     public void addBankMember(String bankName, OfflinePlayer player) {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             new MySQLManager().addBankMember(bankName, player);
-        } else if (Main.getInstance().isMongoDb()) {
+        } else if (Main.getInstance().isMongoDB()) {
             List<String> users = (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "essentialsmini_data");
             if (!users.contains(player.getName()))
                 users.add(player.getName());
@@ -116,7 +116,7 @@ public class VaultManager {
     public void removeBankMember(String bankName, OfflinePlayer player) {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             new MySQLManager().removeBankMember(bankName, player);
-        } else if (Main.getInstance().isMongoDb()) {
+        } else if (Main.getInstance().isMongoDB()) {
             List<String> users = (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "essentialsmini_data");
             if (users.contains(player.getName()))
                 users.remove(player.getName());
@@ -153,7 +153,7 @@ public class VaultManager {
     public List<String> getBankMembers(String bankName) {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             return new MySQLManager().getBankMembers(bankName);
-        } else if (Main.getInstance().isMongoDb()) {
+        } else if (Main.getInstance().isMongoDB()) {
             return (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "essentialsmini_data");
         } else {
             return cfg.getStringList("Banks." + bankName + ".members");
