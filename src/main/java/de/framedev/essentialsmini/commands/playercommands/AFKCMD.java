@@ -1,6 +1,8 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.managers.ListenerBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -8,12 +10,10 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * This Plugin was Created by FrameDev
@@ -32,21 +33,21 @@ import java.util.HashMap;
  * Copyrighted by FrameDev
  */
 
-public class AFK implements CommandExecutor {
+public class AFKCMD extends CommandBase {
     private static HashMap<String, String> afkPlayerMap;
     private static HashMap<String, Long> afkTimeMap;
     private final Main plugin;
     private final HashMap<String, Location> locationMap;
 
-    public AFK(Main plugin) {
+    public AFKCMD(Main plugin) {
+        super(plugin);
         this.plugin = plugin;
         this.locationMap = new HashMap<>();
         afkPlayerMap = new HashMap<>();
         afkTimeMap = new HashMap<>();
         int afkTime = plugin.getConfig().getInt("AFK.Time");
-        plugin.getCommands().put("afk",this);
-        plugin.getCommand("afk").setExecutor(this);
-        Bukkit.getPluginManager().registerEvents(new Events(), plugin);
+        setup("afk", this);
+        new Events(plugin);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new IdleTimer(plugin), (afkTime * 20L), (afkTime * 20L));
     }
 
@@ -143,8 +144,8 @@ public class AFK implements CommandExecutor {
 
 
     String returnAfkTime(String playerName) {
-        long oldTime = getPlayerAfkTime(playerName).longValue();
-        long currentTime = Bukkit.getPlayer(playerName).getPlayerTime();
+        long oldTime = getPlayerAfkTime(playerName);
+        long currentTime = Objects.requireNonNull(Bukkit.getPlayer(playerName)).getPlayerTime();
         long minutes = (currentTime - oldTime) / 20L / 60L;
         long seconds = (currentTime - oldTime) / 20L % 60L;
         return (minutes == 0L) ? (seconds + "s") : (minutes + "m" + seconds + "s");
@@ -154,23 +155,29 @@ public class AFK implements CommandExecutor {
         return this.locationMap;
     }
 
-    public class Events implements Listener {
+    public class Events extends ListenerBase {
+
+        public Events(Main plugin) {
+            super(plugin);
+            setupListener(this);
+        }
+
         @EventHandler
         private void onPlayerMove(PlayerMoveEvent event) {
-            if (AFK.isPlayerAfk(event.getPlayer().getName())) {
+            if (AFKCMD.isPlayerAfk(event.getPlayer().getName())) {
                 int movX = event.getFrom().getBlockX() - event.getTo().getBlockX();
                 int movZ = event.getFrom().getBlockZ() - event.getTo().getBlockZ();
                 if (Math.abs(movX) > 0 || Math.abs(movZ) > 0) {
-                    AFK.this.afk(event.getPlayer(), true, "");
+                    AFKCMD.this.afk(event.getPlayer(), true, "");
                 }
             }
         }
 
         @EventHandler
         public void onPlayerDamage(EntityDamageEvent event) {
-            if(event.getEntity() instanceof Player) {
+            if (event.getEntity() instanceof Player) {
                 Player player = (Player) event.getEntity();
-                if (AFK.isPlayerAfk(player.getName())) {
+                if (AFKCMD.isPlayerAfk(player.getName())) {
                     event.setCancelled(true);
                 }
             }
@@ -178,55 +185,56 @@ public class AFK implements CommandExecutor {
 
         @EventHandler
         public void onBlockPlace(BlockPlaceEvent event) {
-            if (AFK.isPlayerAfk(event.getPlayer().getName())) {
+            if (AFKCMD.isPlayerAfk(event.getPlayer().getName())) {
                 String playerName = event.getPlayer().getName();
-                AFK.removePlayerFromAfkMap(event.getPlayer().getName());
-                AFK.removePlayerFromTimeMap(event.getPlayer().getName());
-                AFK.this.returnAfkTime(event.getPlayer().getName());
-                AFK.this.getLocationMap().remove(playerName);
+                AFKCMD.removePlayerFromAfkMap(event.getPlayer().getName());
+                AFKCMD.removePlayerFromTimeMap(event.getPlayer().getName());
+                AFKCMD.this.returnAfkTime(event.getPlayer().getName());
+                AFKCMD.this.getLocationMap().remove(playerName);
             }
         }
 
         @EventHandler
         public void onBlockBreak(BlockBreakEvent event) {
-            if (AFK.isPlayerAfk(event.getPlayer().getName())) {
+            if (AFKCMD.isPlayerAfk(event.getPlayer().getName())) {
                 String playerName = event.getPlayer().getName();
-                AFK.removePlayerFromAfkMap(event.getPlayer().getName());
-                AFK.removePlayerFromTimeMap(event.getPlayer().getName());
-                AFK.this.returnAfkTime(event.getPlayer().getName());
-                AFK.this.getLocationMap().remove(playerName);
+                AFKCMD.removePlayerFromAfkMap(event.getPlayer().getName());
+                AFKCMD.removePlayerFromTimeMap(event.getPlayer().getName());
+                AFKCMD.this.returnAfkTime(event.getPlayer().getName());
+                AFKCMD.this.getLocationMap().remove(playerName);
             }
         }
 
         @EventHandler
         public void onChat(AsyncPlayerChatEvent event) {
-            if (AFK.isPlayerAfk(event.getPlayer().getName())) {
+            if (AFKCMD.isPlayerAfk(event.getPlayer().getName())) {
                 String playerName = event.getPlayer().getName();
-                AFK.removePlayerFromAfkMap(event.getPlayer().getName());
-                AFK.removePlayerFromTimeMap(event.getPlayer().getName());
-                AFK.this.returnAfkTime(event.getPlayer().getName());
-                AFK.this.getLocationMap().remove(playerName);
+                AFKCMD.removePlayerFromAfkMap(event.getPlayer().getName());
+                AFKCMD.removePlayerFromTimeMap(event.getPlayer().getName());
+                AFKCMD.this.returnAfkTime(event.getPlayer().getName());
+                AFKCMD.this.getLocationMap().remove(playerName);
             }
         }
 
-        @EventHandler( priority = EventPriority.MONITOR )
+        @EventHandler(priority = EventPriority.MONITOR)
         private void onPlayerQuit(PlayerQuitEvent event) {
             String playerName = event.getPlayer().getName();
-            AFK.removePlayerFromAfkMap(playerName);
-            AFK.removePlayerFromTimeMap(playerName);
-            AFK.this.getLocationMap().remove(playerName);
+            AFKCMD.removePlayerFromAfkMap(playerName);
+            AFKCMD.removePlayerFromTimeMap(playerName);
+            AFKCMD.this.getLocationMap().remove(playerName);
         }
 
-        @EventHandler( priority = EventPriority.MONITOR )
+        @EventHandler(priority = EventPriority.MONITOR)
         private void onPlayerKicked(PlayerKickEvent event) {
             String playerName = event.getPlayer().getName();
-            AFK.removePlayerFromAfkMap(playerName);
-            AFK.removePlayerFromTimeMap(playerName);
-            AFK.this.getLocationMap().remove(playerName);
+            AFKCMD.removePlayerFromAfkMap(playerName);
+            AFKCMD.removePlayerFromTimeMap(playerName);
+            AFKCMD.this.getLocationMap().remove(playerName);
         }
     }
 
     class IdleTimer implements Runnable {
+
         private final Main plugin;
         int afktime = Main.getInstance().getConfig().getInt("AFK.Time");
 
@@ -236,12 +244,12 @@ public class AFK implements CommandExecutor {
 
         public void run() {
             for (Player player : this.plugin.getServer().getOnlinePlayers()) {
-                if (AFK.this.getLocationMap().containsKey(player.getName()) && AFK.this.getLocationMap().get(player.getName()).equals(player.getLocation()) && !AFK.isPlayerAfk(player.getName())) {
-                    long idleTime = (this.afktime * 20);
+                if (AFKCMD.this.getLocationMap().containsKey(player.getName()) && AFKCMD.this.getLocationMap().get(player.getName()).equals(player.getLocation()) && !AFKCMD.isPlayerAfk(player.getName())) {
+                    long idleTime = (this.afktime * 20L);
                     player.setPlayerTime(-idleTime, true);
-                    AFK.this.afk(player, false, "");
+                    AFKCMD.this.afk(player, false, "");
                 }
-                AFK.this.getLocationMap().put(player.getName(), player.getLocation());
+                AFKCMD.this.getLocationMap().put(player.getName(), player.getLocation());
             }
         }
     }

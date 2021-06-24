@@ -9,13 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="ReadMe Updated">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="PayCMD Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EssentialsMini.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssentialsMini.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.Events.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.Events.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javadocs/de/framedev/essentialsmini/commands/playercommands/AFK.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/AFK.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/AFKCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PlayerHeadsCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PlayerHeadsCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/RenameItemCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/RenameItemCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,13 +186,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Commands Updated">
-      <created>1621099632198</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1621099632198</updated>
     </task>
     <task id="LOCAL-00066" summary="Updates">
       <created>1621190693491</created>
@@ -527,7 +523,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623941798806</updated>
     </task>
-    <option name="localTasksCounter" value="114" />
+    <task id="LOCAL-00114" summary="PayCMD Updated">
+      <created>1623943868298</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1623943868298</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -565,7 +568,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updates" />
     <MESSAGE value="Config.yml updated / Bug Fixes" />
     <MESSAGE value="Updater Bug Fixes | 1.2.4.2 Pre-Release Opend" />
     <MESSAGE value="Updater Bug Fixes" />
@@ -590,7 +592,8 @@
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Player Manager Bug Fixes" />
     <MESSAGE value="ReadMe Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="ReadMe Updated" />
+    <MESSAGE value="PayCMD Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="PayCMD Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

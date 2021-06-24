@@ -1,4 +1,6 @@
-package de.framedev.essentialsmini.managers;/*
+package de.framedev.essentialsmini.managers;
+
+/*
  * de.framedev.essentialsmin.managers
  * ===================================================
  * This File was Created by FrameDev
@@ -23,7 +25,8 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
 
     /**
      * Register an Command
-     * @param cmdName the CommandName for registering
+     *
+     * @param cmdName  the CommandName for registering
      * @param executor the Executor who executes the Command
      */
     public void setup(@NonNull String cmdName, @NonNull CommandExecutor executor) {
@@ -32,7 +35,8 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
 
     /**
      * Register an TabCompleter
-     * @param cmdName the CommandName for registering
+     *
+     * @param cmdName      the CommandName for registering
      * @param tabCompleter the TabCompleter who used for the Command
      */
     public void setupTabCompleter(@NonNull String cmdName, @NonNull TabCompleter tabCompleter) {
@@ -49,12 +53,19 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
         this.cmdName = cmdName;
     }
 
+    public CommandBase(Main plugin, @NonNull String cmdName, CommandExecutor executor) {
+        this.plugin = plugin;
+        this.cmdName = cmdName;
+        setup(executor);
+    }
+
     public Main getPlugin() {
         return plugin;
     }
 
     /**
      * Register an Command
+     *
      * @param executor the Executor who executes the Command
      */
     public void setup(@NonNull CommandExecutor executor) {
@@ -64,6 +75,7 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
 
     /**
      * Register an TabCompleter
+     *
      * @param tabCompleter the TabCompleter who used for the Command
      */
     public void setupTabCompleter(@NonNull TabCompleter tabCompleter) {

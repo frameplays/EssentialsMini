@@ -10,6 +10,7 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,13 +20,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import static org.bukkit.Material.AIR;
 
-public class RenameItemCMD implements CommandExecutor {
+public class RenameItemCMD extends CommandBase {
 
     private final Main plugin;
 
     public RenameItemCMD(Main plugin) {
+        super(plugin, "rerenameitem");
         this.plugin = plugin;
-        plugin.getCommands().put("renameitem",this);
+        setup(this);
     }
 
     @Override

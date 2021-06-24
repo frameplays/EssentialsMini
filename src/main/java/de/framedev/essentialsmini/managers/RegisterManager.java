@@ -100,7 +100,7 @@ public class RegisterManager {
             new BankCMD(plugin);
         }
         if (plugin.getConfig().getBoolean("AFK.Boolean"))
-            new AFK(plugin);
+            new AFKCMD(plugin);
         new SilentCMD(plugin);
         new FlySpeedCMD(plugin);
         this.muteCMD = new MuteCMD(plugin);

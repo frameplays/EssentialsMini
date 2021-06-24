@@ -34,8 +34,10 @@ public class PlayerHeadsCMD implements CommandExecutor {
     public ItemStack ItemStackSkull(String name) {
         ItemStack skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
-        meta.setOwningPlayer(Bukkit.getOfflinePlayer(name));
-        meta.setDisplayName("§a" + name);
+        if (meta != null) {
+            meta.setOwningPlayer(Bukkit.getOfflinePlayer(name));
+            meta.setDisplayName("§a" + name);
+        }
         skull.setItemMeta(meta);
         return skull;
     }

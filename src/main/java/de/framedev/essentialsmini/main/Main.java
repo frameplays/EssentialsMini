@@ -1,7 +1,3 @@
-/**
- * Dies ist ein Plugin von FrameDev
- * Bitte nichts §ndern, @Copyright by FrameDev
- */
 package de.framedev.essentialsmini.main;
 
 import com.google.gson.Gson;
@@ -28,6 +24,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.net.URL;
@@ -38,8 +35,9 @@ import java.util.*;
 public class Main extends JavaPlugin {
 
     private static ArrayList<String> silent;
-    /* Commands, TabCompleters and Listeners List */
     private Thread thread;
+
+    /* Commands, TabCompleters and Listeners List */
     private HashMap<String, CommandExecutor> commands;
     private HashMap<String, TabCompleter> tabCompleters;
     private ArrayList<Listener> listeners;
@@ -205,6 +203,7 @@ public class Main extends JavaPlugin {
                 limitedHomes.put(s, getConfig().getInt("LimitedHomes." + s));
             }
         }
+
         HashMap<String, String> limitedHomesPermissions = new HashMap<>();
         ConfigurationSection css = getConfig().getConfigurationSection("LimitedHomesPermission");
         if (css != null) {
@@ -325,6 +324,8 @@ public class Main extends JavaPlugin {
 
         checkUpdate(getConfig().getBoolean("AutoDownload"));
 
+        info.set("PluginVersion", this.getDescription().getVersion());
+        info.set("API-Version", this.getDescription().getAPIVersion());
         info.set("MongoDB", isMongoDb());
         info.set("MySQL", isMysql());
         info.set("isOnlineMode", getVariables().isOnlineMode());
@@ -381,6 +382,8 @@ public class Main extends JavaPlugin {
     }
 
     /**
+     * Return all Players there are Silent
+     *
      * @return the List of PlayerNames they are set to Silent
      */
     public static ArrayList<String> getSilent() {
@@ -388,6 +391,8 @@ public class Main extends JavaPlugin {
     }
 
     /**
+     * Debug a Object
+     *
      * @param data the Data to Debugging
      */
     public void debug(Object data) {
@@ -395,6 +400,7 @@ public class Main extends JavaPlugin {
     }
 
     /**
+     * Return all OfflinePlayers
      *
      * @return returns all OfflinePlayers
      */
@@ -424,7 +430,7 @@ public class Main extends JavaPlugin {
     }
 
     /**
-     *
+     * Return the Info File for this Plugin
      * @return returns the Info Config
      */
     public FileConfiguration getInfo() {
