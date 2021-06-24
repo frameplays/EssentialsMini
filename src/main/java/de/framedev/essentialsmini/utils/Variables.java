@@ -11,6 +11,7 @@ package de.framedev.essentialsmini.utils;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,8 @@ public class Variables {
     private String playerNameNotOnline;
     private String playerNotOnline;
 
-    private final ArrayList<String> players;
+    private final ArrayList<OfflinePlayer> players = new ArrayList<>();
+    private final ArrayList<String> offlinePlayers;
 
     public Variables() {
         this.instance = Main.getInstance();
@@ -44,7 +46,7 @@ public class Variables {
         this.jsonFormat = instance.getConfig().getBoolean("JsonFormat");
         this.playerNameNotOnline = instance.getCustomMessagesConfig().getString("PlayerNameNotOnline");
         this.playerNotOnline = instance.getCustomMessagesConfig().getString("PlayerNotOnline");
-        this.players = instance.getPlayers();
+        this.offlinePlayers = instance.getOfflinePlayers();
     }
 
     public String getPlayerNotOnline() {
@@ -108,18 +110,18 @@ public class Variables {
                 ", onlyPlayer='" + onlyPlayer + '\'' +
                 ", noPermission='" + noPermission + '\'' +
                 ", permissionBase='" + permissionBase + '\'' +
-                ", author='" + authors + '\'' +
+                ", authors=" + authors +
                 ", version='" + version + '\'' +
                 ", apiVersion='" + apiVersion + '\'' +
                 ", onlineMode=" + onlineMode +
                 ", jsonFormat=" + jsonFormat +
                 ", playerNameNotOnline='" + playerNameNotOnline + '\'' +
                 ", playerNotOnline='" + playerNotOnline + '\'' +
-                ", players=" + players +
+                ", offlinePlayers=" + offlinePlayers +
                 '}';
     }
 
-    public ArrayList<String> getPlayers() {
+    public ArrayList<OfflinePlayer> getPlayers() {
         return players;
     }
 }
