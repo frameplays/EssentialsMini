@@ -4,6 +4,7 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -211,21 +212,28 @@ public class PayCMD extends CommandBase {
                 ValueComparator bvc = new ValueComparator(mostplayers);
                 TreeMap<String, Double> sorted_map = new TreeMap<>(bvc);
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    for (String bank : plugin.getVaultManager().getEco().getBanks()) {
-                        if (plugin.getVaultManager().getEco().isBankMember(bank, all).transactionSuccess()) {
-                            mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
-                        } else {
-                            mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
+                    if(plugin.getVaultManager().getEco().getBanks().isEmpty()) {
+                        mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
+                    } else {
+                        for (String bank : plugin.getVaultManager().getEco().getBanks()) {
+                            if (plugin.getVaultManager().getEco().isBankMember(bank, all).transactionSuccess() || plugin.getVaultManager().getEco().isBankOwner(bank, all).transactionSuccess()) {
+                                mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
+                            } else {
+                                mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
+                            }
                         }
                     }
                 }
                 for (OfflinePlayer alloffline : Bukkit.getOfflinePlayers()) {
-                    if (mostplayers.containsKey(alloffline.getName())) continue;
-                    for (String bank : plugin.getVaultManager().getEco().getBanks()) {
-                        if (plugin.getVaultManager().getEco().isBankMember(bank, alloffline).transactionSuccess()) {
-                            mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
-                        } else {
-                            mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
+                    if(plugin.getVaultManager().getEco().getBanks().isEmpty()) {
+                        mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
+                    } else {
+                        for (String bank : plugin.getVaultManager().getEco().getBanks()) {
+                            if (plugin.getVaultManager().getEco().isBankMember(bank, alloffline).transactionSuccess() || plugin.getVaultManager().getEco().isBankOwner(bank, alloffline).transactionSuccess()) {
+                                mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
+                            } else {
+                                mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
+                            }
                         }
                     }
                 }

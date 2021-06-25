@@ -12,7 +12,9 @@ import de.framedev.essentialsmini.commands.worldcommands.ThunderCMD;
 import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmini.listeners.*;
 import de.framedev.essentialsmini.main.Main;
+import org.bukkit.command.CommandExecutor;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class RegisterManager {
@@ -108,7 +110,10 @@ public class RegisterManager {
         new BanCMD(plugin);
         new UnBanCMD(plugin);
         new BookCMD(plugin);
-        plugin.getCommands().entrySet().stream().filter(Objects::nonNull).filter(command -> command.getKey() != null && command.getValue() != null).forEach(command -> Objects.requireNonNull(plugin.getCommand(command.getKey())).setExecutor(command.getValue()));
+        for(Map.Entry<String, CommandExecutor> commands : plugin.getCommands().entrySet()) {
+            if(commands.getKey() == null) continue; if(commands.getValue() == null) continue; if(plugin.getCommand(commands.getKey()) == null) continue;
+            plugin.getCommand(commands.getKey()).setExecutor(commands.getValue());
+        }
     }
 
     public MuteCMD getMuteCMD() {

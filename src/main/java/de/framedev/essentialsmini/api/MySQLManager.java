@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.lang.reflect.Type;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -495,13 +496,37 @@ public class MySQLManager {
                 List<String> members = getBankMembers(bankName);
                 try {
                     if (Main.getInstance().isMysql()) {
-                        Statement statement = MySQL.getConnection().createStatement();
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE BankName = '" + bankName + "'");
-                        while (resultSet.next()) {
-                            resultSet.updateDouble("BankBalance", 0.0);
-                            resultSet.updateString("BankName", null);
-                            resultSet.updateString("BankOwner", null);
-                            resultSet.updateString("BankMembers", null);
+                        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+                            if (isBankOwner(bankName, player))
+                                if (Bukkit.getOnlineMode()) {
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + player.getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + player.getUniqueId().toString() + "'");
+                                } else {
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + player.getName() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getName() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getName() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + player.getName() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getName() + "'");
+                                }
+                        }
+                        if (members != null) {
+                            members.forEach(member -> {
+                                removeBankMember(bankName, Bukkit.getOfflinePlayer(member));
+                                if (Bukkit.getOnlineMode()) {
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
+                                } else {
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");
+                                }
+                            });
                         }
                         return true;
                     } else if (Main.getInstance().isSQL()) {

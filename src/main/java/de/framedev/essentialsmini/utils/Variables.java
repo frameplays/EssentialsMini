@@ -14,6 +14,7 @@ import de.framedev.essentialsmini.main.Main;
 import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Variables {
 
@@ -22,7 +23,7 @@ public class Variables {
     private final String onlyPlayer;
     private final String noPermission;
     private final String permissionBase;
-    private final ArrayList<String> authors;
+    private final List<String> authors;
     private final String version;
     private final String apiVersion;
     private final boolean onlineMode;
@@ -39,7 +40,7 @@ public class Variables {
         this.onlyPlayer = instance.getOnlyPlayer();
         this.noPermission = instance.getNOPERMS();
         this.permissionBase = instance.getPermissionName();
-        this.authors = (ArrayList<String>) instance.getDescription().getAuthors();
+        this.authors = instance.getDescription().getAuthors();
         this.version = instance.getDescription().getVersion();
         this.apiVersion = instance.getDescription().getAPIVersion();
         this.onlineMode = instance.getConfig().getBoolean("OnlineMode");
@@ -82,7 +83,7 @@ public class Variables {
         return apiVersion;
     }
 
-    public ArrayList<String> getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 

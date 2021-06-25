@@ -10,6 +10,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,20 +34,19 @@ import java.util.Objects;
  * Copyrighted by FrameDev
  */
 
-public class AFKCMD extends CommandBase {
+public class AFKCMD implements CommandExecutor {
     private static HashMap<String, String> afkPlayerMap;
     private static HashMap<String, Long> afkTimeMap;
     private final Main plugin;
     private final HashMap<String, Location> locationMap;
 
     public AFKCMD(Main plugin) {
-        super(plugin);
         this.plugin = plugin;
         this.locationMap = new HashMap<>();
         afkPlayerMap = new HashMap<>();
         afkTimeMap = new HashMap<>();
         int afkTime = plugin.getConfig().getInt("AFK.Time");
-        setup("afk", this);
+        plugin.getCommand("afk").setExecutor(this);
         new Events(plugin);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new IdleTimer(plugin), (afkTime * 20L), (afkTime * 20L));
     }
