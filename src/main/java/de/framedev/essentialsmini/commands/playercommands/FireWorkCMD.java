@@ -84,6 +84,34 @@ public class FireWorkCMD extends CommandBase {
                 effect.setPower(Integer.parseInt(args[3]));
                 itemStack.setItemMeta(effect);
             }
+            if(args.length == 5) {
+                List<Color> colors = new ArrayList<>();
+                if (args[2].contains(":")) {
+                    String[] s = args[2].split(":");
+                    for (String a : s) {
+                        colors.add(DyeColor.valueOf(a.toUpperCase()).getColor());
+                    }
+                } else {
+                    colors.add(DyeColor.valueOf(args[2].toUpperCase()).getColor());
+                }
+                effect.addEffect(FireworkEffect.builder().with(type).withColor(colors.toArray(new Color[0])).flicker(Boolean.parseBoolean(args[4])).build());
+                effect.setPower(Integer.parseInt(args[3]));
+                itemStack.setItemMeta(effect);
+            }
+            if(args.length == 6) {
+                List<Color> colors = new ArrayList<>();
+                if (args[2].contains(":")) {
+                    String[] s = args[2].split(":");
+                    for (String a : s) {
+                        colors.add(DyeColor.valueOf(a.toUpperCase()).getColor());
+                    }
+                } else {
+                    colors.add(DyeColor.valueOf(args[2].toUpperCase()).getColor());
+                }
+                effect.addEffect(FireworkEffect.builder().with(type).withColor(colors.toArray(new Color[0])).flicker(Boolean.parseBoolean(args[4])).trail(Boolean.parseBoolean(args[5])).build());
+                effect.setPower(Integer.parseInt(args[3]));
+                itemStack.setItemMeta(effect);
+            }
         }
         return super.onCommand(sender, command, label, args);
     }

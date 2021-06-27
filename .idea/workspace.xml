@@ -9,12 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FireWorkCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="FireWorkCMD Added">
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FireWorkCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FireWorkCMD.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,13 +178,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00070" summary="Updates">
-      <created>1621628663948</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1621628663948</updated>
     </task>
     <task id="LOCAL-00071" summary="Config.yml updated / Bug Fixes">
       <created>1621628847007</created>
@@ -526,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624644606338</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="FireWorkCMD Added">
+      <created>1624818707089</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1624818707090</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -564,7 +560,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="MuteCMD Bug Fix" />
     <MESSAGE value="TempBan Updated" />
     <MESSAGE value="TempBan Updated / Mute Updated" />
     <MESSAGE value="TempMuteCMD Updated" />
@@ -589,7 +584,8 @@
     <MESSAGE value="Updates" />
     <MESSAGE value="1.2.7.1 Pre-Release" />
     <MESSAGE value="Bug Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes" />
+    <MESSAGE value="FireWorkCMD Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="FireWorkCMD Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
