@@ -15,7 +15,6 @@ import de.framedev.essentialsmini.main.Main;
 import org.bukkit.command.CommandExecutor;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class RegisterManager {
 
@@ -110,6 +109,7 @@ public class RegisterManager {
         new BanCMD(plugin);
         new UnBanCMD(plugin);
         new BookCMD(plugin);
+        new FireWorkCMD(plugin);
         for(Map.Entry<String, CommandExecutor> commands : plugin.getCommands().entrySet()) {
             if(commands.getKey() == null) continue; if(commands.getValue() == null) continue; if(plugin.getCommand(commands.getKey()) == null) continue;
             plugin.getCommand(commands.getKey()).setExecutor(commands.getValue());

@@ -9,14 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="1.2.7.1 Pre-Release">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FireWorkCMD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/MySQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/MySQLManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/AFKCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/AFKCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/Variables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/Variables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,13 +182,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00069" summary="Updates">
-      <created>1621628615756</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1621628615756</updated>
     </task>
     <task id="LOCAL-00070" summary="Updates">
       <created>1621628663948</created>
@@ -528,7 +519,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624553044195</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="Bug Fixes">
+      <created>1624644606337</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1624644606338</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -584,14 +582,14 @@
     <MESSAGE value="TempBan / TempMute Bug Fix" />
     <MESSAGE value="Perma Ban / TempBan / TempMute Bug Fix" />
     <MESSAGE value="README.md Updated" />
-    <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Player Manager Bug Fixes" />
     <MESSAGE value="ReadMe Updated" />
     <MESSAGE value="PayCMD Updated" />
     <MESSAGE value="Update" />
     <MESSAGE value="Updates" />
     <MESSAGE value="1.2.7.1 Pre-Release" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.2.7.1 Pre-Release" />
+    <MESSAGE value="Bug Fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -144,6 +144,8 @@ public class BankCMD extends CommandBase {
                             if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess()) {
                                 plugin.getVaultManager().addBankMember(bankName, offline);
                                 player.sendMessage(plugin.getPrefix() + "§6" + offline.getName() + " §ais now Successfully a Member of your Bank!");
+                                if(offline.isOnline())
+                                    ((Player) offline).sendMessage(plugin.getPrefix() + "§aYou are now a Member of §6" + player.getName() + "'s §aBank!");
                             } else {
                                 player.sendMessage(plugin.getPrefix() + "§cYou are not the Bank Owner!");
                             }
@@ -164,6 +166,8 @@ public class BankCMD extends CommandBase {
                             if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess()) {
                                 plugin.getVaultManager().removeBankMember(bankName, offline);
                                 player.sendMessage(plugin.getPrefix() + "§6" + offline.getName() + " §ais no longer a member of your Bank!");
+                                if(offline.isOnline())
+                                    ((Player) offline).sendMessage(plugin.getPrefix() + "§cYou are no longer a Member of §6" + player.getName() + "'s §cBank!");
                             } else {
                                 player.sendMessage(plugin.getPrefix() + "§cYou are not the Bank Owner!");
                             }

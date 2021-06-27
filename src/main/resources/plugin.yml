@@ -222,6 +222,7 @@ commands:
   copybook:
     description: Copy an Written Book
   removetempban:
+  firework:
 permissions:
   essentialsmini.*:
     children:
