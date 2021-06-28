@@ -28,13 +28,14 @@ import java.util.*;
 public class EssentialsMiniAPI {
 
     private final Main plugin;
-    private static EssentialsMiniAPI essentialsMiniAPI;
+    // API Instance
+    private static EssentialsMiniAPI instance;
     private final boolean jsonFormat;
     private final boolean economy;
 
     public EssentialsMiniAPI() {
         this.plugin = Main.getInstance();
-        essentialsMiniAPI = this;
+        instance = this;
         jsonFormat = plugin.getConfig().getBoolean("JsonFormat");
         economy = plugin.getVaultManager() != null;
     }
@@ -48,7 +49,7 @@ public class EssentialsMiniAPI {
     }
 
     public static EssentialsMiniAPI getInstance() {
-        return essentialsMiniAPI;
+        return instance;
     }
 
     public boolean isPlayerVanish(Player player) {
@@ -494,5 +495,21 @@ public class EssentialsMiniAPI {
             return new BanMuteManager().getPermaBanReason(player);
         }
         return BanFile.getBannedReason(player.getName());
+    }
+
+    public boolean isEconomyActivated() {
+        return plugin.getConfig().getBoolean("Economy.Activated");
+    }
+
+    public boolean isMySQL() {
+        return plugin.isMysql();
+    }
+
+    public boolean isSQL() {
+        return plugin.isSQL();
+    }
+
+    public boolean isMongoDB() {
+        return plugin.isMongoDB();
     }
 }
