@@ -26,7 +26,7 @@ public class BossBarManager {
     private String title;
     @NonNull
     private BarColor barColor;
-    @NonNull
+
     private BossBar bossBar;
 
     private double progress;
@@ -175,8 +175,8 @@ public class BossBarManager {
      */
     public BossBarManager remove() {
         if (this.bossBar == null) return this;
-        this.bossBar.hide();
         this.bossBar.setVisible(false);
+        bossBars.remove(bossBar);
         return this;
     }
 
@@ -190,6 +190,7 @@ public class BossBarManager {
                     if (player != null)
                         bossBar.removePlayer(player);
                 }
+                bossBar.setVisible(false);
             }
         }
     }

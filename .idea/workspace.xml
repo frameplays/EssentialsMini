@@ -9,10 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="FireWorkCMD clear / fire Added">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/BankAPI.java" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="BankAPI Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/EssentialsMiniAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/EssentialsMiniAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BossBarManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/BossBarManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,13 +180,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00073" summary="Updater Bug Fixes | 1.2.4.2 Pre-Release Opend">
-      <created>1621629113221</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1621629113221</updated>
     </task>
     <task id="LOCAL-00074" summary="Updater Bug Fixes">
       <created>1621629312733</created>
@@ -524,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624820302367</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="BankAPI Added">
+      <created>1624903543010</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1624903543010</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -562,8 +562,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="TempMuteCMD Updated" />
-    <MESSAGE value="BanCMD Updated" />
     <MESSAGE value="MuteCMD Updated" />
     <MESSAGE value="MuteCMD TabCompleter Updated" />
     <MESSAGE value="Updated | Bug Fixes" />
@@ -587,7 +585,9 @@
     <MESSAGE value="FireWorkCMD Added" />
     <MESSAGE value="FireWorkCMD Updated / Trail / Flicker / Power Added" />
     <MESSAGE value="FireWorkCMD clear / fire Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="FireWorkCMD clear / fire Added" />
+    <MESSAGE value="BankAPI Added¨" />
+    <MESSAGE value="BankAPI Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="BankAPI Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

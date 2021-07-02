@@ -53,11 +53,11 @@ public class EssentialsMiniAPI {
     }
 
     public boolean isPlayerVanish(Player player) {
-        return VanishCMD.hided.contains(player);
+        return VanishCMD.hided.contains(player.getName());
     }
 
     public boolean isPlayerSilent(Player player) {
-        return Main.getSilent().contains(player);
+        return Main.getSilent().contains(player.getName());
     }
 
     public boolean hasPlayerKey(OfflinePlayer player) {
@@ -478,8 +478,8 @@ public class EssentialsMiniAPI {
             return new BanMuteManager().getTempBan(player);
         }
         HashMap<String, String> hash = new HashMap<>();
-        String date = new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(Bukkit.getServer().getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getExpiration());
-        String reason = Bukkit.getServer().getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getReason();
+        String date = new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(Objects.requireNonNull(Bukkit.getServer().getBanList(BanList.Type.NAME).getBanEntry(Objects.requireNonNull(player.getName()))).getExpiration());
+        String reason = Objects.requireNonNull(Bukkit.getServer().getBanList(BanList.Type.NAME).getBanEntry(player.getName())).getReason();
         hash.put(date, reason);
         return hash;
     }
