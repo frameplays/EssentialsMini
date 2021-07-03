@@ -218,10 +218,17 @@ public class LocationsManager {
      * @param name the Location Name
      */
     public void removeLocation(String name) {
-        if (getLocations() == null) return;
-        if (getLocations().containsKey(name))
-            getLocations().remove(name);
-        setJsonLocation(name, " ");
+        if (jsonFormat) {
+            if (getLocations() == null) return;
+            if (getLocations().containsKey(name))
+                getLocations().remove(name);
+            setJsonLocation(name, " ");
+        } else {
+            if (cfg.contains(name)) {
+                cfg.set(name, " ");
+                saveCfg();
+            }
+        }
     }
 
     /**

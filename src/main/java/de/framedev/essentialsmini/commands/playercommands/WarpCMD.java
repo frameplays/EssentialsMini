@@ -8,9 +8,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -138,7 +136,7 @@ public class WarpCMD extends CommandBase {
                         sender.sendMessage(plugin.getPrefix() + message);
                     }
                 } else {
-                    if(new LocationsManager().getLocations() != null) {
+                    if (new LocationsManager().getLocations() != null) {
                         ArrayList<String> warps = new ArrayList<>(new LocationsManager().getLocations().keySet());
                         for (String s : warps) {
                             if (s != null) {
@@ -158,8 +156,7 @@ public class WarpCMD extends CommandBase {
             if (sender.hasPermission("essentialsmini.delwarp")) {
                 if (args.length == 1) {
                     String warp = args[0].toLowerCase();
-                    new LocationsManager().getCfg().set("warps." + warp, null);
-                    new LocationsManager().saveCfg();
+                    new LocationsManager().removeLocation("warps." + warp);
                     String message = plugin.getCustomMessagesConfig().getString("Warp.Delete");
                     if (message.contains("&"))
                         message = message.replace('&', '§');
