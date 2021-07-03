@@ -17,11 +17,13 @@ import org.bukkit.entity.Player;
 public class InvseeCMD implements CommandExecutor {
 
     private final Main plugin;
+    private final boolean seeOwner;
 
     public InvseeCMD(Main plugin) {
         this.plugin = plugin;
         plugin.getCommands().put("invsee", this);
         plugin.getCommands().put("enderchest", this);
+        this.seeOwner = plugin.getConfig().getBoolean("Invsee.Owner");
         //plugin.getCommands().put("resethealth", this);
     }
 
@@ -34,7 +36,13 @@ public class InvseeCMD implements CommandExecutor {
                         Player player = (Player) sender;
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
-                            if(!target.hasPermission(plugin.getPermissionName() + "invsee.owner")) {
+                            if(!seeOwner) {
+                                if (!target.hasPermission(plugin.getPermissionName() + "invsee.owner")) {
+                                    player.openInventory(target.getInventory());
+                                } else {
+                                    player.sendMessage(plugin.getPrefix() + "§cCannot see this Inventory!");
+                                }
+                            } else {
                                 player.openInventory(target.getInventory());
                             }
                         } else {
@@ -68,7 +76,7 @@ public class InvseeCMD implements CommandExecutor {
                         Player player = (Player) sender;
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
-                            if(!target.hasPermission(plugin.getPermissionName() + "enderchest.owner")) {
+                            if (!target.hasPermission(plugin.getPermissionName() + "enderchest.owner")) {
                                 player.openInventory(target.getEnderChest());
                             }
                         } else {

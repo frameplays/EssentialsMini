@@ -17,6 +17,9 @@ LocationsBackupMessage: false
 
 IgnoreJoinLeave: false
 
+Invsee:
+  Owner: true
+
 Limited: false
 LimitedHomes:
   Default: 4
