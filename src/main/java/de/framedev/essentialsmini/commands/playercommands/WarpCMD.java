@@ -92,6 +92,7 @@ public class WarpCMD extends CommandBase {
                                 if (cs != null) {
                                     for (String s : cs.getKeys(false)) {
                                         if (s != null) {
+                                            if (!new LocationsManager().getCfg().get("warps." + s).equals(" "))
                                             sender.sendMessage(s);
                                         }
                                     }
@@ -122,10 +123,12 @@ public class WarpCMD extends CommandBase {
                         if (cs != null) {
                             for (String s : cs.getKeys(false)) {
                                 if (s != null) {
-                                    TextComponent textComponent = new TextComponent(s);
-                                    textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to add Warp Command").create()));
-                                    textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/warp " + s));
-                                    sender.spigot().sendMessage(textComponent);
+                                    if (!new LocationsManager().getCfg().get("warps." + s).equals(" ")) {
+                                        TextComponent textComponent = new TextComponent(s);
+                                        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to add Warp Command").create()));
+                                        textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/warp " + s));
+                                        sender.spigot().sendMessage(textComponent);
+                                    }
                                 }
                             }
                         }
@@ -182,7 +185,8 @@ public class WarpCMD extends CommandBase {
                     if (cs != null) {
                         for (String s : cs.getKeys(false)) {
                             if (s != null) {
-                                warps.add(s);
+                                if (!new LocationsManager().getCfg().get("warps." + s).equals(" "))
+                                    warps.add(s);
                             }
                         }
                     }
