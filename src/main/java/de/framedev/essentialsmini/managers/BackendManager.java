@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class BackendManager {
     private final Main plugin;
@@ -65,9 +66,9 @@ public class BackendManager {
                 Document dc = (new Document("uuid", uuid))
                         .append("name", player.getName())
                         .append("money", 0.0)
-                        .append("bankname","")
-                        .append("bankmembers",new ArrayList<String>())
-                        .append("bankowner","")
+                        .append("bankname", "")
+                        .append("bankmembers", new ArrayList<String>())
+                        .append("bankowner", "")
                         .append("bank", 0.0)
                         .append("kills", 0)
                         .append("damage", 0.0)
@@ -81,7 +82,7 @@ public class BackendManager {
                         .append("key", null)
                         .append("entityTypes", new ArrayList<String>())
                         .append("offline", false)
-                        .append(DATA.SLEEPTIMES.getName(),0)
+                        .append(DATA.SLEEPTIMES.getName(), 0)
                         .append("createDate", System.currentTimeMillis() + "")
                         .append("lastLogin", 0L + "")
                         .append("lastLogout", 0L + "");
@@ -95,9 +96,9 @@ public class BackendManager {
                 Document dc = (new Document("uuid", uuid))
                         .append("name", player.getName())
                         .append("money", 0)
-                        .append("bankname","")
-                        .append("bankmembers",new ArrayList<String>())
-                        .append("bankowner","")
+                        .append("bankname", "")
+                        .append("bankmembers", new ArrayList<String>())
+                        .append("bankowner", "")
                         .append("bank", 0.0)
                         .append("kills", 0)
                         .append("damage", 0.0)
@@ -111,7 +112,7 @@ public class BackendManager {
                         .append("key", null)
                         .append("entityTypes", new ArrayList<String>())
                         .append("offline", false)
-                        .append(DATA.SLEEPTIMES.getName(),0)
+                        .append(DATA.SLEEPTIMES.getName(), 0)
                         .append("createDate", System.currentTimeMillis())
                         .append("lastLogin", 0L)
                         .append("lastLogout", 0L);
@@ -121,7 +122,6 @@ public class BackendManager {
     }
 
     /**
-     *
      * @param where from the Database Document
      * @param data Data in where
      * @param selected the Selected key in your Database
@@ -131,8 +131,8 @@ public class BackendManager {
     public Object getObject(String where, Object data, String selected, String collection) {
         if (existsCollection(collection)) {
             MongoCollection<Document> collections = this.plugin.getMongoManager().getDatabase().getCollection(collection);
-            Document document = collections.find(new Document(where,data)).first();
-            if(document != null) {
+            Document document = collections.find(new Document(where, data)).first();
+            if (document != null) {
                 return document.get(selected);
             }
         }
@@ -146,10 +146,10 @@ public class BackendManager {
             if (document != null) {
                 Document document1 = new Document(selected, dataSelected);
                 Document document2 = new Document("$set", document1);
-                if(document.get(where) != null) {
+                if (document.get(where) != null) {
                     collections.updateOne(document, document2);
                 } else {
-                    document.put(selected,dataSelected);
+                    document.put(selected, dataSelected);
                     collections.updateOne(collections.find(new Document(where, data)).first(), document);
                 }
             }
@@ -173,10 +173,10 @@ public class BackendManager {
             if (document != null) {
                 Document document1 = new Document(where, data);
                 Document document2 = new Document("$set", document1);
-                if(document.get(where) != null) {
+                if (document.get(where) != null) {
                     collections.updateOne(document, document2);
                 } else {
-                    document.put(where,data);
+                    document.put(where, data);
                     collections.updateOne(collections.find(new Document("uuid", uuid)).first(), document);
                 }
             }
@@ -306,7 +306,7 @@ public class BackendManager {
         ArrayList<Object> players = new ArrayList<>();
         if (existsCollection(collection)) {
             MongoCollection<Document> collections = this.plugin.getMongoManager().getDatabase().getCollection(collection);
-            collections.find(new Document(where,data)).forEach((Block<? super Document>) document -> {
+            collections.find(new Document(where, data)).forEach((Consumer<? super Document>) document -> {
                 if (document != null) {
                     players.add(document.get(selected));
                 }
@@ -321,9 +321,8 @@ public class BackendManager {
         if (existsCollection(collection)) {
             MongoCollection<Document> collections = this.plugin.getMongoManager().getDatabase().getCollection(collection);
             FindIterable<Document> find = collections.find();
-            Iterator it = find.iterator();
-            while (it.hasNext()) {
-                list.add((Document) it.next());
+            for (Document document : find) {
+                list.add(document);
             }
         }
         return list;

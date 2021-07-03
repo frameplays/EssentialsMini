@@ -63,8 +63,8 @@ public class VaultManager {
         }
     }
 
-    File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
-    FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+    private final File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
+    private final FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
     /**
      * Add a User to the Bank
@@ -160,11 +160,9 @@ public class VaultManager {
         }
     }
 
-
     public Economy getEconomy() {
         return eco;
     }
-
 
     public Economy getEco() {
         return eco;

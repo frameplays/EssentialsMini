@@ -8,7 +8,6 @@ import de.framedev.mysqlapi.api.SQL;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -115,6 +114,7 @@ public class BanMuteManager {
     }
 
     public void removeTempBan(OfflinePlayer player) {
+        if (player.getName() == null) return;
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
                 Bukkit.getServer().getBanList(BanList.Type.NAME).pardon(player.getName());

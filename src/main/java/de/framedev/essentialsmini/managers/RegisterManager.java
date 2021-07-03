@@ -1,7 +1,3 @@
-/**
- * Dies ist ein Plugin von FrameDev
- * Bitte nichts �ndern, @Copyright by FrameDev
- */
 package de.framedev.essentialsmini.managers;
 
 import de.framedev.essentialsmini.commands.playercommands.*;
@@ -15,11 +11,11 @@ import de.framedev.essentialsmini.main.Main;
 import org.bukkit.command.CommandExecutor;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class RegisterManager {
 
     private final Main plugin;
-    private ThunderCMD thunderCMD;
     private BackUpCMD backup;
     private MuteCMD muteCMD;
 
@@ -30,9 +26,8 @@ public class RegisterManager {
         registerTabCompleters();
     }
 
-
     private void registerTabCompleters() {
-        plugin.getTabCompleters().forEach((key, value) -> plugin.getCommand(key).setTabCompleter(value));
+        plugin.getTabCompleters().forEach((key, value) -> Objects.requireNonNull(plugin.getCommand(key)).setTabCompleter(value));
     }
 
     private void registerListeners() {
@@ -90,7 +85,7 @@ public class RegisterManager {
         new SummonCMD(plugin);
         new SetHealthCMD(plugin);
         new SpeedCMD(plugin);
-        this.thunderCMD = new ThunderCMD(plugin);
+        new ThunderCMD(plugin);
         new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
@@ -110,9 +105,11 @@ public class RegisterManager {
         new UnBanCMD(plugin);
         new BookCMD(plugin);
         new FireWorkCMD(plugin);
-        for(Map.Entry<String, CommandExecutor> commands : plugin.getCommands().entrySet()) {
-            if(commands.getKey() == null) continue; if(commands.getValue() == null) continue; if(plugin.getCommand(commands.getKey()) == null) continue;
-            plugin.getCommand(commands.getKey()).setExecutor(commands.getValue());
+        for (Map.Entry<String, CommandExecutor> commands : plugin.getCommands().entrySet()) {
+            if (commands.getKey() == null) continue;
+            if (commands.getValue() == null) continue;
+            if (plugin.getCommand(commands.getKey()) == null) continue;
+            Objects.requireNonNull(plugin.getCommand(commands.getKey())).setExecutor(commands.getValue());
         }
     }
 
@@ -122,9 +119,5 @@ public class RegisterManager {
 
     public BackUpCMD getBackup() {
         return backup;
-    }
-
-    public ThunderCMD getThunderCMD() {
-        return thunderCMD;
     }
 }

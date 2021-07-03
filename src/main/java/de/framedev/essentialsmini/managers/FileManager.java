@@ -20,8 +20,8 @@ import java.io.IOException;
 
 public class FileManager {
 
-    private File file;
-    private FileConfiguration cfg;
+    private final File file;
+    private final FileConfiguration cfg;
 
     public FileManager() {
         this.file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
@@ -37,6 +37,7 @@ public class FileManager {
     }
 
     public void setMoney(OfflinePlayer player, double amount) {
+        if(player.getName() == null) return;
         if (Bukkit.getServer().getOnlineMode()) {
             cfg.set(player.getUniqueId().toString(), amount);
         } else {
@@ -46,6 +47,7 @@ public class FileManager {
     }
 
     public double getMoney(OfflinePlayer player) {
+        if(player.getName() == null) return 0.0;
         if (Bukkit.getServer().getOnlineMode()) {
             return cfg.getDouble(player.getUniqueId().toString());
         } else {

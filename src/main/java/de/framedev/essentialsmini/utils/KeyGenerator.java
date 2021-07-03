@@ -59,7 +59,7 @@ public class KeyGenerator {
     public static String shuffleString(String string) {
         List<String> letters = Arrays.asList(string.split(""));
         Collections.shuffle(letters);
-        return letters.stream().collect(Collectors.joining());
+        return String.join("", letters);
     }
 
     public String generateKeyAndSave(OfflinePlayer player) {
@@ -99,9 +99,7 @@ public class KeyGenerator {
     public void loadCfg() {
         try {
             cfg.load(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidConfigurationException e) {
+        } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }

@@ -12,7 +12,7 @@ public class BanFile {
     public static File file = new File("plugins/SpigotTest/Banned.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
-    public static void saveCFG(String playername) {
+    public static void saveCFG() {
         try {
             cfg.save(file);
         } catch (IOException e) {
@@ -37,14 +37,13 @@ public class BanFile {
         } else {
             cfg.set(playername + ".isBanned", true);
             cfg.set(playername + ".reason", reason);
-            saveCFG(playername);
+            saveCFG();
             if (!file.exists()) {
                 try {
-                    file.mkdir();
+                    if (!file.mkdir())
+                        System.err.println("File cannot be created!");
                 } catch (Exception ignored) {
-
                 }
-
             }
         }
     }
@@ -54,7 +53,7 @@ public class BanFile {
             Bukkit.getConsoleSender().sendMessage(playername + " ist nicht gebannt!");
         } else {
             cfg.set(playername + ".isBanned", false);
-            saveCFG(playername);
+            saveCFG();
         }
     }
 
