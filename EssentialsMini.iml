@@ -44,7 +44,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-api:2.8.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-core:2.8.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.frame-dev:MongoDBConnection:1.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: de.framedev:MongoDBConnection:1.1.0-RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.mongodb:mongodb-driver-sync:3.11.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.mongodb:bson:3.11.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.mongodb:mongodb-driver-core:3.11.0" level="project" />

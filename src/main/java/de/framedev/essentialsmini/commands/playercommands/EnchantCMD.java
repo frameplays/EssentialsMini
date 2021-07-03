@@ -10,8 +10,10 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,7 +44,10 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
                 if (player.hasPermission(plugin.getPermissionName() + "enchant")) {
                     if (player.getInventory().getItemInMainHand().getType() != AIR) {
                         ItemMeta meta = player.getInventory().getItemInMainHand().getItemMeta();
-                        if (Enchantments.getByName(args[0]) != null) {
+                        if (args[0].equalsIgnoreCase("unbreakable")) {
+                            meta.setUnbreakable(true);
+                            player.getInventory().getItemInMainHand().setItemMeta(meta);
+                        } else if (Enchantments.getByName(args[0]) != null) {
                             meta.addEnchant(Enchantments.getByName(args[0]), Integer.parseInt(args[1]), true);
                             player.getInventory().getItemInMainHand().setItemMeta(meta);
                         } else {
@@ -50,8 +55,7 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
                         }
                     } else {
                         String noItemInHand = plugin.getCustomMessagesConfig().getString("NoItemFoundInHand");
-                        if(noItemInHand.contains("&"))
-                            noItemInHand = noItemInHand.replace('&','§');
+                        noItemInHand = ReplaceCharConfig.replaceParagraph(noItemInHand);
                         player.sendMessage(plugin.getPrefix() + noItemInHand);
                     }
                 } else {
@@ -66,7 +70,10 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
                 if (target != null) {
                     if (target.getInventory().getItemInMainHand().getType() != AIR) {
                         ItemMeta meta = target.getInventory().getItemInMainHand().getItemMeta();
-                        if (Enchantments.getByName(args[0]) != null) {
+                        if (args[0].equalsIgnoreCase("unbreakable")) {
+                            meta.setUnbreakable(true);
+                            target.getInventory().getItemInMainHand().setItemMeta(meta);
+                        } else if (Enchantments.getByName(args[0]) != null) {
                             meta.addEnchant(Enchantments.getByName(args[0]), Integer.parseInt(args[1]), true);
                             target.getInventory().getItemInMainHand().setItemMeta(meta);
                         } else {
@@ -124,7 +131,7 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
         private static final Map<String, Enchantment> ALIASENCHANTMENTS = new HashMap<String, Enchantment>();
 
         public static Enchantment getByName(String name) {
-            Enchantment enchantment = Enchantment.getByName(name.toUpperCase(Locale.ENGLISH));
+            Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(name.toUpperCase(Locale.ENGLISH)));
             if (enchantment == null) {
                 enchantment = ENCHANTMENTS.get(name.toLowerCase(Locale.ENGLISH));
             }

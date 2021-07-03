@@ -6,7 +6,7 @@
 
     <groupId>de.framedev</groupId>
     <artifactId>EssentialsMini</artifactId>
-    <version>1.2.7.2-PRE-RELEASE</version>
+    <version>1.2.7.3-PRE-RELEASE</version>
 
     <properties>
         <repo_version>pre-release</repo_version>
@@ -100,9 +100,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.frame-dev</groupId>
+            <groupId>de.framedev</groupId>
             <artifactId>MongoDBConnection</artifactId>
-            <version>1.0</version>
+            <version>1.1.0-RELEASE</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

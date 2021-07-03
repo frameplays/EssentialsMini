@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.utils;
 
 
 public class ReplaceCharConfig {
+
     public static String replaceParagraph(String text) {
         if (text == null) return "";
         if (text.contains("&"))
@@ -17,14 +18,42 @@ public class ReplaceCharConfig {
         return (double) number;
     }
 
-    // //
+    public static Double convertFloatToDouble(float number) {
+        return (double) number;
+    }
+
+    public static Double convertLongToDouble(long number) {
+        return (double) number;
+    }
+
+    public static Double convertShortToDouble(short number) {
+        return (double) number;
+    }
+
     public static Integer convertDoubleToInteger(double number) {
+        return (int) number;
+    }
+
+    public static Integer convertFloatToInteger(float number) {
+        return (int) number;
+    }
+
+    public static Integer convertLongToInteger(long number) {
+        return (int) number;
+    }
+
+    public static Integer convertByteToInteger(byte number) {
+        return (int) number;
+    }
+
+    public static Integer convertShortToInteger(short number) {
         return (int) number;
     }
 
     public static Integer convertStringToInteger(String text) {
         return Integer.parseInt(text);
     }
+
 
     public static Double convertStringToDouble(String text) {
         return Double.parseDouble(text);
