@@ -7,10 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Dies ist ein Plugin von FrameDev
- * Bitte nichts ändern, @Copyright by FrameDev
- */
 public class BanFile {
 
     public static File file = new File("plugins/SpigotTest/Banned.yml");
@@ -20,7 +16,6 @@ public class BanFile {
         try {
             cfg.save(file);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

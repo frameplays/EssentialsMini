@@ -23,6 +23,10 @@ public class InventoryManager {
     public InventoryManager() {
     }
 
+    public InventoryManager(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -36,46 +40,47 @@ public class InventoryManager {
     }
 
     public void setSize(int size) {
+        if (size == 0) return;
         this.size = size;
     }
 
     public void setItem(int index, ItemStack itemStack) {
-        if(inventory == null) return;
+        if (inventory == null) return;
         inventory.setItem(index, itemStack);
     }
 
     public void setItem(int index, Material material) {
-        if(inventory == null) return;
+        if (inventory == null) return;
         inventory.setItem(index, new ItemStack(material));
     }
 
     public ItemStack getItem(int index) {
-        if(inventory == null) return null;
+        if (inventory == null) return null;
         return inventory.getItem(index);
     }
 
     public void addItem(ItemStack itemStack) {
-        if(inventory == null) return;
+        if (inventory == null) return;
         this.inventory.addItem(itemStack);
     }
 
     public void addItem(Material material) {
-        if(this.inventory == null) return;
+        if (this.inventory == null) return;
         this.inventory.addItem(new ItemStack(material));
     }
 
     public InventoryManager create() {
-        if(title == null) title = "Inventory";
-        if(size == 0) size = 1;
+        if (title == null) title = "Inventory";
+        if (size == 0) size = 1;
         this.inventory = Bukkit.createInventory(null, getSize(), getTitle());
         return this;
     }
 
     public void fillNull() {
         int inventorySize = size * 9;
-        for(int i = 0; i < inventorySize; i++) {
-            if(inventory.getItem(i) == null) {
-                inventory.setItem(i,new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName(" ").build());
+        for (int i = 0; i < inventorySize; i++) {
+            if (inventory.getItem(i) == null) {
+                inventory.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName(" ").build());
             }
         }
     }

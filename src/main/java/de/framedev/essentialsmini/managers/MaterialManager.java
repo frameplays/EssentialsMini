@@ -137,8 +137,7 @@ public class MaterialManager {
         if (file.exists()) {
             try {
                 FileReader fileReader = new FileReader(file);
-                Type type = new TypeToken<ArrayList<Material>>() {
-                }.getType();
+                Type type = new TypeToken<ArrayList<Material>>(){}.getType();
                 return new Gson().fromJson(fileReader, type);
             } catch (IOException e) {
                 e.printStackTrace();

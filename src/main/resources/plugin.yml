@@ -106,9 +106,6 @@ commands:
   signitem:
     description: sign your custom Item
   playerheads:
-    aliases:
-      - heads
-      - head
     description: getPlayer heads from Players
   r:
     aliases:

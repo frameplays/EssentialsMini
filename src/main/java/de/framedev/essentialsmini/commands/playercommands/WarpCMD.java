@@ -158,9 +158,9 @@ public class WarpCMD extends CommandBase {
             if (sender.hasPermission("essentialsmini.delwarp")) {
                 if (args.length == 1) {
                     String warp = args[0].toLowerCase();
-                    new LocationsManager().getCfg().set("warps." + warp, " ");
+                    new LocationsManager().getCfg().set("warps." + warp, null);
                     new LocationsManager().saveCfg();
-                    String message = plugin.getCustomMessagesConfig().getString("World.Delete");
+                    String message = plugin.getCustomMessagesConfig().getString("Warp.Delete");
                     if (message.contains("&"))
                         message = message.replace('&', '§');
                     if (message.contains("%WarpName%"))
