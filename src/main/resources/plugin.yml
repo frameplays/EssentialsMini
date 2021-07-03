@@ -85,6 +85,8 @@ commands:
   backpack:
     description: Opens an Backpack
   essentialsmini:
+    aliases:
+      - essmini
     description: Command for all Children Commands
   sleep:
     description: Use this command as Sleepback the Bed despawn at 7 seconds

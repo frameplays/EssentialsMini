@@ -2,7 +2,6 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
-import de.framedev.essentialsmini.utils.Config;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -25,8 +24,8 @@ public class EssentialsMiniCMD extends CommandBase {
     public EssentialsMiniCMD(Main plugin) {
         super(plugin);
         this.plugin = plugin;
-        setup("essentialsmini",this);
-        setupTabCompleter("essentialsmini",this);
+        setup("essentialsmini", this);
+        setupTabCompleter("essentialsmini", this);
     }
 
     @Override
@@ -35,12 +34,7 @@ public class EssentialsMiniCMD extends CommandBase {
             if (sender.hasPermission("essentialsmini.utils")) {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("reload")) {
-                        plugin.getServer().getPluginManager().disablePlugin(plugin);
-                        plugin.getServer().getPluginManager().enablePlugin(plugin);
                         plugin.reloadConfig();
-                        Config.updateConfig();
-                        Config.loadConfig();
-                        Config.saveDefaultConfigValues();
                         sender.sendMessage(plugin.getPrefix() + "§aConfig wurde reloaded!");
                     }
                     if (args[0].equalsIgnoreCase("info")) {
@@ -173,7 +167,7 @@ public class EssentialsMiniCMD extends CommandBase {
                     return empty;
                 }
             } else if (args.length == 2) {
-                if (!args[0].equalsIgnoreCase("reload")) {
+                if (!args[0].equalsIgnoreCase("reload") && !args[0].equalsIgnoreCase("info")) {
                     ArrayList<String> cmds = new ArrayList<>();
                     ArrayList<String> empty = new ArrayList<>();
                     cmds.add("true");

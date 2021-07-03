@@ -127,13 +127,16 @@ public class Main extends JavaPlugin {
         /* MaterialManager initialling */
         this.materialManager = new MaterialManager();
         this.materialManager.saveMaterials();
-        this.materialManager.saveMaterialToJson();
+
+        // Variables
+        this.variables = new Variables();
+
+        if (getVariables().isJsonFormat())
+            this.materialManager.saveMaterialToJson();
 
         /* TPS Command Timer */
         this.spigotTimer = new LagCMD.SpigotTimer();
 
-        // Variables
-        this.variables = new Variables();
 
         this.keyGenerator = new KeyGenerator();
 
@@ -323,6 +326,7 @@ public class Main extends JavaPlugin {
 
         checkUpdate(getConfig().getBoolean("AutoDownload"));
 
+        infoCfg.set("PluginName", this.getDescription().getName());
         infoCfg.set("PluginVersion", this.getVariables().getVersion());
         infoCfg.set("API-Version", this.getVariables().getApiVersion());
         infoCfg.set("Authors", this.getVariables().getAuthors());
@@ -432,6 +436,7 @@ public class Main extends JavaPlugin {
 
     /**
      * Return the Info File for this Plugin
+     *
      * @return returns the Info Config
      */
     public FileConfiguration getInfoCfg() {
@@ -555,6 +560,7 @@ public class Main extends JavaPlugin {
 
     /**
      * Diese Methode gibt die Klasse Variables zurück
+     *
      * @return die Variablen die gespeichert wurden verfügbar mit dem Getter
      */
     public Variables getVariables() {
@@ -612,7 +618,7 @@ public class Main extends JavaPlugin {
             String oldVersion = Main.getInstance().getDescription().getVersion();
             String newVersion = br.readLine();
             if (!newVersion.equalsIgnoreCase(oldVersion)) {
-                if(!oldVersion.contains("PRE-RELEASE")) {
+                if (!oldVersion.contains("PRE-RELEASE")) {
                     if (download) {
                         downloadLatest();
                         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Latest Version will be Downloaded : New Version : " + newVersion);
@@ -695,7 +701,7 @@ public class Main extends JavaPlugin {
                     String oldVersion = Main.getInstance().getDescription().getVersion();
                     String newVersion = br.readLine();
                     if (!newVersion.equalsIgnoreCase(oldVersion)) {
-                        if(!oldVersion.endsWith("PRE-RELEASE")) {
+                        if (!oldVersion.endsWith("PRE-RELEASE")) {
                             BaseComponent base = new TextComponent();
                             base.addExtra(getPrefix() + "§aNew Version = §6" + newVersion + " §b§l[Please Click Here to Download the newest Plugin!]");
                             base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.stream/sites/downloads/essentialsmini"));
@@ -739,6 +745,7 @@ public class Main extends JavaPlugin {
 
     /**
      * This is used for returning the SpigotTimer for the Lag Command
+     *
      * @return returns the Lag Timer
      */
     public LagCMD.SpigotTimer getSpigotTimer() {
