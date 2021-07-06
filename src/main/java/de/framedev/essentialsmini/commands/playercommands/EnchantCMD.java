@@ -131,7 +131,7 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
         private static final Map<String, Enchantment> ALIASENCHANTMENTS = new HashMap<String, Enchantment>();
 
         public static Enchantment getByName(String name) {
-            Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(name.toUpperCase(Locale.ENGLISH)));
+            Enchantment enchantment = Enchantment.getByName(name.toUpperCase(Locale.ENGLISH));
             if (enchantment == null) {
                 enchantment = ENCHANTMENTS.get(name.toLowerCase(Locale.ENGLISH));
             }

@@ -25,7 +25,7 @@ public class RenameItemCMD extends CommandBase {
     private final Main plugin;
 
     public RenameItemCMD(Main plugin) {
-        super(plugin, "rerenameitem");
+        super(plugin, "renameitem");
         this.plugin = plugin;
         setup(this);
     }
@@ -38,23 +38,23 @@ public class RenameItemCMD extends CommandBase {
                     if (((Player) sender).getInventory().getItemInMainHand().getItemMeta().hasDisplayName()) {
                         String oldDisplayName = ((Player) sender).getInventory().getItemInMainHand().getItemMeta().getDisplayName();
                         ItemMeta meta = ((Player) sender).getInventory().getItemInMainHand().getItemMeta();
-                        String display = "";
+                        StringBuilder display = new StringBuilder();
                         for (int i = 0; i < args.length; i++) {
-                            display = display + args[i] + " ";
+                            display.append(args[i]).append(" ");
                         }
-                        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', display));
+                        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', display.toString()));
                         ((Player) sender).getInventory().getItemInMainHand().setItemMeta(meta);
-                        sender.sendMessage(plugin.getPrefix() + "§aDas Item wurde unbenannt von §6" + oldDisplayName + " §azu §6" + ChatColor.translateAlternateColorCodes('&', display));
+                        sender.sendMessage(plugin.getPrefix() + "§aDas Item wurde unbenannt von §6" + oldDisplayName + " §azu §6" + ChatColor.translateAlternateColorCodes('&', display.toString()));
                     } else {
                         String oldDisplayName = ((Player) sender).getInventory().getItemInMainHand().getType().name();
                         ItemMeta meta = ((Player) sender).getInventory().getItemInMainHand().getItemMeta();
-                        String display = "";
+                        StringBuilder display = new StringBuilder();
                         for (int i = 0; i < args.length; i++) {
-                            display = display + args[i] + " ";
+                            display.append(args[i]).append(" ");
                         }
-                        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', display));
+                        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', display.toString()));
                         ((Player) sender).getInventory().getItemInMainHand().setItemMeta(meta);
-                        sender.sendMessage(plugin.getPrefix() + "§aDas Item wurde unbenannt von §6" + oldDisplayName + " §azu §6" + ChatColor.translateAlternateColorCodes('&', display));
+                        sender.sendMessage(plugin.getPrefix() + "§aDas Item wurde unbenannt von §6" + oldDisplayName + " §azu §6" + ChatColor.translateAlternateColorCodes('&', display.toString()));
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + "§cAir kann nicht unbenannt werden!");

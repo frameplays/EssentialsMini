@@ -6,7 +6,7 @@
 
     <groupId>de.framedev</groupId>
     <artifactId>EssentialsMini</artifactId>
-    <version>1.2.7.3-PRE-RELEASE</version>
+    <version>1.2.7.4-PRE-RELEASE</version>
 
     <properties>
         <repo_version>pre-release</repo_version>

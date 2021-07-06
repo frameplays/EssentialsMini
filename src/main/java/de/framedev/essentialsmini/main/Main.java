@@ -317,7 +317,8 @@ public class Main extends JavaPlugin {
                         "lastlogout LONG",
                         "commandsused INT",
                         "blocksBrokenList TEXT",
-                        "blocksPlacenList TEXT");
+                        "blocksPlacenList TEXT",
+                        "entityTypes TEXT");
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aMySQL Table Created!");
             }
         }

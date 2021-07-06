@@ -50,6 +50,7 @@ public class PlayerManager implements Serializable {
 
     public PlayerManager(UUID uuid) {
         this.uuid = uuid;
+        this.name = Bukkit.getOfflinePlayer(uuid).getName();
         file = new File(Main.getInstance().getDataFolder() + "/PlayerData", uuid.toString() + ".yml");
         cfg = YamlConfiguration.loadConfiguration(file);
         if (file.exists()) {
@@ -138,26 +139,22 @@ public class PlayerManager implements Serializable {
 
     public void setEntityTypes(ArrayList<EntityType> entityTypes) {
         this.entityTypes = entityTypes;
-        List<String> types = new ArrayList<>();
-        for (EntityType type : entityTypes) {
-            types.add(type.name());
+        ArrayList<String> names = new ArrayList<>();
+        for (EntityType material : entityTypes) {
+            names.add(material.name());
         }
-        cfg.set("EntityTypesKilled", types);
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        cfg.set("EntityTypesKilled", names);
+        saveConfig();
     }
 
     public ArrayList<EntityType> getEntityTypes() {
         if (cfg.contains("EntityTypesKilled")) {
-            ArrayList<EntityType> types = new ArrayList<>();
             List<String> typeNames = cfg.getStringList("EntityTypesKilled");
+            ArrayList<EntityType> mats = new ArrayList<>();
             for (String s : typeNames) {
-                types.add(EntityType.valueOf(s));
+                mats.add(EntityType.fromName(s));
             }
-            this.entityTypes = types;
+            this.entityTypes = mats;
         }
         return entityTypes;
     }
@@ -521,11 +518,12 @@ public class PlayerManager implements Serializable {
                 SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "commandsused", "'" + getCommandsUsed() + "'", "playeruuid = '" + player.getUniqueId() + "'");
                 SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "'" + new Gson().toJson(getBlocksBroken()) + "'", "playeruuid = '" + player.getUniqueId() + "'");
                 SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "'" + new Gson().toJson(getBlocksPlace()) + "'", "playeruuid = '" + player.getUniqueId() + "'");
+                SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "entityTypes", "'" + new Gson().toJson(getEntityTypes()) + "'", "playeruuid = '" + player.getUniqueId() + "'");
             } else {
                 SQL.insertData(Main.getInstance().getName().toLowerCase() + "_data", "'" + player.getUniqueId() + "','" + getSleepTimes() + "','" + getDamage() + "','" + getPlayerKills() + "'," +
                                 "'" + getEntityKills() + "','" + getDeaths() + "','" + getBlockBroken() + "','" + getBlockPlace() + "','" +
-                                getLastLogin() + "','" + getLastLogout() + "','" + getCommandsUsed() + "','" + new Gson().toJson(getBlocksBroken()) + "','" + new Gson().toJson(getBlocksPlace()) + "'",
-                        "playeruuid", "sleeptimes", "damage", "playerkills", "entitykills", "deaths", "blocksbroken", "blocksplacen", "lastlogin", "lastlogout", "commandsused", "blocksBrokenList", "blocksPlacenList");
+                                getLastLogin() + "','" + getLastLogout() + "','" + getCommandsUsed() + "','" + new Gson().toJson(getBlocksBroken()) + "','" + new Gson().toJson(getBlocksPlace()) + "','" + new Gson().toJson(getEntityTypes()) + "'",
+                        "playeruuid", "sleeptimes", "damage", "playerkills", "entitykills", "deaths", "blocksbroken", "blocksplacen", "lastlogin", "lastlogout", "commandsused", "blocksBrokenList", "blocksPlacenList", "entityTypes");
             }
         } else {
             if (SQL.exists(Main.getInstance().getName().toLowerCase() + "_data", "playername", player.getName() + "")) {
@@ -541,11 +539,12 @@ public class PlayerManager implements Serializable {
                 SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "commandsused", "'" + getCommandsUsed() + "'", "playername = '" + player.getName() + "'");
                 SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "'" + new Gson().toJson(getBlocksBroken()) + "'", "playername = '" + player.getName() + "'");
                 SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "'" + new Gson().toJson(getBlocksPlace()) + "'", "playername = '" + player.getName() + "'");
+                SQL.updateData(Main.getInstance().getName().toLowerCase() + "_data", "entityTypes", "'" + new Gson().toJson(getEntityTypes()) + "'", "playername = '" + player.getName() + "'");
             } else {
                 SQL.insertData(Main.getInstance().getName().toLowerCase() + "_data", "'" + player.getName() + "','" + getSleepTimes() + "','" + getDamage() + "','" + getPlayerKills() + "','" + getEntityKills() + "'," +
                                 "'" + getDeaths() + "','" + getBlockBroken() + "','" + getBlockPlace() + "','" +
-                                getLastLogin() + "','" + getLastLogout() + "','" + getCommandsUsed() + "','" + new Gson().toJson(getBlocksBroken()) + "','" + new Gson().toJson(getBlocksPlace()) + "'",
-                        "playeruuid", "sleeptimes", "damage", "playerkills", "entitykills", "deaths", "blocksbroken", "blocksplacen", "lastlogin", "lastlogout", "commandsused", "blocksBrokenList", "blocksPlacenList");
+                                getLastLogin() + "','" + getLastLogout() + "','" + getCommandsUsed() + "','" + new Gson().toJson(getBlocksBroken()) + "','" + new Gson().toJson(getBlocksPlace()) + "','" + new Gson().toJson(getEntityTypes() + "'"),
+                        "playeruuid", "sleeptimes", "damage", "playerkills", "entitykills", "deaths", "blocksbroken", "blocksplacen", "lastlogin", "lastlogout", "commandsused", "blocksBrokenList", "blocksPlacenList", "entityTypes");
             }
         }
     }
@@ -567,6 +566,7 @@ public class PlayerManager implements Serializable {
                 int commandsused = (int) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "commandsused", "playeruuid", player.getUniqueId() + "");
                 Material[] blocksBrokenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "playeruuid", player.getUniqueId() + ""), Material[].class);
                 Material[] blocksPlacenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "playeruuid", player.getUniqueId() + ""), Material[].class);
+                EntityType[] entityTypes = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "entityTypes", "playeruuid", player.getUniqueId() + ""), EntityType[].class);
                 playerManager.setSleepTimes(level);
                 playerManager.setDamage(damage);
                 playerManager.setPlayerKills(playerkills);
@@ -579,6 +579,7 @@ public class PlayerManager implements Serializable {
                 playerManager.setCommandsUsed(commandsused);
                 playerManager.setBlocksPlace(new ArrayList<Material>(Arrays.asList(blocksPlacenList)));
                 playerManager.setBlocksBroken(new ArrayList<Material>(Arrays.asList(blocksBrokenList)));
+                playerManager.setEntityTypes(new ArrayList<EntityType>(Arrays.asList(entityTypes)));
             }
         } else {
             if (SQL.exists(Main.getInstance().getName().toLowerCase() + "_data", "playername", player.getName() + "")) {
@@ -595,6 +596,7 @@ public class PlayerManager implements Serializable {
                 int commandsused = (int) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "commandsused", "playername", player.getName() + "");
                 Material[] blocksBrokenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksBrokenList", "playername", player.getName() + ""), Material[].class);
                 Material[] blocksPlacenList = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "blocksPlacenList", "playername", player.getName() + ""), Material[].class);
+                EntityType[] entityTypes = new Gson().fromJson((String) SQL.get(Main.getInstance().getName().toLowerCase() + "_data", "entityTypes", "playername", player.getName() + ""), EntityType[].class);
                 playerManager.setSleepTimes(level);
                 playerManager.setDamage(damage);
                 playerManager.setPlayerKills(playerkills);
@@ -607,6 +609,7 @@ public class PlayerManager implements Serializable {
                 playerManager.setCommandsUsed(commandsused);
                 playerManager.setBlocksPlace(new ArrayList<Material>(Arrays.asList(blocksPlacenList)));
                 playerManager.setBlocksBroken(new ArrayList<Material>(Arrays.asList(blocksBrokenList)));
+                playerManager.setEntityTypes(new ArrayList<EntityType>(Arrays.asList(entityTypes)));
             }
         }
         return playerManager;
