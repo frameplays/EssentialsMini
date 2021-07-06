@@ -47,6 +47,7 @@ public class PlayerManager implements Serializable {
     private ArrayList<Material> blocksPlace = new ArrayList<>();
     private ArrayList<EntityType> entityTypes = new ArrayList<>();
     private int commandsUsed;
+    private int crafted;
 
     public PlayerManager(UUID uuid) {
         this.uuid = uuid;
@@ -124,6 +125,25 @@ public class PlayerManager implements Serializable {
         return false;
     }
 
+    public void setCrafted(int crafted) {
+        cfg.set("Crafted", crafted);
+        if (!saveConfig()) {
+            System.err.println("Cannot Save PlayerData");
+        }
+        this.crafted = crafted;
+    }
+
+    public int getCrafted() {
+        if (cfg.contains("Crafted"))
+            return cfg.getInt("Crafted");
+        return crafted;
+    }
+
+    public void addCrafted() {
+        int craft = getCrafted();
+        craft++;
+        setCrafted(craft);
+    }
 
     public void setStatistic(Statistic statistic, int i) {
         player.setStatistic(statistic, i);

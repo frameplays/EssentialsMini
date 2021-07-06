@@ -50,6 +50,7 @@ public class PlayerManagerCfgLoss implements Serializable {
     private ArrayList<Material> blocksPlace = new ArrayList<>();
     private ArrayList<EntityType> entityTypes = new ArrayList<>();
     private int commandsUsed;
+    private int crafted;
 
     public PlayerManagerCfgLoss(UUID uuid) {
         this.uuid = uuid;
@@ -74,6 +75,20 @@ public class PlayerManagerCfgLoss implements Serializable {
         this.lastlogin = 0L;
         this.lastLogout = 0L;
         this.createdAt = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss").format(new Date());
+    }
+
+    public int getCrafted() {
+        return crafted;
+    }
+
+    public void setCrafted(int crafted) {
+        this.crafted = crafted;
+    }
+
+    public void addCrafted() {
+        int craft = getCrafted();
+        craft++;
+        setCrafted(craft);
     }
 
     public String getCreatedAt() {

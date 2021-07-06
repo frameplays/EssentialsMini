@@ -29,6 +29,8 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -234,7 +236,7 @@ public class PlayerListeners implements Listener {
                         String table = "essentialsmini_playerdata";
                         if (SQL.isTableExists("essentialsmini_playerdata")) {
                             if (SQL.exists(table, "UUID", event.getPlayer().getUniqueId().toString())) {
-                                SQL.updateData(table, "PlayerData",  "'" + new GsonBuilder().serializeNulls().create().
+                                SQL.updateData(table, "PlayerData", "'" + new GsonBuilder().serializeNulls().create().
                                         toJson(plugin.getCfgLossHashMap().get(event.getPlayer())) + "'", "UUID ='" + event.getPlayer().getUniqueId().toString() + "'");
                             } else {
                                 SQL.insertData(table, "'" + event.getPlayer().getUniqueId().toString() + "','" + event.getPlayer().getName() + "'," +
@@ -279,6 +281,19 @@ public class PlayerListeners implements Listener {
                     plugin.getBackendManager().updateUser(event.getPlayer(), "lastLogout", System.currentTimeMillis() + "", collection);
                     plugin.getBackendManager().updateUser(event.getPlayer(), "offline", true, collection);
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerCrafted(InventoryCloseEvent event) {
+        if (event.getInventory().getType() == InventoryType.CRAFTING) {
+            if (isJsonFormat()) {
+                if (plugin.getCfgLossHashMap().containsKey((Player) event.getPlayer())) {
+                    plugin.getCfgLossHashMap().get((Player) event.getPlayer()).addCrafted();
+                }
+            } else {
+                new PlayerManager(event.getPlayer().getUniqueId()).addCrafted();
             }
         }
     }
