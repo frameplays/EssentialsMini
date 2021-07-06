@@ -9,8 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Pom Updated">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,13 +178,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00082" summary="TempBan Updated / Mute Updated">
-      <created>1621632435064</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1621632435064</updated>
     </task>
     <task id="LOCAL-00083" summary="TempBan Updated / Mute Updated">
       <created>1621632488971</created>
@@ -522,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625348179963</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="Pom Updated">
+      <created>1625590919250</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1625590919251</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -560,7 +560,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="MySQL Ban Mute CMD Added" />
     <MESSAGE value="MySQL Ban Mute CMD Bug Fixing" />
     <MESSAGE value="Bug Fixes / MongoDB VaultAPI Bug Fixing" />
     <MESSAGE value="API Updated" />
@@ -585,7 +584,8 @@
     <MESSAGE value="WarpCMD Bug Fixes" />
     <MESSAGE value="Updated" />
     <MESSAGE value="Bug Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes" />
+    <MESSAGE value="Pom Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pom Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

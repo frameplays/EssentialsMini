@@ -29,7 +29,7 @@
         </repository>
         <repository>
             <id>repo</id>
-            <url>https://framedev.stream:444/releases</url>
+            <url>http://framedev.stream:82/releases</url>
         </repository>
     </repositories>
     <distributionManagement>
