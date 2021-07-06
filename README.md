@@ -8,6 +8,7 @@ ___
 - [Download Pre-Release](#pre-releases)
 
 ### Build by your own:
+Require Maven / Java
 ```
 git clone https://github.com/frame-dev/EssentialsMini.git
 cd EssentialsMini
