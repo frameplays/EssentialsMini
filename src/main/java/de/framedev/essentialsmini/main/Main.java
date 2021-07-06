@@ -627,8 +627,8 @@ public class Main extends JavaPlugin {
                     }
                     return true;
                 } else {
-                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cThis Plugin is a Pre-Release §6(" + oldVersion + ")§c | §6There could still be errors");
-                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "There should be a new Version check if its newer than your Version : " + newVersion + " Your Version : §6" + oldVersion);
+                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cThis Plugin is a Pre-Release | §6There could still be errors");
+                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "There should be a new Version check if its newer than your Version : " + newVersion + ".| Your Version : §6" + oldVersion);
                 }
             } else {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
