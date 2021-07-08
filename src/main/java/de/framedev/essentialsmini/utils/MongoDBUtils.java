@@ -49,14 +49,29 @@ public class MongoDBUtils {
         }
     }
 
+    /**
+     * This Method returns if MongoDB is enabled or not
+     *
+     * @return return if MongoDB is Enabled or not
+     */
     public boolean isMongoDb() {
         return mongoDb;
     }
 
+    /**
+     * This Method returns the MongoManager class
+     *
+     * @return return MongoManager class
+     */
     public MongoManager getMongoManager() {
         return mongoManager;
     }
 
+    /**
+     * This Method returns the BackendManager class
+     *
+     * @return return BackendManager class
+     */
     public BackendManager getBackendManager() {
         return backendManager;
     }
