@@ -37,6 +37,6 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
   
 ### Pre-Releases
 #### [Download Pre-Release 1.13 - 1.16.5](https://github.com/frame-dev/EssentialsMini/releases/download/1.2.7.4-PRE-RELEASE/EssentialsMini-1.2.7.4-PRE-RELEASE.jar)
-#### [Download Pre-Release 1.17](https://github.com/frame-dev/EssentialsMini/releases/download/1.2.7.4-PRE-RELEASE/EssentialsMini-1.2.7.4-PRE-RELEASE.jar)
+#### [Download Pre-Release 1.17](https://github.com/frame-dev/EssentialsMini/releases/download/1.2.8.1-PRE-RELEASE/EssentialsMini-1.2.8.1-PRE-RELEASE.jar)
 <br><br><br>
 <div style="text-align:center"><img src="https://framedev.stream/logo.jpg" /></div>
