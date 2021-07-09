@@ -72,3 +72,6 @@ WorldBackup: false
 BackupWorldTime: 60
 
 OnlyEssentialsFeatures: true
+
+Vanish:
+  Message: false

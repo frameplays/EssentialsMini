@@ -144,7 +144,7 @@ public class Main extends JavaPlugin {
             this.materialManager.saveMaterialToJson();
 
         /* TPS Command Timer */
-        this.spigotTimer = new LagCMD.SpigotTimer();
+        // this.spigotTimer = new LagCMD.SpigotTimer();
 
 
         this.keyGenerator = new KeyGenerator();

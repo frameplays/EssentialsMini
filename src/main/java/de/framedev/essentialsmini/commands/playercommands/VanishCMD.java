@@ -50,6 +50,12 @@ public class VanishCMD extends CommandBase implements Listener {
                             if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             player.sendMessage(plugin.getPrefix() + message);
+                            if(plugin.getConfig().getBoolean("Vanish.Message")) {
+                                String joinMessage = plugin.getConfig().getString("JoinMessage");
+                                joinMessage = joinMessage.replace('&', '§');
+                                joinMessage = joinMessage.replace("%Player%", player.getName());
+                                Bukkit.broadcastMessage(joinMessage);
+                            }
                             return true;
                         } else {
                             Bukkit.getOnlinePlayers().forEach(o -> {
@@ -62,6 +68,14 @@ public class VanishCMD extends CommandBase implements Listener {
                             if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             player.sendMessage(plugin.getPrefix() + message);
+                            if(plugin.getConfig().getBoolean("Vanish.Message")) {
+                                String leaveMessage = plugin.getConfig().getString("LeaveMessage");
+                                if (leaveMessage.contains("&")) {
+                                    leaveMessage = leaveMessage.replace('&', '§');
+                                    leaveMessage = leaveMessage.replace("%Player%", player.getName());
+                                }
+                                Bukkit.broadcastMessage(leaveMessage);
+                            }
                             return true;
                         }
                     } else {

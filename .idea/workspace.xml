@@ -9,12 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes / PlayerManager Methods Added (Save Crafting)">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="1.17 Update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javadocs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/VanishCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/VanishCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/SleepListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/SleepListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/MongoDBUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/MongoDBUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,13 +182,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00090" summary="MuteCMD Updated">
-      <created>1621636829482</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1621636829482</updated>
     </task>
     <task id="LOCAL-00091" summary="MuteCMD TabCompleter Updated">
       <created>1621637081371</created>
@@ -526,7 +519,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625600829198</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="1.17 Update">
+      <created>1625775199805</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1625775199805</updated>
+    </task>
+    <option name="localTasksCounter" value="140" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -564,7 +564,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="API Updated" />
     <MESSAGE value="Messages File Updated and Example Added for editing and Replace with the old one." />
     <MESSAGE value="1.2.6-RELEASE" />
     <MESSAGE value="Temp ban Bug Fix" />
@@ -589,7 +588,8 @@
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Bug Fixes / PlayerManager Updated" />
     <MESSAGE value="Bug Fixes / PlayerManager Methods Added (Save Crafting)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes / PlayerManager Methods Added (Save Crafting)" />
+    <MESSAGE value="1.17 Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.17 Update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
