@@ -35,7 +35,7 @@ public class RegisterManager {
         new SleepListener(plugin);
         new PlayerListeners(plugin);
         new MoneySignListeners(plugin);
-        new BanListner(plugin);
+        new BanListener(plugin);
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
@@ -89,7 +89,6 @@ public class RegisterManager {
         new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
-        new MySQLCMD(plugin);
         new EconomyCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate")) {
             new PayCMD(plugin);

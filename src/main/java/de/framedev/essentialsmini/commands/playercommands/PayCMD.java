@@ -4,7 +4,6 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -70,8 +69,8 @@ public class PayCMD extends CommandBase {
                                     }
                                 }
                             } else {
-                                Player player = Bukkit.getPlayer(args[1]);
-                                if (player != null) {
+                                OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+                                if (player.hasPlayedBefore()) {
                                     if (plugin.getVaultManager().getEco().has(p, amount)) {
                                         plugin.getVaultManager().getEco().withdrawPlayer(p, amount);
                                         plugin.getVaultManager().getEco().depositPlayer(player, amount);
@@ -85,7 +84,8 @@ public class PayCMD extends CommandBase {
                                             got = new TextUtils().replaceObject(got, "[Player]", sender.getName());
                                             got = new TextUtils().replaceObject(got, "[Money]", amount + plugin.getCurrencySymbol());
                                         }
-                                        player.sendMessage(plugin.getPrefix() + got);
+                                        if (player.isOnline())
+                                            ((Player)player).sendMessage(plugin.getPrefix() + got);
                                         sender.sendMessage(plugin.getPrefix() + send);
                                     } else {
                                         String moneySet = plugin.getCustomMessagesConfig().getString("Money.MSG.NotEnough");
@@ -212,7 +212,7 @@ public class PayCMD extends CommandBase {
                 ValueComparator bvc = new ValueComparator(mostplayers);
                 TreeMap<String, Double> sorted_map = new TreeMap<>(bvc);
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    if(plugin.getVaultManager().getEco().getBanks().isEmpty()) {
+                    if (plugin.getVaultManager().getEco().getBanks().isEmpty()) {
                         mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
                     } else {
                         for (String bank : plugin.getVaultManager().getEco().getBanks()) {
@@ -225,7 +225,7 @@ public class PayCMD extends CommandBase {
                     }
                 }
                 for (OfflinePlayer alloffline : Bukkit.getOfflinePlayers()) {
-                    if(plugin.getVaultManager().getEco().getBanks().isEmpty()) {
+                    if (plugin.getVaultManager().getEco().getBanks().isEmpty()) {
                         mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
                     } else {
                         for (String bank : plugin.getVaultManager().getEco().getBanks()) {

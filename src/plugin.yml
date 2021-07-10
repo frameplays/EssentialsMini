@@ -174,7 +174,6 @@ commands:
     description: This will allow or deny messages from other players
   tptoggle:
     description: This will allow or deny Teleports from other players
-  mysql:
 permissions:
   essentialsmini.*:
     children:

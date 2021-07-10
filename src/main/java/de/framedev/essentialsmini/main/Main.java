@@ -199,10 +199,11 @@ public class Main extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups werden gemacht!");
         }
         /* Thread for the Schedulers for save restart and .... */
-        if (!getConfig().getBoolean("OnlyEssentialsFeatures"))
+        if (!getConfig().getBoolean("OnlyEssentialsFeatures")) {
             thread = new Thread(new UpdateScheduler());
-        if (thread != null)
-            thread.start();
+            if (thread != null)
+                thread.start();
+        }
 
         if (this.getConfig().getBoolean("SaveInventory")) {
             SaveInventoryCMD.restore();
@@ -522,6 +523,7 @@ public class Main extends JavaPlugin {
      */
     public boolean isMongoDB() {
         if (mongoDbUtils == null) return false;
+        this.mongoDb = this.mongoDbUtils.isMongoDb();
         return this.mongoDbUtils.isMongoDb();
     }
 
@@ -632,6 +634,10 @@ public class Main extends JavaPlugin {
     }
 
 
+    /**
+     * Return the no Perms Variable
+     * @return Return the Message for no Permissions
+     */
     public String getNOPERMS() {
         String NOPERMS = getCustomMessagesConfig().getString("NoPermissions");
         NOPERMS = NOPERMS.replace('&', '§');

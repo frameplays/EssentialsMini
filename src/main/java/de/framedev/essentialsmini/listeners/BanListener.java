@@ -18,9 +18,9 @@ import java.util.Date;
 import java.util.Objects;
 
 
-public class BanListner extends ListenerBase {
+public class BanListener extends ListenerBase {
 
-    public BanListner(Main plugin) {
+    public BanListener(Main plugin) {
         super(plugin);
         setupListener(this);
     }
