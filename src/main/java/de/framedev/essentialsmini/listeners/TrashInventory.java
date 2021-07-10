@@ -28,6 +28,7 @@ public class TrashInventory implements CommandExecutor, Listener {
     public TrashInventory(Main plugin) {
         this.plugin = plugin;
         plugin.getListeners().add(this);
+        // Trash Command Register
         plugin.getCommands().put("trash", this);
     }
 

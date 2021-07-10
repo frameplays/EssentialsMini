@@ -190,10 +190,6 @@ public class Main extends JavaPlugin {
         // Load Enchantments
         EnchantCMD.Enchantments.load();
 
-        if (this.getConfig().getBoolean("SaveInventory")) {
-            new SaveInventoryCMD(this);
-        }
-
         // LocationBackup
         if (getConfig().getBoolean("LocationsBackup")) {
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups werden gemacht!");

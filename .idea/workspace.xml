@@ -9,10 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes and Features Added">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Command Removed / JavaDocs Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/PlayerListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/PlayerListeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/TrashInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/TrashInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
