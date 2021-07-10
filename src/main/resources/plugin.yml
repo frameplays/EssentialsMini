@@ -169,15 +169,16 @@ commands:
       - god
   spawnmob:
     description: Spawn a Custom Mob
-  sethealth:
   getlocationfromstring:
   register:
   login:
   speed:
+    description: Change your Walk Speed
   chatclear:
     aliases:
       - cc
       - clearchat
+    description: Clear the Chat
   lightningstrike:
     aliases:
       - lightning
@@ -185,7 +186,9 @@ commands:
   pay:
     description: Pay Money to another Player
   pltime:
+    description: Change the Playertime
   resetpltime:
+    description: Reset the Playertime
   fuck:
   lag:
   delwarp:
@@ -210,6 +213,7 @@ commands:
     description: Change your Fly Speed
   tempmute:
   muteinfo:
+    description: Show all Muted Player and there Reason and Expiration
   removetempmute:
   mute:
     description: Mute a Player

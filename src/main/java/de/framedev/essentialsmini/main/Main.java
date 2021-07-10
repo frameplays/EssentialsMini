@@ -37,8 +37,11 @@ public class Main extends JavaPlugin {
     private Thread thread;
 
     /* Commands, TabCompleters and Listeners List */
+    // Register Commands HashMap
     private HashMap<String, CommandExecutor> commands;
+    // Register TabCompleter HashMap
     private HashMap<String, TabCompleter> tabCompleters;
+    // Register Listener List
     private ArrayList<Listener> listeners;
 
     private final HashMap<OfflinePlayer, PlayerManagerCfgLoss> cfgLossHashMap = new HashMap<>();
@@ -51,9 +54,11 @@ public class Main extends JavaPlugin {
 
     /* Material Manager */
     private MaterialManager materialManager;
+    // Variables
     private Variables variables;
     private KeyGenerator keyGenerator;
 
+    // VaultManager Require Vault
     private VaultManager vaultManager;
     /* Custom Config File */
     private File customConfigFile;
@@ -75,8 +80,10 @@ public class Main extends JavaPlugin {
 
     private Map<String, Object> limitedHomes;
 
+    // Variables for DataBases
     private boolean mysql;
     private boolean sql;
+    private boolean mongoDb;
 
 
     private String currencySymbol;
@@ -89,8 +96,10 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // instance initializing
         instance = this;
 
+        // Info FileConfiguration
         this.infoFile = new File(getDataFolder(), "info.yml");
         this.infoCfg = YamlConfiguration.loadConfiguration(infoFile);
 
@@ -135,7 +144,7 @@ public class Main extends JavaPlugin {
             this.materialManager.saveMaterialToJson();
 
         /* TPS Command Timer */
-        this.spigotTimer = new LagCMD.SpigotTimer();
+        // this.spigotTimer = new LagCMD.SpigotTimer();
 
 
         this.keyGenerator = new KeyGenerator();
@@ -169,6 +178,7 @@ public class Main extends JavaPlugin {
 
         if (Bukkit.getServer().getPluginManager().getPlugin("MDBConnection") != null) {
             this.mongoDbUtils = new MongoDBUtils();
+            this.mongoDb = mongoDbUtils.isMongoDb();
             if (isMongoDB()) {
                 for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
                     getBackendManager().createUserMoney(player, "essentialsmini_data");
@@ -325,6 +335,7 @@ public class Main extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
 
+        //Checking for Update and when enabled Download the Latest Version automatically
         checkUpdate(getConfig().getBoolean("AutoDownload"));
 
         infoCfg.set("PluginName", this.getDescription().getName());
@@ -477,18 +488,38 @@ public class Main extends JavaPlugin {
         return null;
     }
 
+    /**
+     * This Methods return the KeyGenerator
+     *
+     * @return return KeyGenerator class
+     */
     public KeyGenerator getKeyGenerator() {
         return keyGenerator;
     }
 
+    /**
+     * This Method returns the VaultManager class
+     *
+     * @return return VaultManager class
+     */
     public VaultManager getVaultManager() {
         return vaultManager;
     }
 
+    /**
+     * This Method returns the Currency Symbol from the Config
+     *
+     * @return return the Currency Symbol from the Config
+     */
     public String getCurrencySymbol() {
         return currencySymbol;
     }
 
+    /**
+     * This Method returns if MongoDB is enabled or not
+     *
+     * @return return if MongoDB is enabled or not
+     */
     public boolean isMongoDB() {
         if (mongoDbUtils == null) return false;
         return this.mongoDbUtils.isMongoDb();

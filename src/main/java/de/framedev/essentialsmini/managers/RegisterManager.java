@@ -83,7 +83,7 @@ public class RegisterManager {
         new WorldTPCMD(plugin);
         new GodCMD(plugin);
         new SummonCMD(plugin);
-        new SetHealthCMD(plugin);
+        // new SetHealthCMD(plugin);
         new SpeedCMD(plugin);
         new ThunderCMD(plugin);
         new RegisterCMD(plugin);

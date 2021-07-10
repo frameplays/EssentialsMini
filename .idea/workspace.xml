@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes / PlayerManager Methods Added (Save Crafting)">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes and Features Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,27 +180,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00090" summary="MuteCMD Updated">
-      <created>1621636829482</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1621636829482</updated>
-    </task>
-    <task id="LOCAL-00091" summary="MuteCMD TabCompleter Updated">
-      <created>1621637081371</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1621637081371</updated>
-    </task>
-    <task id="LOCAL-00092" summary="Updated | Bug Fixes">
-      <created>1621637931105</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1621637931105</updated>
     </task>
     <task id="LOCAL-00093" summary="Updated | Bug Fixes">
       <created>1622487738998</created>
@@ -523,7 +503,28 @@
       <option name="project" value="LOCAL" />
       <updated>1625600829198</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="1.17 Update">
+      <created>1625775199805</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1625775199805</updated>
+    </task>
+    <task id="LOCAL-00140" summary="Bug Fixes and Features Added">
+      <created>1625874690633</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1625874690633</updated>
+    </task>
+    <task id="LOCAL-00141" summary="Bug Fixes and Features Added">
+      <created>1625915678322</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1625915678322</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -561,8 +562,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="API Updated" />
-    <MESSAGE value="Messages File Updated and Example Added for editing and Replace with the old one." />
     <MESSAGE value="1.2.6-RELEASE" />
     <MESSAGE value="Temp ban Bug Fix" />
     <MESSAGE value="TempBan / TempMute Bug Fix" />
@@ -586,7 +585,9 @@
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Bug Fixes / PlayerManager Updated" />
     <MESSAGE value="Bug Fixes / PlayerManager Methods Added (Save Crafting)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes / PlayerManager Methods Added (Save Crafting)" />
+    <MESSAGE value="1.17 Update" />
+    <MESSAGE value="Bug Fixes and Features Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes and Features Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -14,6 +14,7 @@ import de.framedev.essentialsmini.managers.BackendManager;
 import de.framedev.essentialsmini.managers.PlayerManager;
 import de.framedev.essentialsmini.managers.PlayerManagerCfgLoss;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
@@ -53,6 +54,7 @@ public class SleepListener implements Listener {
         if (plugin.getConfig().getBoolean("SkipNight")) {
             if (event.getPlayer().getWorld().getTime() >= 12542 && event.getPlayer().getWorld().getTime() <= 23460 || event.getPlayer().getWorld().isThundering()) {
                 if(!sleep) {
+                    sleep = true;
                     new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -61,7 +63,6 @@ public class SleepListener implements Listener {
                             event.getPlayer().getWorld().setThundering(false);
                             event.getPlayer().getWorld().setStorm(false);
                             event.setCancelled(true);
-                            sleep = true;
                             new BukkitRunnable() {
                                 @Override
                                 public void run() {
@@ -70,6 +71,8 @@ public class SleepListener implements Listener {
                             }.runTaskLater(plugin,320);
                         }
                     }.runTaskLater(plugin, 120);
+                } else {
+                    event.setUseBed(Event.Result.DENY);
                 }
             }
         }
