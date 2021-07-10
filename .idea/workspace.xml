@@ -9,12 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="1.17 Update">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes and Features Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/VanishCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/VanishCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/SleepListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/SleepListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,13 +179,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00091" summary="MuteCMD TabCompleter Updated">
-      <created>1621637081371</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1621637081371</updated>
     </task>
     <task id="LOCAL-00092" summary="Updated | Bug Fixes">
       <created>1621637931105</created>
@@ -526,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625775199805</updated>
     </task>
-    <option name="localTasksCounter" value="140" />
+    <task id="LOCAL-00140" summary="Bug Fixes and Features Added">
+      <created>1625874690633</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1625874690633</updated>
+    </task>
+    <option name="localTasksCounter" value="141" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -564,7 +561,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Messages File Updated and Example Added for editing and Replace with the old one." />
     <MESSAGE value="1.2.6-RELEASE" />
     <MESSAGE value="Temp ban Bug Fix" />
     <MESSAGE value="TempBan / TempMute Bug Fix" />
@@ -589,7 +585,8 @@
     <MESSAGE value="Bug Fixes / PlayerManager Updated" />
     <MESSAGE value="Bug Fixes / PlayerManager Methods Added (Save Crafting)" />
     <MESSAGE value="1.17 Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.17 Update" />
+    <MESSAGE value="Bug Fixes and Features Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes and Features Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

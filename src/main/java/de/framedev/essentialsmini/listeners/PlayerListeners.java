@@ -11,6 +11,7 @@ package de.framedev.essentialsmini.listeners;
 
 import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmini.commands.playercommands.KillCMD;
+import de.framedev.essentialsmini.commands.playercommands.VanishCMD;
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.LocationsManager;
 import de.framedev.essentialsmini.managers.PlayerManager;
@@ -103,22 +104,26 @@ public class PlayerListeners implements Listener {
             }
             plugin.getVaultManager().getEco().createPlayerAccount(event.getPlayer());
         }
-        if (plugin.getConfig().getBoolean("JoinBoolean")) {
-            if (plugin.getConfig().getBoolean("IgnoreJoinLeave")) {
-                if (event.getPlayer().hasPermission("essentialsmini.ignorejoin")) {
-                    event.setJoinMessage(null);
+        if (!VanishCMD.hided.contains(event.getPlayer().getName())) {
+            if (plugin.getConfig().getBoolean("JoinBoolean")) {
+                if (plugin.getConfig().getBoolean("IgnoreJoinLeave")) {
+                    if (event.getPlayer().hasPermission("essentialsmini.ignorejoin")) {
+                        event.setJoinMessage(null);
+                    } else {
+                        String joinMessage = plugin.getConfig().getString("JoinMessage");
+                        joinMessage = joinMessage.replace('&', '§');
+                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                        event.setJoinMessage(joinMessage);
+                    }
                 } else {
                     String joinMessage = plugin.getConfig().getString("JoinMessage");
                     joinMessage = joinMessage.replace('&', '§');
                     joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setJoinMessage(joinMessage);
                 }
-            } else {
-                String joinMessage = plugin.getConfig().getString("JoinMessage");
-                joinMessage = joinMessage.replace('&', '§');
-                joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
-                event.setJoinMessage(joinMessage);
             }
+        } else {
+            event.setJoinMessage(null);
         }
         new BukkitRunnable() {
             @Override
@@ -255,24 +260,28 @@ public class PlayerListeners implements Listener {
                 }
             }
         }
-        if (plugin.getConfig().getBoolean("LeaveBoolean")) {
-            if (plugin.getConfig().getBoolean("IgnoreJoinLeave")) {
-                if (event.getPlayer().hasPermission("essentialsmini.ignoreleave")) {
-                    event.setQuitMessage(null);
+        if (!VanishCMD.hided.contains(event.getPlayer().getName())) {
+            if (plugin.getConfig().getBoolean("LeaveBoolean")) {
+                if (plugin.getConfig().getBoolean("IgnoreJoinLeave")) {
+                    if (event.getPlayer().hasPermission("essentialsmini.ignoreleave")) {
+                        event.setQuitMessage(null);
+                    } else {
+                        String joinMessage = plugin.getConfig().getString("LeaveMessage");
+                        if (joinMessage.contains("&")) {
+                            joinMessage = joinMessage.replace('&', '§');
+                        }
+                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                        event.setQuitMessage(joinMessage);
+                    }
                 } else {
                     String joinMessage = plugin.getConfig().getString("LeaveMessage");
-                    if (joinMessage.contains("&")) {
-                        joinMessage = joinMessage.replace('&', '§');
-                    }
+                    joinMessage = joinMessage.replace('&', '§');
                     joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setQuitMessage(joinMessage);
                 }
-            } else {
-                String joinMessage = plugin.getConfig().getString("LeaveMessage");
-                joinMessage = joinMessage.replace('&', '§');
-                joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
-                event.setQuitMessage(joinMessage);
             }
+        } else {
+            event.setQuitMessage(null);
         }
         if (isEnabled() && !onlyEssentialsFeatures) {
             if (Bukkit.getPluginManager().getPlugin("MDBConnection") != null) {
