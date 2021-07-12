@@ -4,7 +4,6 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -117,7 +116,7 @@ public class PayCMD extends CommandBase {
                         Player player = (Player) sender;
                         String balance = plugin.getCustomMessagesConfig().getString("Money.MSG.Balance");
                         balance = new TextUtils().replaceAndToParagraph(balance);
-                        balance = new TextUtils().replaceObject(balance, "[Money]", plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                        balance = new TextUtils().replaceObject(balance, "[Money]", plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance(player)) + plugin.getCurrencySymbol());
                         player.sendMessage(plugin.getPrefix() + balance);
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -132,7 +131,7 @@ public class PayCMD extends CommandBase {
                     String balance = plugin.getCustomMessagesConfig().getString("Money.MoneyBalance.Other.MSG");
                     balance = new TextUtils().replaceAndToParagraph(balance);
                     balance = new TextUtils().replaceObject(balance, "[Target]", player.getName());
-                    balance = new TextUtils().replaceObject(balance, "[Money]", plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                    balance = new TextUtils().replaceObject(balance, "[Money]", plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance(player)) + plugin.getCurrencySymbol());
                     sender.sendMessage(plugin.getPrefix() + balance);
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -212,27 +211,27 @@ public class PayCMD extends CommandBase {
                 ValueComparator bvc = new ValueComparator(mostplayers);
                 TreeMap<String, Double> sorted_map = new TreeMap<>(bvc);
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    if(plugin.getVaultManager().getEco().getBanks().isEmpty()) {
+                    if (plugin.getVaultManager().getEco().getBanks().isEmpty()) {
                         mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
                     } else {
                         for (String bank : plugin.getVaultManager().getEco().getBanks()) {
                             if (plugin.getVaultManager().getEco().isBankMember(bank, all).transactionSuccess() || plugin.getVaultManager().getEco().isBankOwner(bank, all).transactionSuccess()) {
-                                mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
+                                mostplayers.put(all.getName(), Double.parseDouble(plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance(all))) + Double.parseDouble(plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().bankBalance(bank).balance)));
                             } else {
-                                mostplayers.put(all.getName(), plugin.getVaultManager().getEco().getBalance(all));
+                                mostplayers.put(all.getName(), Double.parseDouble(plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance(all))));
                             }
                         }
                     }
                 }
                 for (OfflinePlayer alloffline : Bukkit.getOfflinePlayers()) {
-                    if(plugin.getVaultManager().getEco().getBanks().isEmpty()) {
+                    if (plugin.getVaultManager().getEco().getBanks().isEmpty()) {
                         mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
                     } else {
                         for (String bank : plugin.getVaultManager().getEco().getBanks()) {
                             if (plugin.getVaultManager().getEco().isBankMember(bank, alloffline).transactionSuccess() || plugin.getVaultManager().getEco().isBankOwner(bank, alloffline).transactionSuccess()) {
-                                mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline) + plugin.getVaultManager().getEco().bankBalance(bank).balance);
+                                mostplayers.put(alloffline.getName(), Double.parseDouble(plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance(alloffline))) + Double.parseDouble(plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().bankBalance(bank).balance)));
                             } else {
-                                mostplayers.put(alloffline.getName(), plugin.getVaultManager().getEco().getBalance(alloffline));
+                                mostplayers.put(alloffline.getName(), Double.parseDouble(plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance(alloffline))));
                             }
                         }
                     }
@@ -268,7 +267,7 @@ public class PayCMD extends CommandBase {
                 ArrayList<String> list = new ArrayList<>();
                 if (sender instanceof Player) {
                     if (sender.hasPermission(plugin.getPermissionName() + "pay")) {
-                        list.add(String.valueOf(plugin.getVaultManager().getEco().getBalance((Player) sender)));
+                        list.add(String.valueOf(plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance((Player) sender))));
                     }
                     return list;
                 }

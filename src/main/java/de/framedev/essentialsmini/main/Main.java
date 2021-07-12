@@ -279,7 +279,7 @@ public class Main extends JavaPlugin {
         }
 
         //saveCfg();
-        this.currencySymbol = (String) getConfig().get("Currency");
+        this.currencySymbol = (String) getConfig().get("Currency.Single");
         saveCustomMessagesConfig();
         try {
             reloadCustomConfig();
@@ -641,7 +641,7 @@ public class Main extends JavaPlugin {
     public boolean checkUpdate(boolean download) {
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Checking for updates...");
         try {
-            URLConnection conn = new URL("https://framedev.stream/sites/downloads/essentialsminiversion.txt").openConnection();
+            URLConnection conn = new URL("https://framedev.ch/sites/downloads/essentialsminiversion.txt").openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String oldVersion = Main.getInstance().getDescription().getVersion();
             String newVersion = br.readLine();
@@ -672,7 +672,7 @@ public class Main extends JavaPlugin {
         final File updaterFile = new File(pluginFile, "update");
         if (!updaterFile.exists())
             updaterFile.mkdir();
-        new UpdateChecker().download("https://framedev.stream/downloads/EssentialsMini-Latest.jar", getServer().getUpdateFolder(), "EssentialsMini.jar");
+        new UpdateChecker().download("https://framedev.ch/downloads/EssentialsMini-Latest.jar", getServer().getUpdateFolder(), "EssentialsMini.jar");
     }
 
     public MaterialManager getMaterialManager() {
@@ -724,7 +724,7 @@ public class Main extends JavaPlugin {
         if (getConfig().getBoolean("SendPlayerUpdateMessage")) {
             if (player.hasPermission("essentialsmini.checkupdates")) {
                 try {
-                    URLConnection conn = new URL("https://framedev.stream/sites/downloads/essentialsminiversion.txt").openConnection();
+                    URLConnection conn = new URL("https://framedev.ch/sites/downloads/essentialsminiversion.txt").openConnection();
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String oldVersion = Main.getInstance().getDescription().getVersion();
                     String newVersion = br.readLine();
@@ -732,7 +732,7 @@ public class Main extends JavaPlugin {
                         if (!oldVersion.endsWith("PRE-RELEASE")) {
                             BaseComponent base = new TextComponent();
                             base.addExtra(getPrefix() + "§aNew Version = §6" + newVersion + " §b§l[Please Click Here to Download the newest Plugin!]");
-                            base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.stream/sites/downloads/essentialsmini"));
+                            base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.ch/sites/downloads/essentialsmini"));
                             base.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§6Click Here to Open the Download Link").create()));
                             player.spigot().sendMessage(base);
                         }
@@ -778,5 +778,9 @@ public class Main extends JavaPlugin {
      */
     public LagCMD.SpigotTimer getSpigotTimer() {
         return spigotTimer;
+    }
+
+    public String getCurrencySymbolMulti() {
+        return (String) getConfig().getString("Currency.Multi");
     }
 }

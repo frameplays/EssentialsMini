@@ -82,11 +82,11 @@ public class MoneySignListeners implements Listener {
             if (e.getPlayer().hasPermission("essentialsmini.signs.create")) {
                 if (e.getLine(1).equalsIgnoreCase(name.name()) &&
                         e.getLine(2).equalsIgnoreCase(amount + "") &&
-                        e.getLine(3).equalsIgnoreCase(money + "")) {
+                        e.getLine(3).equalsIgnoreCase(money + "" + Main.getInstance().getCurrencySymbolMulti())) {
                     e.setLine(0, signName);
                     e.setLine(1, name.name());
                     e.setLine(2, amount + "");
-                    e.setLine(3, money + "");
+                    e.setLine(3, money + "" + Main.getInstance().getCurrencySymbolMulti());
                 }
             } else {
                 e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
@@ -162,8 +162,8 @@ public class MoneySignListeners implements Listener {
 
                         int amount = Integer.parseInt(args[2]);
 
-                        int money = Integer.parseInt(args[3]);
-                        if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "") && s.getLine(3).equalsIgnoreCase(money + "")) {
+                        int money = Integer.parseInt(args[3].replace(Main.getInstance().getCurrencySymbolMulti(), ""));
+                        if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "") && s.getLine(3).equalsIgnoreCase(money + "" + Main.getInstance().getCurrencySymbolMulti())) {
                             if (eco.getBalance(e.getPlayer()) < money) {
                                 e.getPlayer().sendMessage("Not enought Money");
                                 return;
@@ -195,11 +195,11 @@ public class MoneySignListeners implements Listener {
                 int money = Integer.parseInt(args[3]);
                 if (e.getLine(1).equalsIgnoreCase(name.name()) &&
                         e.getLine(2).equalsIgnoreCase(amount + "") &&
-                        e.getLine(3).equalsIgnoreCase(money + "")) {
+                        e.getLine(3).equalsIgnoreCase(money + "" + Main.getInstance().getCurrencySymbolMulti())) {
                     e.setLine(0, signName);
                     e.setLine(1, name.name());
                     e.setLine(2, amount + "");
-                    e.setLine(3, money + "");
+                    e.setLine(3, money + "" + Main.getInstance().getCurrencySymbolMulti());
                 }
 
             } else {
@@ -226,8 +226,8 @@ public class MoneySignListeners implements Listener {
 
                         int amount = Integer.parseInt(args[2]);
 
-                        int money = Integer.parseInt(args[3]);
-                        if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "") && s.getLine(3).equalsIgnoreCase(money + "")) {
+                        int money = Integer.parseInt(args[3].replace(Main.getInstance().getCurrencySymbolMulti(), ""));
+                        if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "") && s.getLine(3).equalsIgnoreCase(money + "" + Main.getInstance().getCurrencySymbolMulti())) {
                             if (e.getPlayer().getInventory().contains(name, amount)) {
                                 ItemStack item = new ItemStack(name);
                                 item.setAmount(amount);
