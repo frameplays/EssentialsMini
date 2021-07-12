@@ -111,7 +111,7 @@ public class Main extends JavaPlugin {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.stream/sites/downloads/mysqlapi] \n" +
+        getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
                 "Position activates /position Command \n" +
                 "SkipNight activates skipnight \n" +
                 "LocationsBackup Activates creating Backup from all Homes \n" +
@@ -668,7 +668,7 @@ public class Main extends JavaPlugin {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
             }
         } catch (IOException e) {
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on framedev.stream");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");
         }
         return false;
     }
@@ -744,7 +744,7 @@ public class Main extends JavaPlugin {
                         }
                     }
                 } catch (IOException e) {
-                    player.sendMessage(getPrefix() + "Failed to check for updates on framedev.stream");
+                    player.sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");
                 }
             }
         }

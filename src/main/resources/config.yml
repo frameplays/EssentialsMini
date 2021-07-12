@@ -58,7 +58,11 @@ SQLite: false
 PlayerInfoSave: false
 OnlineMode: true
 
-Currency: '$'
+Currency:
+  Single: '$'
+  Multi: '$'
+Vanish:
+  Message: false
 Economy:
   Activate: false
   MaxBalance: 1000000

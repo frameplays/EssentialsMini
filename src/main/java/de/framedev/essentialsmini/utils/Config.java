@@ -50,7 +50,7 @@ public class Config {
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         //Defaults in jar
         Reader defConfigStream = null;
-        defConfigStream = new InputStreamReader(Main.getInstance().getResource(fileName + ".yml"), StandardCharsets.UTF_8);
+        defConfigStream = new InputStreamReader(Objects.requireNonNull(Main.getInstance().getResource(fileName + ".yml")), StandardCharsets.UTF_8);
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
             cfg.setDefaults(defConfig);
@@ -72,7 +72,7 @@ public class Config {
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         //Defaults in jar
         Reader defConfigStream = null;
-        defConfigStream = new InputStreamReader(Main.getInstance().getResource("config.yml"), StandardCharsets.UTF_8);
+        defConfigStream = new InputStreamReader(Objects.requireNonNull(Main.getInstance().getResource("config.yml")), StandardCharsets.UTF_8);
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
             cfg.setDefaults(defConfig);
