@@ -9,10 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="MoneySignListeners Updated / Performance Fix">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/WarpSigns.java" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Clickable Warp Signs Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/WarpSigns.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/WarpSigns.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,13 +192,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00094" summary="Bug Fixes">
-      <created>1622487961679</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1622487961679</updated>
     </task>
     <task id="LOCAL-00095" summary="MySQL Ban Mute CMD Added">
       <created>1622718603644</created>
@@ -537,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626114690060</updated>
     </task>
-    <option name="localTasksCounter" value="143" />
+    <task id="LOCAL-00143" summary="Clickable Warp Signs Added">
+      <created>1626116353105</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1626116353105</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -575,7 +574,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Temp ban Bug Fix" />
     <MESSAGE value="TempBan / TempMute Bug Fix" />
     <MESSAGE value="Perma Ban / TempBan / TempMute Bug Fix" />
     <MESSAGE value="README.md Updated" />
@@ -600,7 +598,8 @@
     <MESSAGE value="1.17 Update" />
     <MESSAGE value="Bug Fixes and Features Added" />
     <MESSAGE value="MoneySignListeners Updated / Performance Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="MoneySignListeners Updated / Performance Fix" />
+    <MESSAGE value="Clickable Warp Signs Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clickable Warp Signs Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
