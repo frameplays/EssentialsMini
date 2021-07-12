@@ -49,6 +49,6 @@ public class UpdateScheduler implements Runnable {
                     cancel();
                 }
             }
-        }.runTaskTimerAsynchronously(Main.getInstance(), 0, 20L * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
+        }.runTaskTimer(Main.getInstance(), 0, 20L * 60 * Main.getInstance().getConfig().getInt("BackupTime"));
     }
 }

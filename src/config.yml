@@ -59,7 +59,9 @@ MySQL: false
 PlayerInfoSave: false
 OnlineMode: true
 
-Currency: '$'
+Currency:
+  Single: '$'
+  Multi: '$'
 Economy:
   Activate: false
   MaxBalance: 1000000

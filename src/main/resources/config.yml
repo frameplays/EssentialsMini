@@ -83,3 +83,5 @@ AutoDownload: false
 ColoredChat: true
 
 ColoredSigns: true
+
+PlayerEvents: false
