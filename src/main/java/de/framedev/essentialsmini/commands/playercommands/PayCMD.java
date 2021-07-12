@@ -85,7 +85,7 @@ public class PayCMD extends CommandBase {
                                             got = new TextUtils().replaceObject(got, "[Money]", amount + plugin.getCurrencySymbol());
                                         }
                                         if (player.isOnline())
-                                            ((Player)player).sendMessage(plugin.getPrefix() + got);
+                                            ((Player) player).sendMessage(plugin.getPrefix() + got);
                                         sender.sendMessage(plugin.getPrefix() + send);
                                     } else {
                                         String moneySet = plugin.getCustomMessagesConfig().getString("Money.MSG.NotEnough");
@@ -130,7 +130,9 @@ public class PayCMD extends CommandBase {
                 if (sender.hasPermission(plugin.getPermissionName() + "balance.others")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
                     String balance = plugin.getCustomMessagesConfig().getString("Money.MoneyBalance.Other.MSG");
-                    balance = new TextUtils().replaceAndToParagraph(balance);
+                    if (balance != null) {
+                        balance = new TextUtils().replaceAndToParagraph(balance);
+                    }
                     balance = new TextUtils().replaceObject(balance, "[Target]", player.getName());
                     balance = new TextUtils().replaceObject(balance, "[Money]", plugin.getVaultManager().getEco().format(plugin.getVaultManager().getEco().getBalance(player)) + plugin.getCurrencySymbol());
                     sender.sendMessage(plugin.getPrefix() + balance);
@@ -240,8 +242,9 @@ public class PayCMD extends CommandBase {
                 sorted_map.putAll(mostplayers);
                 int i = 0;
                 for (Map.Entry<String, Double> e : sorted_map.entrySet()) {
+                    if (e == null) continue;
                     i++;
-                    sender.sendMessage("§a" + i + "st [§6" + e.getKey() + " §b: " + e.getValue() + "§a]");
+                    sender.sendMessage("§a" + i + "st [§6" + e.getKey() + " §b: " + e.getValue() + plugin.getCurrencySymbolMulti() + "§a]");
                     if (i == 3) {
                         break;
                     }

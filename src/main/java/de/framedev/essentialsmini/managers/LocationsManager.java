@@ -19,9 +19,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.spi.LocaleServiceProvider;
 
 /*
  * ===================================================
@@ -365,6 +367,24 @@ public class LocationsManager {
     public Location locationFromString(String string) {
         String[] s = string.split(";");
         return new Location(Bukkit.getWorld(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]), Double.parseDouble(s[3]), Float.parseFloat(s[4]), Float.parseFloat(s[5]));
+    }
+
+    public List<Location> getWarps() {
+        ConfigurationSection cs = cfg.getConfigurationSection("warps");
+        List<Location> warps = new ArrayList<>();
+        if (cs == null) return warps;
+        for (String s : cs.getKeys(false)) {
+            warps.add(getLocation(s));
+        }
+        return warps;
+    }
+
+    public List<String> getWarpNames() {
+        ConfigurationSection cs = cfg.getConfigurationSection("warps");
+        List<String> warps = new ArrayList<>();
+        if (cs == null) return warps;
+        warps.addAll(cs.getKeys(false));
+        return warps;
     }
 
     /**

@@ -36,6 +36,7 @@ public class RegisterManager {
         new PlayerListeners(plugin);
         new MoneySignListeners(plugin);
         new BanListener(plugin);
+        new WarpSigns(plugin);
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
