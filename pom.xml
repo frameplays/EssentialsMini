@@ -10,7 +10,7 @@
 
     <properties>
         <repo_version>pre-release</repo_version>
-        <java.version>16</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -29,13 +29,13 @@
         </repository>
         <repository>
             <id>repo</id>
-            <url>https://framedev.stream:444/releases</url>
+            <url>https://framedev.ch:444/releases</url>
         </repository>
     </repositories>
     <distributionManagement>
         <repository>
             <id>repository</id>
-            <url>https://framedev.stream:444/${repo_version}s</url>
+            <url>https://framedev.ch:444/${repo_version}s</url>
         </repository>
     </distributionManagement>
     <dependencies>
