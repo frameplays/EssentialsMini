@@ -312,7 +312,8 @@ public class MuteCMD extends CommandBase implements Listener {
 
     public static enum MuteReason {
         ADVERTISING("advertising"),
-        CAPS("caps");
+        CAPS("caps"),
+        VIOLATION_OF_THE_RULES("violation of the rules");
 
         private final String reason;
 
