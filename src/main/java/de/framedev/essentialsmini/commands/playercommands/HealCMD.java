@@ -75,11 +75,10 @@ public class HealCMD extends CommandBase {
                             sender.sendMessage(plugin.getPrefix() + healOther);
                         }
                     }
-                    return true;
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
-                    return true;
                 }
+                return true;
             } else {
                 if (sender.hasPermission("essentialsmini.heal.others")) {
                     Player player = Bukkit.getPlayer(args[0]);
@@ -102,11 +101,10 @@ public class HealCMD extends CommandBase {
                     } else {
                         sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                     }
-                    return true;
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
-                    return true;
                 }
+                return true;
             }
         } else {
             sender.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/heal §coder §6/heal <PlayerName>"));

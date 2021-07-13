@@ -12,6 +12,10 @@ package de.framedev.essentialsmini.utils;
 
 public class NotFoundException extends RuntimeException {
 
+    public NotFoundException(Object object) {
+        super(object + " cannot be found!");
+    }
+
     public NotFoundException() {
         super("Object cannot be found!");
     }
@@ -27,21 +31,4 @@ public class NotFoundException extends RuntimeException {
     public NotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
-
-    @Override
-    public void printStackTrace() {
-        super.printStackTrace();
-    }
-
-    @Override
-    public String getMessage() {
-        return super.getMessage();
-    }
-
-    @Override
-    public synchronized Throwable fillInStackTrace() {
-        return super.fillInStackTrace();
-    }
-
-
 }

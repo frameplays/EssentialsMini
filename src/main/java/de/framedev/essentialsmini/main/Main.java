@@ -84,6 +84,7 @@ public class Main extends JavaPlugin {
     private boolean mysql;
     private boolean sql;
     private boolean mongoDb;
+    private boolean onlyEssentialsFeatures;
 
 
     private String currencySymbol;
@@ -123,6 +124,8 @@ public class Main extends JavaPlugin {
         Config.updateConfig();
         Config.loadConfig();
         Config.saveDefaultConfigValues();
+
+        this.onlyEssentialsFeatures = getConfig().getBoolean("OnlyEssentialsFeatures");
 
         if (getConfig().getBoolean("HomeTP")) {
             homeTP = true;
@@ -199,10 +202,6 @@ public class Main extends JavaPlugin {
             thread = new Thread(new UpdateScheduler());
             if (thread != null)
                 thread.start();
-        }
-
-        if (this.getConfig().getBoolean("SaveInventory")) {
-            SaveInventoryCMD.restore();
         }
 
         HashMap<String, Integer> limitedHomes = new HashMap<>();

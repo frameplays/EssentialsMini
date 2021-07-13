@@ -1,7 +1,6 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
-import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.ListenerBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import net.md_5.bungee.api.chat.ComponentBuilder;

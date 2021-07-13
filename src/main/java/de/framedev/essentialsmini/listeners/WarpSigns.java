@@ -32,17 +32,21 @@ public class WarpSigns extends ListenerBase {
         if(event.getLine(0) == null) return;
         if(event.getLine(1) == null) return;
         if(event.getLine(0).equalsIgnoreCase("warp")) {
-            boolean success = false;
-            for(String location : new LocationsManager().getWarpNames()) {
-                if(location == null) continue;
-                if(event.getLine(1).equalsIgnoreCase(location)) {
-                    event.setLine(0, "§6[§bWARP§6]");
-                    event.setLine(1, "§a" + location);
-                    success = true;
+            if (event.getPlayer().hasPermission("essentialsmini.signs.create")) {
+                boolean success = false;
+                for (String location : new LocationsManager().getWarpNames()) {
+                    if (location == null) continue;
+                    if (event.getLine(1).equalsIgnoreCase(location)) {
+                        event.setLine(0, "§6[§bWARP§6]");
+                        event.setLine(1, "§a" + location);
+                        success = true;
+                    }
                 }
+                if (!success)
+                    event.getPlayer().sendMessage(getPlugin().getPrefix() + "§cDieser Warp existiert nicht!");
+            } else {
+                event.getPlayer().sendMessage(getPlugin().getPrefix() + getPlugin().getNOPERMS());
             }
-            if(!success)
-                event.getPlayer().sendMessage(getPlugin().getPrefix() + "§cDieser Warp existiert nicht!");
         }
     }
 
@@ -57,17 +61,21 @@ public class WarpSigns extends ListenerBase {
                 Sign s = (Sign) event.getClickedBlock().getState();
                 String[] lines = s.getLines();
                 if(lines[0].equalsIgnoreCase("§6[§bWARP§6]")) {
-                    String warpName = lines[1].replace("§a", "");
-                    Location location = new LocationsManager().getLocation("warps." + warpName);
-                    if (event.getPlayer().hasPermission("essentialsmini.warp")) {
-                        event.getPlayer().teleport(location);
-                        Player player = event.getPlayer();
-                        String message = getPlugin().getCustomMessagesConfig().getString("Warp.Teleport");
-                        if (message.contains("&"))
-                            message = message.replace('&', '§');
-                        if (message.contains("%WarpName%"))
-                            message = message.replace("%WarpName%", warpName);
-                        player.sendMessage(getPlugin().getPrefix() + message);
+                    if (event.getPlayer().hasPermission("essentialsmini.signs.use")) {
+                        String warpName = lines[1].replace("§a", "");
+                        Location location = new LocationsManager().getLocation("warps." + warpName);
+                        if (event.getPlayer().hasPermission("essentialsmini.warp")) {
+                            event.getPlayer().teleport(location);
+                            Player player = event.getPlayer();
+                            String message = getPlugin().getCustomMessagesConfig().getString("Warp.Teleport");
+                            if (message.contains("&"))
+                                message = message.replace('&', '§');
+                            if (message.contains("%WarpName%"))
+                                message = message.replace("%WarpName%", warpName);
+                            player.sendMessage(getPlugin().getPrefix() + message);
+                        }
+                    } else {
+                        event.getPlayer().sendMessage(getPlugin().getPrefix() + getPlugin().getNOPERMS());
                     }
                     event.setCancelled(true);
                 }

@@ -253,7 +253,7 @@ public class LocationsManager {
      * @return returns the Location from the File
      * @throws NullPointerException throw an Nullpointerexception if the Location was not found
      */
-    public Location getLocation(String s) throws NullPointerException {
+    public Location getLocation(String s) throws NotFoundException {
         if (jsonFormat) {
             return locationFromString(getLocations().get(s));
         } else {
@@ -268,7 +268,7 @@ public class LocationsManager {
                     if (world != null) {
 
                     } else {
-                        throw new NullPointerException("World is Null");
+                        throw new NotFoundException("World");
                     }
                     Location location = new Location(world, x, y, z, yaw, pitch);
                     if (location != null) {
@@ -282,16 +282,27 @@ public class LocationsManager {
     }
 
     public void setWarp(String warpName, Location location) {
-        cfg.set("warps." + warpName, locationToString(location));
+        setLocation("warps." + warpName, location);
         saveCfg();
     }
 
-    public Location getWarp(String warpName) throws NotFoundException {
+    public void setWarp(String warpName, Location location, double cost) {
+        setWarp(warpName, location);
+        cfg.set("warps." + warpName + ".cost", cost);
+        saveCfg();
+    }
+
+    public double getWarpCost(String warpName) {
+        if(cfg.contains("warps." + warpName + ".cost"))
+            return cfg.getDouble("warps." + warpName + ".cost");
+        return 0;
+    }
+
+    public Location getWarp(String warpName) {
         if (cfg.contains("warps." + warpName)) {
-            return locationFromString(cfg.getString("warps." + warpName));
-        } else {
-            throw new NotFoundException("This Location cannot be found!");
+            return getLocation("warps." + warpName);
         }
+        return null;
     }
 
     public FileConfiguration getCfgBackup() {
@@ -326,7 +337,7 @@ public class LocationsManager {
                     if (world != null) {
 
                     } else {
-                        throw new NullPointerException("World is Null");
+                        throw new NotFoundException("World");
                     }
                     Location location = new Location(world, x, y, z, yaw, pitch);
                     if (location != null) {

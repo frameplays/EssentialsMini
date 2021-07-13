@@ -123,6 +123,7 @@ public class Locations {
     }
 
     public void setLocation() {
+        if(Bukkit.getWorld(world) == null) return;
         json.set(name, new Utils().locationToString(new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch)));
         json.saveConfig();
     }
@@ -145,7 +146,6 @@ public class Locations {
                 ", yaw=" + yaw +
                 ", pitch=" + pitch +
                 ", file=" + file +
-                ", json=" + json +
                 '}';
     }
 }

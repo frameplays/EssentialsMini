@@ -7,6 +7,8 @@ package de.framedev.essentialsmini.commands.playercommands;
 import de.framedev.essentialsmini.main.Main;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.hover.content.Content;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -92,11 +94,11 @@ public class TeleportCMD implements CommandExecutor, Listener {
                                 BaseComponent baseComponent = new TextComponent();
                                 baseComponent.addExtra("§6[Accept]");
                                 baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaaccept " + sender.getName()));
-                                baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aAccept Tpa Request!").create()));
+                                baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aAccept Tpa Request!")));
                                 BaseComponent ablehnen = new TextComponent();
                                 ablehnen.addExtra("§c[Deny]");
                                 ablehnen.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpadeny " + sender.getName()));
-                                ablehnen.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§cDeny Tpa Request!").create()));
+                                ablehnen.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§cDeny Tpa Request!")));
                                 target.spigot().sendMessage(baseComponent);
                                 target.spigot().sendMessage(ablehnen);
                             } else if (sender.hasPermission(plugin.getPermissionName() + "tptoggle.bypass")) {
@@ -116,11 +118,11 @@ public class TeleportCMD implements CommandExecutor, Listener {
                                 BaseComponent baseComponent = new TextComponent();
                                 baseComponent.addExtra("§6[Accept]");
                                 baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaaccept " + sender.getName()));
-                                baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aAccept Tpa Request!").create()));
+                                baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aAccept Tpa Request!")));
                                 BaseComponent ablehnen = new TextComponent();
                                 ablehnen.addExtra("§c[Deny]");
                                 ablehnen.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpadeny " + sender.getName()));
-                                ablehnen.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§cDeny Tpa Request!").create()));
+                                ablehnen.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§cDeny Tpa Request!")));
                                 target.spigot().sendMessage(baseComponent);
                                 target.spigot().sendMessage(ablehnen);
                             } else {
@@ -196,14 +198,34 @@ public class TeleportCMD implements CommandExecutor, Listener {
                 Player target = Bukkit.getPlayer(args[0]);
                 Player player = (Player) sender;
                 if (target != null) {
-                    if (!tpToggle.contains(player)) {
+                    if (!tpToggle.contains(target)) {
                         tpHereRequest.put(target, player);
                         target.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §aMöchte dich zu ihm Telportieren!");
                         player.sendMessage(plugin.getPrefix() + "§aDieser Spieler möchtest du zu dir Teleportieren §6" + target.getName());
+                        BaseComponent baseComponent = new TextComponent();
+                        baseComponent.addExtra("§6[Accept]");
+                        baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpahereaccept " + sender.getName()));
+                        baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aAccept Tpa Request!")));
+                        BaseComponent ablehnen = new TextComponent();
+                        ablehnen.addExtra("§c[Deny]");
+                        ablehnen.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaheredeny " + sender.getName()));
+                        ablehnen.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§cDeny TpaHere Request!")));
+                        target.spigot().sendMessage(baseComponent);
+                        target.spigot().sendMessage(ablehnen);
                     } else if (player.hasPermission(plugin.getPermissionName() + "tptoggle.bypass")) {
                         tpHereRequest.put(target, player);
                         target.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §aMöchte dich zu ihm Telportieren!");
                         player.sendMessage(plugin.getPrefix() + "§aDieser Spieler möchtest du zu dir Teleportieren §6" + target.getName());
+                        BaseComponent baseComponent = new TextComponent();
+                        baseComponent.addExtra("§6[Accept]");
+                        baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpahereaccept " + sender.getName()));
+                        baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aAccept TpaHere Request!")));
+                        BaseComponent ablehnen = new TextComponent();
+                        ablehnen.addExtra("§c[Deny]");
+                        ablehnen.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaheredeny " + sender.getName()));
+                        ablehnen.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§cDeny TpaHere Request!")));
+                        target.spigot().sendMessage(baseComponent);
+                        target.spigot().sendMessage(ablehnen);
                     } else {
                         sender.sendMessage(plugin.getPrefix() + "§cThis Player doesn't accept Teleport!");
                     }
@@ -213,34 +235,45 @@ public class TeleportCMD implements CommandExecutor, Listener {
             }
         }
         if (command.getName().equalsIgnoreCase("tpaheredeny")) {
-
-        }
-        if (command.getName().equalsIgnoreCase("tpahereaccept")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (!tpHereRequest.isEmpty() && tpHereRequest.containsKey(player)) {
+                    player.sendMessage(plugin.getPrefix() + "§cDu hast die Tpa Here anfrage abgelehnt.");
+                    tpHereRequest.get(player).sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §chat die TpaHere anfrage abgelehnt!");
+                    tpHereRequest.remove(player);
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + "§cDu hast keine Anfrage bekommen!");
+                }
+            }
+        }
+        if (command.getName().equalsIgnoreCase("tpahereaccept")) {
+            if (sender instanceof Player) {
+                final Player[] player = new Player[1];
+                player[0] = (Player) sender;
+                if (!tpHereRequest.isEmpty() && tpHereRequest.containsKey(player[0])) {
                     if (plugin.getConfig().getBoolean("TeleportInOtherWorld")) {
-                        queue.add(player);
-                        player.sendMessage(plugin.getPrefix() + "§aDu wirst in 3 Sekunden Teleportiert. Wenn du dich bewegst wird die Teleportierung abgebrochen.");
+                        queue.add(player[0]);
+                        player[0].sendMessage(plugin.getPrefix() + "§aDu wirst in 3 Sekunden Teleportiert. Wenn du dich bewegst wird die Teleportierung abgebrochen.");
+                        Player target = tpHereRequest.get(player[0]);
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                if (queue.contains(player)) {
-                                    player.teleport(tpHereRequest.get(player).getLocation());
-                                    queue.remove(player);
+                                if (queue.contains(player[0])) {
+                                    player[0].teleport(target.getLocation());
+                                    queue.remove(player[0]);
                                 }
                             }
                         }.runTaskLater(plugin, 20 * 3);
                     } else {
-                        if (tpHereRequest.get(player).getWorld().getName().equalsIgnoreCase(player.getWorld().getName())) {
-                            player.teleport(tpHereRequest.get(player).getLocation());
+                        if (tpHereRequest.get(player[0]).getWorld().getName().equalsIgnoreCase(player[0].getWorld().getName())) {
+                            player[0].teleport(tpHereRequest.get(player[0]).getLocation());
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§aThe Player §6" + tpHereRequest.get(sender).getName() + " §cis not in the same World!");
-                            tpHereRequest.remove(player);
+                            player[0].sendMessage(plugin.getPrefix() + "§aThe Player §6" + tpHereRequest.get(player[0]).getName() + " §cis not in the same World!");
+                            tpHereRequest.remove(player[0]);
                             return true;
                         }
                     }
-                    tpHereRequest.remove(player);
+                    tpHereRequest.remove(player[0]);
                 } else {
                     sender.sendMessage(plugin.getPrefix() + "§cDu hast keine Anfrage bekommen!");
                 }

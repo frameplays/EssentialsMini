@@ -78,6 +78,7 @@ public class RegisterManager {
         new LagCMD(plugin);
         if (plugin.getConfig().getBoolean("SaveInventory")) {
             new SaveInventoryCMD(plugin);
+            SaveInventoryCMD.restore();
         }
         new ShowCraftingCMD(plugin);
         new SignItemCMD(plugin);

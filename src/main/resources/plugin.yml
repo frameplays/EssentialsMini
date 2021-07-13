@@ -279,6 +279,7 @@ permissions:
       essentialsmini.chatclear: true
       essentialsmini.signs.use: true
       essentialsmini.signs.create: true
+      essentialsmini.signs.update: true
       essentialsmini.playertime: true
       essentialsmini.balance: true
       essentialsmini.balance.others: true
@@ -468,4 +469,6 @@ permissions:
   essentialsmini.muteinfo:
     default: op
   essentialsmini.removetempmute:
+    default: op
+  essentialsmini.signs.update:
     default: op

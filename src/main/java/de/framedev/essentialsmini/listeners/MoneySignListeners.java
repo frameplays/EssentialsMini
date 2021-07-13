@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.listeners;
 
 import de.framedev.essentialsmini.main.Main;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -43,6 +44,15 @@ public class MoneySignListeners implements Listener {
         }
     }
 
+    public boolean isCharNumber(char c) {
+        try {
+            Integer.parseInt(String.valueOf(c));
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
     @EventHandler
     public void onClickBalance(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -52,6 +62,42 @@ public class MoneySignListeners implements Listener {
             if (e.getHand().equals(EquipmentSlot.HAND) &&
                     e.getClickedBlock().getState() instanceof Sign) {
                 Sign s = (Sign) e.getClickedBlock().getState();
+                if (e.getPlayer().getGameMode() == GameMode.CREATIVE && e.getItem() != null && e.getItem().getType() == Material.NETHER_STAR) {
+                    if (e.getPlayer().hasPermission("essentialsmini.signs.update")) {
+                        String signNameBuy = Main.getInstance().getConfig().getString("MoneySign.Buy");
+                        signNameBuy = signNameBuy.replace('&', '§');
+                        if (s.getLine(0).equalsIgnoreCase(signNameBuy)) {
+                            s.setLine(1, s.getLine(1));
+                            int money = 0;
+                            StringBuilder num = new StringBuilder();
+                            for (char c : s.getLine(3).toCharArray()) {
+                                if(isCharNumber(c)) {
+                                    num.append(c);
+                                }
+                            }
+                            money = Integer.parseInt(num.toString());
+                            s.setLine(3, money + Main.getInstance().getCurrencySymbolMulti());
+                        }
+                        String signNameSell = Main.getInstance().getConfig().getString("MoneySign.Sell");
+                        signNameSell = signNameSell.replace('&', '§');
+                        if (s.getLine(0).equalsIgnoreCase(signNameSell)) {
+                            s.setLine(1, s.getLine(1));
+                            int money = 0;
+                            StringBuilder num = new StringBuilder();
+                            for (char c : s.getLine(3).toCharArray()) {
+                                if(isCharNumber(c)) {
+                                    num.append(c);
+                                }
+                            }
+                            money = Integer.parseInt(num.toString());
+                            s.setLine(3, money + Main.getInstance().getCurrencySymbolMulti());
+                        }
+                        s.update();
+                        e.getPlayer().sendMessage("§aUpdated");
+                        e.setCancelled(true);
+                        return;
+                    }
+                }
                 String signName = Main.getInstance().getConfig().getString("MoneySign.Balance");
                 signName = signName.replace('&', '§');
                 if (s.getLine(0).equalsIgnoreCase(signName)) {
@@ -91,14 +137,14 @@ public class MoneySignListeners implements Listener {
                         int money = Integer.parseInt(args[3].replace(Main.getInstance().getCurrencySymbolMulti(), ""));
                         if (s.getLine(1).equalsIgnoreCase(name.name()) && s.getLine(2).equalsIgnoreCase(amount + "") && s.getLine(3).equalsIgnoreCase(money + "" + Main.getInstance().getCurrencySymbolMulti())) {
                             if (eco.getBalance(e.getPlayer()) < money) {
-                                e.getPlayer().sendMessage("Not enought Money");
+                                e.getPlayer().sendMessage(Main.getInstance().getPrefix() + "§cDu hast nicht genug §6" + Main.getInstance().getCurrencySymbolMulti());
                                 return;
                             }
                             ItemStack item = new ItemStack(name);
                             item.setAmount(amount);
                             e.getPlayer().getInventory().addItem(item);
                             eco.withdrawPlayer(e.getPlayer(), money);
-                            e.getPlayer().sendMessage("§aYou bought §6" + name.name() + " §afor §6" + money + Main.getInstance().getCurrencySymbolMulti());
+                            e.getPlayer().sendMessage(Main.getInstance().getPrefix() + "§aDu hast §6" + item.getAmount() + "x " + name.name() + " §afür §6" + money + Main.getInstance().getCurrencySymbolMulti() + " §agekauft.");
                         }
                     } else {
                         e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
@@ -122,10 +168,10 @@ public class MoneySignListeners implements Listener {
                                 item.setAmount(amount);
                                 e.getPlayer().getInventory().removeItem(item);
                                 eco.depositPlayer(e.getPlayer(), money);
-                                e.getPlayer().sendMessage("§aYou sell §6" + name.name() + " §afor §6" + money + Main.getInstance().getCurrencySymbolMulti());
+                                e.getPlayer().sendMessage(Main.getInstance().getPrefix() + "§aDu hast §6" + item.getAmount() + "x " + name.name() + " §afür §6" + money + Main.getInstance().getCurrencySymbolMulti() + " §averkauft.");
                                 return;
                             }
-                            e.getPlayer().sendMessage("Not enought " + name.name());
+                            e.getPlayer().sendMessage(Main.getInstance().getPrefix() + "§cDu hast nicht genug §6" + name.name());
                         }
                     } else {
                         e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
