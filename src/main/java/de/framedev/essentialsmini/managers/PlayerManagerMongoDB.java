@@ -293,7 +293,6 @@ public class PlayerManagerMongoDB {
             for (BackendManager.DATA data : BackendManager.DATA.values()) {
                 try {
                     String cap = data.getName().substring(0, 1).toUpperCase() + data.getName().substring(1);
-                    System.out.println(cap);
                     if (data == BackendManager.DATA.LASTLOGOUT) {
                         document.put(data.getName(), this.getClass().getMethod("get" + cap).invoke(this).toString());
                     } else if (data == BackendManager.DATA.LASTLOGIN) {
