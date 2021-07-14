@@ -101,22 +101,22 @@ public class AFKCMD implements CommandExecutor {
     }
 
     public void afk(Player player, boolean afk, String reason) {
-        String isafkMessage = this.plugin.getConfig().getString("AFK.IsAFK");
-        String notafkMessage = this.plugin.getConfig().getString("AFK.IsNotAFK");
+        String isAfkMessage = this.plugin.getConfig().getString("AFK.IsAFK");
+        String notAfkMessage = this.plugin.getConfig().getString("AFK.IsNotAFK");
 
 
         if (afk) {
-            if (notafkMessage.matches(".*\\[Time].*")) {
+            if (notAfkMessage.matches(".*\\[Time].*")) {
                 String afktime = returnAfkTime(player.getName());
-                notafkMessage = notafkMessage.replace("[Time]", "");
+                notAfkMessage = notAfkMessage.replace("[Time]", "");
                 Bukkit.getPlayer(player.getName()).setPlayerListName(getAfkPlayerName(player.getName()));
                 removePlayerFromAfkMap(player.getName());
-                notafkMessage = ReplaceCharConfig.replaceParagraph(notafkMessage);
+                notAfkMessage = ReplaceCharConfig.replaceParagraph(notAfkMessage);
                 TextComponent tc = new TextComponent();
                 tc.setText(player.getName());
                 tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new ComponentBuilder(player.getName())).create()));
-                notafkMessage = ReplaceCharConfig.replaceObjectWithData(notafkMessage, "[Player]", player.getName());
-                Bukkit.broadcastMessage(notafkMessage);
+                notAfkMessage = ReplaceCharConfig.replaceObjectWithData(notAfkMessage, "[Player]", player.getName());
+                Bukkit.broadcastMessage(notAfkMessage);
                 Bukkit.getConsoleSender().sendMessage("§7" + player.getName() + " is no longer AFK " + afktime);
             } else {
                 TextComponent tc = new TextComponent();
@@ -124,9 +124,9 @@ public class AFKCMD implements CommandExecutor {
                 tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new ComponentBuilder(player.getName())).create()));
                 Bukkit.getPlayer(player.getName()).setPlayerListName(getAfkPlayerName(player.getName()));
                 removePlayerFromAfkMap(player.getName());
-                notafkMessage = ReplaceCharConfig.replaceParagraph(notafkMessage);
-                notafkMessage = ReplaceCharConfig.replaceObjectWithData(notafkMessage, "[Player]", player.getName());
-                Bukkit.broadcastMessage(notafkMessage);
+                notAfkMessage = ReplaceCharConfig.replaceParagraph(notAfkMessage);
+                notAfkMessage = ReplaceCharConfig.replaceObjectWithData(notAfkMessage, "[Player]", player.getName());
+                Bukkit.broadcastMessage(notAfkMessage);
             }
         } else {
 
@@ -135,9 +135,9 @@ public class AFKCMD implements CommandExecutor {
             tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new ComponentBuilder(player.getName())).create()));
             putPlayerToAfkMap(player.getName());
             putPlayerToTimeMap(player.getName());
-            isafkMessage = ReplaceCharConfig.replaceParagraph(isafkMessage);
-            isafkMessage = ReplaceCharConfig.replaceObjectWithData(isafkMessage, "[Player]", player.getName());
-            Bukkit.broadcastMessage(isafkMessage);
+            isAfkMessage = ReplaceCharConfig.replaceParagraph(isAfkMessage);
+            isAfkMessage = ReplaceCharConfig.replaceObjectWithData(isAfkMessage, "[Player]", player.getName());
+            Bukkit.broadcastMessage(isAfkMessage);
         }
     }
 

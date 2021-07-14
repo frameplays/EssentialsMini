@@ -102,11 +102,11 @@ public class MoneySignListeners implements Listener {
                 signName = signName.replace('&', '§');
                 if (s.getLine(0).equalsIgnoreCase(signName)) {
                     if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
-                        String money = String.valueOf(eco.getBalance(e.getPlayer()));
+                        String money = eco.format(eco.getBalance(e.getPlayer()));
                         String text = Main.getInstance().getCustomMessagesConfig().getString("Money.MSG.Balance");
                         text = text.replace("[Money]", money);
                         text = text.replace('&', '§');
-                        e.getPlayer().sendMessage(text);
+                        e.getPlayer().sendMessage(text + Main.getInstance().getCurrencySymbolMulti());
                     } else {
                         e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
                     }
@@ -156,9 +156,7 @@ public class MoneySignListeners implements Listener {
                     if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
                         String[] args = s.getLines();
                         Material name = Material.getMaterial(args[1].toUpperCase());
-
                         int amount = Integer.parseInt(args[2]);
-
                         int money = Integer.parseInt(args[3].replace(Main.getInstance().getCurrencySymbolMulti(), ""));
                         if (s.getLine(1).equalsIgnoreCase(name.name())
                                 && s.getLine(2).equalsIgnoreCase(amount + "")
@@ -179,7 +177,6 @@ public class MoneySignListeners implements Listener {
             }
         }
     }
-
 
     @EventHandler
     public void signChange(SignChangeEvent e) {
@@ -244,7 +241,6 @@ public class MoneySignListeners implements Listener {
                     e.setLine(2, amount + "");
                     e.setLine(3, money + "" + Main.getInstance().getCurrencySymbolMulti());
                 }
-
             } else {
                 e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
             }

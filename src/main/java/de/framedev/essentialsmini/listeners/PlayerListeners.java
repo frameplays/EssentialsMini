@@ -95,16 +95,6 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (plugin.getVaultManager() != null && plugin.getVaultManager().getEco() != null) {
-            if (plugin.isMongoDB()) {
-                if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-                    if (plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
-                        plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), collection);
-                    }
-                }
-            }
-            plugin.getVaultManager().getEco().createPlayerAccount(event.getPlayer());
-        }
         if (!VanishCMD.hided.contains(event.getPlayer().getName())) {
             if (plugin.getConfig().getBoolean("JoinBoolean")) {
                 if (plugin.getConfig().getBoolean("IgnoreJoinLeave")) {
@@ -198,6 +188,16 @@ public class PlayerListeners implements Listener {
 
                 plugin.removeOfflinePlayer(event.getPlayer());
             }
+        }
+        if (plugin.getVaultManager() != null && plugin.getVaultManager().getEco() != null) {
+            if (plugin.isMongoDB()) {
+                if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+                    if (plugin.getVaultManager().getEco().hasAccount(event.getPlayer())) {
+                        plugin.getBackendManager().updateUser(event.getPlayer(), DATA.MONEY.getName(), plugin.getVaultManager().getEco().getBalance(event.getPlayer()), collection);
+                    }
+                }
+            }
+            plugin.getVaultManager().getEco().createPlayerAccount(event.getPlayer());
         }
         if (!event.getPlayer().hasPlayedBefore()) {
             if (plugin.getConfig().getBoolean("StartBalance.Boolean")) {

@@ -7,6 +7,7 @@ import org.bson.Document;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +24,9 @@ public class PlayerManagerMongoDB {
     private UUID uuid;
     private String name;
     private double money;
+    private String bankname;
+    private ArrayList<String> bankmembers;
+    private String bankowner;
     private double bank;
     private int kills;
     private double damage;
@@ -41,10 +45,13 @@ public class PlayerManagerMongoDB {
     private String lastLogin;
     private String lastLogout;
 
-    public PlayerManagerMongoDB(UUID uuid, String name, double money, double bank, int kills, double damage, int entityKills, int deaths, List<String> blocksBroken, List<String> blocksPlacen, int blockBroken, int blockPlacen, int commandsUsed, String key, int sleepTimes, List<String> entityTypes, boolean offline, String createDate, String lastLogin, String lastLogout) {
+    public PlayerManagerMongoDB(UUID uuid, String name, double money, String bankname, ArrayList<String> bankmembers, String bankowner, double bank, int kills, double damage, int entityKills, int deaths, List<String> blocksBroken, List<String> blocksPlacen, int blockBroken, int blockPlacen, int commandsUsed, String key, int sleepTimes, List<String> entityTypes, boolean offline, String createDate, String lastLogin, String lastLogout) {
         this.uuid = uuid;
         this.name = name;
         this.money = money;
+        this.bankname = bankname;
+        this.bankmembers = bankmembers;
+        this.bankowner = bankowner;
         this.bank = bank;
         this.kills = kills;
         this.damage = damage;
@@ -73,6 +80,30 @@ public class PlayerManagerMongoDB {
     public PlayerManagerMongoDB(String name) {
         this.name = name;
         this.uuid = Bukkit.getOfflinePlayer(name).getUniqueId();
+    }
+
+    public String getBankname() {
+        return bankname;
+    }
+
+    public void setBankname(String bankname) {
+        this.bankname = bankname;
+    }
+
+    public ArrayList<String> getBankmembers() {
+        return bankmembers;
+    }
+
+    public void setBankmembers(ArrayList<String> bankmembers) {
+        this.bankmembers = bankmembers;
+    }
+
+    public String getBankowner() {
+        return bankowner;
+    }
+
+    public void setBankowner(String bankowner) {
+        this.bankowner = bankowner;
     }
 
     public int getSleepTimes() {
@@ -262,6 +293,7 @@ public class PlayerManagerMongoDB {
             for (BackendManager.DATA data : BackendManager.DATA.values()) {
                 try {
                     String cap = data.getName().substring(0, 1).toUpperCase() + data.getName().substring(1);
+                    System.out.println(cap);
                     if (data == BackendManager.DATA.LASTLOGOUT) {
                         document.put(data.getName(), this.getClass().getMethod("get" + cap).invoke(this).toString());
                     } else if (data == BackendManager.DATA.LASTLOGIN) {
