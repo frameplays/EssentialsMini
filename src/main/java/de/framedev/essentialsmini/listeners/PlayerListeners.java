@@ -10,6 +10,9 @@ package de.framedev.essentialsmini.listeners;
  */
 
 import com.google.gson.GsonBuilder;
+import de.framedev.essentialsmini.api.events.PlayerInventoryClearEvent;
+import de.framedev.essentialsmini.api.events.PlayerKillEntityEvent;
+import de.framedev.essentialsmini.api.events.PlayerKillPlayerEvent;
 import de.framedev.essentialsmini.commands.playercommands.KillCMD;
 import de.framedev.essentialsmini.commands.playercommands.SpawnCMD;
 import de.framedev.essentialsmini.commands.playercommands.VanishCMD;
@@ -40,6 +43,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static de.framedev.essentialsmini.managers.BackendManager.DATA;
+import static org.bukkit.Bukkit.getServer;
 
 public class PlayerListeners implements Listener {
 
@@ -405,6 +409,12 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onEntityKill(EntityDeathEvent event) {
+        if (event.getEntity().getKiller() != null) {
+            if (event.getEntity() instanceof Player) {
+                getServer().getPluginManager().callEvent(new PlayerKillPlayerEvent((Player) event.getEntity(), event.getEntity().getKiller()));
+            }
+            Bukkit.getPluginManager().callEvent(new PlayerKillEntityEvent(event.getEntity().getKiller(), event.getEntity()));
+        }
         if (plugin.getConfig().getBoolean("PlayerEvents")) {
             LivingEntity livingEntity = event.getEntity();
             if (isEnabled() && !onlyEssentialsFeatures) {
@@ -481,6 +491,13 @@ public class PlayerListeners implements Listener {
                     }
                 }
             }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+        if (event.getMessage().contains("/clear")) {
+            getServer().getPluginManager().callEvent(new PlayerInventoryClearEvent(event.getPlayer(), event.getPlayer().getInventory()));
         }
     }
 

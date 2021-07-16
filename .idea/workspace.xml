@@ -9,9 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="BankCMD TabCompleter Added /&#10;MongoDB Bug Fixes">
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="BankCMD TabCompleter Updated">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,13 +194,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00101" summary="Temp ban Bug Fix">
-      <created>1623519502781</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1623519502781</updated>
     </task>
     <task id="LOCAL-00102" summary="TempBan / TempMute Bug Fix">
       <created>1623519647201</created>
@@ -539,7 +531,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626442193665</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="BankCMD TabCompleter Updated">
+      <created>1626442423801</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1626442423801</updated>
+    </task>
+    <option name="localTasksCounter" value="151" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -577,7 +576,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="PayCMD Updated" />
     <MESSAGE value="Update" />
     <MESSAGE value="Updates" />
     <MESSAGE value="1.2.7.1 Pre-Release" />
@@ -602,7 +600,8 @@
     <MESSAGE value="Bug Fixes /&#10;Mute Reasons Added" />
     <MESSAGE value="MongoDB Updated" />
     <MESSAGE value="BankCMD TabCompleter Added /&#10;MongoDB Bug Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="BankCMD TabCompleter Added /&#10;MongoDB Bug Fixes" />
+    <MESSAGE value="BankCMD TabCompleter Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="BankCMD TabCompleter Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
