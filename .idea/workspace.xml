@@ -9,12 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes /&#10;Mute Reasons Added">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="MongoDB Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/AFKCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/AFKCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/MoneySignListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/MoneySignListeners.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/PlayerListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/PlayerListeners.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/PlayerManagerMongoDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/PlayerManagerMongoDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/BankCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FuckCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/FuckCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,20 +197,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00098" summary="API Updated">
-      <created>1622987187807</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1622987187807</updated>
-    </task>
-    <task id="LOCAL-00099" summary="Messages File Updated and Example Added for editing and Replace with the old one.">
-      <created>1623075834045</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1623075834046</updated>
     </task>
     <task id="LOCAL-00100" summary="1.2.6-RELEASE">
       <created>1623077627324</created>
@@ -542,7 +527,21 @@
       <option name="project" value="LOCAL" />
       <updated>1626216202524</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="MongoDB Updated">
+      <created>1626300998131</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1626300998134</updated>
+    </task>
+    <task id="LOCAL-00148" summary="MongoDB Updated">
+      <created>1626301017295</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1626301017295</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +579,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Player Manager Bug Fixes" />
     <MESSAGE value="ReadMe Updated" />
     <MESSAGE value="PayCMD Updated" />
     <MESSAGE value="Update" />
@@ -605,7 +603,8 @@
     <MESSAGE value="WarpSigns Fix" />
     <MESSAGE value="1.2.8.1-RELEASE" />
     <MESSAGE value="Bug Fixes /&#10;Mute Reasons Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes /&#10;Mute Reasons Added" />
+    <MESSAGE value="MongoDB Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="MongoDB Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

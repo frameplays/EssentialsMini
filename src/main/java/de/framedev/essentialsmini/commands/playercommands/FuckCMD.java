@@ -107,7 +107,9 @@ public class FuckCMD extends CommandBase {
                         fireworkMeta.addEffects(Arrays.asList(fireworkEffect, fireworkEffect1, fireworkEffect2, fireworkEffect3));
                         firework.setFireworkMeta(fireworkMeta);
                     }
-                    target.sendMessage(plugin.getPrefix() + "§aYou got Fucked!");
+                    if (!Main.getSilent().contains(sender.getName())) {
+                        target.sendMessage(plugin.getPrefix() + "§aYou got Fucked!");
+                    }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[0]));
                 }

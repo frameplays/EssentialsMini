@@ -8,6 +8,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * This Plugin was Created by FrameDev
  * Package : de.framedev.essentialsmin.commands
@@ -23,6 +28,7 @@ public class BankCMD extends CommandBase {
         super(plugin);
         this.plugin = plugin;
         setup("bank",this);
+        setupTabCompleter("bank", this);
     }
 
     @Override
@@ -181,5 +187,53 @@ public class BankCMD extends CommandBase {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if(args.length == 1) {
+            List<String> cmds = new ArrayList<String>(Arrays.asList("balance","withdraw","deposit","addmember","removemember"));
+            List<String> empty = new ArrayList<>();
+            for(String s : cmds) {
+                if(s.toLowerCase().startsWith(args[0].toLowerCase())) {
+                    empty.add(s);
+                }
+            }
+            Collections.sort(empty);
+            return empty;
+        } else if(args.length == 2) {
+            List<String> banksList = new ArrayList<>();
+            List<String> empty = new ArrayList<>();
+            for(String banks : plugin.getVaultManager().getEconomy().getBanks()) {
+                if(plugin.getVaultManager().getEconomy().isBankMember(banks, (OfflinePlayer) sender).transactionSuccess() || plugin.getVaultManager().getEconomy().isBankOwner(banks, (OfflinePlayer) sender).transactionSuccess()) {
+                    banksList.add(banks);
+                }
+            }
+            for(String s : banksList) {
+                if(s.toLowerCase().startsWith(args[1].toLowerCase()))
+                    empty.add(s);
+            }
+            Collections.sort(empty);
+            return empty;
+        } else if(args.length == 3) {
+            if(args[0].equalsIgnoreCase("balance")) return new ArrayList<>();
+            if(args[0].equalsIgnoreCase("addmember") || args[0].equalsIgnoreCase("removemember")) {
+                List<String> players = new ArrayList<>();
+                List<String> empty = new ArrayList<>();
+                for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                    players.add(offlinePlayer.getName());
+                }
+                for(String s : players) {
+                    if(s.toLowerCase().startsWith(args[2].toLowerCase()))
+                        empty.add(s);
+                }
+                Collections.sort(empty);
+                return empty;
+            }
+            List<String> empty = new ArrayList<>();
+            empty.add(plugin.getVaultManager().getEconomy().getBalance((OfflinePlayer) sender) + "");
+            return empty;
+        }
+        return super.onTabComplete(sender, command, label, args);
     }
 }
