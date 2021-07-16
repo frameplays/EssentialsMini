@@ -27,7 +27,7 @@ public class BankCMD extends CommandBase {
     public BankCMD(Main plugin) {
         super(plugin);
         this.plugin = plugin;
-        setup("bank",this);
+        setup("bank", this);
         setupTabCompleter("bank", this);
     }
 
@@ -67,14 +67,14 @@ public class BankCMD extends CommandBase {
                     }
                 }
             }
-            if(args[0].equalsIgnoreCase("remove")) {
+            if (args[0].equalsIgnoreCase("remove")) {
                 String bankName = args[1];
-                if(sender instanceof Player) {
+                if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    if(player.hasPermission("essentialsmini.bank.remove")) {
-                        if(plugin.getVaultManager().getEconomy().getBanks().contains(bankName)) {
-                            if(plugin.getVaultManager().getEconomy().isBankOwner(bankName,player).transactionSuccess()) {
-                                if(plugin.getVaultManager().getEconomy().deleteBank(bankName).transactionSuccess()) {
+                    if (player.hasPermission("essentialsmini.bank.remove")) {
+                        if (plugin.getVaultManager().getEconomy().getBanks().contains(bankName)) {
+                            if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess()) {
+                                if (plugin.getVaultManager().getEconomy().deleteBank(bankName).transactionSuccess()) {
                                     player.sendMessage(plugin.getPrefix() + "§cBank successfully deleted!");
                                 } else {
                                     player.sendMessage(plugin.getPrefix() + "§cError while deleting Bank!");
@@ -150,7 +150,7 @@ public class BankCMD extends CommandBase {
                             if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess()) {
                                 plugin.getVaultManager().addBankMember(bankName, offline);
                                 player.sendMessage(plugin.getPrefix() + "§6" + offline.getName() + " §ais now Successfully a Member of your Bank!");
-                                if(offline.isOnline())
+                                if (offline.isOnline())
                                     ((Player) offline).sendMessage(plugin.getPrefix() + "§aYou are now a Member of §6" + player.getName() + "'s §aBank!");
                             } else {
                                 player.sendMessage(plugin.getPrefix() + "§cYou are not the Bank Owner!");
@@ -172,7 +172,7 @@ public class BankCMD extends CommandBase {
                             if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess()) {
                                 plugin.getVaultManager().removeBankMember(bankName, offline);
                                 player.sendMessage(plugin.getPrefix() + "§6" + offline.getName() + " §ais no longer a member of your Bank!");
-                                if(offline.isOnline())
+                                if (offline.isOnline())
                                     ((Player) offline).sendMessage(plugin.getPrefix() + "§cYou are no longer a Member of §6" + player.getName() + "'s §cBank!");
                             } else {
                                 player.sendMessage(plugin.getPrefix() + "§cYou are not the Bank Owner!");
@@ -191,40 +191,43 @@ public class BankCMD extends CommandBase {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 1) {
-            List<String> cmds = new ArrayList<String>(Arrays.asList("balance","withdraw","deposit","addmember","removemember"));
+        if (args.length == 1) {
+            List<String> cmds = new ArrayList<String>(Arrays.asList("remove", "create", "balance", "withdraw", "deposit", "addmember", "removemember"));
             List<String> empty = new ArrayList<>();
-            for(String s : cmds) {
-                if(s.toLowerCase().startsWith(args[0].toLowerCase())) {
+            for (String s : cmds) {
+                if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
                     empty.add(s);
                 }
             }
             Collections.sort(empty);
             return empty;
-        } else if(args.length == 2) {
+        } else if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("remove"))
+                return new ArrayList<>(Collections.singletonList("<BANKNAME>"));
             List<String> banksList = new ArrayList<>();
             List<String> empty = new ArrayList<>();
-            for(String banks : plugin.getVaultManager().getEconomy().getBanks()) {
-                if(plugin.getVaultManager().getEconomy().isBankMember(banks, (OfflinePlayer) sender).transactionSuccess() || plugin.getVaultManager().getEconomy().isBankOwner(banks, (OfflinePlayer) sender).transactionSuccess()) {
+            for (String banks : plugin.getVaultManager().getEconomy().getBanks()) {
+                if (plugin.getVaultManager().getEconomy().isBankMember(banks, (OfflinePlayer) sender).transactionSuccess() || plugin.getVaultManager().getEconomy().isBankOwner(banks, (OfflinePlayer) sender).transactionSuccess()) {
                     banksList.add(banks);
                 }
             }
-            for(String s : banksList) {
-                if(s.toLowerCase().startsWith(args[1].toLowerCase()))
+            for (String s : banksList) {
+                if (s.toLowerCase().startsWith(args[1].toLowerCase()))
                     empty.add(s);
             }
             Collections.sort(empty);
             return empty;
-        } else if(args.length == 3) {
-            if(args[0].equalsIgnoreCase("balance")) return new ArrayList<>();
-            if(args[0].equalsIgnoreCase("addmember") || args[0].equalsIgnoreCase("removemember")) {
+        } else if (args.length == 3) {
+            if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("remove")) return new ArrayList<>();
+            if (args[0].equalsIgnoreCase("balance")) return new ArrayList<>();
+            if (args[0].equalsIgnoreCase("addmember") || args[0].equalsIgnoreCase("removemember")) {
                 List<String> players = new ArrayList<>();
                 List<String> empty = new ArrayList<>();
                 for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
                     players.add(offlinePlayer.getName());
                 }
-                for(String s : players) {
-                    if(s.toLowerCase().startsWith(args[2].toLowerCase()))
+                for (String s : players) {
+                    if (s.toLowerCase().startsWith(args[2].toLowerCase()))
                         empty.add(s);
                 }
                 Collections.sort(empty);

@@ -5,6 +5,7 @@ version: ${project.version}
 main: de.framedev.essentialsmini.main.Main
 softdepend:
   - Vault
+  - MDBConnection
 loadbefore:
   - Vault
 website: https://framedev.stream
