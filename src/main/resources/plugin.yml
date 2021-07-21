@@ -11,6 +11,8 @@ loadbefore:
 website: https://framedev.stream
 
 commands:
+  signremove:
+    description: Sign remove
   balance:
     permission: essentialsmini.balance
     aliases:

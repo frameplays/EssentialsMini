@@ -34,7 +34,6 @@ public class RegisterManager {
         new DisallowCommands(plugin);
         new SleepListener(plugin);
         new PlayerListeners(plugin);
-        new MoneySignListeners(plugin);
         new BanListener(plugin);
         new WarpSigns(plugin);
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
@@ -95,6 +94,7 @@ public class RegisterManager {
         if (plugin.getConfig().getBoolean("Economy.Activate")) {
             new PayCMD(plugin);
             new BankCMD(plugin);
+            new MoneySignListeners(plugin);
         }
         if (plugin.getConfig().getBoolean("AFK.Boolean"))
             new AFKCMD(plugin);

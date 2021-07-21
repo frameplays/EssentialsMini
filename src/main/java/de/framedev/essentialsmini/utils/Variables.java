@@ -106,8 +106,7 @@ public class Variables {
     @Override
     public String toString() {
         return "Variables{" +
-                "instance=" + instance +
-                ", prefix='" + prefix + '\'' +
+                "prefix='" + prefix + '\'' +
                 ", onlyPlayer='" + onlyPlayer + '\'' +
                 ", noPermission='" + noPermission + '\'' +
                 ", permissionBase='" + permissionBase + '\'' +

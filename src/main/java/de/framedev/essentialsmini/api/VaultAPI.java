@@ -49,6 +49,10 @@ public class VaultAPI extends AbstractEconomy {
         return String.format("%.2f", amount);
     }
 
+    public double formatToDouble(double amount) {
+        return Double.parseDouble(format(amount));
+    }
+
     @Override
     public String currencyNamePlural() {
         return Main.getInstance().getConfig().getString("Currency.Plural");
