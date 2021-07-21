@@ -352,9 +352,18 @@ public class MoneySignListeners implements Listener, CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
+        if (args.length >= 1) {
             if (sender.hasPermission("essentialsmini.signs.delete")) {
-                String signName = args[0];
+                String signName = "";
+                for(String s : args) {
+                    if(s.equalsIgnoreCase("signremove")) {
+                        s.replace(s, "");
+                    } else if(args[0].equalsIgnoreCase(s)) {
+                        signName += s;
+                    } else {
+                        signName += " " + s;
+                    }
+                }
                 if (cfg.contains("Items." + signName + ".item")) {
                     Location location = cfg.getLocation("Items." + signName + ".location");
                     if (location != null) {
