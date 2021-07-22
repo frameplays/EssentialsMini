@@ -88,4 +88,6 @@ ColoredChat: true
 
 ColoredSigns: true
 
+PlayerShop: true
+
 PlayerEvents: false

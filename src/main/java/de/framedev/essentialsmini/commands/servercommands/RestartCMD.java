@@ -69,7 +69,8 @@ public class RestartCMD implements CommandExecutor {
                         }
                         time--;
                         if(progress != 0.1) {
-                            progress = progress - 0.01;
+                            // 0.01
+                            progress = progress - 0.0098;
                             bossBarManager.setProgress(progress);
                             bossBarManager.update();
                         }

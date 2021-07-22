@@ -36,7 +36,7 @@ public class TempBanCMD extends CommandBase {
             if (sender.hasPermission(getPlugin().getPermissionName() + "tempban")) {
                 if (args.length == 4) {
                     OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-                    Ban grund = Ban.valueOf(args[1].toUpperCase());
+                    Ban reason = Ban.valueOf(args[1].toUpperCase());
                     DateUnit unit = DateUnit.valueOf(args[3].toUpperCase());
                     long value = Long.parseLong(args[2]);
                     long current = System.currentTimeMillis();
@@ -44,12 +44,13 @@ public class TempBanCMD extends CommandBase {
                     long newValue = current + millis;
                     Date date = new Date(newValue);
                     if(getPlugin().isMysql() || getPlugin().isSQL()) {
-                        new BanMuteManager().setTempBan(target, grund, new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(date));
+                        new BanMuteManager().setTempBan(target, reason, new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(date));
                     } else {
-                        Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(Objects.requireNonNull(target.getName()), "§aYou are Banned. Reason:§c " + grund.getReason(), date, "true");
+                        Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(Objects.requireNonNull(target.getName()), "§aYou are Banned. Reason:§c " + reason.getReason(), date, "true");
                     }
                     if (target.isOnline())
-                        ((Player) target).kickPlayer("§bBan while §c" + grund.getReason() + "§b for §a" + value + " " + unit.getOutput() + "!");
+                        ((Player) target).kickPlayer("§bBan while §c" + reason.getReason() + "§b for §a" + value + " " + unit.getOutput() + "!");
+                    sender.sendMessage("§6" + target.getName() + " §ahas been banned while §6" + reason.getReason() + " §afor §6" + value + " " + unit.getOutput() + "!");
                     return true;
                 } else {
                     sender.sendMessage(getPlugin().getPrefix() + getPlugin().getWrongArgs("/tempban <Player> <Reason> <time> <SEC or MIN or DAY or WEEK or MONTH or YEAR>"));
@@ -66,6 +67,7 @@ public class TempBanCMD extends CommandBase {
                 } else {
                     Bukkit.getServer().getBanList(BanList.Type.NAME).pardon(target.getName());
                 }
+                sender.sendMessage("§6" + target.getName() + " §ahas been unbanned!");
             }
         }
         return super.onCommand(sender, cmd, label, args);
@@ -76,14 +78,14 @@ public class TempBanCMD extends CommandBase {
         if (args.length == 2) {
             List<String> reasons = new ArrayList<>();
             Arrays.asList(Ban.values()).forEach(ban -> reasons.add(ban.name()));
-            ArrayList<String> empt = new ArrayList<>();
+            ArrayList<String> empty = new ArrayList<>();
             for (String s : reasons) {
                 if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
-                    empt.add(s);
+                    empty.add(s);
                 }
             }
-            Collections.sort(empt);
-            return empt;
+            Collections.sort(empty);
+            return empty;
         }
         if (args.length == 3) {
             return new ArrayList<String>(Collections.singletonList("Time"));

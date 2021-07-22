@@ -102,8 +102,8 @@ public class DayNightCMD extends CommandBase {
                 }
             }
         } else {
-            if(command.getName().equalsIgnoreCase("day")) {
-                for(World world : Bukkit.getWorlds())
+            if (command.getName().equalsIgnoreCase("day")) {
+                for (World world : Bukkit.getWorlds())
                     world.setTime(1000);
                 String message = plugin.getCustomMessagesConfig().getString("Day");
                 if (message != null) {
@@ -112,13 +112,13 @@ public class DayNightCMD extends CommandBase {
                 sender.sendMessage(plugin.getPrefix() + message);
                 return true;
             }
-            if(command.getName().equalsIgnoreCase("night")) {
+            if (command.getName().equalsIgnoreCase("night")) {
                 String message = plugin.getCustomMessagesConfig().getString("Night");
                 if (message != null) {
                     message = new TextUtils().replaceAndToParagraph(message);
                 }
                 sender.sendMessage(plugin.getPrefix() + message);
-                for(World world : Bukkit.getWorlds())
+                for (World world : Bukkit.getWorlds())
                     world.setTime(13000);
                 return true;
             }

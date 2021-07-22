@@ -331,5 +331,9 @@ public class MuteCMD extends CommandBase implements Listener {
         public String getReason() {
             return reason;
         }
+
+        public static MuteReason getMuteReason(String reason) {
+            return valueOf(reason.toUpperCase());
+        }
     }
 }

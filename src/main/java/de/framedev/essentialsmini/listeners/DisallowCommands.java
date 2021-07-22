@@ -263,6 +263,11 @@ public class DisallowCommands extends ListenerBase {
             blockedCommands.add("delhome");
             blockedCommands.add("delotherhomes");
         }
+
+        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "book")) {
+            blockedCommands.add("bock");
+            blockedCommands.add("copybook");
+        }
         /*for (Map.Entry<String, String> entry : blockedCMDString.entrySet()) {
             if (!event.getPlayer().hasPermission(entry.getKey()))
                 blockedCommands.add(entry.getValue());

@@ -189,14 +189,16 @@ public class MoneySignListeners implements Listener, CommandExecutor {
                     }
                 } else if (s.getLine(0).equalsIgnoreCase("§6Buy")) {
                     if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
-                        ItemStack itemStack = cfg.getItemStack("Items." + s.getLine(1).replace('§', '&') + ".item");
-                        itemStack.setAmount(Integer.parseInt(s.getLine(2)));
-                        if (eco.has(e.getPlayer(), Double.parseDouble(s.getLine(3)))) {
-                            eco.withdrawPlayer(e.getPlayer(), Double.parseDouble(s.getLine(3)));
-                            eco.depositPlayer(Bukkit.getOfflinePlayer(cfg.getString("Items." + s.getLine(1).replace('§', '&') + ".player")), Double.parseDouble(s.getLine(3)));
-                            e.getPlayer().getInventory().addItem(itemStack);
-                        } else {
-                            e.getPlayer().sendMessage(Main.getInstance().getPrefix() + "§cDu hast nicht genug §6" + Main.getInstance().getCurrencySymbolMulti());
+                        if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+                            ItemStack itemStack = cfg.getItemStack("Items." + s.getLine(1).replace('§', '&') + ".item");
+                            itemStack.setAmount(Integer.parseInt(s.getLine(2)));
+                            if (eco.has(e.getPlayer(), Double.parseDouble(s.getLine(3)))) {
+                                eco.withdrawPlayer(e.getPlayer(), Double.parseDouble(s.getLine(3)));
+                                eco.depositPlayer(Bukkit.getOfflinePlayer(cfg.getString("Items." + s.getLine(1).replace('§', '&') + ".player")), Double.parseDouble(s.getLine(3)));
+                                e.getPlayer().getInventory().addItem(itemStack);
+                            } else {
+                                e.getPlayer().sendMessage(Main.getInstance().getPrefix() + "§cDu hast nicht genug §6" + Main.getInstance().getCurrencySymbolMulti());
+                            }
                         }
                     } else {
                         e.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());
@@ -283,20 +285,22 @@ public class MoneySignListeners implements Listener, CommandExecutor {
 
     @EventHandler
     public void onPlayerClickSign(PlayerInteractEvent event) {
-        if (event.getItem() == null) return;
-        ItemStack item = event.getItem();
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getClickedBlock() == null) return;
-            if (event.getClickedBlock().getState() instanceof Sign) {
-                if (event.getPlayer().hasPermission("essentialsmini.signs.create")) {
-                    Sign sign = (Sign) event.getClickedBlock().getState();
-                    if (sign.getLine(0).equalsIgnoreCase("Item")) {
-                        sign.setLine(0, "");
-                        cmdMessage.put(event.getPlayer(), "itemname");
-                        event.getPlayer().sendMessage("§aWie soll das Item heissen?");
-                        playerSign.put(event.getPlayer(), sign);
-                        event.setCancelled(true);
-                        itemHash.put(event.getPlayer(), item);
+        if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+            if (event.getItem() == null) return;
+            ItemStack item = event.getItem();
+            if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                if (event.getClickedBlock() == null) return;
+                if (event.getClickedBlock().getState() instanceof Sign) {
+                    if (event.getPlayer().hasPermission("essentialsmini.signs.create")) {
+                        Sign sign = (Sign) event.getClickedBlock().getState();
+                        if (sign.getLine(0).equalsIgnoreCase("Item")) {
+                            sign.setLine(0, "");
+                            cmdMessage.put(event.getPlayer(), "itemname");
+                            event.getPlayer().sendMessage("§aWie soll das Item heissen?");
+                            playerSign.put(event.getPlayer(), sign);
+                            event.setCancelled(true);
+                            itemHash.put(event.getPlayer(), item);
+                        }
                     }
                 }
             }
@@ -305,48 +309,50 @@ public class MoneySignListeners implements Listener, CommandExecutor {
 
     @EventHandler
     public void onAsync(AsyncPlayerChatEvent event) {
-        if (!cmdMessage.isEmpty() && cmdMessage.containsKey(event.getPlayer()) && cmdMessage.get(event.getPlayer()).equalsIgnoreCase("itemname")) {
-            Sign sign = playerSign.get(event.getPlayer());
-            sign.setEditable(true);
-            cmdMessage.remove(event.getPlayer());
-            sign.setLine(1, ChatColor.translateAlternateColorCodes('&', event.getMessage()));
-            event.setCancelled(true);
-            cmdMessage.put(event.getPlayer(), "amount");
-            event.getPlayer().sendMessage("§aWie viel soll man kaufen können?");
-            cfg.set("Items." + event.getMessage() + ".item", itemHash.get(event.getPlayer()));
-            cfg.set("Items." + event.getMessage() + ".player", event.getPlayer().getName());
-            cfg.set("Items." + event.getMessage() + ".location", sign.getLocation());
-            try {
-                cfg.save(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            sign.update(true);
-            playerSign.remove(event.getPlayer());
-            playerSign.put(event.getPlayer(), sign);
-        } else if (!cmdMessage.isEmpty() && cmdMessage.containsKey(event.getPlayer()) && cmdMessage.get(event.getPlayer()).equalsIgnoreCase("amount")) {
-            Sign sign = playerSign.get(event.getPlayer());
-            sign.setEditable(true);
-            cmdMessage.remove(event.getPlayer());
-            sign.setLine(2, event.getMessage());
-            event.setCancelled(true);
-            cmdMessage.put(event.getPlayer(), "price");
-            event.getPlayer().sendMessage("§aWie viel soll es kosten?");
-            sign.update(true);
-            playerSign.remove(event.getPlayer());
-            playerSign.put(event.getPlayer(), sign);
-        } else if (!cmdMessage.isEmpty() && cmdMessage.containsKey(event.getPlayer()) && cmdMessage.get(event.getPlayer()).equalsIgnoreCase("price")) {
-            Sign sign = playerSign.get(event.getPlayer());
-            sign.setLine(0, "§6Buy");
-            sign.setLine(3, event.getMessage());
-            event.setCancelled(true);
-            cmdMessage.remove(event.getPlayer());
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    sign.update(true, true);
+        if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+            if (!cmdMessage.isEmpty() && cmdMessage.containsKey(event.getPlayer()) && cmdMessage.get(event.getPlayer()).equalsIgnoreCase("itemname")) {
+                Sign sign = playerSign.get(event.getPlayer());
+                sign.setEditable(true);
+                cmdMessage.remove(event.getPlayer());
+                sign.setLine(1, ChatColor.translateAlternateColorCodes('&', event.getMessage()));
+                event.setCancelled(true);
+                cmdMessage.put(event.getPlayer(), "amount");
+                event.getPlayer().sendMessage("§aWie viel soll man kaufen können?");
+                cfg.set("Items." + event.getMessage() + ".item", itemHash.get(event.getPlayer()));
+                cfg.set("Items." + event.getMessage() + ".player", event.getPlayer().getName());
+                cfg.set("Items." + event.getMessage() + ".location", sign.getLocation());
+                try {
+                    cfg.save(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.runTaskLater(Main.getInstance(), 60);
+                sign.update(true);
+                playerSign.remove(event.getPlayer());
+                playerSign.put(event.getPlayer(), sign);
+            } else if (!cmdMessage.isEmpty() && cmdMessage.containsKey(event.getPlayer()) && cmdMessage.get(event.getPlayer()).equalsIgnoreCase("amount")) {
+                Sign sign = playerSign.get(event.getPlayer());
+                sign.setEditable(true);
+                cmdMessage.remove(event.getPlayer());
+                sign.setLine(2, event.getMessage());
+                event.setCancelled(true);
+                cmdMessage.put(event.getPlayer(), "price");
+                event.getPlayer().sendMessage("§aWie viel soll es kosten?");
+                sign.update(true);
+                playerSign.remove(event.getPlayer());
+                playerSign.put(event.getPlayer(), sign);
+            } else if (!cmdMessage.isEmpty() && cmdMessage.containsKey(event.getPlayer()) && cmdMessage.get(event.getPlayer()).equalsIgnoreCase("price")) {
+                Sign sign = playerSign.get(event.getPlayer());
+                sign.setLine(0, "§6Buy");
+                sign.setLine(3, event.getMessage());
+                event.setCancelled(true);
+                cmdMessage.remove(event.getPlayer());
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        sign.update(true, true);
+                    }
+                }.runTaskLater(Main.getInstance(), 60);
+            }
         }
     }
 
@@ -354,30 +360,32 @@ public class MoneySignListeners implements Listener, CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length >= 1) {
             if (sender.hasPermission("essentialsmini.signs.delete")) {
-                String signName = "";
-                for(String s : args) {
-                    if(s.equalsIgnoreCase("signremove")) {
-                        s.replace(s, "");
-                    } else if(args[0].equalsIgnoreCase(s)) {
-                        signName += s;
+                if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+                    String signName = "";
+                    for (String s : args) {
+                        if (s.equalsIgnoreCase("signremove")) {
+                            s.replace(s, "");
+                        } else if (args[0].equalsIgnoreCase(s)) {
+                            signName += s;
+                        } else {
+                            signName += " " + s;
+                        }
+                    }
+                    if (cfg.contains("Items." + signName + ".item")) {
+                        Location location = cfg.getLocation("Items." + signName + ".location");
+                        if (location != null) {
+                            location.getBlock().setType(Material.AIR);
+                        }
+                        cfg.set("Items." + signName, null);
+                        try {
+                            cfg.save(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        sender.sendMessage("§cDieser Shop wurde entfernt!");
                     } else {
-                        signName += " " + s;
+                        sender.sendMessage("§cDieser Shop existiert nicht!");
                     }
-                }
-                if (cfg.contains("Items." + signName + ".item")) {
-                    Location location = cfg.getLocation("Items." + signName + ".location");
-                    if (location != null) {
-                        location.getBlock().setType(Material.AIR);
-                    }
-                    cfg.set("Items." + signName, null);
-                    try {
-                        cfg.save(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    sender.sendMessage("§cDieser Shop wurde entfernt!");
-                } else {
-                    sender.sendMessage("§cDieser Shop existiert nicht!");
                 }
             } else {
                 sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getNOPERMS());

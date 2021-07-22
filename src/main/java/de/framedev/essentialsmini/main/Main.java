@@ -113,11 +113,13 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
         getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
-                "Position activates /position Command \n" +
+                "Position activates /position Command or /pos\n" +
                 "SkipNight activates skipnight \n" +
                 "LocationsBackup Activates creating Backup from all Homes \n" +
-                "OnlyEssentialsFeatures activates the PlayerData saving \n" +
-                "Economy.Activate activates the integration of the Vault API use for Economy");
+                "OnlyEssentialsFeatures if its deactivated only Commands and Economy can be used when is activated the PlayerData will be saved \n" +
+                "Economy.Activate activates the integration of the Vault API use for Economy \n" +
+                "PlayerShop is that Players can create their own Shop \n" +
+                "PlayerEvents also named as PlayerData events");
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
@@ -147,7 +149,7 @@ public class Main extends JavaPlugin {
             this.materialManager.saveMaterialToJson();
 
         /* TPS Command Timer */
-        // this.spigotTimer = new LagCMD.SpigotTimer();
+        this.spigotTimer = new LagCMD.SpigotTimer();
 
 
         this.keyGenerator = new KeyGenerator();
