@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -15,12 +16,16 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class WorldTPCMD implements CommandExecutor, Listener {
+public class WorldTPCMD implements CommandExecutor, Listener, TabCompleter {
 
     private final Main plugin;
 
@@ -28,6 +33,7 @@ public class WorldTPCMD implements CommandExecutor, Listener {
         this.plugin = plugin;
         plugin.getCommands().put("worldtp", this);
         plugin.getCommands().put("addworld", this);
+        plugin.getTabCompleters().put("addworld", this);
         plugin.getListeners().add(this);
         worldWithKeys = getWorldWithKeys();
     }
@@ -164,5 +170,24 @@ public class WorldTPCMD implements CommandExecutor, Listener {
             return (ArrayList<String>) cfg.getStringList("Worlds");
         }
         return worldWithKeys = new ArrayList<>();
+    }
+
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+        if (command.getName().equalsIgnoreCase("addworld")) {
+            if (args.length == 1) {
+                List<String> worlds = new ArrayList<>();
+                Bukkit.getWorlds().forEach(world -> worlds.add(world.getName()));
+                List<String> empty = new ArrayList<>();
+                for(String s : worlds) {
+                    if(s.toLowerCase().startsWith(args[0].toLowerCase()))
+                        empty.add(s);
+                }
+                Collections.sort(empty);
+                return empty;
+            }
+        }
+        return null;
     }
 }
