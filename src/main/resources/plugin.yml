@@ -8,7 +8,7 @@ softdepend:
   - MDBConnection
 loadbefore:
   - Vault
-website: https://framedev.stream
+website: https://framedev.ch
 
 commands:
   signremove:

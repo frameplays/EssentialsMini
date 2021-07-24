@@ -20,7 +20,7 @@ public class MongoDBUtils {
 
     private boolean mongoDb = false;
     private MongoManager mongoManager;
-    private BackendManager backendManager;
+    private de.framedev.essentialsmini.managers.BackendManager backendManager;
 
     public MongoDBUtils() {
         /* MongoDB */

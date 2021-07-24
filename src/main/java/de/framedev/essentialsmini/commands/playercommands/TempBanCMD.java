@@ -27,6 +27,7 @@ public class TempBanCMD extends CommandBase {
     public TempBanCMD(Main plugin) {
         super(plugin, "tempban");
         setup(this);
+        setup("removetempban", this);
         setupTabCompleter(this);
     }
 

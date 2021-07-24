@@ -104,7 +104,6 @@ public class Main extends JavaPlugin {
         this.infoFile = new File(getDataFolder(), "info.yml");
         this.infoCfg = YamlConfiguration.loadConfiguration(infoFile);
 
-        new EssentialsMiniAPI();
         createCustomMessagesConfig();
         Config.saveDefaultConfigValues("messages");
         try {
@@ -126,6 +125,8 @@ public class Main extends JavaPlugin {
         Config.updateConfig();
         Config.loadConfig();
         Config.saveDefaultConfigValues();
+
+        new EssentialsMiniAPI();
 
         this.onlyEssentialsFeatures = getConfig().getBoolean("OnlyEssentialsFeatures");
 
@@ -183,7 +184,6 @@ public class Main extends JavaPlugin {
 
         if (Bukkit.getServer().getPluginManager().getPlugin("MDBConnection") != null) {
             this.mongoDbUtils = new MongoDBUtils();
-            this.mongoDb = mongoDbUtils.isMongoDb();
             if (isMongoDB()) {
                 for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
                     getBackendManager().createUserMoney(player, "essentialsmini_data");
@@ -390,6 +390,10 @@ public class Main extends JavaPlugin {
         savePlayers();
         if (thread != null && thread.isAlive())
             thread.getThreadGroup().destroy();
+    }
+
+    public boolean isOnlyEssentialsFeatures() {
+        return onlyEssentialsFeatures;
     }
 
     public boolean isSQL() {

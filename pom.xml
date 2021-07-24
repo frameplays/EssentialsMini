@@ -6,7 +6,8 @@
 
     <groupId>de.framedev</groupId>
     <artifactId>EssentialsMini</artifactId>
-    <version>1.2.8.3-PRE-RELEASE</version>
+    <version>1.2.9-PRE-RELEASE</version>
+    <url>https://framedev.ch</url>
 
     <properties>
         <repo_version>pre-release</repo_version>
