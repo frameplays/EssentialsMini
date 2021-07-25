@@ -10,7 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes">
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/worldcommands/WorldTPCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/worldcommands/WorldTPCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EssentialsMini.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +71,7 @@
     <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1pz0AX0j3h7LfjDhA4YqSYfCUeh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -84,7 +87,7 @@
     <property name="project.structure.proportion" value="0.15504587" />
     <property name="project.structure.side.proportion" value="0.2019544" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">

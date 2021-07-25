@@ -83,7 +83,6 @@ public class Main extends JavaPlugin {
     // Variables for DataBases
     private boolean mysql;
     private boolean sql;
-    private boolean mongoDb;
     private boolean onlyEssentialsFeatures;
 
 
@@ -524,7 +523,6 @@ public class Main extends JavaPlugin {
      */
     public boolean isMongoDB() {
         if (mongoDbUtils == null) return false;
-        this.mongoDb = this.mongoDbUtils.isMongoDb();
         return this.mongoDbUtils.isMongoDb();
     }
 
