@@ -20,7 +20,7 @@ then in the Directory target should be a file called EssentialsMini-(version).ja
 <br><br><br>
 
 ### ***Future Features***
-- [ ] More Commands
+- [x] More Commands
 - [x] More TabCompleter
 - [x] **NullPointerFixes** [in Progress]
 - [x] PlayerData Features
