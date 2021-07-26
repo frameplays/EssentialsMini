@@ -13,6 +13,7 @@ import de.framedev.essentialsmini.utils.*;
 import de.framedev.mongodbconnections.main.MongoManager;
 import de.framedev.mysqlapi.api.SQL;
 import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
@@ -742,7 +743,7 @@ public class Main extends JavaPlugin {
                             BaseComponent base = new TextComponent();
                             base.addExtra(getPrefix() + "§aNew Version = §6" + newVersion + " §b§l[Please Click Here to Download the newest Plugin!]");
                             base.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://framedev.ch/sites/downloads/essentialsmini"));
-                            base.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§6Click Here to Open the Download Link").create()));
+                            base.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§6Click Here to Open the Download Link")));
                             player.spigot().sendMessage(base);
                         }
                     }

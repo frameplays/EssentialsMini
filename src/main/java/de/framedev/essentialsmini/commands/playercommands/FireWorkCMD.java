@@ -56,7 +56,7 @@ public class FireWorkCMD extends CommandBase {
             }
             FireworkMeta effect = (FireworkMeta) itemStack.getItemMeta();
             FireworkEffect.Type type = FireworkEffect.Type.valueOf(args[1].toUpperCase());
-            if (type == null) {
+            if (FireworkEffect.Type.valueOf(args[1].toUpperCase()) == null) {
                 sender.sendMessage(getPlugin().getPrefix() + "§aFeuerwerk Typ nicht gefunden!");
                 return true;
             }

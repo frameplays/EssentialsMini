@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -40,22 +41,32 @@ public class FlySpeedCMD extends CommandBase {
             }
             float flyspeed = Float.parseFloat(args[0]) / 10F;
             player.setFlySpeed(flyspeed);
-            player.sendMessage("§aDeine Flug Gehschwindigkeit wurde geändert auf §6" + flyspeed * 10F);
+            String flySpeed = plugin.getCustomMessagesConfig().getString("ChangeFlySpeed");
+            flySpeed = new TextUtils().replaceObject("flySpeed", "%flyspeed%", String.valueOf(flyspeed * 10F));
+            flySpeed = new TextUtils().replaceAndToParagraph(flySpeed);
+            player.sendMessage(flySpeed);
             return true;
         } else if (args.length == 2) {
-            if(!sender.hasPermission(plugin.getPermissionName() + "flyspeed.others")) {
+            if (!sender.hasPermission(plugin.getPermissionName() + "flyspeed.others")) {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 return true;
             }
             float flyspeed = Float.parseFloat(args[0]) / 10F;
             Player player = Bukkit.getPlayer(args[1]);
-            if(player == null) {
+            if (player == null) {
                 sender.sendMessage(plugin.getPrefix() + plugin.getVariables().getPlayerNameNotOnline(args[1]));
                 return true;
             }
             player.setFlySpeed(flyspeed);
-            player.sendMessage("§aDeine Flug Gehschwindigkeit wurde geändert auf §6" + flyspeed * 10F);
-            sender.sendMessage("§6" + player.getName() + "'s §aFlug Gehschwindigkeit wurde geändert auf §6" + flyspeed * 10F);
+            String flySpeed = plugin.getCustomMessagesConfig().getString("ChangeFlySpeed");
+            flySpeed = new TextUtils().replaceObject("flySpeed", "%flyspeed%", String.valueOf(flyspeed * 10F));
+            flySpeed = new TextUtils().replaceAndToParagraph(flySpeed);
+            player.sendMessage(flySpeed);
+            String other = plugin.getCustomMessagesConfig().getString("ChangeFlySpeedOther");
+            other = new TextUtils().replaceAndToParagraph(other);
+            other = new TextUtils().replaceObject(other, "%player%", player.getName());
+            other = new TextUtils().replaceObject(other, "%flyspeed%", String.valueOf(flyspeed * 10F));
+            sender.sendMessage(other);
             return true;
         }
         return super.onCommand(sender, command, label, args);
