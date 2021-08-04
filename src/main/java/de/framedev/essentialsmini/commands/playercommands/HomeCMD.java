@@ -8,6 +8,11 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.LocationsManager;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -87,6 +92,12 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                     String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
                     homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
                     sender.sendMessage(plugin.getPrefix() + homeExist);
+                    sender.sendMessage(plugin.getPrefix() + "§aHome setzen?");
+                    BaseComponent baseComponent = new TextComponent();
+                    baseComponent.addExtra("§6[Yes]");
+                    baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sethome"));
+                    baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aSet Home!")));
+                    sender.spigot().sendMessage(baseComponent);
                 }
             }
             if (command.getName().equalsIgnoreCase("delhome")) {
@@ -438,6 +449,12 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
                         String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
                         homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
                         sender.sendMessage(plugin.getPrefix() + homeExist);
+                        sender.sendMessage(plugin.getPrefix() + "§aHome setzen?");
+                        BaseComponent baseComponent = new TextComponent();
+                        baseComponent.addExtra("§6[Yes]");
+                        baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sethome " + name));
+                        baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aSet " + name + " Home!")));
+                        sender.spigot().sendMessage(baseComponent);
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());

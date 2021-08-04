@@ -112,13 +112,14 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
         getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
-                "Position activates /position Command or /pos\n" +
-                "SkipNight activates skipnight \n" +
+                "Position activates /position <LocationName> or /pos <LocationName> Command\n" +
+                "SkipNight activates skipnight. This means that only one Player need to lay in bed!\n" +
                 "LocationsBackup Activates creating Backup from all Homes \n" +
                 "OnlyEssentialsFeatures if its deactivated only Commands and Economy can be used when is activated the PlayerData will be saved \n" +
                 "Economy.Activate activates the integration of the Vault API use for Economy \n" +
                 "PlayerShop is that Players can create their own Shop \n" +
-                "PlayerEvents also named as PlayerData events");
+                "PlayerEvents also named as PlayerData events \n" +
+                "Only 3 Limited Homes Group can be created. Please do not rename the Groups!");
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
@@ -354,6 +355,11 @@ public class Main extends JavaPlugin {
     }
 
     @Override
+    public void onLoad() {
+        Bukkit.getConsoleSender().sendMessage("§aEssentialsMini §cloading...");
+    }
+
+    @Override
     public void onDisable() {
         if (this.getConfig().getBoolean("SaveInventory")) {
             SaveInventoryCMD.save();
@@ -390,12 +396,18 @@ public class Main extends JavaPlugin {
         savePlayers();
         if (thread != null && thread.isAlive())
             thread.getThreadGroup().destroy();
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cDisabled! Bye");
     }
 
     public boolean isOnlyEssentialsFeatures() {
         return onlyEssentialsFeatures;
     }
 
+    /**
+     * Require the MySQLAPI Developed by Me
+     * Return if SQLite is enabled!
+     * @return return if SQLite is Enabled!
+     */
     public boolean isSQL() {
         return sql;
     }
@@ -541,6 +553,10 @@ public class Main extends JavaPlugin {
             offlinePlayers.remove(player.getName());
     }
 
+    /**
+     * Return a list of all OfflinePlayers
+     * @return return a list of all OfflinePlayers
+     */
     public ArrayList<String> getPlayers() {
         return players;
     }
@@ -648,6 +664,11 @@ public class Main extends JavaPlugin {
         return homeTP;
     }
 
+    /**
+     * Check if the Plugin need an update or not if Download is true it will download the Latest Version for you and after an Reload the new Version is active
+     * @param download if is True it will automatically download the Latest for you and after an Reload it will be active
+     * @return if check for update was successfully or not
+     */
     public boolean checkUpdate(boolean download) {
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Checking for updates...");
         try {
@@ -677,6 +698,9 @@ public class Main extends JavaPlugin {
         return false;
     }
 
+    /**
+     * Download the Latest Plugin from the Website https://framedev.ch
+     */
     public void downloadLatest() {
         final File pluginFile = getDataFolder().getParentFile();
         final File updaterFile = new File(pluginFile, "update");

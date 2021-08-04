@@ -25,10 +25,12 @@ LimitedHomes:
   Default: 4
   Medium: 8
   Admin: 12
+
 LimitedHomesPermission:
   Default: essentialsmini.sethome.default
   Medium: essentialsmini.sethome.medium
   Admin: essentialsmini.sethome.admin
+
 HomeTP: true
 
 ShowItem: false
@@ -43,9 +45,11 @@ BackupMessages: false
 SendPlayerUpdateMessage: true
 ZeitgesteuerterRestart: 30
 ZeitGesteuerterRestartBoolean: false
+
 StartBalance:
   Amount: 1000.0
   Boolean: false
+
 MoneySign:
   Balance: '&b[§6Balance§b]'
   Buy: '&a[§6Buy§a]'

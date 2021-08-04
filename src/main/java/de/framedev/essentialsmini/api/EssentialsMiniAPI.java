@@ -512,4 +512,8 @@ public class EssentialsMiniAPI {
     public boolean isMongoDB() {
         return plugin.isMongoDB();
     }
+
+    public void setPlayerGodMode(Player player, boolean godMode) {
+        player.setInvulnerable(godMode);
+    }
 }
