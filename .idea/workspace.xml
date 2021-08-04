@@ -9,11 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes | Features Added">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/EssentialsMiniAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/EssentialsMiniAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="HomeCMD Updated">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,13 +196,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00110" summary="ReadMe Updated">
-      <created>1623941734997</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1623941734997</updated>
     </task>
     <task id="LOCAL-00111" summary="ReadMe Updated">
       <created>1623941778391</created>
@@ -543,7 +533,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627293872009</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="HomeCMD Updated">
+      <created>1628104309872</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1628104309872</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +578,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="FireWorkCMD clear / fire Added" />
     <MESSAGE value="BankAPI Added¨" />
     <MESSAGE value="BankAPI Added" />
     <MESSAGE value="Invsee Bug Fix" />
@@ -606,7 +602,8 @@
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Files Deleted" />
     <MESSAGE value="Bug Fixes | Features Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes | Features Added" />
+    <MESSAGE value="HomeCMD Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="HomeCMD Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

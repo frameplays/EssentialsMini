@@ -207,6 +207,7 @@ public class Main extends JavaPlugin {
                 thread.start();
         }
 
+        // LimitedHomes Init
         HashMap<String, Integer> limitedHomes = new HashMap<>();
         ConfigurationSection cs = getConfig().getConfigurationSection("LimitedHomes");
         if (cs != null) {
