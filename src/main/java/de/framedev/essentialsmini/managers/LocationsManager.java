@@ -19,10 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.spi.LocaleServiceProvider;
 
 /*
@@ -74,7 +71,7 @@ public class LocationsManager {
 
     /**
      * @param name the Location Name
-     * @return return true if an Home exist or otherwise
+     * @return return true if a Home exists
      */
     public boolean existsHome(String name) {
         return getLocations().containsKey(name) && !getLocations().get(name).equalsIgnoreCase(" ");
@@ -222,8 +219,7 @@ public class LocationsManager {
     public void removeLocation(String name) {
         if (jsonFormat) {
             if (getLocations() == null) return;
-            if (getLocations().containsKey(name))
-                getLocations().remove(name);
+            getLocations().remove(name);
             setJsonLocation(name, " ");
         } else {
             if (cfg.contains(name)) {
@@ -259,7 +255,7 @@ public class LocationsManager {
         } else {
             if (cfg.contains(s)) {
                 try {
-                    World world = Bukkit.getWorld(cfg.getString(s + ".world"));
+                    World world = Bukkit.getWorld(Objects.requireNonNull(cfg.getString(s + ".world")));
                     double x = cfg.getDouble(s + ".x");
                     double y = cfg.getDouble(s + ".y");
                     double z = cfg.getDouble(s + ".z");
@@ -290,6 +286,10 @@ public class LocationsManager {
         setWarp(warpName, location);
         cfg.set("warps." + warpName + ".cost", cost);
         saveCfg();
+    }
+
+    public boolean costWarp(String warpName) {
+        return cfg.contains("warps." + warpName + ".cost");
     }
 
     public double getWarpCost(String warpName) {
@@ -328,7 +328,7 @@ public class LocationsManager {
         } else {
             if (cfg.contains(name)) {
                 try {
-                    World world = Bukkit.getWorld(cfg.getString(name + ".world"));
+                    World world = Bukkit.getWorld(Objects.requireNonNull(cfg.getString(name + ".world")));
                     double x = cfg.getDouble(name + ".x");
                     double y = cfg.getDouble(name + ".y");
                     double z = cfg.getDouble(name + ".z");
@@ -356,7 +356,7 @@ public class LocationsManager {
      * @param location the Location to convert to an string
      * @return the Location convertet to String
      */
-    public String locationToString(Location location) {
+    public static String locationToString(Location location) {
         String s = "";
         if (location.getWorld() == null) {
             return null;
@@ -375,7 +375,7 @@ public class LocationsManager {
      * @param string the convertet StringLocation
      * @return returns an completet Location from the String
      */
-    public Location locationFromString(String string) {
+    public static Location locationFromString(String string) {
         String[] s = string.split(";");
         return new Location(Bukkit.getWorld(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]), Double.parseDouble(s[3]), Float.parseFloat(s[4]), Float.parseFloat(s[5]));
     }

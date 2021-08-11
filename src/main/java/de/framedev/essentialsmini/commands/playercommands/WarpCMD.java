@@ -71,6 +71,14 @@ public class WarpCMD extends CommandBase {
                     if (args.length == 1) {
                         String name = args[0];
                         try {
+                            if (new LocationsManager().costWarp(name))
+                                if (plugin.getVaultManager() != null)
+                                    if (Main.getInstance().getVaultManager().getEco().has(player, new LocationsManager().getWarpCost(name))) {
+                                        Main.getInstance().getVaultManager().getEco().withdrawPlayer(player, new LocationsManager().getWarpCost(name));
+                                    } else {
+                                        sender.sendMessage(plugin.getPrefix() + "§cNot enought §6" + plugin.getVaultManager().getEconomy().currencyNamePlural());
+                                        return true;
+                                    }
                             player.teleport(new LocationsManager().getLocation("warps." + name.toLowerCase()));
                             String message = plugin.getCustomMessagesConfig().getString("Warp.Teleport");
                             if (message.contains("&"))
@@ -93,7 +101,7 @@ public class WarpCMD extends CommandBase {
                                     for (String s : cs.getKeys(false)) {
                                         if (s != null) {
                                             if (!new LocationsManager().getCfg().get("warps." + s).equals(" "))
-                                            sender.sendMessage(s);
+                                                sender.sendMessage(s);
                                         }
                                     }
                                 }

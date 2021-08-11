@@ -9,8 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="HomeCMD Updated">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="README.md updated">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/WarpCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/WarpCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/LocationsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/LocationsManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,20 +198,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00111" summary="ReadMe Updated">
-      <created>1623941778391</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1623941778391</updated>
-    </task>
-    <task id="LOCAL-00112" summary="ReadMe Updated">
-      <created>1623941793360</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1623941793360</updated>
     </task>
     <task id="LOCAL-00113" summary="ReadMe Updated">
       <created>1623941798805</created>
@@ -540,7 +528,21 @@
       <option name="project" value="LOCAL" />
       <updated>1628104309872</updated>
     </task>
-    <option name="localTasksCounter" value="160" />
+    <task id="LOCAL-00160" summary="1.2.9.1-PRE-RELEASE">
+      <created>1628104593677</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1628104593677</updated>
+    </task>
+    <task id="LOCAL-00161" summary="README.md updated">
+      <created>1628104677999</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1628104677999</updated>
+    </task>
+    <option name="localTasksCounter" value="162" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,8 +580,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="BankAPI Added¨" />
-    <MESSAGE value="BankAPI Added" />
     <MESSAGE value="Invsee Bug Fix" />
     <MESSAGE value="WarpCMD Bug Fixes" />
     <MESSAGE value="Updated" />
@@ -603,7 +603,9 @@
     <MESSAGE value="Files Deleted" />
     <MESSAGE value="Bug Fixes | Features Added" />
     <MESSAGE value="HomeCMD Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="HomeCMD Updated" />
+    <MESSAGE value="1.2.9.1-PRE-RELEASE" />
+    <MESSAGE value="README.md updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="README.md updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
