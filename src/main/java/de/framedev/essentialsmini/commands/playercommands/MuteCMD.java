@@ -89,47 +89,87 @@ public class MuteCMD extends CommandBase implements Listener {
             }
         }
         if (command.getName().equalsIgnoreCase("tempmute")) {
-            if (args.length == 4) {
+            if (args.length == 5) {
                 if (!sender.hasPermission(plugin.getPermissionName() + "tempmute")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     return true;
                 }
-
-                MuteReason muteReason = MuteReason.valueOf(args[1].toUpperCase());
-                DateUnit unit = DateUnit.valueOf(args[3].toUpperCase());
-                long value = Long.parseLong(args[2]);
-                long current = System.currentTimeMillis();
-                long millis = value * unit.getToSec() * 1000;
-                long newValue = current + millis;
-                Date date = new Date(newValue);
-                OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                if (plugin.isMysql() || plugin.isSQL()) {
-                    new BanMuteManager().setTempMute(player, muteReason, new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(date));
-                    String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
-                    selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
-                    if (player.isOnline())
-                        ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
-                    String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
-                    otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
-                    otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
-                    sender.sendMessage(plugin.getPrefix() + otherMute);
-                } else {
-                    cfg.set(player.getName() + ".reason", muteReason.getReason());
-                    cfg.set(player.getName() + ".expire", date);
-                    try {
-                        cfg.save(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if(args[0].equalsIgnoreCase("type")) {
+                    MuteReason muteReason = MuteReason.valueOf(args[2].toUpperCase());
+                    DateUnit unit = DateUnit.valueOf(args[4].toUpperCase());
+                    long value = Long.parseLong(args[3]);
+                    long current = System.currentTimeMillis();
+                    long millis = value * unit.getToSec() * 1000;
+                    long newValue = current + millis;
+                    Date date = new Date(newValue);
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+                    if (plugin.isMysql() || plugin.isSQL()) {
+                        new BanMuteManager().setTempMute(player, muteReason, new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(date));
+                        String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
+                        selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
+                        if (player.isOnline())
+                            ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
+                        String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
+                        otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
+                        otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
+                        sender.sendMessage(plugin.getPrefix() + otherMute);
+                    } else {
+                        cfg.set(player.getName() + ".reason", muteReason.getReason());
+                        cfg.set(player.getName() + ".expire", date);
+                        try {
+                            cfg.save(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
+                        selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
+                        if (player.isOnline())
+                            ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
+                        String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
+                        otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
+                        otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
+                        sender.sendMessage(plugin.getPrefix() + otherMute);
                     }
-                    String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
-                    selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
-                    if (player.isOnline())
-                        ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
-                    String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
-                    otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
-                    otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
-                    sender.sendMessage(plugin.getPrefix() + otherMute);
                 }
+
+                if(args[0].equalsIgnoreCase("own")) {
+                    String muteReason = args[2];
+                    DateUnit unit = DateUnit.valueOf(args[4].toUpperCase());
+                    long value = Long.parseLong(args[3]);
+                    long current = System.currentTimeMillis();
+                    long millis = value * unit.getToSec() * 1000;
+                    long newValue = current + millis;
+                    Date date = new Date(newValue);
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+                    if (plugin.isMysql() || plugin.isSQL()) {
+                        new BanMuteManager().setTempMute(player, muteReason, new SimpleDateFormat("dd.MM.yyyy | HH:mm:ss").format(date));
+                        String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
+                        selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
+                        if (player.isOnline())
+                            ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
+                        String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
+                        otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
+                        otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
+                        sender.sendMessage(plugin.getPrefix() + otherMute);
+                    } else {
+                        cfg.set(player.getName() + ".reason", muteReason);
+                        cfg.set(player.getName() + ".expire", date);
+                        try {
+                            cfg.save(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        String selfMute = plugin.getCustomMessagesConfig().getString("Mute.Self.Activate");
+                        selfMute = ReplaceCharConfig.replaceParagraph(selfMute);
+                        if (player.isOnline())
+                            ((Player) player).sendMessage(plugin.getPrefix() + selfMute);
+                        String otherMute = plugin.getCustomMessagesConfig().getString("Mute.Other.Activate");
+                        otherMute = ReplaceCharConfig.replaceParagraph(otherMute);
+                        otherMute = ReplaceCharConfig.replaceObjectWithData(otherMute, "%Player%", player.getName());
+                        sender.sendMessage(plugin.getPrefix() + otherMute);
+                    }
+                }
+
                 return true;
             }
         }
@@ -281,9 +321,10 @@ public class MuteCMD extends CommandBase implements Listener {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 2) {
+        if (args.length == 1) {
             ArrayList<String> reason = new ArrayList<>();
-            Arrays.asList(MuteReason.values()).forEach(reasons -> reason.add(reasons.name()));
+            reason.add("own");
+            reason.add("type");
             ArrayList<String> empty = new ArrayList<>();
             for (String s : reason) {
                 if (s.toLowerCase().startsWith(args[1].toLowerCase()))
@@ -293,9 +334,22 @@ public class MuteCMD extends CommandBase implements Listener {
             return empty;
         }
         if (args.length == 3) {
-            return new ArrayList<String>(Collections.singletonList("Time"));
+            if (args[0].equalsIgnoreCase("type")) {
+                ArrayList<String> reason = new ArrayList<>();
+                Arrays.asList(MuteReason.values()).forEach(reasons -> reason.add(reasons.name()));
+                ArrayList<String> empty = new ArrayList<>();
+                for (String s : reason) {
+                    if (s.toLowerCase().startsWith(args[1].toLowerCase()))
+                        empty.add(s);
+                }
+                Collections.sort(empty);
+                return empty;
+            }
         }
         if (args.length == 4) {
+            return new ArrayList<String>(Collections.singletonList("Time"));
+        }
+        if (args.length == 5) {
             ArrayList<String> dateFormat = new ArrayList<>();
             Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
             ArrayList<String> empty = new ArrayList<>();
