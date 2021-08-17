@@ -15,9 +15,7 @@ import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
@@ -40,16 +38,16 @@ public class SummonCMD extends CommandBase {
     @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 1) {
-            if(sender instanceof Player) {
+        if (args.length == 1) {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
-                if(player.hasPermission(plugin.getPermissionName() + "summon")) {
+                if (player.hasPermission(plugin.getPermissionName() + "summon")) {
                     EntityType type = EntityType.fromName(args[0]);
                     if (type != null) {
                         Block block = player.getTargetBlock(null, 100);
                         Location bl = block.getLocation();
                         bl.setY(block.getLocation().getY() + 1.0D);
-                        player.getWorld().spawnEntity(bl,type);
+                        player.getWorld().spawnEntity(bl, type);
                         player.sendMessage(plugin.getPrefix() + "§6" + type.name() + " §awurde erfolgreich gespawnt!");
                     } else {
                         sender.sendMessage(plugin.getPrefix() + "§cDieses Entity existiert nicht! §6" + type.name());
@@ -60,8 +58,8 @@ public class SummonCMD extends CommandBase {
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
             }
-        } else if(args.length == 2) {
-            if(sender instanceof Player) {
+        } else if (args.length == 2) {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission(plugin.getPermissionName() + "summon")) {
                     EntityType type = EntityType.fromName(args[0]);
@@ -71,8 +69,8 @@ public class SummonCMD extends CommandBase {
                             Block block = player.getTargetBlock(null, 100);
                             Location bl = block.getLocation();
                             bl.setY(block.getLocation().getY() + 1.0D);
-                            for(int i = 0; i <= amount; i++) {
-                                player.getWorld().spawnEntity(bl,type);
+                            for (int i = 1; i <= amount; i++) {
+                                player.getWorld().spawnEntity(bl, type);
                             }
                             player.sendMessage(plugin.getPrefix() + "§6" + type.name() + " §awurde erfolgreich gespawnt!");
                         } catch (NumberFormatException ignored) {
@@ -96,11 +94,11 @@ public class SummonCMD extends CommandBase {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 1) {
+        if (args.length == 1) {
             ArrayList<EntityType> entityList = new ArrayList<>(Arrays.asList(EntityType.values()));
             ArrayList<String> empty = new ArrayList<>();
-            for(EntityType type : entityList) {
-                if(type.name().toLowerCase().startsWith(args[0])) {
+            for (EntityType type : entityList) {
+                if (type.name().toLowerCase().startsWith(args[0])) {
                     empty.add(type.name());
                 }
             }

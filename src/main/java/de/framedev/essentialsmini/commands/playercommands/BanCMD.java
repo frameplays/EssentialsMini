@@ -6,6 +6,7 @@ import de.framedev.essentialsmini.managers.BanMuteManager;
 import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -69,9 +70,22 @@ public class BanCMD extends CommandBase {
             types.add("own");
             ArrayList<String> empty = new ArrayList<>();
             for (String s : types) {
-                if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
+                if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
                     empty.add(s);
                 }
+            }
+            Collections.sort(empty);
+            return empty;
+        }
+        if (args.length == 2) {
+            ArrayList<String> reason = new ArrayList<>();
+            for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                reason.add(offlinePlayer.getName());
+            }
+            ArrayList<String> empty = new ArrayList<>();
+            for (String s : reason) {
+                if (s.toLowerCase().startsWith(args[1].toLowerCase()))
+                    empty.add(s);
             }
             Collections.sort(empty);
             return empty;
@@ -82,12 +96,15 @@ public class BanCMD extends CommandBase {
                 Arrays.asList(BanType.values()).forEach(type -> types.add(type.name()));
                 ArrayList<String> empty = new ArrayList<>();
                 for (String s : types) {
-                    if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
+                    if (s.toLowerCase().startsWith(args[2].toLowerCase())) {
                         empty.add(s);
                     }
                 }
                 Collections.sort(empty);
                 return empty;
+            }
+            if(args[0].equalsIgnoreCase("own")) {
+                return new ArrayList<String>(Collections.singleton("your_Message"));
             }
         }
         return super.onTabComplete(sender, command, label, args);

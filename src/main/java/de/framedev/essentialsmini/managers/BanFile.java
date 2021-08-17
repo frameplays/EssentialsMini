@@ -1,5 +1,6 @@
 package de.framedev.essentialsmini.managers;
 
+import de.framedev.essentialsmini.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class BanFile {
 
-    public static File file = new File("plugins/SpigotTest/Banned.yml");
+    public static File file = new File(Main.getInstance().getDataFolder(), "Banned.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
     public static void saveCFG() {

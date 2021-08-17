@@ -102,9 +102,22 @@ public class TempBanCMD extends CommandBase {
             reasons.add("own");
             ArrayList<String> empty = new ArrayList<>();
             for (String s : reasons) {
-                if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
+                if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
                     empty.add(s);
                 }
+            }
+            Collections.sort(empty);
+            return empty;
+        }
+        if (args.length == 2) {
+            ArrayList<String> reason = new ArrayList<>();
+            for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                reason.add(offlinePlayer.getName());
+            }
+            ArrayList<String> empty = new ArrayList<>();
+            for (String s : reason) {
+                if (s.toLowerCase().startsWith(args[1].toLowerCase()))
+                    empty.add(s);
             }
             Collections.sort(empty);
             return empty;
@@ -115,12 +128,15 @@ public class TempBanCMD extends CommandBase {
                 Arrays.asList(Ban.values()).forEach(ban -> reasons.add(ban.name()));
                 ArrayList<String> empty = new ArrayList<>();
                 for (String s : reasons) {
-                    if (s.toLowerCase().startsWith(args[1].toLowerCase())) {
+                    if (s.toLowerCase().startsWith(args[2].toLowerCase())) {
                         empty.add(s);
                     }
                 }
                 Collections.sort(empty);
                 return empty;
+            }
+            if(args[0].equalsIgnoreCase("own")) {
+                return new ArrayList<String>(Collections.singleton("your_Message"));
             }
         }
         if (args.length == 4) {
@@ -131,7 +147,7 @@ public class TempBanCMD extends CommandBase {
             Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
             ArrayList<String> empty = new ArrayList<>();
             for (String s : dateFormat) {
-                if (s.toLowerCase().startsWith(args[3].toLowerCase())) {
+                if (s.toLowerCase().startsWith(args[4].toLowerCase())) {
                     empty.add(s);
                 }
             }
