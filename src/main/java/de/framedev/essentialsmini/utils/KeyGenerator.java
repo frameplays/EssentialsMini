@@ -16,7 +16,6 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Darryl
@@ -64,6 +63,7 @@ public class KeyGenerator {
 
     public String generateKeyAndSave(OfflinePlayer player) {
         String key = generatorString(32);
+        if (player.getName() == null) return "";
         cfg.set(player.getName(), key);
         try {
             cfg.save(file);
@@ -74,20 +74,22 @@ public class KeyGenerator {
     }
 
     public boolean hasPlayerKey(OfflinePlayer player) {
+        if (player.getName() == null) return false;
         return cfg.contains(player.getName());
     }
 
     /**
-     *
      * @param player the Player
      * @return the Key fromPlayer
      * @throws NullPointerException return NullPointerException if Player is Null
      */
     public String getKey(OfflinePlayer player) throws NullPointerException {
+        if (player.getName() == null) return "";
         return cfg.getString(player.getName());
     }
 
     public void removeBetaKey(OfflinePlayer player) {
+        if (player.getName() == null) return;
         cfg.set(player.getName(), null);
         try {
             cfg.save(file);

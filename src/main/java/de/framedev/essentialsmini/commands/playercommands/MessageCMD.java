@@ -17,6 +17,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class MessageCMD implements CommandExecutor {
         plugin.getCommands().put("msg", this);
         plugin.getCommands().put("r", this);
         plugin.getCommands().put("spy", this);
-        plugin.getCommands().put("msgtoggle",this);
+        plugin.getCommands().put("msgtoggle", this);
     }
 
     HashMap<Player, Player> reply = new HashMap<>();
@@ -38,17 +39,21 @@ public class MessageCMD implements CommandExecutor {
     ArrayList<Player> msgToggle = new ArrayList<>();
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
         if (command.getName().equalsIgnoreCase("msgtoggle")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission(plugin.getPermissionName() + "msgtoggle")) {
                     if (msgToggle.contains(player)) {
                         msgToggle.remove(player);
-                        player.sendMessage(plugin.getPrefix() + "§aMessages will be sent to you!");
+                        String msgToggleMessage = plugin.getCustomMessagesConfig().getString("MsgToggle.Deactivated");
+                        msgToggleMessage = new TextUtils().replaceAndToParagraph(msgToggleMessage);
+                        player.sendMessage(plugin.getPrefix() + msgToggleMessage);
                         return true;
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo more messages will be sent to you!");
+                        String msgToggleMessage = plugin.getCustomMessagesConfig().getString("MsgToggle.Activated");
+                        msgToggleMessage = new TextUtils().replaceAndToParagraph(msgToggleMessage);
+                        player.sendMessage(plugin.getPrefix() + msgToggleMessage);
                         msgToggle.add(player);
                         return true;
                     }
@@ -76,7 +81,7 @@ public class MessageCMD implements CommandExecutor {
                                         if (spy.contains(opPlayer)) {
                                             String spy = plugin.getCustomMessagesConfig().getString("SpyMessage");
                                             spy = ReplaceCharConfig.replaceParagraph(spy);
-                                            spy = ReplaceCharConfig.replaceObjectWithData(spy,"%Player%", player.getName());
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Player%", player.getName());
                                             spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Target%", target.getName());
                                             spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Message%", message);
                                             opPlayer.sendMessage(spy);
@@ -88,7 +93,7 @@ public class MessageCMD implements CommandExecutor {
                                 message = "";
                                 reply.put(target, player);
                             }
-                        } else if(player.hasPermission(plugin.getPermissionName() + "msgtoggle.bypass")) {
+                        } else if (player.hasPermission(plugin.getPermissionName() + "msgtoggle.bypass")) {
                             if (target != null) {
                                 for (int i = 1; i < args.length; i++) {
                                     message = message + args[i] + " ";
@@ -98,7 +103,7 @@ public class MessageCMD implements CommandExecutor {
                                         if (spy.contains(opPlayer)) {
                                             String spy = plugin.getCustomMessagesConfig().getString("SpyMessage");
                                             spy = ReplaceCharConfig.replaceParagraph(spy);
-                                            spy = ReplaceCharConfig.replaceObjectWithData(spy,"%Player%", player.getName());
+                                            spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Player%", player.getName());
                                             spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Target%", target.getName());
                                             spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Message%", message);
                                             opPlayer.sendMessage(spy);
@@ -112,7 +117,9 @@ public class MessageCMD implements CommandExecutor {
                             }
                         } else {
                             if (target != null) {
-                                player.sendMessage(plugin.getPrefix() + "§cThis Player doesn't Allow Messages!");
+                                String msgToggleMessage = plugin.getCustomMessagesConfig().getString("MsgToggle.Message");
+                                msgToggleMessage = new TextUtils().replaceAndToParagraph(msgToggleMessage);
+                                player.sendMessage(plugin.getPrefix() + msgToggleMessage);
                             }
                         }
                     } else {
@@ -143,7 +150,7 @@ public class MessageCMD implements CommandExecutor {
                                             if (spy.contains(opPlayer)) {
                                                 String spy = plugin.getCustomMessagesConfig().getString("SpyMessage");
                                                 spy = ReplaceCharConfig.replaceParagraph(spy);
-                                                spy = ReplaceCharConfig.replaceObjectWithData(spy,"%Player%", player.getName());
+                                                spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Player%", player.getName());
                                                 spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Target%", target.getName());
                                                 spy = ReplaceCharConfig.replaceObjectWithData(spy, "%Message%", message);
                                                 opPlayer.sendMessage(spy);
@@ -156,7 +163,7 @@ public class MessageCMD implements CommandExecutor {
                                     reply.remove(player);
                                 }
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§aDir wurde vor kurzem keine Nachricht geschrieben!");
+                                player.sendMessage(plugin.getPrefix() + "§cDir wurde vor kurzem keine Nachricht geschrieben!");
                             }
                         }
                     } else {

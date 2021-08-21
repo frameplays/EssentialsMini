@@ -1,6 +1,7 @@
 package de.framedev.essentialsmini.listeners;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.ListenerBase;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.*;
 import org.bukkit.block.Sign;
@@ -11,7 +12,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -32,12 +32,13 @@ import java.util.HashMap;
  * Project: EssentialsMini
  * Copyrighted by FrameDev
  */
-public class MoneySignListeners implements Listener, CommandExecutor {
+public class MoneySignListeners extends ListenerBase implements CommandExecutor {
 
     private Economy eco;
 
     public MoneySignListeners(Main plugin) {
-        plugin.getListeners().add(this);
+        super(plugin);
+        setupListener(this);
         plugin.getCommand("signremove").setExecutor(this);
         if (plugin.getConfig().getBoolean("Economy.Activate")) {
             eco = plugin.getVaultManager().getEco();
@@ -189,9 +190,13 @@ public class MoneySignListeners implements Listener, CommandExecutor {
                     }
                 } else if (s.getLine(0).equalsIgnoreCase("§6Buy")) {
                     if (e.getPlayer().hasPermission("essentialsmini.signs.use")) {
-                        if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+                        if (Main.getInstance().getConfig().getBoolean("PlayerShop")) {
                             ItemStack itemStack = cfg.getItemStack("Items." + s.getLine(1).replace('§', '&') + ".item");
                             itemStack.setAmount(Integer.parseInt(s.getLine(2)));
+                            if (e.getPlayer().getName().equalsIgnoreCase(cfg.getString("Items." + s.getLine(1).replace('§', '&') + ".player"))) {
+                                e.getPlayer().sendMessage("§c§lYou cannot Buy your own Item!");
+                                return;
+                            }
                             if (eco.has(e.getPlayer(), Double.parseDouble(s.getLine(3)))) {
                                 eco.withdrawPlayer(e.getPlayer(), Double.parseDouble(s.getLine(3)));
                                 eco.depositPlayer(Bukkit.getOfflinePlayer(cfg.getString("Items." + s.getLine(1).replace('§', '&') + ".player")), Double.parseDouble(s.getLine(3)));
@@ -285,7 +290,7 @@ public class MoneySignListeners implements Listener, CommandExecutor {
 
     @EventHandler
     public void onPlayerClickSign(PlayerInteractEvent event) {
-        if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+        if (Main.getInstance().getConfig().getBoolean("PlayerShop")) {
             if (event.getItem() == null) return;
             ItemStack item = event.getItem();
             if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -309,7 +314,7 @@ public class MoneySignListeners implements Listener, CommandExecutor {
 
     @EventHandler
     public void onAsync(AsyncPlayerChatEvent event) {
-        if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+        if (Main.getInstance().getConfig().getBoolean("PlayerShop")) {
             if (!cmdMessage.isEmpty() && cmdMessage.containsKey(event.getPlayer()) && cmdMessage.get(event.getPlayer()).equalsIgnoreCase("itemname")) {
                 Sign sign = playerSign.get(event.getPlayer());
                 sign.setEditable(true);
@@ -360,7 +365,7 @@ public class MoneySignListeners implements Listener, CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length >= 1) {
             if (sender.hasPermission("essentialsmini.signs.delete")) {
-                if(Main.getInstance().getConfig().getBoolean("PlayerShop")) {
+                if (Main.getInstance().getConfig().getBoolean("PlayerShop")) {
                     String signName = "";
                     for (String s : args) {
                         if (s.equalsIgnoreCase("signremove")) {
