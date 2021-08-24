@@ -12,7 +12,10 @@ import de.framedev.essentialsmini.managers.*;
 import de.framedev.essentialsmini.utils.*;
 import de.framedev.mongodbconnections.main.MongoManager;
 import de.framedev.mysqlapi.api.SQL;
-import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -94,6 +97,7 @@ public class Main extends JavaPlugin {
     private FileConfiguration infoCfg;
 
     private MongoDBUtils mongoDbUtils;
+    private String configVersion;
 
     @Override
     public void onEnable() {
@@ -126,6 +130,8 @@ public class Main extends JavaPlugin {
         Config.updateConfig();
         Config.loadConfig();
         Config.saveDefaultConfigValues();
+
+        this.configVersion = getConfig().getString("Config-Version");
 
         new EssentialsMiniAPI();
 
@@ -353,6 +359,26 @@ public class Main extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (!configVersion.equalsIgnoreCase("1.0.0")) {
+            new File(getDataFolder(), "config.yml").delete();
+            getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
+                    "Position activates /position <LocationName> or /pos <LocationName> Command\n" +
+                    "SkipNight activates skipnight. This means that only one Player need to lay in bed!\n" +
+                    "LocationsBackup Activates creating Backup from all Homes \n" +
+                    "OnlyEssentialsFeatures if its deactivated only Commands and Economy can be used when is activated the PlayerData will be saved \n" +
+                    "Economy.Activate activates the integration of the Vault API use for Economy \n" +
+                    "PlayerShop is that Players can create their own Shop \n" +
+                    "PlayerEvents also named as PlayerData events \n" +
+                    "Only 3 Limited Homes Group can be created. Please do not rename the Groups!");
+            getConfig().options().copyHeader(true);
+            getConfig().options().copyDefaults(true);
+            saveDefaultConfig();
+            Config.updateConfig();
+            Config.loadConfig();
+            Config.saveDefaultConfigValues();
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cConfig Replaced! Please edit your Config Sections!");
+        }
     }
 
     @Override
@@ -407,6 +433,7 @@ public class Main extends JavaPlugin {
     /**
      * Require the MySQLAPI Developed by Me
      * Return if SQLite is enabled!
+     *
      * @return return if SQLite is Enabled!
      */
     public boolean isSQL() {
@@ -556,6 +583,7 @@ public class Main extends JavaPlugin {
 
     /**
      * Return a list of all OfflinePlayers
+     *
      * @return return a list of all OfflinePlayers
      */
     public ArrayList<String> getPlayers() {
@@ -653,6 +681,7 @@ public class Main extends JavaPlugin {
 
     /**
      * Return the no Perms Variable
+     *
      * @return Return the Message for no Permissions
      */
     public String getNOPERMS() {
@@ -667,6 +696,7 @@ public class Main extends JavaPlugin {
 
     /**
      * Check if the Plugin need an update or not if Download is true it will download the Latest Version for you and after an Reload the new Version is active
+     *
      * @param download if is True it will automatically download the Latest for you and after an Reload it will be active
      * @return if check for update was successfully or not
      */
