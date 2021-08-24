@@ -21,7 +21,8 @@ import java.util.List;
 public abstract class CommandBase implements CommandExecutor, TabCompleter {
 
     private final Main plugin;
-    private final String cmdName;
+    private String cmdName;
+    private String[] cmdNames;
 
     /**
      * Register an Command
@@ -59,12 +60,20 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
         setup(executor);
     }
 
+    public CommandBase(Main plugin, CommandExecutor executor, @NonNull String... cmdNames) {
+        this.plugin = plugin;
+        this.cmdNames = cmdNames;
+        for (String cmd : cmdNames) {
+            setup(cmd, executor);
+        }
+    }
+
     public Main getPlugin() {
         return plugin;
     }
 
     /**
-     * Register an Command
+     * Register a Command
      *
      * @param executor the Executor who executes the Command
      */

@@ -724,7 +724,9 @@ public class Main extends JavaPlugin {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
             }
         } catch (IOException e) {
+            e.printStackTrace();
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cPlease write an Email to framedev@framedev.stream with the Error");
         }
         return false;
     }
@@ -803,6 +805,7 @@ public class Main extends JavaPlugin {
                         }
                     }
                 } catch (IOException e) {
+                    e.printStackTrace();
                     player.sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");
                 }
             }

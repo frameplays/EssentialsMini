@@ -51,9 +51,14 @@ public class KitManager {
     public void loadKits(String name, Player player) {
         try {
             for (String s : getCustomConfig().getStringList("Items." + name)) {
-                String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
-                this.kitname.addItem(item);
+                if (s == null) return;
+                if (s.contains(",")) {
+                    String[] x = s.split(",");
+                    ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
+                    this.kitname.addItem(item);
+                } else {
+                    this.kitname.addItem(new ItemStack(Material.getMaterial(s.toUpperCase())));
+                }
             }
             for (ItemStack items : this.kitname.getContents()) {
                 if (items != null) {
