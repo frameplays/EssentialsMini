@@ -9,13 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Data Updated">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Commands Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/EnchantCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/EnchantCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandListenerBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/CommandListenerBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/UpdateChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/UpdateChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/KitManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/KitManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,13 +197,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00120" summary="FireWorkCMD Updated / Trail / Flicker / Power Added">
-      <created>1624819158638</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1624819158638</updated>
     </task>
     <task id="LOCAL-00121" summary="FireWorkCMD clear / fire Added">
       <created>1624820302367</created>
@@ -545,7 +534,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629826618147</updated>
     </task>
-    <option name="localTasksCounter" value="169" />
+    <task id="LOCAL-00169" summary="Commands Updated">
+      <created>1630091486611</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1630091486611</updated>
+    </task>
+    <option name="localTasksCounter" value="170" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -604,11 +600,11 @@
     <MESSAGE value="WarpCMD Updated" />
     <MESSAGE value="Mute / Ban / TempBan Updated&#10;&#10;Create your own Message" />
     <MESSAGE value="pom.xml Updated" />
-    <MESSAGE value="Commands Updated" />
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Conbfig Updater Added" />
     <MESSAGE value="Data Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Data Updated" />
+    <MESSAGE value="Commands Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commands Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
