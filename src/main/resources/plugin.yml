@@ -229,6 +229,7 @@ commands:
     description: Copy an Written Book
   removetempban:
   firework:
+  createkit:
 permissions:
   essentialsmini.*:
     children:

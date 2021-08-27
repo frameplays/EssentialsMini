@@ -1,10 +1,10 @@
 package de.framedev.essentialsmini.utils;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import de.framedev.essentialsmini.main.Main;
+
+import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * This Plugin was Created by FrameDev
@@ -54,5 +54,33 @@ public class UpdateChecker {
         new File("plugins/update/" + name).getParentFile().mkdirs();
         if (!file.renameTo(new File("plugins/update/" + name)))
             System.err.println("File cannot be renamed!");
+    }
+
+    public boolean hasUpdate() {
+        try {
+            URLConnection conn = new URL("https://framedev.ch/sites/downloads/essentialsminiversion.txt").openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String oldVersion = Main.getInstance().getDescription().getVersion();
+            String newVersion = br.readLine();
+            if (!newVersion.equalsIgnoreCase(oldVersion))
+                if (!oldVersion.contains("PRE-RELEASE"))
+                    return true;
+        } catch (IOException ignored) {
+        }
+        return false;
+    }
+
+    public boolean isPreRelease() {
+        try {
+            URLConnection conn = new URL("https://framedev.ch/sites/downloads/essentialsminiversion.txt").openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String oldVersion = Main.getInstance().getDescription().getVersion();
+            String newVersion = br.readLine();
+            if (!newVersion.equalsIgnoreCase(oldVersion))
+                if (oldVersion.contains("PRE-RELEASE"))
+                    return true;
+        } catch (IOException ignored) {
+        }
+        return false;
     }
 }

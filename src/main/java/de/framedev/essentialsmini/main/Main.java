@@ -849,6 +849,6 @@ public class Main extends JavaPlugin {
     }
 
     public String getCurrencySymbolMulti() {
-        return (String) getConfig().getString("Currency.Multi");
+        return getConfig().getString("Currency.Multi");
     }
 }

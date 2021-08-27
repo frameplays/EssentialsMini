@@ -68,6 +68,19 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
         }
     }
 
+    public CommandBase(Main plugin, CommandExecutor executor, TabCompleter completer, @NonNull String... cmdNames) {
+        this.plugin = plugin;
+        this.cmdNames = cmdNames;
+        for (String cmd : cmdNames) {
+            setup(cmd, executor);
+            setupTabCompleter(cmd, completer);
+        }
+    }
+
+    public String[] getCmdNames() {
+        return cmdNames;
+    }
+
     public Main getPlugin() {
         return plugin;
     }

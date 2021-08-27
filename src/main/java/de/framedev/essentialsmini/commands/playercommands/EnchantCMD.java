@@ -13,7 +13,6 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -38,14 +37,18 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 2) {
+        if (args.length >= 2) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission(plugin.getPermissionName() + "enchant")) {
                     if (player.getInventory().getItemInMainHand().getType() != AIR) {
                         ItemMeta meta = player.getInventory().getItemInMainHand().getItemMeta();
                         if (args[0].equalsIgnoreCase("unbreakable")) {
-                            meta.setUnbreakable(true);
+                            if (args[1].equalsIgnoreCase("true")) {
+                                meta.setUnbreakable(true);
+                            } else if (args[1].equalsIgnoreCase("false")) {
+                                meta.setUnbreakable(false);
+                            }
                             player.getInventory().getItemInMainHand().setItemMeta(meta);
                         } else if (Enchantments.getByName(args[0]) != null) {
                             meta.addEnchant(Enchantments.getByName(args[0]), Integer.parseInt(args[1]), true);
@@ -64,14 +67,18 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
             }
-        } else if (args.length == 3) {
+        } else if (args.length >= 3) {
             if (sender.hasPermission(plugin.getPermissionName() + "enchant.others")) {
                 Player target = Bukkit.getPlayer(args[2]);
                 if (target != null) {
                     if (target.getInventory().getItemInMainHand().getType() != AIR) {
                         ItemMeta meta = target.getInventory().getItemInMainHand().getItemMeta();
                         if (args[0].equalsIgnoreCase("unbreakable")) {
-                            meta.setUnbreakable(true);
+                            if (args[1].equalsIgnoreCase("true")) {
+                                meta.setUnbreakable(true);
+                            } else if (args[1].equalsIgnoreCase("false")) {
+                                meta.setUnbreakable(false);
+                            }
                             target.getInventory().getItemInMainHand().setItemMeta(meta);
                         } else if (Enchantments.getByName(args[0]) != null) {
                             meta.addEnchant(Enchantments.getByName(args[0]), Integer.parseInt(args[1]), true);

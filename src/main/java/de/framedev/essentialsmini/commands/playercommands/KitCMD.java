@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,31 +20,40 @@ public class KitCMD implements CommandExecutor, TabCompleter {
     public KitCMD(Main plugin) {
         this.plugin = plugin;
         plugin.getCommands().put("kits", this);
-        plugin.getTabCompleters().put("kits",this);
+        plugin.getTabCompleters().put("kits", this);
+        plugin.getCommands().put("createkit", this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            if (args.length != 0) {
-                String name = args[0];
-                if (p.hasPermission(plugin.getPermissionName() + "kits." + name)) {
-                    if (args.length == 1) {
-                        if(KitManager.getCustomConfig().contains("Items." + name)) {
-                            KitManager kit = new KitManager();
-                            kit.loadKits(name, p);
+            if (command.getName().equalsIgnoreCase("kits")) {
+                if (args.length != 0) {
+                    String name = args[0];
+                    if (p.hasPermission(plugin.getPermissionName() + "kits." + name)) {
+                        if (args.length == 1) {
+                            if (KitManager.getCustomConfig().contains("Items." + name)) {
+                                KitManager kit = new KitManager();
+                                kit.loadKits(name, p);
+                            } else {
+                                p.sendMessage(plugin.getPrefix() + "§cDieses Kit existiert nicht!");
+                            }
                         } else {
-                            p.sendMessage(plugin.getPrefix() + "§cDieses Kit existiert nicht!");
+                            p.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/kits <kitname>"));
                         }
                     } else {
-                        p.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/kits <kitname>"));
+                        p.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 } else {
-                    p.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                    p.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/kits <kitname>"));
                 }
-            } else {
-                p.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/kits <kitname>"));
+            }
+            if (command.getName().equalsIgnoreCase("createkit")) {
+                if (p.hasPermission(plugin.getPermissionName() + "createkit")) {
+                    ItemStack[] items = p.getInventory().getContents();
+                    new KitManager().createKit(args[0], items);
+                }
             }
         }
         return false;
