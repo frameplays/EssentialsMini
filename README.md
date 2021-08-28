@@ -1,5 +1,5 @@
 # Essentials Mini
-#### [Website and Download](https://framedev.stream/sites/downloads/essentialsmini)
+#### [Website and Download](https://framedev.ch/sites/downloads/essentialsmini)
 ___
 # Index
 - [Build by your own](#build-by-your-own)
