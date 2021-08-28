@@ -75,7 +75,6 @@ Economy:
 
 TeleportInOtherWorld: true
 
-
 WorldBackup: false
 
 BackupWorldTime: 60

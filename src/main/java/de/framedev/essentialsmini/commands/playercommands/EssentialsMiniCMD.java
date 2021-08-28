@@ -35,6 +35,7 @@ public class EssentialsMiniCMD extends CommandBase {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("reload")) {
                         sender.sendMessage(plugin.getPrefix() + "§cNot yeet Implemented!");
+                        throw new IllegalStateException("Not Implemented!");
                     }
                     if (args[0].equalsIgnoreCase("info")) {
                         boolean jsonFormat = plugin.getConfig().getBoolean("JsonFormat");
@@ -142,11 +143,11 @@ public class EssentialsMiniCMD extends CommandBase {
                         sender.sendMessage(plugin.getPrefix() + "§6Economy §awurde auf §6" + isSet + " §agesetzt!");
                         sender.sendMessage(plugin.getPrefix() + "§6Wenn du fertig bis Reloade bitte einmal den Server!");
                     }
-                    if(args[0].equalsIgnoreCase("onlyessentials")) {
+                    if (args[0].equalsIgnoreCase("onlyessentials")) {
                         boolean isSet = Boolean.parseBoolean(args[1]);
                         plugin.getConfig().set("OnlyEssentialsFeatures", isSet);
                         plugin.saveConfig();
-                        sender.sendMessage(plugin.getPrefix() + "§OnlyEssentialsFeatures §awurde auf §6" + isSet + " §agesetzt!");
+                        sender.sendMessage(plugin.getPrefix() + "§6OnlyEssentialsFeatures §awurde auf §6" + isSet + " §agesetzt!");
                         sender.sendMessage(plugin.getPrefix() + "§6Wenn du fertig bis Reloade bitte einmal den Server!");
                     }
                 }

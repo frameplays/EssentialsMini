@@ -87,8 +87,8 @@ public class Main extends JavaPlugin {
     // Variables for DataBases
     private boolean mysql;
     private boolean sql;
-    private boolean onlyEssentialsFeatures;
 
+    private boolean onlyEssentialsFeatures;
 
     private String currencySymbol;
 
@@ -123,7 +123,7 @@ public class Main extends JavaPlugin {
                 "Economy.Activate activates the integration of the Vault API use for Economy \n" +
                 "PlayerShop is that Players can create their own Shop \n" +
                 "PlayerEvents also named as PlayerData events \n" +
-                "Only 3 Limited Homes Group can be created. Please do not rename the Groups!");
+                "Only 3 Limited Homes Group can be created. Please do not rename the Groups or add a new One!");
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
@@ -134,6 +134,7 @@ public class Main extends JavaPlugin {
         this.configVersion = getConfig().getString("Config-Version");
 
         new EssentialsMiniAPI();
+        getLogger().info("API Loaded");
 
         this.onlyEssentialsFeatures = getConfig().getBoolean("OnlyEssentialsFeatures");
 
@@ -204,12 +205,12 @@ public class Main extends JavaPlugin {
 
         // LocationBackup
         if (getConfig().getBoolean("LocationsBackup")) {
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups werden gemacht!");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups enabled!");
         }
         /* Thread for the Schedulers for save restart and .... */
         if (!getConfig().getBoolean("OnlyEssentialsFeatures")) {
             thread = new Thread(new UpdateScheduler());
-            if (thread != null)
+            if (thread != null && !thread.isAlive())
                 thread.start();
         }
 
@@ -277,7 +278,7 @@ public class Main extends JavaPlugin {
         }
 
         this.registerManager = new RegisterManager(this);
-        registerManager.getBackup().makeBackups();
+        registerManager.getBackupCMD().makeBackups();
         // BackPack restore
         if (getConfig().getBoolean("Backpack")) {
             for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
@@ -339,7 +340,7 @@ public class Main extends JavaPlugin {
             }
         }
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§awurde geladen!");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aEnabled!");
 
         //Checking for Update and when enabled Download the Latest Version automatically
         checkUpdate(getConfig().getBoolean("AutoDownload"));
@@ -541,6 +542,7 @@ public class Main extends JavaPlugin {
 
     /**
      * This Method returns the VaultManager class
+     * This Method can return a Null Object Surround it with a Not null Check!
      *
      * @return return VaultManager class
      */
@@ -850,5 +852,9 @@ public class Main extends JavaPlugin {
 
     public String getCurrencySymbolMulti() {
         return getConfig().getString("Currency.Multi");
+    }
+
+    public String getConfigVersion() {
+        return configVersion;
     }
 }

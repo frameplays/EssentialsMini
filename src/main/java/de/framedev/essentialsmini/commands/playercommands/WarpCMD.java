@@ -54,8 +54,19 @@ public class WarpCMD extends CommandBase {
                         if (message.contains("WarpName"))
                             message = message.replace("%WarpName%", name);
                         player.sendMessage(plugin.getPrefix() + message);
+                    } else if (args.length == 2) {
+                        String name = args[0];
+                        double cost = Double.parseDouble(args[1]);
+                        new LocationsManager().setWarp(name.toLowerCase(), player.getLocation(), cost);
+                        String message = plugin.getCustomMessagesConfig().getString("Warp.Created");
+                        if (message.contains("&"))
+                            message = message.replace('&', '§');
+                        if (message.contains("WarpName"))
+                            message = message.replace("%WarpName%", name);
+                        player.sendMessage(plugin.getPrefix() + message);
+                        player.sendMessage(plugin.getPrefix() + "§aThis Warp cost now §6" + cost + "§a" + plugin.getCurrencySymbol());
                     } else {
-                        player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/setwarp <Name>"));
+                        player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/setwarp <Name> §cor §6/setwarp <Name> <Cost>"));
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
@@ -184,38 +195,40 @@ public class WarpCMD extends CommandBase {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 1) {
-            if (sender.hasPermission("essentialsmini.warp")) {
-                ArrayList<String> empty = new ArrayList<>();
-                ArrayList<String> warps = new ArrayList<>();
-                if (!plugin.getVariables().isJsonFormat()) {
-                    ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("warps");
-                    if (cs != null) {
-                        for (String s : cs.getKeys(false)) {
-                            if (s != null) {
-                                if (!new LocationsManager().getCfg().get("warps." + s).equals(" "))
-                                    warps.add(s);
+        if (command.getName().equalsIgnoreCase("warp")) {
+            if (args.length == 1) {
+                if (sender.hasPermission("essentialsmini.warp")) {
+                    ArrayList<String> empty = new ArrayList<>();
+                    ArrayList<String> warps = new ArrayList<>();
+                    if (!plugin.getVariables().isJsonFormat()) {
+                        ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("warps");
+                        if (cs != null) {
+                            for (String s : cs.getKeys(false)) {
+                                if (s != null) {
+                                    if (!new LocationsManager().getCfg().get("warps." + s).equals(" "))
+                                        warps.add(s);
+                                }
                             }
                         }
-                    }
-                    for (String s : warps) {
-                        if (s.toLowerCase().startsWith(args[0])) {
-                            empty.add(s);
-                        }
-                    }
-                } else {
-                    warps.addAll(new LocationsManager().getLocations().keySet());
-                    for (String s : warps) {
-                        if (s.contains("warps.")) {
-                            s = s.replace("warps.", "");
+                        for (String s : warps) {
                             if (s.toLowerCase().startsWith(args[0])) {
                                 empty.add(s);
                             }
                         }
+                    } else {
+                        warps.addAll(new LocationsManager().getLocations().keySet());
+                        for (String s : warps) {
+                            if (s.contains("warps.")) {
+                                s = s.replace("warps.", "");
+                                if (s.toLowerCase().startsWith(args[0])) {
+                                    empty.add(s);
+                                }
+                            }
+                        }
                     }
+                    Collections.sort(empty);
+                    return empty;
                 }
-                Collections.sort(empty);
-                return empty;
             }
         }
         return null;

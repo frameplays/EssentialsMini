@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class KitCMD implements CommandExecutor, TabCompleter {
@@ -51,10 +52,20 @@ public class KitCMD implements CommandExecutor, TabCompleter {
             }
             if (command.getName().equalsIgnoreCase("createkit")) {
                 if (p.hasPermission(plugin.getPermissionName() + "createkit")) {
-                    ItemStack[] items = p.getInventory().getContents();
-                    new KitManager().createKit(args[0], items);
+                    if (args.length == 1) {
+                        ItemStack[] items = p.getInventory().getContents();
+                        new KitManager().createKit(args[0], items);
+                        p.sendMessage(plugin.getPrefix() + "§aKit Created §6" + args[0]);
+                        p.getInventory().clear();
+                    } else {
+                        p.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("§6/createkit <KitName>"));
+                    }
+                } else {
+                    p.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
             }
+        } else {
+            sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
         }
         return false;
     }
@@ -70,6 +81,9 @@ public class KitCMD implements CommandExecutor, TabCompleter {
                 }
             }
             return list;
+        }
+        if (command.getName().equalsIgnoreCase("createkit") && args.length == 1) {
+            return Collections.singletonList("Kit_Name");
         }
         return null;
     }

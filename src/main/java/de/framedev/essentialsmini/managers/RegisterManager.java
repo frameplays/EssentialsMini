@@ -16,9 +16,19 @@ import java.util.Objects;
 public class RegisterManager {
 
     private final Main plugin;
+
+    // BackupCMD Var
     private BackUpCMD backup;
+
+    // MuteCMD Var
     private MuteCMD muteCMD;
 
+    /**
+     * Constructor of RegisterManager
+     * Register all Events and Commands
+     *
+     * @param plugin the Main Plugin
+     */
     public RegisterManager(Main plugin) {
         this.plugin = plugin;
         registerCommands();
@@ -26,10 +36,16 @@ public class RegisterManager {
         registerTabCompleters();
     }
 
+    /**
+     * Register all TabCompleters
+     */
     private void registerTabCompleters() {
         plugin.getTabCompleters().forEach((key, value) -> Objects.requireNonNull(plugin.getCommand(key)).setTabCompleter(value));
     }
 
+    /**
+     * Register all Listeners
+     */
     private void registerListeners() {
         new DisallowCommands(plugin);
         new SleepListener(plugin);
@@ -39,6 +55,9 @@ public class RegisterManager {
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
+    /**
+     * Register all Commands
+     */
     private void registerCommands() {
         new EssentialsMiniCMD(plugin);
         new SpawnCMD(plugin);
@@ -118,7 +137,7 @@ public class RegisterManager {
         return muteCMD;
     }
 
-    public BackUpCMD getBackup() {
+    public BackUpCMD getBackupCMD() {
         return backup;
     }
 }

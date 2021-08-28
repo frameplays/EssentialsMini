@@ -117,6 +117,8 @@ Mute:
 ChangeFlySpeed: '&aDeine Flug Gehschwindigkeit wurde geändert auf &6%flyspeed%'
 ChangeFlySpeedOther: '&6%player% "s 6aFlug Gehschwindigkeit wurde geändert auf &6%flyspeed%'
 
+WalkSpeed: '&aDeine Geh Geschwindigkeit wurde geändert auf &6%WalkSpeed%'
+
 MsgToggle:
   Activated: '&cNo more messages will be sent to you!'
   Deactivated: '&aMessages will be sent to you!'

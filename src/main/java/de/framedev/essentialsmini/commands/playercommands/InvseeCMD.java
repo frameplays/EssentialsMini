@@ -40,7 +40,7 @@ public class InvseeCMD implements CommandExecutor {
                                 if (!target.hasPermission(plugin.getPermissionName() + "invsee.owner")) {
                                     player.openInventory(target.getInventory());
                                 } else {
-                                    player.sendMessage(plugin.getPrefix() + "§cCannot see this Inventory!");
+                                    player.sendMessage(plugin.getPrefix() + "§cYou can't see this Inventory!");
                                 }
                             } else {
                                 player.openInventory(target.getInventory());

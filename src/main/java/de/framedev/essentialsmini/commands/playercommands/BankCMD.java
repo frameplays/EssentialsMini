@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -38,10 +39,11 @@ public class BankCMD extends CommandBase {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
                     if (player.hasPermission("essentialsmini.bank.create")) {
-                        if (plugin.getVaultManager().getEconomy().createBank(args[1], player).transactionSuccess()) {
+                        EconomyResponse economyResponse = plugin.getVaultManager().getEconomy().createBank(args[1], player);
+                        if (economyResponse.transactionSuccess()) {
                             player.sendMessage(plugin.getPrefix() + "§aBank Successfully Created!");
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cError while Creating Bank!");
+                            player.sendMessage(plugin.getPrefix() + "§cError while Creating Bank! §6" + economyResponse.errorMessage);
                         }
                     } else {
                         player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");

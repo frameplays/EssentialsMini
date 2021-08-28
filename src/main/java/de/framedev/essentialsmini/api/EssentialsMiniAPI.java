@@ -298,7 +298,7 @@ public class EssentialsMiniAPI {
     private double progress = 1.0;
 
     /**
-     * Restarting the Server
+     * Restarting the Server with Timer
      */
     public void restartServer() {
         // Restarting the Server
@@ -389,7 +389,7 @@ public class EssentialsMiniAPI {
         return new GsonBuilder().setPrettyPrinting().create().toJson(obj);
     }
 
-    public Villager villagerCreate(Player player) {
+    protected Villager villagerCreate(Player player) {
         Villager villager = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
         ArrayList<MerchantRecipe> recipes = new ArrayList<>();
         MerchantRecipe recipe = new MerchantRecipe(new ItemBuilder(Material.STICK).setAmount(1).setDisplayName("§aParty!").addEnchantment(Enchantment.KNOCKBACK, 10, true).build(), Integer.MAX_VALUE);

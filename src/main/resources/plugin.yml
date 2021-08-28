@@ -230,6 +230,7 @@ commands:
   removetempban:
   firework:
   createkit:
+    description: Create a new Kit, Place all your Items in your Inventory.This Command will delete your Inventory after execute
 permissions:
   essentialsmini.*:
     children:

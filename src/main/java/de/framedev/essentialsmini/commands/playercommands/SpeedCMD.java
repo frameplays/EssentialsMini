@@ -13,8 +13,8 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -30,11 +30,15 @@ public class SpeedCMD extends CommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 1) {
-            if(sender instanceof Player) {
-                if(sender.hasPermission(plugin.getPermissionName() + "speed")) {
+        if (args.length == 1) {
+            if (sender instanceof Player) {
+                if (sender.hasPermission(plugin.getPermissionName() + "speed")) {
                     ((Player) sender).setWalkSpeed(Integer.parseInt(args[0]) / 10F);
-                    sender.sendMessage(plugin.getPrefix() + "§aDeine Geh Geschwindigkeit wurde geändert auf §6" + Integer.parseInt(args[0]));
+                    int walkSpeed = Integer.parseInt(args[0]);
+                    String message = plugin.getCustomMessagesConfig().getString("WalkSpeed");
+                    message = new TextUtils().replaceAndToParagraph(message);
+                    message = new TextUtils().replaceObject(message, "%WalkSpeed%", String.valueOf(walkSpeed));
+                    sender.sendMessage(plugin.getPrefix() + message);
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
