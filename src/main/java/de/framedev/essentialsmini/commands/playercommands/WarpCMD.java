@@ -3,6 +3,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.LocationsManager;
+import de.framedev.essentialsmini.utils.TextUtils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -64,7 +65,10 @@ public class WarpCMD extends CommandBase {
                         if (message.contains("WarpName"))
                             message = message.replace("%WarpName%", name);
                         player.sendMessage(plugin.getPrefix() + message);
-                        player.sendMessage(plugin.getPrefix() + "§aThis Warp cost now §6" + cost + "§a" + plugin.getCurrencySymbol());
+                        String costMsg = plugin.getCustomMessagesConfig().getString("Warp.Cost");
+                        costMsg = new TextUtils().replaceAndToParagraph(costMsg);
+                        costMsg = new TextUtils().replaceObject(costMsg, "%Cost%", cost + plugin.getCurrencySymbol());
+                        player.sendMessage(plugin.getPrefix() + costMsg);
                     } else {
                         player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/setwarp <Name> §cor §6/setwarp <Name> <Cost>"));
                     }

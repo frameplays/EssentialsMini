@@ -52,6 +52,7 @@ Warp:
   Teleport: '&aDu wurdest erfolgreich zum Warp &6%WarpName% &aTeleportiert!'
   Delete: '&aWarp mit dem Namen &6%WarpName% &awurde &cgelöscht!'
   NotExist: '&cDieser Warp wurde noch nicht erstellt!'
+  Cost: '&aDieser Warp kostet nun &6%Cost%&c!'
 
 TpaMessages:
   TeleportSend: '&aDu hast an &6%Target% &aeine Teleportier Anfrage gesendet!'

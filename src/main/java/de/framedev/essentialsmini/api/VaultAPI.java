@@ -55,12 +55,12 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public String currencyNamePlural() {
-        return Main.getInstance().getConfig().getString("Currency.Plural");
+        return Main.getInstance().getCurrencySymbolMulti();
     }
 
     @Override
     public String currencyNameSingular() {
-        return Main.getInstance().getConfig().getString("Currency.Singular");
+        return Main.getInstance().getCurrencySymbol();
     }
 
     @Override
