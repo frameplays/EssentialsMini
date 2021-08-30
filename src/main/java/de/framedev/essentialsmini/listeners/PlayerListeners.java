@@ -411,9 +411,9 @@ public class PlayerListeners implements Listener {
     public void onEntityKill(EntityDeathEvent event) {
         if (event.getEntity().getKiller() != null) {
             if (event.getEntity() instanceof Player) {
-                getServer().getPluginManager().callEvent(new PlayerKillPlayerEvent((Player) event.getEntity(), event.getEntity().getKiller()));
+                getServer().getPluginManager().callEvent(new PlayerKillPlayerEvent((Player) event.getEntity(), event.getEntity().getKiller(), event.getDrops(), event.getDroppedExp()));
             }
-            Bukkit.getPluginManager().callEvent(new PlayerKillEntityEvent(event.getEntity().getKiller(), event.getEntity()));
+            Bukkit.getPluginManager().callEvent(new PlayerKillEntityEvent(event.getEntity().getKiller(), event.getEntity(), event.getDrops(), event.getDroppedExp()));
         }
         if (plugin.getConfig().getBoolean("PlayerEvents")) {
             LivingEntity livingEntity = event.getEntity();

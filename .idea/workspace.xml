@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Bug Fixes | Messages Added | Performance Fix">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="WarpCMD Bug Fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/VaultAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/api/VaultAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/WarpCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/WarpCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,13 +198,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00123" summary="Updated">
-      <created>1625230798577</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1625230798579</updated>
     </task>
     <task id="LOCAL-00124" summary="Invsee Bug Fix">
       <created>1625315966763</created>
@@ -541,7 +535,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630170175846</updated>
     </task>
-    <option name="localTasksCounter" value="172" />
+    <task id="LOCAL-00172" summary="WarpCMD Bug Fixes">
+      <created>1630254881246</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1630254881246</updated>
+    </task>
+    <option name="localTasksCounter" value="173" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -579,7 +580,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Bug Fixes and Features Added" />
     <MESSAGE value="MoneySignListeners Updated / Performance Fix" />
     <MESSAGE value="Clickable Warp Signs Added" />
     <MESSAGE value="WarpSigns Fix" />
@@ -604,7 +604,8 @@
     <MESSAGE value="Commands Updated" />
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Bug Fixes | Messages Added | Performance Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes | Messages Added | Performance Fix" />
+    <MESSAGE value="WarpCMD Bug Fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="WarpCMD Bug Fixes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

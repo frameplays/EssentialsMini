@@ -38,8 +38,6 @@ public class WarpCMD extends CommandBase {
         setup("delwarp", this);
     }
 
-    private final LocationsManager locationsManager = new LocationsManager();
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("setwarp")) {
@@ -147,8 +145,8 @@ public class WarpCMD extends CommandBase {
                             for (String s : cs.getKeys(false)) {
                                 if (s != null) {
                                     if (!new LocationsManager().getCfg().get("warps." + s).equals(" ")) {
-                                        TextComponent textComponent = new TextComponent(s);
-                                        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to add Warp Command").create()));
+                                        TextComponent textComponent = new TextComponent("§6" + s);
+                                        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to add as Warp Command (/warp " + s + ")").create()));
                                         textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/warp " + s));
                                         sender.spigot().sendMessage(textComponent);
                                     }

@@ -1,12 +1,16 @@
 package de.framedev.essentialsmini.api.events;
 
 import org.bukkit.World;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * / This Plugin was Created by FrameDev
@@ -17,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * / Copyrighted by FrameDev
  */
 
-public class PlayerKillPlayerEvent extends Event implements Cancellable {
+public class PlayerKillPlayerEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
 
     private final String playerName;
@@ -25,10 +29,10 @@ public class PlayerKillPlayerEvent extends Event implements Cancellable {
     private final World world;
     private final Player killer;
     private final EntityDamageEvent.DamageCause deathCause;
+    private List<ItemStack> drops;
+    private double droppedExp;
 
-    private boolean isCancelled;
-
-    public PlayerKillPlayerEvent(Player player, Player killer) {
+    public PlayerKillPlayerEvent(Player player, Player killer, List<ItemStack> drops, double droppedExp) {
         this.player = player;
         this.playerName = player.getName();
         this.world = player.getWorld();
@@ -38,6 +42,9 @@ public class PlayerKillPlayerEvent extends Event implements Cancellable {
         } else {
             deathCause = null;
         }
+
+        this.drops = drops;
+        this.droppedExp = droppedExp;
     }
 
     @Override
@@ -69,13 +76,19 @@ public class PlayerKillPlayerEvent extends Event implements Cancellable {
         return deathCause;
     }
 
-    @Override
-    public boolean isCancelled() {
-        return isCancelled;
+    public List<ItemStack> getDrops() {
+        return drops;
     }
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.isCancelled = cancel;
+    public void setDrops(List<ItemStack> drops) {
+        this.drops = drops;
+    }
+
+    public double getDroppedExp() {
+        return droppedExp;
+    }
+
+    public void setDroppedExp(double droppedExp) {
+        this.droppedExp = droppedExp;
     }
 }

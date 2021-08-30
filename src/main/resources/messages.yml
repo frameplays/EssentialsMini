@@ -116,7 +116,7 @@ Mute:
     Deactivate: '&6%Player% &awurde unmuted!'
 
 ChangeFlySpeed: '&aDeine Flug Gehschwindigkeit wurde geändert auf &6%flyspeed%'
-ChangeFlySpeedOther: '&6%player% "s 6aFlug Gehschwindigkeit wurde geändert auf &6%flyspeed%'
+ChangeFlySpeedOther: "&6%player%'s &aFlug Gehschwindigkeit wurde geändert auf &6%flyspeed%"
 
 WalkSpeed: '&aDeine Geh Geschwindigkeit wurde geändert auf &6%WalkSpeed%'
 

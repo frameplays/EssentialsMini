@@ -6,7 +6,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * / This Plugin was Created by FrameDev
@@ -17,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * / Copyrighted by FrameDev
  */
 
-public class PlayerKillEntityEvent extends Event implements Cancellable {
+public class PlayerKillEntityEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
@@ -25,14 +28,16 @@ public class PlayerKillEntityEvent extends Event implements Cancellable {
     private final Player player;
     private final World world;
     private final Entity entity;
+    private double droppedExp;
+    private List<ItemStack> drops;
 
-    private boolean isCancelled;
-
-    public PlayerKillEntityEvent(Player player, Entity entity) {
+    public PlayerKillEntityEvent(Player player, Entity entity, List<ItemStack> drops, double droppedExp) {
         this.player = player;
         this.playerName = player.getName();
         this.world = player.getWorld();
         this.entity = entity;
+        this.drops = drops;
+        this.droppedExp = droppedExp;
     }
 
     @Override
@@ -60,13 +65,19 @@ public class PlayerKillEntityEvent extends Event implements Cancellable {
         return entity;
     }
 
-    @Override
-    public boolean isCancelled() {
-        return isCancelled;
+    public double getDroppedExp() {
+        return droppedExp;
     }
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.isCancelled = cancel;
+    public void setDroppedExp(double droppedExp) {
+        this.droppedExp = droppedExp;
+    }
+
+    public List<ItemStack> getDrops() {
+        return drops;
+    }
+
+    public void setDrops(List<ItemStack> drops) {
+        this.drops = drops;
     }
 }
