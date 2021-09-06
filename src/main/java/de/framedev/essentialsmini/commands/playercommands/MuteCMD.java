@@ -94,7 +94,7 @@ public class MuteCMD extends CommandBase implements Listener {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     return true;
                 }
-                if(args[0].equalsIgnoreCase("type")) {
+                if (args[0].equalsIgnoreCase("type")) {
                     MuteReason muteReason = MuteReason.valueOf(args[2].toUpperCase());
                     DateUnit unit = DateUnit.valueOf(args[4].toUpperCase());
                     long value = Long.parseLong(args[3]);
@@ -132,7 +132,7 @@ public class MuteCMD extends CommandBase implements Listener {
                     }
                 }
 
-                if(args[0].equalsIgnoreCase("own")) {
+                if (args[0].equalsIgnoreCase("own")) {
                     String muteReason = args[2];
                     DateUnit unit = DateUnit.valueOf(args[4].toUpperCase());
                     long value = Long.parseLong(args[3]);
@@ -231,8 +231,8 @@ public class MuteCMD extends CommandBase implements Listener {
                     sender.sendMessage("§aExpired at §6: " + cfg.getString(player.getName() + ".expire"));
                 });
             } else {
-                for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-                    if(new BanMuteManager().isTempMute(player))
+                for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+                    if (new BanMuteManager().isTempMute(player))
                         players.add(player);
                 }
                 players.forEach(player -> {
@@ -317,6 +317,15 @@ public class MuteCMD extends CommandBase implements Listener {
             event.getPlayer().sendMessage(plugin.getPrefix() + "§cYou are Muted!");
             event.setCancelled(true);
         }
+
+        if (GlobalMuteCMD.isGlobalMute()) {
+            if (event.getPlayer().hasPermission("essentialsmini.globalmute.bypass")) {
+                event.setCancelled(false);
+            } else {
+                event.getPlayer().sendMessage(plugin.getPrefix() + "§aGlobal Mute is Activated!");
+                event.setCancelled(true);
+            }
+        }
     }
 
     @Override
@@ -359,7 +368,7 @@ public class MuteCMD extends CommandBase implements Listener {
                 Collections.sort(empty);
                 return empty;
             }
-            if(args[0].equalsIgnoreCase("own")) {
+            if (args[0].equalsIgnoreCase("own")) {
                 return new ArrayList<String>(Collections.singleton("your_Message"));
             }
         }

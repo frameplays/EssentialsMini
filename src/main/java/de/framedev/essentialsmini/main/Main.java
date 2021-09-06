@@ -72,7 +72,7 @@ public class Main extends JavaPlugin {
 
     public ArrayList<String> players;
 
-    /* Instance */
+    /* Singelton */
     private static Main instance;
 
     // RegisterManager
@@ -101,7 +101,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // instance initializing
+        // Singelton initializing
         instance = this;
 
         // Info FileConfiguration
@@ -815,7 +815,7 @@ public class Main extends JavaPlugin {
     }
 
     /**
-     * @return the instance (this Plugin)
+     * @return the Singleton of this Class (this Plugin)
      */
     public static Main getInstance() {
         return instance;

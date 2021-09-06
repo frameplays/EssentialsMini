@@ -125,6 +125,7 @@ public class RegisterManager {
         new UnBanCMD(plugin);
         new BookCMD(plugin);
         new FireWorkCMD(plugin);
+        new GlobalMuteCMD(plugin);
         for (Map.Entry<String, CommandExecutor> commands : plugin.getCommands().entrySet()) {
             if (commands.getKey() == null) continue;
             if (commands.getValue() == null) continue;

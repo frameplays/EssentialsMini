@@ -231,6 +231,10 @@ commands:
   firework:
   createkit:
     description: Create a new Kit, Place all your Items in your Inventory.This Command will delete your Inventory after execute
+  globalmute:
+    aliases:
+      - gmute
+      - glmute
 permissions:
   essentialsmini.*:
     children:
