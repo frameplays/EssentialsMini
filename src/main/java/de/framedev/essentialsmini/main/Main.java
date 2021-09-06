@@ -98,6 +98,8 @@ public class Main extends JavaPlugin {
 
     private MongoDBUtils mongoDbUtils;
     private String configVersion;
+    private File settingsFile;
+    private FileConfiguration settingsCfg;
 
     @Override
     public void onEnable() {
@@ -130,6 +132,14 @@ public class Main extends JavaPlugin {
         Config.updateConfig();
         Config.loadConfig();
         Config.saveDefaultConfigValues();
+        Config.saveDefaultConfigValues("settings");
+        this.settingsFile = new File(getDataFolder(),"settings.yml");
+        this.settingsCfg = YamlConfiguration.loadConfiguration(settingsFile);
+        try {
+            this.settingsCfg.save(settingsFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         this.configVersion = getConfig().getString("Config-Version");
 
@@ -856,5 +866,17 @@ public class Main extends JavaPlugin {
 
     public String getConfigVersion() {
         return configVersion;
+    }
+
+    public FileConfiguration getSettingsCfg() {
+        return settingsCfg;
+    }
+
+    public void saveSettings() {
+        try {
+            this.settingsCfg.save(settingsFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

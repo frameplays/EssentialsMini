@@ -2,16 +2,22 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.managers.InventoryManager;
+import de.framedev.essentialsmini.managers.ItemBuilder;
 import de.framedev.essentialsmini.managers.LocationsManager;
 import de.framedev.essentialsmini.utils.TextUtils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +30,7 @@ import java.util.List;
  * ===================================================
  * This Class was created at 15.07.2020 19:28
  */
-public class WarpCMD extends CommandBase {
+public class WarpCMD extends CommandBase implements Listener {
 
     private final Main plugin;
 
@@ -36,6 +42,7 @@ public class WarpCMD extends CommandBase {
         setup("warps", this);
         setupTabCompleter("warp", this);
         setup("delwarp", this);
+        plugin.getListeners().add(this);
     }
 
     @Override
@@ -105,25 +112,35 @@ public class WarpCMD extends CommandBase {
                                 message = message.replace('&', '§');
                             player.sendMessage(plugin.getPrefix() + message);
                         }
-                    } else {
-                        if (sender.hasPermission("essentialsmini.warps")) {
-                            sender.sendMessage(plugin.getPrefix() + "§a==Alle Aktuellen Warps==");
+                    } else if (args.length == 0) {
+                        if (plugin.getSettingsCfg().getBoolean("WarpGUI")) {
+                            InventoryManager inventoryManager = new InventoryManager();
+                            inventoryManager.setTitle("§aWarps");
+                            inventoryManager.setSize(3);
+                            inventoryManager.create();
+                            List<String> warps = new ArrayList<>();
                             ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("warps");
                             if (new LocationsManager().getCfg().contains("warps")) {
                                 if (cs != null) {
                                     for (String s : cs.getKeys(false)) {
                                         if (s != null) {
                                             if (!new LocationsManager().getCfg().get("warps." + s).equals(" "))
-                                                sender.sendMessage(s);
+                                                warps.add(s);
                                         }
                                     }
                                 }
-                            } else {
-                                String message = plugin.getCustomMessagesConfig().getString("Warp.NotExist");
-                                if (message.contains("&"))
-                                    message = message.replace('&', '§');
-                                sender.sendMessage(plugin.getPrefix() + message);
                             }
+                            for (int i = 0; i < warps.size(); i++) {
+                                if (new LocationsManager().costWarp(warps.get(i))) {
+                                    inventoryManager.setItem(i, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("§6" + warps.get(i)).setLore("§aCost : §6" + new LocationsManager().getWarpCost(warps.get(i))).build());
+                                } else {
+                                    inventoryManager.setItem(i, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("§6" + warps.get(i)).build());
+                                }
+                            }
+
+                            inventoryManager.fillNull();
+                            player.openInventory(inventoryManager.getInventory());
+
                         } else {
                             player.sendMessage(plugin.getPrefix() + plugin.getWrongArgs("/warp <Name>"));
                         }
@@ -234,5 +251,47 @@ public class WarpCMD extends CommandBase {
             }
         }
         return null;
+    }
+
+    @EventHandler
+    public void onClickInventory(InventoryClickEvent event) {
+        if (event.getView().getTitle().equalsIgnoreCase("§aWarps")) {
+            List<String> warps = new ArrayList<>();
+            ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection("warps");
+            if (new LocationsManager().getCfg().contains("warps")) {
+                if (cs != null) {
+                    for (String s : cs.getKeys(false)) {
+                        if (s != null) {
+                            if (!new LocationsManager().getCfg().get("warps." + s).equals(" "))
+                                warps.add(s);
+                        }
+                    }
+                }
+            }
+            Player player = (Player) event.getWhoClicked();
+            event.setCancelled(true);
+            if (event.getCurrentItem() == null) return;
+            if (!event.getCurrentItem().hasItemMeta()) return;
+            if (!event.getCurrentItem().getItemMeta().hasDisplayName()) return;
+            for (String s : warps) {
+                if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6" + s)) {
+                    if (new LocationsManager().costWarp(s))
+                        if (plugin.getVaultManager() != null)
+                            if (Main.getInstance().getVaultManager().getEco().has(player, new LocationsManager().getWarpCost(s))) {
+                                Main.getInstance().getVaultManager().getEco().withdrawPlayer(player, new LocationsManager().getWarpCost(s));
+                            } else {
+                                player.sendMessage(plugin.getPrefix() + "§cNot enought §6" + plugin.getVaultManager().getEconomy().currencyNamePlural());
+                                return;
+                            }
+                    player.teleport(new LocationsManager().getLocation("warps." + s.toLowerCase()));
+                    String message = plugin.getCustomMessagesConfig().getString("Warp.Teleport");
+                    if (message.contains("&"))
+                        message = message.replace('&', '§');
+                    if (message.contains("%WarpName%"))
+                        message = message.replace("%WarpName%", s);
+                    player.sendMessage(plugin.getPrefix() + message);
+                }
+            }
+        }
     }
 }

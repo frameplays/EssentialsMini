@@ -17,7 +17,6 @@ import org.bukkit.command.CommandSender;
 public class GlobalMuteCMD extends CommandBase {
 
     private final Main plugin;
-    private static boolean globalMute;
 
     public GlobalMuteCMD(Main plugin) {
         super(plugin, "globalmute");
@@ -25,7 +24,7 @@ public class GlobalMuteCMD extends CommandBase {
     }
 
     public static boolean isGlobalMute() {
-        return globalMute;
+        return Main.getInstance().getSettingsCfg().getBoolean("GlobalMute");
     }
 
     @Override
@@ -36,11 +35,15 @@ public class GlobalMuteCMD extends CommandBase {
                 return true;
             }
 
+            boolean globalMute = plugin.getSettingsCfg().getBoolean("GlobalMute");
+
             if (globalMute) {
-                globalMute = false;
+                plugin.getSettingsCfg().set("GlobalMute", false);
+                plugin.saveSettings();
                 sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Aktiviert!");
             } else {
-                globalMute = true;
+                plugin.getSettingsCfg().set("GlobalMute", true);
+                plugin.saveSettings();
                 sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Deaktiviert!");
             }
             return true;
