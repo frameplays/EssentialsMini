@@ -40,11 +40,11 @@ public class GlobalMuteCMD extends CommandBase {
             if (globalMute) {
                 plugin.getSettingsCfg().set("GlobalMute", false);
                 plugin.saveSettings();
-                sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Aktiviert!");
+                sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Deaktiviert!");
             } else {
                 plugin.getSettingsCfg().set("GlobalMute", true);
                 plugin.saveSettings();
-                sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Deaktiviert!");
+                sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Aktiviert!");
             }
             return true;
         }

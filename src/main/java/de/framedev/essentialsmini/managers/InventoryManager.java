@@ -23,6 +23,15 @@ public class InventoryManager {
     public InventoryManager() {
     }
 
+    public InventoryManager(String title) {
+        this.title = title;
+    }
+
+    public InventoryManager(String title, int size) {
+        this.title = title;
+        this.size = size;
+    }
+
     public InventoryManager(Inventory inventory) {
         this.inventory = inventory;
     }
@@ -36,6 +45,7 @@ public class InventoryManager {
     }
 
     public int getSize() {
+        if (size == 0) size = 1;
         return size * 9;
     }
 
@@ -59,6 +69,11 @@ public class InventoryManager {
         return inventory.getItem(index);
     }
 
+    public void addItem(ItemStack... items) {
+        if (inventory == null) return;
+        this.inventory.addItem(items);
+    }
+
     public void addItem(ItemStack itemStack) {
         if (inventory == null) return;
         this.inventory.addItem(itemStack);
@@ -77,7 +92,7 @@ public class InventoryManager {
     }
 
     public void fillNull() {
-        int inventorySize = size * 9;
+        int inventorySize = getSize();
         for (int i = 0; i < inventorySize; i++) {
             if (inventory.getItem(i) == null) {
                 inventory.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName(" ").build());
@@ -91,5 +106,14 @@ public class InventoryManager {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getFirstEmptySlot() {
+        if (inventory == null) return -0;
+        for (int i = 0; i < getSize(); i++) {
+            if (inventory.getItem(i) == null)
+                return i;
+        }
+        return -1;
     }
 }

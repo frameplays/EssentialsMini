@@ -1,7 +1,7 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
-import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.managers.CommandListenerBase;
 import de.framedev.essentialsmini.managers.InventoryManager;
 import de.framedev.essentialsmini.managers.ItemBuilder;
 import de.framedev.essentialsmini.managers.LocationsManager;
@@ -16,7 +16,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.ArrayList;
@@ -30,19 +29,13 @@ import java.util.List;
  * ===================================================
  * This Class was created at 15.07.2020 19:28
  */
-public class WarpCMD extends CommandBase implements Listener {
+public class WarpCMD extends CommandListenerBase {
 
     private final Main plugin;
 
     public WarpCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "setwarp", "warp", "warps", "delwarp");
         this.plugin = plugin;
-        setup("setwarp", this);
-        setup("warp", this);
-        setup("warps", this);
-        setupTabCompleter("warp", this);
-        setup("delwarp", this);
-        plugin.getListeners().add(this);
     }
 
     @Override
@@ -132,9 +125,9 @@ public class WarpCMD extends CommandBase implements Listener {
                             }
                             for (int i = 0; i < warps.size(); i++) {
                                 if (new LocationsManager().costWarp(warps.get(i))) {
-                                    inventoryManager.setItem(i, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("§6" + warps.get(i)).setLore("§aCost : §6" + new LocationsManager().getWarpCost(warps.get(i))).build());
+                                    inventoryManager.setItem(i, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("§6" + warps.get(i)).setLore("§aCost : §6" + new LocationsManager().getWarpCost(warps.get(i)), "§aTeleport to this Warp").build());
                                 } else {
-                                    inventoryManager.setItem(i, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("§6" + warps.get(i)).build());
+                                    inventoryManager.setItem(i, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("§6" + warps.get(i)).setLore("§aTeleport to this Warp").build());
                                 }
                             }
 
@@ -163,7 +156,7 @@ public class WarpCMD extends CommandBase implements Listener {
                                 if (s != null) {
                                     if (!new LocationsManager().getCfg().get("warps." + s).equals(" ")) {
                                         TextComponent textComponent = new TextComponent("§6" + s);
-                                        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to add as Warp Command (/warp " + s + ")").create()));
+                                        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click me to add as Warp Command §6(/warp " + s + ")").create()));
                                         textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/warp " + s));
                                         sender.spigot().sendMessage(textComponent);
                                     }
@@ -272,6 +265,7 @@ public class WarpCMD extends CommandBase implements Listener {
             event.setCancelled(true);
             if (event.getCurrentItem() == null) return;
             if (!event.getCurrentItem().hasItemMeta()) return;
+            if (event.getCurrentItem().getItemMeta() == null) return;
             if (!event.getCurrentItem().getItemMeta().hasDisplayName()) return;
             for (String s : warps) {
                 if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6" + s)) {
