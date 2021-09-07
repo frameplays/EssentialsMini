@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.bukkit.Bukkit.getServer;
+
 /*
  * ===================================================
  * This File was Created by FrameDev
@@ -262,9 +264,10 @@ public class DisallowCommands extends ListenerBase {
             blockedCommands.add("home");
             blockedCommands.add("delhome");
             blockedCommands.add("delotherhomes");
+            blockedCommands.add("homegui");
         }
 
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "book")) {
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "book")) {
             blockedCommands.add("bock");
             blockedCommands.add("copybook");
         }
@@ -324,7 +327,7 @@ public class DisallowCommands extends ListenerBase {
         if (!(event.isCancelled())) {
             Player player = event.getPlayer();
             String msg = event.getMessage().split(" ")[0];
-            HelpTopic topic = Bukkit.getServer().getHelpMap().getHelpTopic(msg);
+            HelpTopic topic = getServer().getHelpMap().getHelpTopic(msg);
             if (topic == null) {
                 if (plugin.getCustomMessagesConfig().contains("UnkownCommand")) {
                     String notFound = plugin.getCustomMessagesConfig().getString("UnkownCommand");

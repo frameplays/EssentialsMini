@@ -147,6 +147,60 @@ public class PayCMD extends CommandBase {
         }
         if (command.getName().equalsIgnoreCase("eco")) {
             try {
+                if (args[0].equalsIgnoreCase("add")) {
+                    if (args.length == 2) {
+                        if (isDouble(args[1])) {
+                            double amount = Double.parseDouble(args[1]);
+                            if (sender.hasPermission(plugin.getPermissionName() + "eco.add")) {
+                                if (sender instanceof Player) {
+                                    Player player = (Player) sender;
+                                    plugin.getVaultManager().getEco().depositPlayer(player, amount);
+                                    String set = plugin.getCustomMessagesConfig().getString("Money.MSG.Set");
+                                    if (set != null) {
+                                        set = new TextUtils().replaceAndToParagraph(set);
+                                        set = new TextUtils().replaceObject(set, "[Money]", plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                                    }
+                                    player.sendMessage(plugin.getPrefix() + set);
+                                } else {
+                                    sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
+                                }
+                            } else {
+                                sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                            }
+                        } else {
+                            sender.sendMessage(plugin.getPrefix() + "§6" + args[0] + " §cist not a Number!");
+                        }
+                    } else if (args.length == 3) {
+                        if (sender.hasPermission(plugin.getPermissionName() + "eco.add.others")) {
+                            if (isDouble(args[1])) {
+                                double amount = Double.parseDouble(args[1]);
+                                OfflinePlayer player = Bukkit.getOfflinePlayer(args[2]);
+                                plugin.getVaultManager().getEco().depositPlayer(player, amount);
+                                String setOther = plugin.getCustomMessagesConfig().getString("Money.MoneySet.Other.MSG");
+                                if (setOther != null) {
+                                    setOther = new TextUtils().replaceAndToParagraph(setOther);
+                                    setOther = new TextUtils().replaceObject(setOther, "[Target]", player.getName());
+                                    setOther = new TextUtils().replaceObject(setOther, "[Money]", plugin.getVaultManager().getEco().getBalance(player) + plugin.getCurrencySymbol());
+                                }
+                                String set = plugin.getCustomMessagesConfig().getString("Money.MSG.Set");
+                                if (set != null) {
+                                    set = new TextUtils().replaceAndToParagraph(set);
+                                    set = new TextUtils().replaceObject(set, "[Money]", amount + plugin.getCurrencySymbol());
+                                }
+                                sender.sendMessage(plugin.getPrefix() + setOther);
+                                if (!Main.getSilent().contains(sender.getName()))
+                                    if (player.isOnline()) {
+                                        Player online = (Player) player;
+                                        online.sendMessage(plugin.getPrefix() + set);
+                                    }
+                            } else {
+                                sender.sendMessage(plugin.getPrefix() + "§6" + args[0] + " §cist not a Number!");
+                            }
+                        } else {
+                            sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                        }
+                    }
+                }
                 if (args[0].equalsIgnoreCase("set")) {
                     if (args.length == 2) {
                         if (isDouble(args[1])) {

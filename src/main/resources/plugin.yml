@@ -308,6 +308,15 @@ permissions:
       essentialsmini.tempmute: true
       essentialsmini.muteinfo: true
       essentialsmini.removetempmute: true
+      essentialsmini.bank.create: true
+      essentialsmini.bank.balance: true
+      essentialsmini.bank.remove: true
+      essentialsmini.bank.deposit: true
+      essentialsmini.bank.withdraw: true
+      essentialsmini.bank.addmember: true
+      essentialsmini.bank.removemember: true
+      essentialsmini.workbench: true
+      essentialsmini.balancetop: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -479,4 +488,22 @@ permissions:
   essentialsmini.removetempmute:
     default: op
   essentialsmini.signs.update:
+    default: op
+  essentialsmini.bank.create:
+    default: op
+  essentialsmini.bank.balance:
+    default: op
+  essentialsmini.bank.remove:
+    default: op
+  essentialsmini.bank.deposit:
+    default: op
+  essentialsmini.bank.withdraw:
+    default: op
+  essentialsmini.bank.addmember:
+    default: op
+  essentialsmini.bank.removemember:
+    default: op
+  essentialsmini.workbench:
+    default: op
+  essentialsmini.balancetop:
     default: op

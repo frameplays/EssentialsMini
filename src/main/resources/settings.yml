@@ -1,2 +1,3 @@
 GlobalMute: false
 WarpGUI: false
+DisableTabComplete: false

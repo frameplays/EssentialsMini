@@ -81,7 +81,7 @@ public class HomeCMD extends CommandListenerBase {
                     }
                 }
                 for (int i = 0; i < homess.size(); i++) {
-                    inventoryManager.setItem(i, new ItemBuilder(Material.BLACK_BED).setDisplayName("§6" + homess.get(i)).build());
+                    inventoryManager.setItem(i, new ItemBuilder(Material.BLACK_BED).setDisplayName("§6" + homess.get(i)).setLore("§aTeleport to Home §6" + homess.get(i)).build());
                 }
                 inventoryManager.fillNull();
                 if (sender instanceof Player) {
@@ -107,12 +107,24 @@ public class HomeCMD extends CommandListenerBase {
                 try {
                     if (sender instanceof Player) {
                         if (sender.hasPermission(plugin.getPermissionName() + "home")) {
-                            ((Player) sender).teleport(new LocationsManager(sender.getName() + ".home.home").getLocation());
-                            String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleport");
-                            if (homeTeleport.contains("&"))
-                                homeTeleport = homeTeleport.replace('&', '§');
-                            sender.sendMessage(plugin.getPrefix() + homeTeleport);
-                            homes.clear();
+                            if (new LocationsManager().getCfg().contains(sender.getName() + ".home.home") && !new LocationsManager().getCfg().get(sender.getName() + ".home.home").equals(" ")) {
+                                ((Player) sender).teleport(new LocationsManager(sender.getName() + ".home.home").getLocation());
+                                String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleport");
+                                if (homeTeleport.contains("&"))
+                                    homeTeleport = homeTeleport.replace('&', '§');
+                                sender.sendMessage(plugin.getPrefix() + homeTeleport);
+                                homes.clear();
+                            } else {
+                                String homeExist = plugin.getCustomMessagesConfig().getString("HomeNotExist");
+                                homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
+                                sender.sendMessage(plugin.getPrefix() + homeExist);
+                                sender.sendMessage(plugin.getPrefix() + "§aHome setzen?");
+                                BaseComponent baseComponent = new TextComponent();
+                                baseComponent.addExtra("§6[Yes]");
+                                baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sethome"));
+                                baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§aSet Home!")));
+                                sender.spigot().sendMessage(baseComponent);
+                            }
                         } else {
                             sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                         }

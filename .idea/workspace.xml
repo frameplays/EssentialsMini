@@ -9,11 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Messages Added">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Home GUI Added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/HomeCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/HomeCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages_example.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_example.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/PayCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/DisallowCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/DisallowCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/settings.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/settings.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,13 +201,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00129" summary="Bug Fixes">
-      <created>1625345691215</created>
-      <option name="number" value="00129" />
-      <option name="presentableId" value="LOCAL-00129" />
-      <option name="project" value="LOCAL" />
-      <updated>1625345691215</updated>
     </task>
     <task id="LOCAL-00130" summary="Bug Fixes">
       <created>1625348179962</created>
@@ -543,7 +538,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631045627703</updated>
     </task>
-    <option name="localTasksCounter" value="178" />
+    <task id="LOCAL-00178" summary="Home GUI Added">
+      <created>1631046893523</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1631046893523</updated>
+    </task>
+    <option name="localTasksCounter" value="179" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -581,7 +583,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Bug Fixes /&#10;Mute Reasons Added" />
     <MESSAGE value="MongoDB Updated" />
     <MESSAGE value="BankCMD TabCompleter Added /&#10;MongoDB Bug Fixes" />
     <MESSAGE value="BankCMD TabCompleter Updated" />
@@ -606,7 +607,8 @@
     <MESSAGE value="WarpCMD Gui Added" />
     <MESSAGE value="Bug Fixes" />
     <MESSAGE value="Messages Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Messages Added" />
+    <MESSAGE value="Home GUI Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Home GUI Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
