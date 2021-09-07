@@ -52,12 +52,23 @@ Warp:
   Teleport: '&aDu wurdest erfolgreich zum Warp &6%WarpName% &aTeleportiert!'
   Delete: '&aWarp mit dem Namen &6%WarpName% &awurde &cgelöscht!'
   NotExist: '&cDieser Warp wurde noch nicht erstellt!'
+  Cost: '&aDieser Warp kostet nun &6%Cost%&c!'
 
 TpaMessages:
   TeleportSend: '&aDu hast an &6%Target% &aeine Teleportier Anfrage gesendet!'
   TeleportGot: '&aDu hast von &6%Player% &aeine Teleportier Anfrage bekommen!'
   TeleportToPlayer: '&aDu wurdest zu &6%Player% &aTeleportiert!'
   TargetMessage: '&6%Target% &awurde zu dir Teleportiert!'
+  TpaDeny: '&aDu hast die Telportier Anfrage abgelehnt!'
+  TpaDenyTarget: '&6%Player% &chat deine Teleportier Anfrage abgelehnt!"'
+  Delay: '&aDu wirst in &6%Time% &aSekunden Teleportiert. Wenn du dich bewegst wird die Teleportierung abgebrochen.'
+  Denied: '&cDu hast dich bewegt. &6Teleportierung wurde abgebrochen!'
+  TpaHereDeny: '&cDu hast die Tpa Here anfrage abgelehnt.'
+  TpaHereDenyTarget: '&6%Player% &chat die TpaHere anfrage abgelehnt!'
+  TpaHere: '&aDieser Spieler möchtest du zu dir Teleportieren &6%Player%'
+  TpaHereTarget: '&6%Player% &aMöchte dich zu ihm Telportieren!'
+  NoRequest: '&cDu hast keine Anfrage bekommen!'
+
 
 Money:
   MSG:
@@ -115,7 +126,9 @@ Mute:
     Deactivate: '&6%Player% &awurde unmuted!'
 
 ChangeFlySpeed: '&aDeine Flug Gehschwindigkeit wurde geändert auf &6%flyspeed%'
-ChangeFlySpeedOther: '&6%player% "s 6aFlug Gehschwindigkeit wurde geändert auf &6%flyspeed%'
+ChangeFlySpeedOther: "&6%player%'s &aFlug Gehschwindigkeit wurde geändert auf &6%flyspeed%"
+
+WalkSpeed: '&aDeine Geh Geschwindigkeit wurde geändert auf &6%WalkSpeed%'
 
 MsgToggle:
   Activated: '&cNo more messages will be sent to you!'

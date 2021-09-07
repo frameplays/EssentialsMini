@@ -23,10 +23,9 @@ commands:
     description: Custom restart feature
   tpaheredeny:
   home:
-    permission: essentialsmini.home
     description: teleport you to our home Location
+  homegui:
   sethome:
-    permission: essentialsmini.sethome
     description: set your home location
   setspawn:
     permission: essentialsmini.setspawn

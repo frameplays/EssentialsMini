@@ -5,22 +5,26 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
-import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.managers.CommandListenerBase;
+import de.framedev.essentialsmini.managers.InventoryManager;
+import de.framedev.essentialsmini.managers.ItemBuilder;
 import de.framedev.essentialsmini.managers.LocationsManager;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
+import lombok.SneakyThrows;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
@@ -32,7 +36,7 @@ import java.util.Map;
 /**
  * @author DHZoc
  */
-public class HomeCMD extends CommandBase implements CommandExecutor, TabCompleter {
+public class HomeCMD extends CommandListenerBase {
 
     private final Main plugin;
 
@@ -45,6 +49,7 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
             setup("delhome", this);
             setup("getlocationfromstring", this);
             setup("delotherhome", this);
+            setup("homegui", this);
             plugin.getTabCompleters().put("home", this);
             plugin.getTabCompleters().put("delhome", this);
             this.locationsManager = new LocationsManager();
@@ -53,12 +58,39 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
 
     private LocationsManager locationsManager;
 
+    @SneakyThrows
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
+            if (command.getName().equalsIgnoreCase("homegui")) {
+                InventoryManager inventoryManager = new InventoryManager("§aHomes");
+                inventoryManager.setSize(3);
+                inventoryManager.create();
+                List<String> homess = new ArrayList<>();
+                ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(sender.getName() + ".home");
+                if (new LocationsManager().getCfg().contains(sender.getName() + ".home")) {
+                    if (cs != null) {
+                        for (String s : cs.getKeys(false)) {
+                            if (s != null)
+                                if (new LocationsManager().getCfg().get(sender.getName() + ".home." + s) != null) {
+                                    if (!new LocationsManager().getCfg().get(sender.getName() + ".home." + s).equals(" ")) {
+                                        homess.add(s);
+                                    }
+                                }
+                        }
+                    }
+                }
+                for (int i = 0; i < homess.size(); i++) {
+                    inventoryManager.setItem(i, new ItemBuilder(Material.BLACK_BED).setDisplayName("§6" + homess.get(i)).build());
+                }
+                inventoryManager.fillNull();
+                if (sender instanceof Player) {
+                    ((Player) sender).openInventory(inventoryManager.getInventory());
+                }
+            }
             if (command.getName().equalsIgnoreCase("sethome")) {
                 if (sender instanceof Player) {
-                    if(sender.hasPermission("essentialsmini.sethome")) {
+                    if (sender.hasPermission("essentialsmini.sethome")) {
                         new LocationsManager(sender.getName() + ".home.home").setLocation(((Player) sender).getLocation());
                         String homeSet = plugin.getCustomMessagesConfig().getString("HomeSet");
                         if (homeSet.contains("&"))
@@ -123,7 +155,7 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
         } else if (args.length == 1) {
             if (command.getName().equalsIgnoreCase("sethome")) {
                 if (sender instanceof Player) {
-                    if(sender.hasPermission("essentialsmini.sethome")) {
+                    if (sender.hasPermission("essentialsmini.sethome")) {
                         Map<String, String> limitedHomepermissions = plugin.getLimitedHomesPermission();
                         String name = args[0].toLowerCase();
                         if (plugin.getConfig().getBoolean("Limited")) {
@@ -626,5 +658,40 @@ public class HomeCMD extends CommandBase implements CommandExecutor, TabComplete
             }
         }
         return null;
+    }
+
+    @EventHandler
+    public void onClickInventory(InventoryClickEvent event) {
+        if (event.getView().getTitle().equalsIgnoreCase("§aHomes")) {
+            Player player = (Player) event.getWhoClicked();
+            List<String> homess = new ArrayList<>();
+            ConfigurationSection cs = new LocationsManager().getCfg().getConfigurationSection(player.getName() + ".home");
+            if (new LocationsManager().getCfg().contains(player.getName() + ".home")) {
+                if (cs != null) {
+                    for (String s : cs.getKeys(false)) {
+                        if (s != null)
+                            if (new LocationsManager().getCfg().get(player.getName() + ".home." + s) != null) {
+                                if (!new LocationsManager().getCfg().get(player.getName() + ".home." + s).equals(" ")) {
+                                    homess.add(s);
+                                }
+                            }
+                    }
+                }
+            }
+            event.setCancelled(true);
+            if (event.getCurrentItem() == null) return;
+            if (!event.getCurrentItem().hasItemMeta()) return;
+            if (event.getCurrentItem().getItemMeta() == null) return;
+            if (!event.getCurrentItem().getItemMeta().hasDisplayName()) return;
+            for (String s : homess) {
+                if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§6" + s)) {
+                    player.teleport(new LocationsManager(player.getName() + ".home." + s).getLocation());
+                    String homeTeleport = plugin.getCustomMessagesConfig().getString("HomeTeleportOther");
+                    homeTeleport = ReplaceCharConfig.replaceParagraph(homeTeleport);
+                    homeTeleport = ReplaceCharConfig.replaceObjectWithData(homeTeleport, "%Name%", s);
+                    player.sendMessage(plugin.getPrefix() + homeTeleport);
+                }
+            }
+        }
     }
 }
