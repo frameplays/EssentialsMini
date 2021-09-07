@@ -95,3 +95,5 @@ ColoredSigns: true
 PlayerShop: true
 
 PlayerEvents: false
+
+TeleportDelay: 3

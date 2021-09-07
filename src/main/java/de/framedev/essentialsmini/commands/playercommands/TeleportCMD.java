@@ -5,9 +5,13 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.utils.TextUtils;
+import de.framedev.essentialsmini.utils.Variables;
 import lombok.NonNull;
-import net.md_5.bungee.api.chat.*;
-import net.md_5.bungee.api.chat.hover.content.Content;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -145,7 +149,11 @@ public class TeleportCMD implements CommandExecutor, Listener {
                 if (tpRequest.containsKey(player)) {
                     if (plugin.getConfig().getBoolean("TeleportInOtherWorld")) {
                         queue.add(tpRequest.get(player));
-                        tpRequest.get(player).sendMessage(plugin.getPrefix() + "§aDu wirst in 3 Sekunden Teleportiert. Wenn du dich bewegst wird die Teleportierung abgebrochen.");
+                        int delay = plugin.getConfig().getInt("TeleportDelay");
+                        String tpDelay = plugin.getCustomMessagesConfig().getString("TpaMessages.Delay");
+                        tpDelay = new TextUtils().replaceAndToParagraph(tpDelay);
+                        tpDelay = new TextUtils().replaceObject(tpDelay, "%Time%", delay + "");
+                        tpRequest.get(player).sendMessage(plugin.getPrefix() + tpDelay);
                         new BukkitRunnable() {
                             @Override
                             public void run() {
@@ -154,7 +162,7 @@ public class TeleportCMD implements CommandExecutor, Listener {
                                     queue.remove(tpRequest.get(player));
                                 }
                             }
-                        }.runTaskLater(plugin, 20 * 3);
+                        }.runTaskLater(plugin, 20 * delay);
                     } else {
                         if (player.getWorld().getName().equalsIgnoreCase(tpRequest.get(player).getWorld().getName())) {
                             tpRequest.get(player).teleport(player);
@@ -179,16 +187,23 @@ public class TeleportCMD implements CommandExecutor, Listener {
                         tpRequest.remove(sender);
                     }
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cDu hast keine Anfrage bekommen!");
+                    String message = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".NoRequest");
+                    message = new TextUtils().replaceAndToParagraph(message);
+                    sender.sendMessage(plugin.getPrefix() + message);
                 }
             }
         }
         if (command.getName().equalsIgnoreCase("tpadeny")) {
             if (sender instanceof Player) {
                 if (tpRequest.containsKey(sender)) {
-                    sender.sendMessage(plugin.getPrefix() + "§aDu hast die Telportier Anfrage abgelehnt!");
+                    String deny = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".TpaDeny");
+                    deny = new TextUtils().replaceAndToParagraph(deny);
+                    sender.sendMessage(plugin.getPrefix() + deny);
+                    String other = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".TpaDenyTarget");
+                    other = new TextUtils().replaceAndToParagraph(other);
+                    other = new TextUtils().replaceObject(other, "%Player%", sender.getName());
                     tpRequest.get(sender)
-                            .sendMessage("§6" + sender.getName() + " §chat deine Teleportier Anfrage abgelehnt!");
+                            .sendMessage(other);
                     tpRequest.remove(sender);
                 }
             }
@@ -200,8 +215,14 @@ public class TeleportCMD implements CommandExecutor, Listener {
                 if (target != null) {
                     if (!tpToggle.contains(target)) {
                         tpHereRequest.put(target, player);
-                        target.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §aMöchte dich zu ihm Telportieren!");
-                        player.sendMessage(plugin.getPrefix() + "§aDieser Spieler möchtest du zu dir Teleportieren §6" + target.getName());
+                        String other = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".TpaHereTarget");
+                        other = new TextUtils().replaceAndToParagraph(other);
+                        other = new TextUtils().replaceObject(other, "%Player%", player.getName());
+                        target.sendMessage(plugin.getPrefix() + other);
+                        String self = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".TpaHere");
+                        self = new TextUtils().replaceAndToParagraph(self);
+                        self = new TextUtils().replaceObject(self, "%Player%", target.getName());
+                        player.sendMessage(plugin.getPrefix() + self);
                         BaseComponent baseComponent = new TextComponent();
                         baseComponent.addExtra("§6[Accept]");
                         baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpahereaccept " + sender.getName()));
@@ -214,8 +235,14 @@ public class TeleportCMD implements CommandExecutor, Listener {
                         target.spigot().sendMessage(ablehnen);
                     } else if (player.hasPermission(plugin.getPermissionName() + "tptoggle.bypass")) {
                         tpHereRequest.put(target, player);
-                        target.sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §aMöchte dich zu ihm Telportieren!");
-                        player.sendMessage(plugin.getPrefix() + "§aDieser Spieler möchtest du zu dir Teleportieren §6" + target.getName());
+                        String other = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".TpaHereTarget");
+                        other = new TextUtils().replaceAndToParagraph(other);
+                        other = new TextUtils().replaceObject(other, "%Player%", player.getName());
+                        target.sendMessage(plugin.getPrefix() + other);
+                        String self = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".TpaHere");
+                        self = new TextUtils().replaceAndToParagraph(self);
+                        self = new TextUtils().replaceObject(self, "%Player%", target.getName());
+                        player.sendMessage(plugin.getPrefix() + self);
                         BaseComponent baseComponent = new TextComponent();
                         baseComponent.addExtra("§6[Accept]");
                         baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpahereaccept " + sender.getName()));
@@ -238,11 +265,18 @@ public class TeleportCMD implements CommandExecutor, Listener {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (!tpHereRequest.isEmpty() && tpHereRequest.containsKey(player)) {
-                    player.sendMessage(plugin.getPrefix() + "§cDu hast die Tpa Here anfrage abgelehnt.");
-                    tpHereRequest.get(player).sendMessage(plugin.getPrefix() + "§6" + player.getName() + " §chat die TpaHere anfrage abgelehnt!");
+                    String deny = plugin.getCustomMessagesConfig().getString("TpaMessages.TpaHereDeny");
+                    deny = new TextUtils().replaceAndToParagraph(deny);
+                    player.sendMessage(plugin.getPrefix() + deny);
+                    String other = plugin.getCustomMessagesConfig().getString("TpaMessages.TpaHereDenyTarget");
+                    other = new TextUtils().replaceAndToParagraph(other);
+                    other = new TextUtils().replaceObject(other, "%Player%", player.getName());
+                    tpHereRequest.get(player).sendMessage(plugin.getPrefix() + other);
                     tpHereRequest.remove(player);
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cDu hast keine Anfrage bekommen!");
+                    String message = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".NoRequest");
+                    message = new TextUtils().replaceAndToParagraph(message);
+                    sender.sendMessage(plugin.getPrefix() + message);
                 }
             }
         }
@@ -253,7 +287,11 @@ public class TeleportCMD implements CommandExecutor, Listener {
                 if (!tpHereRequest.isEmpty() && tpHereRequest.containsKey(player[0])) {
                     if (plugin.getConfig().getBoolean("TeleportInOtherWorld")) {
                         queue.add(player[0]);
-                        player[0].sendMessage(plugin.getPrefix() + "§aDu wirst in 3 Sekunden Teleportiert. Wenn du dich bewegst wird die Teleportierung abgebrochen.");
+                        int delay = plugin.getConfig().getInt("TeleportDelay");
+                        String tpDelay = plugin.getCustomMessagesConfig().getString("TpaMessages.Delay");
+                        tpDelay = new TextUtils().replaceAndToParagraph(tpDelay);
+                        tpDelay = new TextUtils().replaceObject(tpDelay, "%Time%", delay + "");
+                        player[0].sendMessage(plugin.getPrefix() + tpDelay);
                         Player target = tpHereRequest.get(player[0]);
                         new BukkitRunnable() {
                             @Override
@@ -275,7 +313,9 @@ public class TeleportCMD implements CommandExecutor, Listener {
                     }
                     tpHereRequest.remove(player[0]);
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cDu hast keine Anfrage bekommen!");
+                    String message = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".NoRequest");
+                    message = new TextUtils().replaceAndToParagraph(message);
+                    sender.sendMessage(plugin.getPrefix() + message);
                 }
             }
         }
@@ -316,7 +356,9 @@ public class TeleportCMD implements CommandExecutor, Listener {
             int movZ = event.getFrom().getBlockZ() - event.getTo().getBlockZ();
             if (Math.abs(movX) > 0 || Math.abs(movZ) > 0) {
                 queue.remove(event.getPlayer());
-                event.getPlayer().sendMessage(plugin.getPrefix() + "§cDu hast dich bewegt. §6Teleportierung wurde abgebrochen!");
+                String message = plugin.getCustomMessagesConfig().getString(Variables.TPMESSAGES + ".Denied");
+                message = new TextUtils().replaceAndToParagraph(message);
+                event.getPlayer().sendMessage(plugin.getPrefix() + message);
             }
         }
     }
