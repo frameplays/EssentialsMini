@@ -11,6 +11,7 @@ SaveInventory: false
 Backpack: false
 SpawnTP: false
 SkipNight: false
+BedColor: 'BLUE'
 
 LocationsBackup: false
 

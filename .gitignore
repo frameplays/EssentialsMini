@@ -9,5 +9,5 @@
 .idea
 /jars/
 /.idea
-.DS_STORE
+**/.DS_Store
 EssentialsMini.iml
