@@ -2,7 +2,6 @@ package de.framedev.essentialsmini.listeners;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.ListenerBase;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +10,6 @@ import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.help.HelpTopic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.bukkit.Bukkit.getServer;
@@ -27,17 +25,9 @@ public class DisallowCommands extends ListenerBase {
 
     private final Main plugin;
 
-    private final HashMap<String, String> blockedCMDString = new HashMap<>();
-
     public DisallowCommands(Main plugin) {
         super(plugin);
         this.plugin = getPlugin();
-        /*blockedCMDString.put("essentialsmini.setspawn", "setspawn");
-        blockedCMDString.put("essentialsmini.fly", "fly");
-        blockedCMDString.put("essentialsmini.invsee", "invsee");
-        blockedCMDString.put("essentialsmini.invsee", "enderchest");
-        blockedCMDString.put("essentialsmini.invsee", "ec");
-        blockedCMDString.put("essentialsmini.resethealth", "resethealth");*/
         setupListener(this);
     }
 
@@ -271,22 +261,21 @@ public class DisallowCommands extends ListenerBase {
             blockedCommands.add("bock");
             blockedCommands.add("copybook");
         }
-        /*for (Map.Entry<String, String> entry : blockedCMDString.entrySet()) {
-            if (!event.getPlayer().hasPermission(entry.getKey()))
-                blockedCommands.add(entry.getValue());
-        }*/
-        event.getCommands().removeAll(blockedCommands);
-        event.getCommands().removeIf(string -> string.contains(":"));
+
+        // Disable TabCompleter
+        if (plugin.getSettingsCfg().getBoolean("DisableTabComplete"))
+            if (!event.getPlayer().hasPermission("essentialsmini.tabcomplete")) {
+                event.getCommands().clear();
+            }
+
+        if (!event.getCommands().isEmpty()) {
+            event.getCommands().removeAll(blockedCommands);
+            event.getCommands().removeIf(string -> string.contains(":"));
+        }
     }
 
     @EventHandler
     public void onSendCommand(PlayerCommandPreprocessEvent event) {
-        if (event.getMessage().equalsIgnoreCase("/showitem")) {
-            if (Bukkit.getVersion().contains("1.16.1")) {
-                event.getPlayer().sendMessage(plugin.getPrefix() + "§cDieser Befehl funktioniert nur in der 1.16.1!");
-                event.setCancelled(true);
-            }
-        }
         if (!event.getPlayer().hasPermission("essentialsmini.plugins")) {
             if (event.getMessage().split(" ")[0].equalsIgnoreCase("/pl") || event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:pl") || event.getMessage().split(" ")[0].equalsIgnoreCase("/plugins")
                     || event.getMessage().split(" ")[0].equalsIgnoreCase("/bukkit:plugins")) {

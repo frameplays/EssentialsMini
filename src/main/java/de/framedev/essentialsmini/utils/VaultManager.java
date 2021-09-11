@@ -98,8 +98,7 @@ public class VaultManager {
             }
             if (!cfg.contains("Banks." + bankName + ".members")) {
                 List<String> players = new ArrayList<>();
-                if (!players.contains(player.getName()))
-                    players.add(player.getName());
+                players.add(player.getName());
                 cfg.set("Banks." + bankName + ".members", players);
             } else {
                 List<String> players = cfg.getStringList("Banks." + bankName + ".members");

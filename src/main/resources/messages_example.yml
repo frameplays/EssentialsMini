@@ -37,7 +37,9 @@ HomeDeleteOther: '&cDein Home mit dem Namen &6%Name% &cwurde gelöscht!'
 HomeNotExist: '&cDieses Home existiert nocht nicht!'
 HomeExist: '&cDieses Home existiert schon!'
 NoMoreHomesSet: '&cDu kannst keine weitern Homes setzten!'
-
+HomeButton: '&aSet Home? &6Click me and press enter'
+ShowTextHover: '&6Set Home?'
+ShowTextHoverOther: '&6Set %Home% Home?'
 SpyMessage: '&6%Player% &ahat eine Nachricht an &6%Target% &agesendet mit dem Text &6: §c%Message%'
 Spy:
   Activate: '&aDir werden nun die Msg"s geschickt von anderen Spielern!'
@@ -134,3 +136,5 @@ MsgToggle:
   Activated: '&cNo more messages will be sent to you!'
   Deactivated: '&aMessages will be sent to you!'
   Message: "&cThis Player doesn't Allow Messages!"
+
+SkipNight: '&6%Player% &ahat die Nacht übersprungen!'
