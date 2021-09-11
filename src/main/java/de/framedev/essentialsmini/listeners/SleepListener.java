@@ -13,6 +13,7 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.BackendManager;
 import de.framedev.essentialsmini.managers.PlayerManager;
 import de.framedev.essentialsmini.managers.PlayerManagerCfgLoss;
+import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -58,7 +59,10 @@ public class SleepListener implements Listener {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            Bukkit.broadcastMessage("§6" + event.getPlayer().getName() + " §ahat die Nacht übersprungen!");
+                            String message = plugin.getCustomMessagesConfig().getString("SkipNight");
+                            message = new TextUtils().replaceAndToParagraph(message);
+                            message = new TextUtils().replaceObject(message, "%Player%", event.getPlayer().getName());
+                            Bukkit.broadcastMessage(message);
                             event.getPlayer().getWorld().setTime(0);
                             event.getPlayer().getWorld().setThundering(false);
                             event.getPlayer().getWorld().setStorm(false);

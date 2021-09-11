@@ -30,7 +30,10 @@ public class Variables {
     private final boolean jsonFormat;
     private String playerNameNotOnline;
     private String playerNotOnline;
+
     public static final String TPMESSAGES = "TpaMessages";
+    public static final String MONEYMESSAGE = "Money";
+    public static final String WARPMESSAGE = "Warp";
 
     private final ArrayList<OfflinePlayer> players = new ArrayList<>();
     private final ArrayList<String> offlinePlayers;

@@ -1,5 +1,6 @@
 package de.framedev.essentialsmini.main;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmini.api.EssentialsMiniAPI;
@@ -17,6 +18,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
@@ -28,11 +30,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.FileUtil;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystem;
 import java.util.*;
 
 public class Main extends JavaPlugin {
@@ -125,7 +130,8 @@ public class Main extends JavaPlugin {
                 "Economy.Activate activates the integration of the Vault API use for Economy \n" +
                 "PlayerShop is that Players can create their own Shop \n" +
                 "PlayerEvents also named as PlayerData events \n" +
-                "Only 3 Limited Homes Group can be created. Please do not rename the Groups or add a new One!");
+                "Only 3 Limited Homes Group can be created. Please do not rename the Groups! \n" +
+                "TeleportDelay is the Time you have to wait befor you got Teleported");
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
@@ -371,25 +377,40 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
-        if (!configVersion.equalsIgnoreCase("1.0.0")) {
-            new File(getDataFolder(), "config.yml").delete();
-            getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
-                    "Position activates /position <LocationName> or /pos <LocationName> Command\n" +
-                    "SkipNight activates skipnight. This means that only one Player need to lay in bed!\n" +
-                    "LocationsBackup Activates creating Backup from all Homes \n" +
-                    "OnlyEssentialsFeatures if its deactivated only Commands and Economy can be used when is activated the PlayerData will be saved \n" +
-                    "Economy.Activate activates the integration of the Vault API use for Economy \n" +
-                    "PlayerShop is that Players can create their own Shop \n" +
-                    "PlayerEvents also named as PlayerData events \n" +
-                    "Only 3 Limited Homes Group can be created. Please do not rename the Groups!");
-            getConfig().options().copyHeader(true);
-            getConfig().options().copyDefaults(true);
-            saveDefaultConfig();
-            Config.updateConfig();
-            Config.loadConfig();
-            Config.saveDefaultConfigValues();
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cConfig Replaced! Please edit your Config Sections!");
+        if (!configVersion.equalsIgnoreCase("1.0.1")) {
+            configUpdater();
         }
+    }
+
+    public void configUpdater() {
+        try {
+            Files.move(new File(getDataFolder(),"config.yml"), new File(getDataFolder(),"config_old.yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
+                        "Position activates /position <LocationName> or /pos <LocationName> Command\n" +
+                        "SkipNight activates skipnight. This means that only one Player need to lay in bed!\n" +
+                        "LocationsBackup Activates creating Backup from all Homes \n" +
+                        "OnlyEssentialsFeatures if its deactivated only Commands and Economy can be used when is activated the PlayerData will be saved \n" +
+                        "Economy.Activate activates the integration of the Vault API use for Economy \n" +
+                        "PlayerShop is that Players can create their own Shop \n" +
+                        "PlayerEvents also named as PlayerData events \n" +
+                        "Only 3 Limited Homes Group can be created. Please do not rename the Groups! \n" +
+                        "TeleportDelay is the Time you have to wait befor you got Teleported!");
+                getConfig().options().copyHeader(true);
+                getConfig().options().copyDefaults(true);
+                saveDefaultConfig();
+                Config.updateConfig();
+                Config.loadConfig();
+                Config.saveDefaultConfigValues();
+                Bukkit.getServer().reload();
+                Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cConfig Replaced! Please edit your Config Sections!");
+            }
+        }.runTaskLater(this, 60);
     }
 
     @Override

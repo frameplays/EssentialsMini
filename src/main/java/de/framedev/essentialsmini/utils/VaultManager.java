@@ -58,9 +58,17 @@ public class VaultManager {
         plugin.getServer().getServicesManager().register(Economy.class, new VaultAPI(), plugin, ServicePriority.High);
         eco = new VaultAPI();
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!eco.hasAccount(p.getName()))
-                eco.createPlayerAccount(p.getName());
+            if (!eco.hasAccount(p))
+                eco.createPlayerAccount(p);
         }
+    }
+
+    public List<String> getBanks() {
+        return Main.getInstance().getVaultManager().getEco().getBanks();
+    }
+
+    public List<String> getAccounts() {
+        return Main.getInstance().getVaultManager().getAccounts();
     }
 
     private final File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");

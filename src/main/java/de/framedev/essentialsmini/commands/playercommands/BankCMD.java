@@ -34,7 +34,25 @@ public class BankCMD extends CommandBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 2) {
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("list")) {
+                if (sender.hasPermission("essentialsmini.bank.list")) {
+                    List<String> banks = plugin.getVaultManager().getBanks();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int i = 0; i < banks.size(); ++i) {
+                        stringBuilder.append(banks.get(i));
+                        if (i < banks.size() - 1) {
+                            stringBuilder.append(", ");
+                        }
+                    }
+                    sender.sendMessage(plugin.getPrefix() + "§6<<<===>>>");
+                    sender.sendMessage(plugin.getPrefix() + "§a" + stringBuilder.toString());
+                    sender.sendMessage(plugin.getPrefix() + "§6<<<===>>>");
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                }
+            }
+        } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("create")) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
@@ -89,6 +107,31 @@ public class BankCMD extends CommandBase {
                         }
                     } else {
                         player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                    }
+                }
+            }
+            if (args[0].equalsIgnoreCase("listmembers")) {
+                String bankName = args[1];
+                if (sender instanceof Player) {
+                    Player player = (Player) sender;
+                    if (player.hasPermission("essentialsmini.bank.listmembers")) {
+                        if (plugin.getVaultManager().getEconomy().getBanks().contains(bankName)) {
+                            if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess() || plugin.getVaultManager().getEco().isBankMember(bankName, player).transactionSuccess()) {
+                                List<String> bankMembers = new ArrayList<>(plugin.getVaultManager().getBankMembers(bankName));
+                                StringBuilder stringBuilder = new StringBuilder();
+                                for (int i = 0; i < bankMembers.size(); ++i) {
+                                    stringBuilder.append(bankMembers.get(i));
+                                    if (i < bankMembers.size() - 1) {
+                                        stringBuilder.append(", ");
+                                    }
+                                }
+                                player.sendMessage(plugin.getPrefix() + "§6<<<===>>>");
+                                player.sendMessage(plugin.getPrefix() + "§a" + stringBuilder.toString());
+                                player.sendMessage(plugin.getPrefix() + "§6<<<===>>>");
+                            }
+                        }
+                    } else {
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             }
@@ -194,7 +237,7 @@ public class BankCMD extends CommandBase {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            List<String> cmds = new ArrayList<String>(Arrays.asList("remove", "create", "balance", "withdraw", "deposit", "addmember", "removemember"));
+            List<String> cmds = new ArrayList<String>(Arrays.asList("remove", "create", "balance", "withdraw", "deposit", "addmember", "removemember", "listmembers", "list"));
             List<String> empty = new ArrayList<>();
             for (String s : cmds) {
                 if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
@@ -204,6 +247,7 @@ public class BankCMD extends CommandBase {
             Collections.sort(empty);
             return empty;
         } else if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("list")) return new ArrayList<>();
             if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("remove"))
                 return new ArrayList<>(Collections.singletonList("<BANKNAME>"));
             List<String> banksList = new ArrayList<>();
@@ -220,7 +264,8 @@ public class BankCMD extends CommandBase {
             Collections.sort(empty);
             return empty;
         } else if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("remove")) return new ArrayList<>();
+            if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("listmembers") || args[0].equalsIgnoreCase("info"))
+                return new ArrayList<>();
             if (args[0].equalsIgnoreCase("balance")) return new ArrayList<>();
             if (args[0].equalsIgnoreCase("addmember") || args[0].equalsIgnoreCase("removemember")) {
                 List<String> players = new ArrayList<>();

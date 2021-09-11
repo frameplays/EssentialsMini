@@ -13,6 +13,7 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -128,6 +129,17 @@ public class MessageCMD implements CommandExecutor {
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
+            } else if (sender instanceof BlockCommandSender) {
+                BlockCommandSender commandBlock = (BlockCommandSender) sender;
+                Player target = Bukkit.getPlayer(args[0]);
+                String message = "";
+                for (int i = 1; i < args.length; i++) {
+                    message = message + args[i] + " ";
+                }
+                if (target == null) {
+                    return true;
+                }
+                target.sendMessage("§a" + commandBlock.getName() + " §r-> §cme  §f» " + message);
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
             }

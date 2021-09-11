@@ -29,7 +29,7 @@ public class BanCMD extends CommandBase {
                     BanType type = BanType.valueOf(args[2].toUpperCase());
                     if (getPlugin().isMysql() || getPlugin().isSQL()) {
                         if (Bukkit.getPlayer(args[1]) != null)
-                            Objects.requireNonNull(Bukkit.getPlayer(args[0])).kickPlayer(ChatColor.RED + "You are Banned while " + ChatColor.GOLD + type.getReason());
+                            Objects.requireNonNull(Bukkit.getPlayer(args[1])).kickPlayer(ChatColor.RED + "You are Banned while " + ChatColor.GOLD + type.getReason());
                         new BanMuteManager().setPermaBan(Bukkit.getOfflinePlayer(args[1]), type, true);
                     } else {
                         BanFile.banPlayer(args[1], type.getReason());

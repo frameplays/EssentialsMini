@@ -516,4 +516,23 @@ public class EssentialsMiniAPI {
     public void setPlayerGodMode(Player player, boolean godMode) {
         player.setInvulnerable(godMode);
     }
+
+    public List<String> getBankMembers(String bankName) {
+        if (economy) {
+            return plugin.getVaultManager().getBankMembers(bankName);
+        }
+        return null;
+    }
+
+    public List<String> getBanks() {
+        if (economy)
+            return plugin.getVaultManager().getEco().getBanks();
+        return null;
+    }
+
+    public List<String> getAccounts() {
+        if (economy)
+            plugin.getVaultManager().getAccounts();
+        return null;
+    }
 }
