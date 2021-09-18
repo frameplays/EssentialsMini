@@ -9,8 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Messages Added&#10;Tab Completer Added&#10;SleepCMD Updated | Place Real Bed | Color changeable">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Git Ignore updated">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,20 +196,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00133" summary="Pom Updated">
-      <created>1625593668399</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1625593668400</updated>
-    </task>
-    <task id="LOCAL-00134" summary="Bug Fixes">
-      <created>1625595308893</created>
-      <option name="number" value="00134" />
-      <option name="presentableId" value="LOCAL-00134" />
-      <option name="project" value="LOCAL" />
-      <updated>1625595308893</updated>
     </task>
     <task id="LOCAL-00135" summary="Bug Fixes">
       <created>1625595434486</created>
@@ -540,7 +526,21 @@
       <option name="project" value="LOCAL" />
       <updated>1631400221153</updated>
     </task>
-    <option name="localTasksCounter" value="182" />
+    <task id="LOCAL-00182" summary="Git Ignore updated">
+      <created>1631400371917</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1631400371917</updated>
+    </task>
+    <task id="LOCAL-00183" summary="Git Ignore updated">
+      <created>1631400407794</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1631400407795</updated>
+    </task>
+    <option name="localTasksCounter" value="184" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -578,7 +578,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new Events Added" />
     <MESSAGE value="Player can create own Shops with Custom Items" />
     <MESSAGE value="Bug Fixes / Features Added" />
     <MESSAGE value="Files Deleted" />
@@ -603,7 +602,8 @@
     <MESSAGE value="Bug Fixes | Command Added&#10;&#10;New Commands --&#10;/eco add &lt;amount&gt;&#10;/eco add &lt;amount&gt; &lt;Player&gt;&#10;/homegui updated&#10;&#10;BugFixes&#10;/homegui Bug Fix&#10;Performance Fix" />
     <MESSAGE value="1.3.0-RELEASE" />
     <MESSAGE value="Messages Added&#10;Tab Completer Added&#10;SleepCMD Updated | Place Real Bed | Color changeable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Messages Added&#10;Tab Completer Added&#10;SleepCMD Updated | Place Real Bed | Color changeable" />
+    <MESSAGE value="Git Ignore updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Git Ignore updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
