@@ -9,8 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Git Ignore updated">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="HomeCMD Updated">
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/GlobalMuteCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/GlobalMuteCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/SleepCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/SleepCMD.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +89,7 @@
     <property name="project.structure.proportion" value="0.15504587" />
     <property name="project.structure.side.proportion" value="0.2019544" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -102,7 +105,7 @@
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.EssentialsMini [clean,package]">
+  <component name="RunManager" selected="Maven.EssentialsMini [clean,deploy]">
     <configuration name="EssentialsMini [clean,deploy]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -196,13 +199,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00135" summary="Bug Fixes">
-      <created>1625595434486</created>
-      <option name="number" value="00135" />
-      <option name="presentableId" value="LOCAL-00135" />
-      <option name="project" value="LOCAL" />
-      <updated>1625595434486</updated>
     </task>
     <task id="LOCAL-00136" summary="Bug Fixes">
       <created>1625595500052</created>
@@ -540,7 +536,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631400407795</updated>
     </task>
-    <option name="localTasksCounter" value="184" />
+    <task id="LOCAL-00184" summary="HomeCMD Updated">
+      <created>1631987080282</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1631987080282</updated>
+    </task>
+    <option name="localTasksCounter" value="185" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -582,7 +585,6 @@
     <MESSAGE value="Bug Fixes / Features Added" />
     <MESSAGE value="Files Deleted" />
     <MESSAGE value="Bug Fixes | Features Added" />
-    <MESSAGE value="HomeCMD Updated" />
     <MESSAGE value="1.2.9.1-PRE-RELEASE" />
     <MESSAGE value="README.md updated" />
     <MESSAGE value="WarpCMD Updated" />
@@ -603,7 +605,8 @@
     <MESSAGE value="1.3.0-RELEASE" />
     <MESSAGE value="Messages Added&#10;Tab Completer Added&#10;SleepCMD Updated | Place Real Bed | Color changeable" />
     <MESSAGE value="Git Ignore updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Git Ignore updated" />
+    <MESSAGE value="HomeCMD Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="HomeCMD Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

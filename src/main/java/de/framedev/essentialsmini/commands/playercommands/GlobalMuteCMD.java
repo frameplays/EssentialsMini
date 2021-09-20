@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -40,11 +41,13 @@ public class GlobalMuteCMD extends CommandBase {
             if (globalMute) {
                 plugin.getSettingsCfg().set("GlobalMute", false);
                 plugin.saveSettings();
-                sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Deaktiviert!");
+                Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(plugin.getPrefix() + "§r§fBroadcast §6: " + "§aGlobalMute Deaktiviert!"));
+                sender.sendMessage(plugin.getPrefix() + "§aGlobalMute Deaktiviert!");
             } else {
                 plugin.getSettingsCfg().set("GlobalMute", true);
                 plugin.saveSettings();
-                sender.sendMessage(plugin.getPrefix() + "§aGlobal Mute Aktiviert!");
+                Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(plugin.getPrefix() + "§r§fBroadcast §6: " + "§aGlobalMute Aktiviert!"));
+                sender.sendMessage(plugin.getPrefix() + "§aGlobalMute Aktiviert!");
             }
             return true;
         }

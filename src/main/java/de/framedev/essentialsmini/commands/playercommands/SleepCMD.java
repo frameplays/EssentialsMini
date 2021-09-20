@@ -45,15 +45,27 @@ public class SleepCMD implements CommandExecutor {
                 Location location = player.getLocation().subtract(0, 0, 0);
                 bedLoc.add(location);
                 block.add(location.getBlock().getType());
-                DyeColor dyeColor = DyeColor.valueOf(plugin.getConfig().getString("BedColor").toUpperCase());
-                setBed(location.getBlock(), BlockFace.NORTH, Material.getMaterial(dyeColor.name().toUpperCase() + "_BED"));
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        location.getBlock().setType(Material.AIR);
+                try {
+                    if (plugin.getConfig().getString("BedColor") == null) {
+                        player.sendMessage(plugin.getPrefix() + "§cThis Color doesn't exists!");
+                        return true;
                     }
-                }.runTaskLater(plugin, 7 * 20);
-                player.sleep(player.getLocation(), false);
+                    DyeColor dyeColor = DyeColor.valueOf(plugin.getConfig().getString("BedColor").toUpperCase());
+                    setBed(location.getBlock(), BlockFace.NORTH, Material.getMaterial(dyeColor.name().toUpperCase() + "_BED"));
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (location.getWorld() != null && location.getWorld().getTime() >= 0) {
+                                location.getBlock().setType(Material.AIR);
+                                cancel();
+                            }
+                        }
+                    }.runTaskTimer(plugin, 0, 5);
+                    player.sleep(player.getLocation(), false);
+                } catch (Exception ignored) {
+                    player.sendMessage(plugin.getPrefix() + "§cThis Color doesn't exists!");
+                    return true;
+                }
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
             }
