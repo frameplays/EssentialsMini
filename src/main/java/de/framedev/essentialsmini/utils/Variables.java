@@ -107,6 +107,10 @@ public class Variables {
         return noPermission;
     }
 
+    public ArrayList<OfflinePlayer> getPlayers() {
+        return players;
+    }
+
     @Override
     public String toString() {
         return "Variables{" +
@@ -123,10 +127,6 @@ public class Variables {
                 ", playerNotOnline='" + playerNotOnline + '\'' +
                 ", offlinePlayers=" + offlinePlayers +
                 '}';
-    }
-
-    public ArrayList<OfflinePlayer> getPlayers() {
-        return players;
     }
 }
 

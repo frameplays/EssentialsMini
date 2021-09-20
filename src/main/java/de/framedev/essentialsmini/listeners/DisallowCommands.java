@@ -325,7 +325,7 @@ public class DisallowCommands extends ListenerBase {
                     player.sendMessage(plugin.getPrefix() + notFound);
                     event.setCancelled(true);
                 } else {
-                    System.err.println(plugin.getPrefix() + "Cannot found 'UnkownCommand' in Config.yml");
+                    System.err.println(plugin.getPrefix() + "Cannot found 'UnkownCommand' in messages.yml");
                 }
             }
         }

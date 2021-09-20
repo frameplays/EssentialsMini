@@ -9,11 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="HomeCMD Updated">
-      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Commands Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/GlobalMuteCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/GlobalMuteCMD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/SleepCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/playercommands/SleepCMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/BanListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/BanListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/DisallowCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/listeners/DisallowCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/Variables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/utils/Variables.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,13 +200,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00136" summary="Bug Fixes">
-      <created>1625595500052</created>
-      <option name="number" value="00136" />
-      <option name="presentableId" value="LOCAL-00136" />
-      <option name="project" value="LOCAL" />
-      <updated>1625595500052</updated>
     </task>
     <task id="LOCAL-00137" summary="Bug Fixes / PlayerManager Updated">
       <created>1625600019231</created>
@@ -543,7 +537,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631987080282</updated>
     </task>
-    <option name="localTasksCounter" value="185" />
+    <task id="LOCAL-00185" summary="Commands Updated">
+      <created>1632155124755</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1632155124755</updated>
+    </task>
+    <option name="localTasksCounter" value="186" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -592,7 +593,6 @@
     <MESSAGE value="pom.xml Updated" />
     <MESSAGE value="Conbfig Updater Added" />
     <MESSAGE value="Data Updated" />
-    <MESSAGE value="Commands Updated" />
     <MESSAGE value="Bug Fixes | Messages Added | Performance Fix" />
     <MESSAGE value="WarpCMD Bug Fixes" />
     <MESSAGE value="WarpCMD Bug Fixes | Features Added | Events Updated" />
@@ -606,7 +606,8 @@
     <MESSAGE value="Messages Added&#10;Tab Completer Added&#10;SleepCMD Updated | Place Real Bed | Color changeable" />
     <MESSAGE value="Git Ignore updated" />
     <MESSAGE value="HomeCMD Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="HomeCMD Updated" />
+    <MESSAGE value="Commands Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commands Updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

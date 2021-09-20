@@ -29,7 +29,6 @@ public class SleepCMD implements CommandExecutor {
 
     private final Main plugin;
 
-    private final ArrayList<Location> bedLoc = new ArrayList<>();
     private final ArrayList<Material> block = new ArrayList<>();
 
     public SleepCMD(Main plugin) {
@@ -43,7 +42,6 @@ public class SleepCMD implements CommandExecutor {
             if (sender.hasPermission("essentialsmini.sleep")) {
                 Player player = (Player) sender;
                 Location location = player.getLocation().subtract(0, 0, 0);
-                bedLoc.add(location);
                 block.add(location.getBlock().getType());
                 try {
                     if (plugin.getConfig().getString("BedColor") == null) {
@@ -55,6 +53,11 @@ public class SleepCMD implements CommandExecutor {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
+                            for (Material material : block) {
+                                if (material != Material.AIR) {
+                                    location.getBlock().setType(material);
+                                }
+                            }
                             if (location.getWorld() != null && location.getWorld().getTime() >= 0) {
                                 location.getBlock().setType(Material.AIR);
                                 cancel();
