@@ -106,7 +106,7 @@ public class RegisterManager {
         // new SetHealthCMD(plugin);
         new SpeedCMD(plugin);
         new ThunderCMD(plugin);
-        new RegisterCMD(plugin);
+        //new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
         new EconomyCMD(plugin);

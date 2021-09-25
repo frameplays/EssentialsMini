@@ -172,8 +172,6 @@ commands:
   spawnmob:
     description: Spawn a Custom Mob
   getlocationfromstring:
-  register:
-  login:
   speed:
     description: Change your Walk Speed
   chatclear:
