@@ -232,6 +232,10 @@ commands:
     aliases:
       - gmute
       - glmute
+  offline:
+    aliases:
+      - offlineplayers
+      - offplayers
 permissions:
   essentialsmini.*:
     children:

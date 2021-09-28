@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.commands.servercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,6 +28,7 @@ public class OnlinePlayerListCMD implements CommandExecutor {
     public OnlinePlayerListCMD(Main plugin) {
         this.plugin = plugin;
         plugin.getCommands().put("online", this);
+        plugin.getCommands().put("offline", this);
     }
 
     @Override
@@ -38,6 +40,19 @@ public class OnlinePlayerListCMD implements CommandExecutor {
                     players.add(player.getName());
                 }
                 sender.sendMessage("§6==§cPlayers§6==");
+                sender.sendMessage(Arrays.toString(players.toArray()));
+                players.clear();
+            } else {
+                sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+            }
+        }
+        if (command.getName().equalsIgnoreCase("offline")) {
+            if (sender.hasPermission("essentialsmini.online")) {
+                for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                    if (!offlinePlayer.isOnline())
+                        players.add(offlinePlayer.getName());
+                }
+                sender.sendMessage("§6==§cOfflinePlayers§6==");
                 sender.sendMessage(Arrays.toString(players.toArray()));
                 players.clear();
             } else {

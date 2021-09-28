@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Commands Updated">
+    <list default="true" id="4f13ab2f-12ba-41b7-8456-82c9c43e8054" name="Default Changelist" comment="Command Removed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/managers/RegisterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/servercommands/OnlinePlayerListCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/framedev/essentialsmini/commands/servercommands/OnlinePlayerListCMD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +105,7 @@
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.EssentialsMini [clean,deploy]">
+  <component name="RunManager" selected="Maven.EssentialsMini [clean,package]">
     <configuration name="EssentialsMini [clean,deploy]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -198,13 +199,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616170471150</updated>
-    </task>
-    <task id="LOCAL-00138" summary="Bug Fixes / PlayerManager Methods Added (Save Crafting)">
-      <created>1625600829198</created>
-      <option name="number" value="00138" />
-      <option name="presentableId" value="LOCAL-00138" />
-      <option name="project" value="LOCAL" />
-      <updated>1625600829198</updated>
     </task>
     <task id="LOCAL-00139" summary="1.17 Update">
       <created>1625775199805</created>
@@ -542,7 +536,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632155832539</updated>
     </task>
-    <option name="localTasksCounter" value="187" />
+    <task id="LOCAL-00187" summary="Command Removed">
+      <created>1632583721946</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
+      <option name="project" value="LOCAL" />
+      <updated>1632583721946</updated>
+    </task>
+    <option name="localTasksCounter" value="188" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -580,7 +581,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Player can create own Shops with Custom Items" />
     <MESSAGE value="Bug Fixes / Features Added" />
     <MESSAGE value="Files Deleted" />
     <MESSAGE value="Bug Fixes | Features Added" />
@@ -605,7 +605,8 @@
     <MESSAGE value="Git Ignore updated" />
     <MESSAGE value="HomeCMD Updated" />
     <MESSAGE value="Commands Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commands Updated" />
+    <MESSAGE value="Command Removed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Command Removed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
