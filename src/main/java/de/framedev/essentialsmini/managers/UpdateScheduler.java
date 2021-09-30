@@ -15,6 +15,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class UpdateScheduler implements Runnable {
 
+    public boolean started = true;
+
     @Override
     public void run() {
         boolean[] s = {true, true, true};
@@ -46,6 +48,7 @@ public class UpdateScheduler implements Runnable {
                     s[2] = false;
                 }
                 if (!s[0] && !s[1] && !s[2]) {
+                    started = false;
                     cancel();
                 }
             }

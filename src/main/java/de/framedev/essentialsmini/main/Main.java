@@ -18,7 +18,6 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
@@ -31,13 +30,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.FileUtil;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystem;
 import java.util.*;
 
 public class Main extends JavaPlugin {
@@ -139,7 +136,7 @@ public class Main extends JavaPlugin {
         Config.loadConfig();
         Config.saveDefaultConfigValues();
         Config.saveDefaultConfigValues("settings");
-        this.settingsFile = new File(getDataFolder(),"settings.yml");
+        this.settingsFile = new File(getDataFolder(), "settings.yml");
         this.settingsCfg = YamlConfiguration.loadConfiguration(settingsFile);
         try {
             this.settingsCfg.save(settingsFile);
@@ -223,11 +220,17 @@ public class Main extends JavaPlugin {
         if (getConfig().getBoolean("LocationsBackup")) {
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups enabled!");
         }
+        UpdateScheduler updateScheduler = new UpdateScheduler();
         /* Thread for the Schedulers for save restart and .... */
         if (!getConfig().getBoolean("OnlyEssentialsFeatures")) {
-            thread = new Thread(new UpdateScheduler());
-            if (thread != null && !thread.isAlive())
+            thread = new Thread(updateScheduler);
+            if (thread != null && !thread.isAlive()) {
                 thread.start();
+            } else {
+                if (updateScheduler.started) {
+                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aSchedulers Started!");
+                }
+            }
         }
 
         // LimitedHomes Init
@@ -371,6 +374,7 @@ public class Main extends JavaPlugin {
         infoCfg.set("isOnlineMode", getVariables().isOnlineMode());
         infoCfg.set("PlayerDataSave", getConfig().getBoolean("PlayerInfoSave"));
         infoCfg.set("Economy", getConfig().getBoolean("Economy.Activate"));
+        infoCfg.set("Updates", updateScheduler.started);
         try {
             infoCfg.save(infoFile);
         } catch (IOException e) {
@@ -384,7 +388,7 @@ public class Main extends JavaPlugin {
 
     public void configUpdater() {
         try {
-            Files.move(new File(getDataFolder(),"config.yml"), new File(getDataFolder(),"config_old.yml"));
+            Files.move(new File(getDataFolder(), "config.yml"), new File(getDataFolder(), "config_old.yml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
