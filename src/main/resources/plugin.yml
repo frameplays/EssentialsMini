@@ -236,6 +236,7 @@ commands:
     aliases:
       - offlineplayers
       - offplayers
+  xp:
 permissions:
   essentialsmini.*:
     children:
@@ -319,6 +320,7 @@ permissions:
       essentialsmini.bank.removemember: true
       essentialsmini.workbench: true
       essentialsmini.balancetop: true
+      essentialsmini.xp: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -508,4 +510,6 @@ permissions:
   essentialsmini.workbench:
     default: op
   essentialsmini.balancetop:
+    default: op
+  essentialsmini.xp:
     default: op
