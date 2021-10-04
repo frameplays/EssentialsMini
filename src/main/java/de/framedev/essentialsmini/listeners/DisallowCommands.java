@@ -268,8 +268,9 @@ public class DisallowCommands extends ListenerBase {
                 event.getCommands().clear();
             }
 
-        if(!event.getPlayer().hasPermission(plugin.getPermissionName() + "xp"))
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "xp"))
             blockedCommands.add("xp");
+
         if (!event.getCommands().isEmpty()) {
             event.getCommands().removeAll(blockedCommands);
             event.getCommands().removeIf(string -> string.contains(":"));
