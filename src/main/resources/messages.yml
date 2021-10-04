@@ -138,3 +138,7 @@ MsgToggle:
   Message: "&cThis Player doesn't Allow Messages!"
 
 SkipNight: '&6%Player% &ahat die Nacht übersprungen!'
+
+Experience:
+  Level: '&aYour Level is now &6%Level%'
+  XP: '&aYou have now &6%XP% &aExperience'

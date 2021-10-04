@@ -34,6 +34,7 @@ public class Variables {
     public static final String TPMESSAGES = "TpaMessages";
     public static final String MONEYMESSAGE = "Money";
     public static final String WARPMESSAGE = "Warp";
+    public static final String EXPERIENCE = "Experience";
 
     private final ArrayList<OfflinePlayer> players = new ArrayList<>();
     private final ArrayList<String> offlinePlayers;

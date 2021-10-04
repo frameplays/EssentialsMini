@@ -3,6 +3,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.TextUtils;
+import de.framedev.essentialsmini.utils.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -48,12 +49,18 @@ public class ExperienceCMD extends CommandBase {
                     sender.sendMessage(getPlugin().getPrefix() + getPlugin().getVariables().getPlayerNameNotOnline(args[1]));
                     return true;
                 }
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "XP");
+                xpMessage = textUtils.replaceAndToParagraph(xpMessage);
+                xpMessage = textUtils.replaceObject(xpMessage, "%XP%", amount + "");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Level");
+                levelMessage = textUtils.replaceAndToParagraph(levelMessage);
+                levelMessage = textUtils.replaceObject(levelMessage, "%Level%", amount + "");
                 if (args[3].equalsIgnoreCase("level")) {
                     player.setLevel(amount);
-                    player.sendMessage(getPlugin().getPrefix() + "§aYour Level is now §6" + amount);
+                    player.sendMessage(getPlugin().getPrefix() + levelMessage);
                 } else if (args[3].equalsIgnoreCase("xp")) {
                     player.setTotalExperience(amount);
-                    player.sendMessage(getPlugin().getPrefix() + "§aYou have now §6" + amount + " §aExperience");
+                    player.sendMessage(getPlugin().getPrefix() + xpMessage);
                 }
                 return true;
             } else if (args[0].equalsIgnoreCase("add")) {
@@ -71,12 +78,18 @@ public class ExperienceCMD extends CommandBase {
                 level += amount;
                 int xp = player.getTotalExperience();
                 xp += amount;
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "XP");
+                xpMessage = textUtils.replaceAndToParagraph(xpMessage);
+                xpMessage = textUtils.replaceObject(xpMessage, "%XP%", xp + "");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Level");
+                levelMessage = textUtils.replaceAndToParagraph(levelMessage);
+                levelMessage = textUtils.replaceObject(levelMessage, "%Level%", level + "");
                 if (args[3].equalsIgnoreCase("level")) {
                     player.setLevel(level);
-                    player.sendMessage(getPlugin().getPrefix() + "§aYour Level is now §6" + amount);
+                    player.sendMessage(getPlugin().getPrefix() + levelMessage);
                 } else if (args[3].equalsIgnoreCase("xp")) {
                     player.setTotalExperience(xp);
-                    player.sendMessage(getPlugin().getPrefix() + "§aYou have now §6" + xp + " §aExperience");
+                    player.sendMessage(getPlugin().getPrefix() + xpMessage);
                 }
                 return true;
             } else if (args[0].equalsIgnoreCase("remove")) {
@@ -94,12 +107,18 @@ public class ExperienceCMD extends CommandBase {
                 level -= amount;
                 int xp = player.getTotalExperience();
                 xp -= amount;
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "XP");
+                xpMessage = textUtils.replaceAndToParagraph(xpMessage);
+                xpMessage = textUtils.replaceObject(xpMessage, "%XP%", xp + "");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Level");
+                levelMessage = textUtils.replaceAndToParagraph(levelMessage);
+                levelMessage = textUtils.replaceObject(levelMessage, "%Level%", level + "");
                 if (args[3].equalsIgnoreCase("level")) {
                     player.setLevel(level);
-                    player.sendMessage(getPlugin().getPrefix() + "§aYour Level is now §6" + amount);
+                    player.sendMessage(getPlugin().getPrefix() + levelMessage);
                 } else if (args[3].equalsIgnoreCase("xp")) {
                     player.setTotalExperience(xp);
-                    player.sendMessage(getPlugin().getPrefix() + "§aYou have now §6" + xp + " §aExperience");
+                    player.sendMessage(getPlugin().getPrefix() + xpMessage);
                 }
                 return true;
             }
