@@ -25,6 +25,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * This is the API for this Plugin
+ */
 public class EssentialsMiniAPI {
 
     private final Main plugin;
@@ -136,7 +139,7 @@ public class EssentialsMiniAPI {
     }
 
     /**
-     * This Method saves an Location to the Location File
+     * This Method saves a Location to the Location File
      *
      * @param locationName the LocationName to save
      * @param location     the Location to save

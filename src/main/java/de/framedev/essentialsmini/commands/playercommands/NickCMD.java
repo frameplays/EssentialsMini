@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.managers.SkinChanger;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -27,6 +28,9 @@ public class NickCMD extends CommandBase {
         this.nickPlayer = new HashMap<>();
     }
 
+    /**
+     * TODO: Add Skin Changer to this Command {@link SkinChanger}
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -44,10 +48,16 @@ public class NickCMD extends CommandBase {
                     player.setDisplayName(nickPlayer.get(player));
                     player.setPlayerListName(nickPlayer.get(player));
                     player.sendMessage(getPlugin().getPrefix() + "§aNick removed!");
+                    nickPlayer.remove(player);
                     return true;
                 }
             } else if (args.length == 1) {
-
+                String nick = args[0];
+                nickPlayer.put(player, player.getName());
+                player.setDisplayName(nick);
+                player.setPlayerListName(nick);
+                player.sendMessage(getPlugin().getPrefix() + "§aYour name has been changed to §6" + nick + "§c§l!");
+                return true;
             }
         }
         return super.onCommand(sender, command, label, args);
