@@ -50,7 +50,7 @@ public class KitManager {
 
     public void loadKits(String name, Player player) {
         try {
-            for (String s : getCustomConfig().getStringList("Items." + name)) {
+            for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
                 if (s == null) return;
                 if (s.contains(",")) {
                     String[] x = s.split(",");
@@ -97,7 +97,7 @@ public class KitManager {
             if (itemStack == null) continue;
             kit.add(itemStack.getType() + "," + itemStack.getAmount());
         }
-        customConfig.set("Items." + kitName, kit);
+        customConfig.set("Items." + kitName + ".Content", kit);
         try {
             customConfig.save(customConfigFile);
         } catch (IOException e) {
@@ -105,9 +105,28 @@ public class KitManager {
         }
     }
 
+    public void createKit(String kitName, ItemStack[] items, int cooldown) {
+        ArrayList<String> kit = new ArrayList<>();
+        for (ItemStack itemStack : items) {
+            if (itemStack == null) continue;
+            kit.add(itemStack.getType() + "," + itemStack.getAmount());
+        }
+        customConfig.set("Items." + kitName + ".Content", kit);
+        customConfig.set("Items." + kitName + ".Cooldown", cooldown);
+        try {
+            customConfig.save(customConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getCooldown(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cooldown");
+    }
+
     public Inventory getKit(String name) {
         try {
-            for (String s : getCustomConfig().getStringList("Items." + name)) {
+            for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
                 String[] x = s.split(",");
                 ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
                 this.kitname.addItem(item);
@@ -125,7 +144,7 @@ public class KitManager {
 
     public List<ItemStack> loadKit(String name) {
         ArrayList<ItemStack> items = new ArrayList<>();
-        for (String s : getCustomConfig().getStringList("Items." + name)) {
+        for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
             if (s != null) {
                 String[] x = s.split(",");
                 ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()));

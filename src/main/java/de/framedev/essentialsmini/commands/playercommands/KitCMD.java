@@ -2,6 +2,7 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.KitManager;
+import de.framedev.essentialsmini.utils.Cooldown;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,13 +11,13 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class KitCMD implements CommandExecutor, TabCompleter {
 
     private final Main plugin;
+    public HashMap<String, Cooldown> cooldowns = new HashMap<String, Cooldown>();
 
     public KitCMD(Main plugin) {
         this.plugin = plugin;
@@ -36,7 +37,25 @@ public class KitCMD implements CommandExecutor, TabCompleter {
                         if (args.length == 1) {
                             if (KitManager.getCustomConfig().contains("Items." + name)) {
                                 KitManager kit = new KitManager();
-                                kit.loadKits(name, p);
+                                if(kit.getCooldown(name) == 0) {
+                                    kit.loadKits(name, p);
+                                } else {
+                                    if (cooldowns.containsKey(sender.getName())) {
+                                        if (!cooldowns.get(sender.getName()).check()) {
+                                            long secondsLeft = cooldowns.get(sender.getName()).getSecondsLeft();
+                                            long millis = cooldowns.get(sender.getName()).getMilliSeconds();
+                                            String format = new SimpleDateFormat("mm:ss").format(new Date(millis));
+                                            if (secondsLeft > 0) {
+                                                // Still cooling down
+                                                sender.sendMessage("§cYou cant use that commands for another " + format + "!");
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                    // No cooldown found or cooldown has expired, save new cooldown
+                                    cooldowns.put(sender.getName(), new Cooldown(60 * 5, System.currentTimeMillis()));
+                                    p.getInventory().addItem(kit.getKit(name).getContents());
+                                }
                             } else {
                                 p.sendMessage(plugin.getPrefix() + "§cDieses Kit existiert nicht!");
                             }
@@ -55,6 +74,11 @@ public class KitCMD implements CommandExecutor, TabCompleter {
                     if (args.length == 1) {
                         ItemStack[] items = p.getInventory().getContents();
                         new KitManager().createKit(args[0], items);
+                        p.sendMessage(plugin.getPrefix() + "§aKit Created §6" + args[0]);
+                        p.getInventory().clear();
+                    } else if (args.length == 2) {
+                        ItemStack[] items = p.getInventory().getContents();
+                        new KitManager().createKit(args[0], items,Integer.parseInt(args[1]));
                         p.sendMessage(plugin.getPrefix() + "§aKit Created §6" + args[0]);
                         p.getInventory().clear();
                     } else {
