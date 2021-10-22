@@ -32,4 +32,8 @@ public abstract class ListenerBase implements Listener {
     public Main getPlugin() {
         return plugin;
     }
+
+    public String getPrefix() {
+        return plugin.getPrefix();
+    }
 }

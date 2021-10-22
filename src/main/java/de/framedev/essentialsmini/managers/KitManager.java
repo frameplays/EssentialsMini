@@ -127,9 +127,13 @@ public class KitManager {
     public Inventory getKit(String name) {
         try {
             for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
-                String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
-                this.kitname.addItem(item);
+                if(s.contains(",")) {
+                    String[] x = s.split(",");
+                    ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
+                    this.kitname.addItem(item);
+                } else {
+                    this.kitname.addItem(new ItemStack(Material.getMaterial(s.toUpperCase())));
+                }
             }
         } catch (Exception ex) {
             Bukkit.getConsoleSender().sendMessage("§cError while Creating Kit §f" + ex.getMessage());
@@ -146,10 +150,14 @@ public class KitManager {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
             if (s != null) {
-                String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()));
-                item.setAmount(Integer.parseInt(x[1]));
-                items.add(item);
+                if(s.contains(",")) {
+                    String[] x = s.split(",");
+                    ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()));
+                    item.setAmount(Integer.parseInt(x[1]));
+                    items.add(item);
+                } else {
+                    items.add(new ItemStack(Material.getMaterial(s.toUpperCase())));
+                }
             }
         }
         return items;

@@ -49,7 +49,7 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
         this.cmdName = null;
     }
 
-    public CommandBase(Main plugin, String[] cmdNames) {
+    public CommandBase(Main plugin, String... cmdNames) {
         this.plugin = plugin;
         this.cmdNames = cmdNames;
         for (String cmd : cmdNames) {
@@ -123,5 +123,9 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         return null;
+    }
+
+    public String getPrefix() {
+        return plugin.getPrefix();
     }
 }

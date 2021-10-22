@@ -1,12 +1,11 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.KitManager;
 import de.framedev.essentialsmini.utils.Cooldown;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,16 +13,14 @@ import org.bukkit.inventory.ItemStack;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class KitCMD implements CommandExecutor, TabCompleter {
+public class KitCMD extends CommandBase {
 
     private final Main plugin;
     public HashMap<String, Cooldown> cooldowns = new HashMap<String, Cooldown>();
 
     public KitCMD(Main plugin) {
+        super(plugin, "kits", "createkit");
         this.plugin = plugin;
-        plugin.getCommands().put("kits", this);
-        plugin.getTabCompleters().put("kits", this);
-        plugin.getCommands().put("createkit", this);
     }
 
     @Override
@@ -37,7 +34,7 @@ public class KitCMD implements CommandExecutor, TabCompleter {
                         if (args.length == 1) {
                             if (KitManager.getCustomConfig().contains("Items." + name)) {
                                 KitManager kit = new KitManager();
-                                if(kit.getCooldown(name) == 0) {
+                                if (kit.getCooldown(name) == 0) {
                                     kit.loadKits(name, p);
                                 } else {
                                     if (cooldowns.containsKey(sender.getName())) {
@@ -47,7 +44,7 @@ public class KitCMD implements CommandExecutor, TabCompleter {
                                             String format = new SimpleDateFormat("mm:ss").format(new Date(millis));
                                             if (secondsLeft > 0) {
                                                 // Still cooling down
-                                                sender.sendMessage("§cYou cant use that commands for another " + format + "!");
+                                                sender.sendMessage(getPrefix() + "§cYou cant use that commands for another " + format + "!");
                                                 return true;
                                             }
                                         }
@@ -78,7 +75,7 @@ public class KitCMD implements CommandExecutor, TabCompleter {
                         p.getInventory().clear();
                     } else if (args.length == 2) {
                         ItemStack[] items = p.getInventory().getContents();
-                        new KitManager().createKit(args[0], items,Integer.parseInt(args[1]));
+                        new KitManager().createKit(args[0], items, Integer.parseInt(args[1]));
                         p.sendMessage(plugin.getPrefix() + "§aKit Created §6" + args[0]);
                         p.getInventory().clear();
                     } else {
