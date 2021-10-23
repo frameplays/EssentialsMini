@@ -16,7 +16,8 @@ import java.util.*;
 public class KitCMD extends CommandBase {
 
     private final Main plugin;
-    public HashMap<String, Cooldown> cooldowns = new HashMap<String, Cooldown>();
+    public HashMap<String, HashMap<String, Cooldown>> cooldowns = new HashMap<>();
+    public HashMap<String, Cooldown> coo = new HashMap<>();
 
     public KitCMD(Main plugin) {
         super(plugin, "kits", "createkit");
@@ -38,20 +39,31 @@ public class KitCMD extends CommandBase {
                                     kit.loadKits(name, p);
                                 } else {
                                     if (cooldowns.containsKey(sender.getName())) {
-                                        if (!cooldowns.get(sender.getName()).check()) {
-                                            long secondsLeft = cooldowns.get(sender.getName()).getSecondsLeft();
-                                            long millis = cooldowns.get(sender.getName()).getMilliSeconds();
-                                            String format = new SimpleDateFormat("mm:ss").format(new Date(millis));
-                                            if (secondsLeft > 0) {
-                                                // Still cooling down
-                                                sender.sendMessage(getPrefix() + "§cYou cant use that commands for another " + format + "!");
-                                                return true;
+                                        if (cooldowns.get(sender.getName()).containsKey(name))
+                                            if (!cooldowns.get(sender.getName()).get(name).check()) {
+                                                long secondsLeft = cooldowns.get(sender.getName()).get(name).getSecondsLeft();
+                                                long millis = cooldowns.get(sender.getName()).get(name).getMilliSeconds();
+                                                String format = new SimpleDateFormat("mm:ss").format(new Date(millis));
+                                                if (secondsLeft > 0) {
+                                                    // Still cooling down
+                                                    sender.sendMessage("§cYou cant use that commands for another " + format + "!");
+                                                    return true;
+                                                }
                                             }
-                                        }
                                     }
                                     // No cooldown found or cooldown has expired, save new cooldown
-                                    cooldowns.put(sender.getName(), new Cooldown(60 * 5, System.currentTimeMillis()));
-                                    p.getInventory().addItem(kit.getKit(name).getContents());
+                                    if (cooldowns.containsKey(sender.getName())) {
+                                        cooldowns.get(sender.getName()).remove(name);
+
+                                        if (cooldowns.get(sender.getName()).size() == 0) {
+                                            cooldowns.remove(sender.getName());
+                                        }
+                                    }
+                                    coo.put(name,
+                                            new Cooldown((int) kit.getCooldown(name), System.currentTimeMillis()));
+                                    cooldowns.put(sender.getName(), coo);
+                                    kit.loadKits(name, p);
+                                    return true;
                                 }
                             } else {
                                 p.sendMessage(plugin.getPrefix() + "§cDieses Kit existiert nicht!");
