@@ -12,6 +12,9 @@ Items:
       - LEATHER_BOOTS,1
       - APPLE,16
     Cooldown: 32
+    Cost: 0
   YourKit:
     Content:
       - MATERIAL,Amount
+    Cooldown: 0
+    Cost: 0

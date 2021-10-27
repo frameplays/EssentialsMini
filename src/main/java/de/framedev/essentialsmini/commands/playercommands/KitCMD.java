@@ -18,10 +18,12 @@ public class KitCMD extends CommandBase {
     private final Main plugin;
     public HashMap<String, HashMap<String, Cooldown>> cooldowns = new HashMap<>();
     public HashMap<String, Cooldown> coo = new HashMap<>();
+    private final boolean eco;
 
     public KitCMD(Main plugin) {
         super(plugin, "kits", "createkit");
         this.plugin = plugin;
+        this.eco = plugin.getVaultManager() != null;
     }
 
     @Override
@@ -35,35 +37,82 @@ public class KitCMD extends CommandBase {
                         if (args.length == 1) {
                             if (KitManager.getCustomConfig().contains("Items." + name)) {
                                 KitManager kit = new KitManager();
-                                if (kit.getCooldown(name) == 0) {
-                                    kit.loadKits(name, p);
+                                if (kit.getCost(name) == 0) {
+                                    if (kit.getCooldown(name) == 0) {
+                                        kit.loadKits(name, p);
+                                    } else {
+                                        if (cooldowns.containsKey(sender.getName())) {
+                                            if (cooldowns.get(sender.getName()).containsKey(name))
+                                                if (!cooldowns.get(sender.getName()).get(name).check()) {
+                                                    long secondsLeft = cooldowns.get(sender.getName()).get(name).getSecondsLeft();
+                                                    long millis = cooldowns.get(sender.getName()).get(name).getMilliSeconds();
+                                                    String format = new SimpleDateFormat("mm:ss").format(new Date(millis));
+                                                    if (secondsLeft > 0) {
+                                                        // Still cooling down
+                                                        sender.sendMessage("§cYou cant use that commands for another " + format + "!");
+                                                        return true;
+                                                    }
+                                                }
+                                        }
+                                        // No cooldown found or cooldown has expired, save new cooldown
+                                        if (cooldowns.containsKey(sender.getName())) {
+                                            cooldowns.get(sender.getName()).remove(name);
+
+                                            if (cooldowns.get(sender.getName()).size() == 0) {
+                                                cooldowns.remove(sender.getName());
+                                            }
+                                        }
+                                        coo.put(name,
+                                                new Cooldown(kit.getCooldown(name), System.currentTimeMillis()));
+                                        cooldowns.put(sender.getName(), coo);
+                                        kit.loadKits(name, p);
+                                        return true;
+                                    }
                                 } else {
-                                    if (cooldowns.containsKey(sender.getName())) {
-                                        if (cooldowns.get(sender.getName()).containsKey(name))
-                                            if (!cooldowns.get(sender.getName()).get(name).check()) {
-                                                long secondsLeft = cooldowns.get(sender.getName()).get(name).getSecondsLeft();
-                                                long millis = cooldowns.get(sender.getName()).get(name).getMilliSeconds();
-                                                String format = new SimpleDateFormat("mm:ss").format(new Date(millis));
-                                                if (secondsLeft > 0) {
-                                                    // Still cooling down
-                                                    sender.sendMessage("§cYou cant use that commands for another " + format + "!");
-                                                    return true;
+                                    if (eco) {
+                                        if (kit.getCooldown(name) == 0) {
+                                            if (!plugin.getVaultManager().getEconomy().has(p, kit.getCost(name))) {
+                                                p.sendMessage(plugin.getPrefix() + "§cNot enought Money!");
+                                                return true;
+                                            }
+                                            plugin.getVaultManager().getEconomy().withdrawPlayer(p, kit.getCost(name));
+                                            kit.loadKits(name, p);
+                                        } else {
+                                            if (cooldowns.containsKey(sender.getName())) {
+                                                if (cooldowns.get(sender.getName()).containsKey(name))
+                                                    if (!cooldowns.get(sender.getName()).get(name).check()) {
+                                                        long secondsLeft = cooldowns.get(sender.getName()).get(name).getSecondsLeft();
+                                                        long millis = cooldowns.get(sender.getName()).get(name).getMilliSeconds();
+                                                        String format = new SimpleDateFormat("mm:ss").format(new Date(millis));
+                                                        if (secondsLeft > 0) {
+                                                            // Still cooling down
+                                                            sender.sendMessage("§cYou cant use that commands for another " + format + "!");
+                                                            return true;
+                                                        }
+                                                    }
+                                            }
+                                            if (!plugin.getVaultManager().getEconomy().has(p, kit.getCost(name))) {
+                                                p.sendMessage(plugin.getPrefix() + "§cNot enought Money!");
+                                                return true;
+                                            }
+                                            plugin.getVaultManager().getEconomy().withdrawPlayer(p, kit.getCost(name));
+                                            // No cooldown found or cooldown has expired, save new cooldown
+                                            if (cooldowns.containsKey(sender.getName())) {
+                                                cooldowns.get(sender.getName()).remove(name);
+
+                                                if (cooldowns.get(sender.getName()).size() == 0) {
+                                                    cooldowns.remove(sender.getName());
                                                 }
                                             }
-                                    }
-                                    // No cooldown found or cooldown has expired, save new cooldown
-                                    if (cooldowns.containsKey(sender.getName())) {
-                                        cooldowns.get(sender.getName()).remove(name);
-
-                                        if (cooldowns.get(sender.getName()).size() == 0) {
-                                            cooldowns.remove(sender.getName());
+                                            coo.put(name,
+                                                    new Cooldown(kit.getCooldown(name), System.currentTimeMillis()));
+                                            cooldowns.put(sender.getName(), coo);
+                                            kit.loadKits(name, p);
+                                            return true;
                                         }
+                                    } else {
+                                        p.sendMessage(getPrefix() + "§cEconomy not enabled!");
                                     }
-                                    coo.put(name,
-                                            new Cooldown((int) kit.getCooldown(name), System.currentTimeMillis()));
-                                    cooldowns.put(sender.getName(), coo);
-                                    kit.loadKits(name, p);
-                                    return true;
                                 }
                             } else {
                                 p.sendMessage(plugin.getPrefix() + "§cDieses Kit existiert nicht!");
@@ -88,6 +137,11 @@ public class KitCMD extends CommandBase {
                     } else if (args.length == 2) {
                         ItemStack[] items = p.getInventory().getContents();
                         new KitManager().createKit(args[0], items, Integer.parseInt(args[1]));
+                        p.sendMessage(plugin.getPrefix() + "§aKit Created §6" + args[0]);
+                        p.getInventory().clear();
+                    } else if(args.length == 3) {
+                        ItemStack[] items = p.getInventory().getContents();
+                        new KitManager().createKit(args[0], items, Integer.parseInt(args[1]), Integer.parseInt(args[2]));
                         p.sendMessage(plugin.getPrefix() + "§aKit Created §6" + args[0]);
                         p.getInventory().clear();
                     } else {

@@ -98,6 +98,8 @@ public class KitManager {
             kit.add(itemStack.getType() + "," + itemStack.getAmount());
         }
         customConfig.set("Items." + kitName + ".Content", kit);
+        customConfig.set("Items." + kitName + ".Cost", 0);
+        customConfig.set("Items." + kitName + ".Cooldown", 0);
         try {
             customConfig.save(customConfigFile);
         } catch (IOException e) {
@@ -113,6 +115,23 @@ public class KitManager {
         }
         customConfig.set("Items." + kitName + ".Content", kit);
         customConfig.set("Items." + kitName + ".Cooldown", cooldown);
+        customConfig.set("Items." + kitName + ".Cost", 0);
+        try {
+            customConfig.save(customConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createKit(String kitName, ItemStack[] items, int cooldown, int cost) {
+        ArrayList<String> kit = new ArrayList<>();
+        for (ItemStack itemStack : items) {
+            if (itemStack == null) continue;
+            kit.add(itemStack.getType() + "," + itemStack.getAmount());
+        }
+        customConfig.set("Items." + kitName + ".Content", kit);
+        customConfig.set("Items." + kitName + ".Cooldown", cooldown);
+        customConfig.set("Items." + kitName + ".Cost", cost);
         try {
             customConfig.save(customConfigFile);
         } catch (IOException e) {
@@ -122,6 +141,10 @@ public class KitManager {
 
     public int getCooldown(String name) {
         return getCustomConfig().getInt("Items." + name + ".Cooldown");
+    }
+
+    public int getCost(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cost");
     }
 
     public Inventory getKit(String name) {
