@@ -24,7 +24,6 @@ import org.bukkit.inventory.EquipmentSlot;
 public class WarpSigns extends ListenerBase {
     public WarpSigns(Main plugin) {
         super(plugin);
-        setupListener(this);
     }
 
     @EventHandler

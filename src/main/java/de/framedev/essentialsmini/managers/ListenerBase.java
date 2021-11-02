@@ -27,6 +27,7 @@ public abstract class ListenerBase implements Listener {
 
     public ListenerBase(Main plugin) {
         this.plugin = plugin;
+        setupListener(this);
     }
 
     public Main getPlugin() {
