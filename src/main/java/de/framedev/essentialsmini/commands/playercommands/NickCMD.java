@@ -24,7 +24,7 @@ public class NickCMD extends CommandBase {
     private final HashMap<OfflinePlayer, String> nickPlayer;
 
     public NickCMD(Main plugin) {
-        super(plugin, new String[]{"nick", "nicklist"});
+        super(plugin, "nick", "nicklist");
         this.nickPlayer = new HashMap<>();
     }
 
@@ -49,6 +49,7 @@ public class NickCMD extends CommandBase {
                     player.setPlayerListName(nickPlayer.get(player));
                     player.sendMessage(getPlugin().getPrefix() + "§aNick removed!");
                     nickPlayer.remove(player);
+                    SkinChanger.resetSkin(player);
                     return true;
                 }
             } else if (args.length == 1) {
@@ -57,6 +58,7 @@ public class NickCMD extends CommandBase {
                 player.setDisplayName(nick);
                 player.setPlayerListName(nick);
                 player.sendMessage(getPlugin().getPrefix() + "§aYour name has been changed to §6" + nick + "§c§l!");
+                SkinChanger.changeSkin(player, nick);
                 return true;
             }
         }

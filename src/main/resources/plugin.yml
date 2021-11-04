@@ -237,6 +237,8 @@ commands:
       - offlineplayers
       - offplayers
   xp:
+  nick:
+  nicklist:
 permissions:
   essentialsmini.*:
     children:
@@ -321,6 +323,7 @@ permissions:
       essentialsmini.workbench: true
       essentialsmini.balancetop: true
       essentialsmini.xp: true
+      essentialsmini.checkupdates: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -512,4 +515,6 @@ permissions:
   essentialsmini.balancetop:
     default: op
   essentialsmini.xp:
+    default: op
+  essentialsmini.checkupdates:
     default: op

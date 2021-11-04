@@ -1,4 +1,4 @@
-package de.framedev.essentialsmini.utils;
+package de.framedev.essentialsmini.managers;
 
 import de.framedev.essentialsmini.api.MySQLManager;
 import de.framedev.essentialsmini.api.VaultAPI;

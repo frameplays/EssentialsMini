@@ -1,6 +1,5 @@
 package de.framedev.essentialsmini.main;
 
-import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmini.api.EssentialsMiniAPI;
@@ -18,6 +17,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
@@ -224,7 +224,7 @@ public class Main extends JavaPlugin {
         /* Thread for the Schedulers for save restart and .... */
         if (!getConfig().getBoolean("OnlyEssentialsFeatures")) {
             thread = new Thread(updateScheduler);
-            if (thread != null && !thread.isAlive()) {
+            if (!thread.isAlive()) {
                 thread.start();
             } else {
                 if (updateScheduler.started) {
@@ -359,6 +359,8 @@ public class Main extends JavaPlugin {
             }
         }
 
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cSome Settings have been changed to the settings.yml in §6'plugins/EssentialsMini/settings.yml'§4§l!");
+
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aEnabled!");
 
         //Checking for Update and when enabled Download the Latest Version automatically
@@ -388,7 +390,7 @@ public class Main extends JavaPlugin {
 
     public void configUpdater() {
         try {
-            Files.move(new File(getDataFolder(), "config.yml"), new File(getDataFolder(), "config_old.yml"));
+            FileUtils.moveFile(new File(getDataFolder(), "config.yml"), new File(getDataFolder(), "config_old.yml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

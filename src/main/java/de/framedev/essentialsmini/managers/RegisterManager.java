@@ -52,6 +52,7 @@ public class RegisterManager {
         new PlayerListeners(plugin);
         new BanListener(plugin);
         new WarpSigns(plugin);
+        plugin.getListeners().add(new SkinChanger());
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
@@ -127,6 +128,7 @@ public class RegisterManager {
         new FireWorkCMD(plugin);
         new GlobalMuteCMD(plugin);
         new ExperienceCMD(plugin);
+        new NickCMD(plugin);
         for (Map.Entry<String, CommandExecutor> commands : plugin.getCommands().entrySet()) {
             if (commands.getKey() == null) continue;
             if (commands.getValue() == null) continue;
