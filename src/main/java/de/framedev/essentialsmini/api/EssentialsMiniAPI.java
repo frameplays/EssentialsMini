@@ -354,6 +354,14 @@ public class EssentialsMiniAPI {
         return new InventoryManager();
     }
 
+    public InventoryManager createNewInventoryManager(String title) {
+        return new InventoryManager(title);
+    }
+
+    public InventoryManager createNewInventoryManager(String title, int size) {
+        return new InventoryManager(title, size);
+    }
+
     public ItemBuilder createNewItemBuilder(ItemStack itemStack) {
         return new ItemBuilder(itemStack);
     }
@@ -520,6 +528,12 @@ public class EssentialsMiniAPI {
         player.setInvulnerable(godMode);
     }
 
+    /**
+     * Get a List of all Bankmembers in the Bank
+     *
+     * @param bankName the Bank Name
+     * @return A list of all Bankmembers
+     */
     public List<String> getBankMembers(String bankName) {
         if (economy) {
             return plugin.getVaultManager().getBankMembers(bankName);
@@ -527,12 +541,22 @@ public class EssentialsMiniAPI {
         return null;
     }
 
+    /**
+     * Return all Banks in String
+     *
+     * @return returns a List of String from all Bank Names
+     */
     public List<String> getBanks() {
         if (economy)
             return plugin.getVaultManager().getEco().getBanks();
         return null;
     }
 
+    /**
+     * Return all Player accounts
+     *
+     * @return return a List of all Registerd Player Accounts
+     */
     public List<String> getAccounts() {
         if (economy)
             plugin.getVaultManager().getAccounts();

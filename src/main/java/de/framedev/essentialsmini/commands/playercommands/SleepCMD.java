@@ -10,6 +10,7 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -18,22 +19,22 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class SleepCMD implements CommandExecutor {
+public class SleepCMD extends CommandBase {
 
     private final Main plugin;
 
     private final ArrayList<Material> block = new ArrayList<>();
 
     public SleepCMD(Main plugin) {
+        super(plugin, "sleep");
         this.plugin = plugin;
-        plugin.getCommands().put("sleep", this);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class SleepCMD implements CommandExecutor {
                         player.sendMessage(plugin.getPrefix() + "§cThis Color doesn't exists!");
                         return true;
                     }
-                    DyeColor dyeColor = DyeColor.valueOf(plugin.getConfig().getString("BedColor").toUpperCase());
+                    DyeColor dyeColor = DyeColor.valueOf(Objects.requireNonNull(plugin.getConfig().getString("BedColor")).toUpperCase());
                     setBed(location.getBlock(), BlockFace.NORTH, Material.getMaterial(dyeColor.name().toUpperCase() + "_BED"));
                     new BukkitRunnable() {
                         @Override

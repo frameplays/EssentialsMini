@@ -28,8 +28,6 @@ public class FeedCMD extends CommandBase {
     public FeedCMD(Main plugin) {
         super(plugin,"feed");
         this.plugin = plugin;
-        setup(this);
-        setupTabCompleter(this);
     }
 
     @Override

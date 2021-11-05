@@ -25,21 +25,19 @@ public class EconomyCMD extends CommandBase {
     private final Main plugin;
 
     public EconomyCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "infoeconomy");
         this.plugin = plugin;
-        setup("infoeconomy",this);
-        setupTabCompleter("infoeconomy",this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 1) {
-            if(args[0].equalsIgnoreCase("account")) {
-                if(!sender.hasPermission(plugin.getPermissionName() + "infoeconomy")) {
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("account")) {
+                if (!sender.hasPermission(plugin.getPermissionName() + "infoeconomy")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     return true;
                 }
-                if(!(sender instanceof Player)) {
+                if (!(sender instanceof Player)) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                     return true;
                 }
@@ -51,10 +49,10 @@ public class EconomyCMD extends CommandBase {
                 }
                 return true;
             }
-        } else if(args.length == 2) {
-            if(args[0].equalsIgnoreCase("account")) {
+        } else if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("account")) {
                 OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                if(!sender.hasPermission(plugin.getPermissionName() + "infoeconomy")) {
+                if (!sender.hasPermission(plugin.getPermissionName() + "infoeconomy")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     return true;
                 }
@@ -72,13 +70,13 @@ public class EconomyCMD extends CommandBase {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 1) {
+        if (args.length == 1) {
             ArrayList<String> cmds = new ArrayList<>();
             cmds.add("account");
 
             ArrayList<String> empty = new ArrayList<>();
-            for(String s : cmds) {
-                if(s.toLowerCase().startsWith(args[0]))
+            for (String s : cmds) {
+                if (s.toLowerCase().startsWith(args[0]))
                     empty.add(s);
             }
 

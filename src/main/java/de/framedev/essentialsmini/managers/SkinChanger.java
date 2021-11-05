@@ -6,6 +6,9 @@ import org.bukkit.event.Listener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Work in Progress
+ */
 public class SkinChanger implements Listener {
 
     private static Map<Player, String> changedSkins = new HashMap<>();

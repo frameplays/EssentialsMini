@@ -1,13 +1,12 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -21,14 +20,13 @@ import java.util.List;
  * ===================================================
  * This Class was created at 14.07.2020 22:52
  */
-public class GameModeCMD implements CommandExecutor, TabCompleter {
+public class GameModeCMD extends CommandBase {
 
     private final Main plugin;
 
     public GameModeCMD(Main plugin) {
+        super(plugin, "gamemode");
         this.plugin = plugin;
-        plugin.getCommands().put("gamemode", this);
-        plugin.getTabCompleters().put("gamemode", this);
     }
 
     @Override
@@ -43,28 +41,28 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                             switch (Integer.parseInt(args[0])) {
                                 case 0:
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.SURVIVAL.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case 1:
                                     player.setGameMode(GameMode.CREATIVE);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.CREATIVE.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case 2:
                                     player.setGameMode(GameMode.ADVENTURE);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.ADVENTURE.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case 3:
                                     player.setGameMode(GameMode.SPECTATOR);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.SPECTATOR.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
@@ -76,56 +74,56 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                             switch (args[0]) {
                                 case "survival":
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.SURVIVAL.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case "creative":
                                     player.setGameMode(GameMode.CREATIVE);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.CREATIVE.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case "adventure":
                                     player.setGameMode(GameMode.ADVENTURE);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.ADVENTURE.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case "spectator":
                                     player.setGameMode(GameMode.SPECTATOR);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.SPECTATOR.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case "s":
                                     player.setGameMode(GameMode.SURVIVAL);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.SURVIVAL.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case "c":
                                     player.setGameMode(GameMode.CREATIVE);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.CREATIVE.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case "a":
                                     player.setGameMode(GameMode.ADVENTURE);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.ADVENTURE.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
                                     break;
                                 case "sp":
                                     player.setGameMode(GameMode.SPECTATOR);
-                                    if(gameModeChanged.contains("%GameMode%"))
+                                    if (gameModeChanged.contains("%GameMode%"))
                                         gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.SPECTATOR.name());
                                     gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                     player.sendMessage(gameModeChanged);
@@ -151,14 +149,14 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                 case 0:
                                     target.setGameMode(GameMode.SURVIVAL);
                                     if (!Main.getSilent().contains(sender.getName())) {
-                                        if(gameModeChanged.contains("%GameMode%"))
+                                        if (gameModeChanged.contains("%GameMode%"))
                                             gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.SURVIVAL.name());
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.SURVIVAL.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -166,14 +164,14 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                 case 1:
                                     target.setGameMode(GameMode.CREATIVE);
                                     if (!Main.getSilent().contains(sender.getName())) {
-                                        if(gameModeChanged.contains("%GameMode%"))
+                                        if (gameModeChanged.contains("%GameMode%"))
                                             gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.CREATIVE.name());
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.CREATIVE.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -181,14 +179,14 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                 case 2:
                                     target.setGameMode(GameMode.ADVENTURE);
                                     if (!Main.getSilent().contains(sender.getName())) {
-                                        if(gameModeChanged.contains("%GameMode%"))
+                                        if (gameModeChanged.contains("%GameMode%"))
                                             gameModeChanged = gameModeChanged.replace("%GameMode%", GameMode.ADVENTURE.name());
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.ADVENTURE.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -201,9 +199,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.SPECTATOR.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -221,9 +219,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.SURVIVAL.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -236,9 +234,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.CREATIVE.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -251,9 +249,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.ADVENTURE.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -266,9 +264,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.SPECTATOR.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -281,9 +279,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.SURVIVAL.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -296,9 +294,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.CREATIVE.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -311,9 +309,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.ADVENTURE.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);
@@ -326,9 +324,9 @@ public class GameModeCMD implements CommandExecutor, TabCompleter {
                                         gameModeChanged = ReplaceCharConfig.replaceParagraph(gameModeChanged);
                                         target.sendMessage(gameModeChanged);
                                     }
-                                    if(gameModeOtherChanged.contains("%Player%"))
+                                    if (gameModeOtherChanged.contains("%Player%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%Player%", target.getName());
-                                    if(gameModeOtherChanged.contains("%GameMode%"))
+                                    if (gameModeOtherChanged.contains("%GameMode%"))
                                         gameModeOtherChanged = gameModeOtherChanged.replace("%GameMode%", GameMode.SPECTATOR.name());
                                     gameModeOtherChanged = ReplaceCharConfig.replaceParagraph(gameModeOtherChanged);
                                     sender.sendMessage(gameModeOtherChanged);

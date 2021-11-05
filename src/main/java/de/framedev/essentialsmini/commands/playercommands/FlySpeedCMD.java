@@ -23,7 +23,6 @@ public class FlySpeedCMD extends CommandBase {
 
     public FlySpeedCMD(Main plugin) {
         super(plugin, "flyspeed");
-        setup(this);
         this.plugin = plugin;
     }
 

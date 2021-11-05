@@ -15,10 +15,7 @@ import java.util.*;
 public class BanCMD extends CommandBase {
 
     public BanCMD(Main plugin) {
-        super(plugin);
-        setup("eban", this);
-        setupTabCompleter("eban", this);
-        setup(this);
+        super(plugin, "eban");
     }
 
     @Override
@@ -103,7 +100,7 @@ public class BanCMD extends CommandBase {
                 Collections.sort(empty);
                 return empty;
             }
-            if(args[0].equalsIgnoreCase("own")) {
+            if (args[0].equalsIgnoreCase("own")) {
                 return new ArrayList<String>(Collections.singleton("your_Message"));
             }
         }

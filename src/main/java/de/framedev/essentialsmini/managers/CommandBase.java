@@ -25,7 +25,7 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
     private String[] cmdNames;
 
     /**
-     * Register an Command
+     * Register a Command
      *
      * @param cmdName  the CommandName for registering
      * @param executor the Executor who executes the Command
@@ -47,6 +47,7 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
     public CommandBase(Main plugin) {
         this.plugin = plugin;
         this.cmdName = null;
+        this.cmdNames = null;
     }
 
     public CommandBase(Main plugin, String... cmdNames) {
@@ -62,12 +63,14 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
         this.cmdName = cmdName;
         setup(this);
+        setupTabCompleter(this);
     }
 
     public CommandBase(Main plugin, @NonNull String cmdName, CommandExecutor executor) {
         this.plugin = plugin;
         this.cmdName = cmdName;
         setup(executor);
+        setupTabCompleter(this);
     }
 
     public CommandBase(Main plugin, CommandExecutor executor, @NonNull String... cmdNames) {

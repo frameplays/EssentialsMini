@@ -31,7 +31,7 @@ public class PlayerManager implements Serializable {
 
     transient private final File file;
     transient FileConfiguration cfg;
-    private String name;
+    private final String name;
     private final UUID uuid;
     transient private final OfflinePlayer player;
     private Long lastLogin;

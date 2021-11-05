@@ -26,10 +26,8 @@ public class BankCMD extends CommandBase {
     private final Main plugin;
 
     public BankCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "bank");
         this.plugin = plugin;
-        setup("bank", this);
-        setupTabCompleter("bank", this);
     }
 
     @Override

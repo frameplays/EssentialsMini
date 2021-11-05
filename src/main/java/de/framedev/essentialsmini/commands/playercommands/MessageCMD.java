@@ -10,12 +10,12 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -23,16 +23,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MessageCMD implements CommandExecutor {
+public class MessageCMD extends CommandBase {
 
     private final Main plugin;
 
     public MessageCMD(Main plugin) {
+        super(plugin, "msg", "r", "spy", "msgtoggle");
         this.plugin = plugin;
-        plugin.getCommands().put("msg", this);
-        plugin.getCommands().put("r", this);
-        plugin.getCommands().put("spy", this);
-        plugin.getCommands().put("msgtoggle", this);
     }
 
     HashMap<Player, Player> reply = new HashMap<>();

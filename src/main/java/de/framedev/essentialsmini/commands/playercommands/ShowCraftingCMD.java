@@ -10,13 +10,12 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.MaterialManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 
@@ -24,14 +23,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ShowCraftingCMD implements CommandExecutor, TabCompleter {
+public class ShowCraftingCMD extends CommandBase {
 
     private final Main plugin;
 
     public ShowCraftingCMD(Main plugin) {
+        super(plugin, "showcrafting");
         this.plugin = plugin;
-        plugin.getCommands().put("showcrafting", this);
-        plugin.getTabCompleters().put("showcrafting", this);
+        setupTabCompleter(this);
     }
 
     @Override

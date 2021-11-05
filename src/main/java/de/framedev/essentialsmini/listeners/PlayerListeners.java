@@ -48,11 +48,10 @@ import static org.bukkit.Bukkit.getServer;
 public class PlayerListeners implements Listener {
 
     private final Main plugin;
-    PlayerManagerCfgLoss cfgLoss;
-    private boolean jsonFormat;
+    private final boolean jsonFormat;
     private final String collection = "essentialsmini_data";
 
-    private boolean onlyEssentialsFeatures;
+    private final boolean onlyEssentialsFeatures;
 
     public PlayerListeners(Main plugin) {
         this.plugin = plugin;
@@ -106,12 +105,14 @@ public class PlayerListeners implements Listener {
                         event.setJoinMessage(null);
                     } else {
                         String joinMessage = plugin.getConfig().getString("JoinMessage");
+                        if (joinMessage == null) return;
                         joinMessage = joinMessage.replace('&', '§');
                         joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                         event.setJoinMessage(joinMessage);
                     }
                 } else {
                     String joinMessage = plugin.getConfig().getString("JoinMessage");
+                    if (joinMessage == null) return;
                     joinMessage = joinMessage.replace('&', '§');
                     joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setJoinMessage(joinMessage);
@@ -275,6 +276,7 @@ public class PlayerListeners implements Listener {
                         event.setQuitMessage(null);
                     } else {
                         String joinMessage = plugin.getConfig().getString("LeaveMessage");
+                        if (joinMessage == null) return;
                         if (joinMessage.contains("&")) {
                             joinMessage = joinMessage.replace('&', '§');
                         }
@@ -283,6 +285,7 @@ public class PlayerListeners implements Listener {
                     }
                 } else {
                     String joinMessage = plugin.getConfig().getString("LeaveMessage");
+                    if (joinMessage == null) return;
                     joinMessage = joinMessage.replace('&', '§');
                     joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setQuitMessage(joinMessage);

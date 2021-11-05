@@ -10,10 +10,10 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -24,13 +24,13 @@ import org.bukkit.permissions.PermissionDefault;
 
 import static org.bukkit.Material.AIR;
 
-public class RepairCMD implements CommandExecutor {
+public class RepairCMD extends CommandBase {
 
     private final Main plugin;
 
     public RepairCMD(Main plugin) {
+        super(plugin, "repair");
         this.plugin = plugin;
-        plugin.getCommands().put("repair", this);
     }
 
     @Override

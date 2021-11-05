@@ -10,29 +10,29 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.PlayerManager;
 import de.framedev.essentialsmini.managers.PlayerManagerCfgLoss;
 import de.framedev.essentialsmini.managers.PlayerManagerMongoDB;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.io.*;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PlayerDataCMD implements CommandExecutor {
+public class PlayerDataCMD extends CommandBase {
 
     private final Main plugin;
     private final boolean jsonFormat;
 
     public PlayerDataCMD(Main plugin) {
+        super(plugin, "playerdata");
         this.plugin = plugin;
-        plugin.getCommands().put("playerdata",this);
         jsonFormat = plugin.getConfig().getBoolean("JsonFormat");
     }
 
@@ -42,9 +42,9 @@ public class PlayerDataCMD implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender.hasPermission(new Permission("essentialsmini.playerdata", PermissionDefault.OP))) {
-            if(args.length == 1) {
-                if(!isJsonFormat()) {
+        if (sender.hasPermission(new Permission("essentialsmini.playerdata", PermissionDefault.OP))) {
+            if (args.length == 1) {
+                if (!isJsonFormat()) {
                     final PlayerManager playerManager = new PlayerManager(args[0]);
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
                     long login = playerManager.getLastLogin();
@@ -63,10 +63,10 @@ public class PlayerDataCMD implements CommandExecutor {
                     sender.sendMessage("§aCommandsUsed : §6" + playerManager.getCommandsUsed());
                     sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlockBroken());
                     sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlockPlace());
-                } else if(!plugin.isMongoDB()) {
+                } else if (!plugin.isMongoDB()) {
                     PlayerManagerCfgLoss playerManager = null;
                     //noinspection deprecation
-                    if(Bukkit.getOfflinePlayer(args[0]).isOnline()) {
+                    if (Bukkit.getOfflinePlayer(args[0]).isOnline()) {
                         //noinspection deprecation
                         playerManager = plugin.getCfgLossHashMap().get(Bukkit.getOfflinePlayer(args[0]));
                     } else {
@@ -79,11 +79,11 @@ public class PlayerDataCMD implements CommandExecutor {
                     }
                     //noinspection deprecation
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                    if(plugin.isMysql()) {
-                        if(player.isOnline()) {
-                            if(!plugin.getCfgLossHashMap().isEmpty()) {
-                                if(plugin.getCfgLossHashMap().containsKey(player))
-                                playerManager = plugin.getCfgLossHashMap().get(player);
+                    if (plugin.isMysql()) {
+                        if (player.isOnline()) {
+                            if (!plugin.getCfgLossHashMap().isEmpty()) {
+                                if (plugin.getCfgLossHashMap().containsKey(player))
+                                    playerManager = plugin.getCfgLossHashMap().get(player);
                             }
                         } else {
                             if (PlayerManagerCfgLoss.loadPlayerData(player) != null) {
@@ -112,7 +112,7 @@ public class PlayerDataCMD implements CommandExecutor {
                     sender.sendMessage("§aBlocksBroken : §6" + playerManager.getBlockBroken());
                     sender.sendMessage("§aBlocksPlaced : §6" + playerManager.getBlockPlace());
                 } else {
-                    PlayerManagerMongoDB playerManager = PlayerManagerMongoDB.getPlayerManager(args[0],"test");
+                    PlayerManagerMongoDB playerManager = PlayerManagerMongoDB.getPlayerManager(args[0], "test");
                     long login = playerManager.getLastLogin();
                     sender.sendMessage("§6Info About §a" + Bukkit.getOfflinePlayer(args[0]).getName());
                     sender.sendMessage(

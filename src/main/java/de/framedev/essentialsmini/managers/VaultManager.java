@@ -125,8 +125,7 @@ public class VaultManager {
             new MySQLManager().removeBankMember(bankName, player);
         } else if (Main.getInstance().isMongoDB()) {
             List<String> users = (List<String>) Main.getInstance().getBackendManager().getObject("bankname", bankName, "bankmembers", "essentialsmini_data");
-            if (users.contains(player.getName()))
-                users.remove(player.getName());
+            users.remove(player.getName());
             Main.getInstance().getBackendManager().updateUser(player, "bankname", "", "essentialsmini_data");
             Main.getInstance().getBackendManager().updateUser(player, "bankmembers", users, "essentialsmini_data");
             Main.getInstance().getBackendManager().updataData("bankname", bankName, "bankmembers", users, "essentialsmini_data");
@@ -139,8 +138,7 @@ public class VaultManager {
             if (!cfg.contains("Banks." + bankName + ".members")) {
             } else {
                 List<String> players = cfg.getStringList("Banks." + bankName + ".members");
-                if (players.contains(player.getName()))
-                    players.remove(player.getName());
+                players.remove(player.getName());
                 cfg.set("Banks." + bankName + ".members", players);
             }
             try {

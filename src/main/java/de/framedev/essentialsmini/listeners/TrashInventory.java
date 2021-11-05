@@ -46,9 +46,7 @@ public class TrashInventory implements CommandExecutor, Listener {
     @EventHandler
     public void onSwitchItem(InventoryCloseEvent event) {
         if (event.getInventory().equals(inventory)) {
-            if (event.getInventory() != null) {
-                event.getInventory().clear();
-            }
+            event.getInventory().clear();
         }
     }
 }

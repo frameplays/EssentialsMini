@@ -22,10 +22,8 @@ public class EssentialsMiniCMD extends CommandBase {
     private final Main plugin;
 
     public EssentialsMiniCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "essentialsmini");
         this.plugin = plugin;
-        setup("essentialsmini", this);
-        setupTabCompleter("essentialsmini", this);
     }
 
     @Override

@@ -11,19 +11,20 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SetHealthCMD implements CommandExecutor {
+public class SetHealthCMD extends CommandBase {
 
     private final Main plugin;
 
     public SetHealthCMD(Main plugin) {
+        super(plugin, "sethealth");
         this.plugin = plugin;
-        plugin.getCommands().put("sethealth", this);
     }
 
     @Override

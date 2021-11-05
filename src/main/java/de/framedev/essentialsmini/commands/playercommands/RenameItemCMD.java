@@ -27,7 +27,6 @@ public class RenameItemCMD extends CommandBase {
     public RenameItemCMD(Main plugin) {
         super(plugin, "renameitem");
         this.plugin = plugin;
-        setup(this);
     }
 
     @Override

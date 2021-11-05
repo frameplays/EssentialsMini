@@ -12,16 +12,14 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
-import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.managers.CommandListenerBase;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -29,9 +27,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RegisterCMD extends CommandBase implements CommandExecutor, Listener {
+public class RegisterCMD extends CommandListenerBase {
 
-    private static final File file = new File(Main.getInstance().getDataFolder(),"accounts.yml");
+    private static final File file = new File(Main.getInstance().getDataFolder(), "accounts.yml");
     private static final FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
     private final Main plugin;
@@ -39,23 +37,20 @@ public class RegisterCMD extends CommandBase implements CommandExecutor, Listene
     private final ArrayList<OfflinePlayer> registerd = new ArrayList<>();
 
     public RegisterCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "register", "login");
         this.plugin = plugin;
-        setup("register",this);
-        setup("login",this);
-        plugin.getListeners().add(this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!plugin.getVariables().isOnlineMode()) {
-            if(command.getName().equalsIgnoreCase("register")) {
-                if(sender instanceof Player) {
+        if (!plugin.getVariables().isOnlineMode()) {
+            if (command.getName().equalsIgnoreCase("register")) {
+                if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    if(!cfg.contains(player.getName())) {
-                        if(args.length == 1) {
+                    if (!cfg.contains(player.getName())) {
+                        if (args.length == 1) {
                             String pwd = args[0];
-                            cfg.set(player.getName(),pwd);
+                            cfg.set(player.getName(), pwd);
                             try {
                                 cfg.save(file);
                             } catch (IOException e) {
@@ -73,14 +68,14 @@ public class RegisterCMD extends CommandBase implements CommandExecutor, Listene
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
                 }
             }
-            if(command.getName().equalsIgnoreCase("login")) {
-                if(sender instanceof Player) {
+            if (command.getName().equalsIgnoreCase("login")) {
+                if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    if(cfg.contains(player.getName())) {
-                        if(!registerd.contains(player)) {
-                            if(args.length == 1) {
+                    if (cfg.contains(player.getName())) {
+                        if (!registerd.contains(player)) {
+                            if (args.length == 1) {
                                 String pwd = args[0];
-                                if(cfg.getString(player.getName()).equalsIgnoreCase(pwd)) {
+                                if (cfg.getString(player.getName()).equalsIgnoreCase(pwd)) {
                                     registerd.add(player);
                                     player.sendMessage(plugin.getPrefix() + "§aDu bist Erfolgreich Eingeloggt!");
                                 } else {
@@ -105,9 +100,9 @@ public class RegisterCMD extends CommandBase implements CommandExecutor, Listene
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        if(!plugin.getVariables().isOnlineMode()) {
-            if(!registerd.contains(event.getPlayer())) {
-                if(cfg.contains(event.getPlayer().getName())) {
+        if (!plugin.getVariables().isOnlineMode()) {
+            if (!registerd.contains(event.getPlayer())) {
+                if (cfg.contains(event.getPlayer().getName())) {
                     event.getPlayer().sendMessage(plugin.getPrefix() + "§cBitte Log dich zuerst ein §6/login <Password>§4§l!");
                 } else {
                     event.getPlayer().sendMessage(plugin.getPrefix() + "§cBitte Regristier dich zuerst §6/register <Password>§4§l!");
@@ -119,9 +114,9 @@ public class RegisterCMD extends CommandBase implements CommandExecutor, Listene
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        if(!plugin.getVariables().isOnlineMode()) {
-            if(!registerd.contains(event.getPlayer())) {
-                if(cfg.contains(event.getPlayer().getName())) {
+        if (!plugin.getVariables().isOnlineMode()) {
+            if (!registerd.contains(event.getPlayer())) {
+                if (cfg.contains(event.getPlayer().getName())) {
                     event.getPlayer().sendMessage(plugin.getPrefix() + "§cBitte Log dich zuerst ein §6/login <Password>§4§l!");
                 } else {
                     event.getPlayer().sendMessage(plugin.getPrefix() + "§cBitte Regristier dich zuerst §6/register <Password>§4§l!");

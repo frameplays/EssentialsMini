@@ -12,7 +12,6 @@ public class UnBanCMD extends CommandBase {
 
 	public UnBanCMD(Main plugin) {
 		super(plugin, "eunban");
-		setup(this);
 	}
 
 	@Override

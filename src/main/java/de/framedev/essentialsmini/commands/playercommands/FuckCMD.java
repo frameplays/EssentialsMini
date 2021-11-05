@@ -12,9 +12,7 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * This Plugin was Created by FrameDev
@@ -28,9 +26,8 @@ public class FuckCMD extends CommandBase {
     private final Main plugin;
 
     public FuckCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "fuck");
         this.plugin = plugin;
-        setup("fuck", this);
     }
 
     @Override
