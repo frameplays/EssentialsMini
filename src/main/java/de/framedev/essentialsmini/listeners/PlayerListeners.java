@@ -106,15 +106,19 @@ public class PlayerListeners implements Listener {
                     } else {
                         String joinMessage = plugin.getConfig().getString("JoinMessage");
                         if (joinMessage == null) return;
-                        joinMessage = joinMessage.replace('&', '§');
-                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                        if (joinMessage.contains("&"))
+                            joinMessage = joinMessage.replace('&', '§');
+                        if (joinMessage.contains("%Player%"))
+                            joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                         event.setJoinMessage(joinMessage);
                     }
                 } else {
                     String joinMessage = plugin.getConfig().getString("JoinMessage");
                     if (joinMessage == null) return;
-                    joinMessage = joinMessage.replace('&', '§');
-                    joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                    if (joinMessage.contains("&"))
+                        joinMessage = joinMessage.replace('&', '§');
+                    if (joinMessage.contains("%Player%"))
+                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setJoinMessage(joinMessage);
                 }
             }
@@ -277,17 +281,19 @@ public class PlayerListeners implements Listener {
                     } else {
                         String joinMessage = plugin.getConfig().getString("LeaveMessage");
                         if (joinMessage == null) return;
-                        if (joinMessage.contains("&")) {
+                        if (joinMessage.contains("&"))
                             joinMessage = joinMessage.replace('&', '§');
-                        }
-                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                        if (joinMessage.contains("%Player%"))
+                            joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                         event.setQuitMessage(joinMessage);
                     }
                 } else {
                     String joinMessage = plugin.getConfig().getString("LeaveMessage");
                     if (joinMessage == null) return;
-                    joinMessage = joinMessage.replace('&', '§');
-                    joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                    if (joinMessage.contains("&"))
+                        joinMessage = joinMessage.replace('&', '§');
+                    if (joinMessage.contains("%Player%"))
+                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setQuitMessage(joinMessage);
                 }
             }

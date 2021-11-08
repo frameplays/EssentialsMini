@@ -39,35 +39,34 @@ public class ExperienceCMD extends CommandBase {
                 return true;
             }
             if (args[0].equalsIgnoreCase("set")) {
-                if (!textUtils.isInteger(args[1])) {
-                    sender.sendMessage(getPlugin().getPrefix() + "§6" + args[1] + " §cis no Number!");
-                    return true;
+                Object amount;
+                if(args[1].contains(".")) {
+                    amount = Float.parseFloat(args[1]);
+                } else {
+                    amount = Integer.parseInt(args[1]);
                 }
-                int amount = Integer.parseInt(args[1]);
                 Player player = Bukkit.getPlayer(args[2]);
                 if (player == null) {
                     sender.sendMessage(getPlugin().getPrefix() + getPlugin().getVariables().getPlayerNameNotOnline(args[1]));
                     return true;
                 }
-                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "XP");
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".XP");
                 xpMessage = textUtils.replaceAndToParagraph(xpMessage);
                 xpMessage = textUtils.replaceObject(xpMessage, "%XP%", amount + "");
-                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Level");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".Level");
                 levelMessage = textUtils.replaceAndToParagraph(levelMessage);
                 levelMessage = textUtils.replaceObject(levelMessage, "%Level%", amount + "");
                 if (args[3].equalsIgnoreCase("level")) {
-                    player.setLevel(amount);
+                    assert amount instanceof Integer;
+                    player.setLevel((Integer) amount);
                     player.sendMessage(getPlugin().getPrefix() + levelMessage);
                 } else if (args[3].equalsIgnoreCase("xp")) {
-                    player.setTotalExperience(amount);
+                    assert amount instanceof Float;
+                    player.setExp((Float) amount / 10);
                     player.sendMessage(getPlugin().getPrefix() + xpMessage);
                 }
                 return true;
             } else if (args[0].equalsIgnoreCase("add")) {
-                if (!textUtils.isInteger(args[1])) {
-                    sender.sendMessage(getPlugin().getPrefix() + "§6" + args[1] + " §cis no Number!");
-                    return true;
-                }
                 int amount = Integer.parseInt(args[1]);
                 Player player = Bukkit.getPlayer(args[2]);
                 if (player == null) {
@@ -76,27 +75,21 @@ public class ExperienceCMD extends CommandBase {
                 }
                 int level = player.getLevel();
                 level += amount;
-                int xp = player.getTotalExperience();
-                xp += amount;
-                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "XP");
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".XP");
                 xpMessage = textUtils.replaceAndToParagraph(xpMessage);
-                xpMessage = textUtils.replaceObject(xpMessage, "%XP%", xp + "");
-                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Level");
+                xpMessage = textUtils.replaceObject(xpMessage, "%XP%", player.getTotalExperience() + amount + "");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".Level");
                 levelMessage = textUtils.replaceAndToParagraph(levelMessage);
                 levelMessage = textUtils.replaceObject(levelMessage, "%Level%", level + "");
                 if (args[3].equalsIgnoreCase("level")) {
                     player.setLevel(level);
                     player.sendMessage(getPlugin().getPrefix() + levelMessage);
                 } else if (args[3].equalsIgnoreCase("xp")) {
-                    player.setTotalExperience(xp);
+                    player.giveExp(amount);
                     player.sendMessage(getPlugin().getPrefix() + xpMessage);
                 }
                 return true;
             } else if (args[0].equalsIgnoreCase("remove")) {
-                if (!textUtils.isInteger(args[1])) {
-                    sender.sendMessage(getPlugin().getPrefix() + "§6" + args[1] + " §cis no Number!");
-                    return true;
-                }
                 int amount = Integer.parseInt(args[1]);
                 Player player = Bukkit.getPlayer(args[2]);
                 if (player == null) {
@@ -107,18 +100,15 @@ public class ExperienceCMD extends CommandBase {
                 level -= amount;
                 int xp = player.getTotalExperience();
                 xp -= amount;
-                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "XP");
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".XP");
                 xpMessage = textUtils.replaceAndToParagraph(xpMessage);
                 xpMessage = textUtils.replaceObject(xpMessage, "%XP%", xp + "");
-                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Level");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".Level");
                 levelMessage = textUtils.replaceAndToParagraph(levelMessage);
                 levelMessage = textUtils.replaceObject(levelMessage, "%Level%", level + "");
                 if (args[3].equalsIgnoreCase("level")) {
                     player.setLevel(level);
                     player.sendMessage(getPlugin().getPrefix() + levelMessage);
-                } else if (args[3].equalsIgnoreCase("xp")) {
-                    player.setTotalExperience(xp);
-                    player.sendMessage(getPlugin().getPrefix() + xpMessage);
                 }
                 return true;
             }
@@ -143,7 +133,8 @@ public class ExperienceCMD extends CommandBase {
         } else if (args.length == 4) {
             List<String> cmds = new ArrayList<>();
             cmds.add("level");
-            cmds.add("xp");
+            if (!args[0].equalsIgnoreCase("remove"))
+                cmds.add("xp");
             List<String> empty = new ArrayList<>();
             for (String s : cmds) {
                 if (s.toLowerCase().startsWith(args[3].toLowerCase()))

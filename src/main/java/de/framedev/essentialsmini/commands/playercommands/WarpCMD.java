@@ -6,6 +6,7 @@ import de.framedev.essentialsmini.managers.InventoryManager;
 import de.framedev.essentialsmini.managers.ItemBuilder;
 import de.framedev.essentialsmini.managers.LocationsManager;
 import de.framedev.essentialsmini.utils.TextUtils;
+import de.framedev.essentialsmini.utils.Variables;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -47,7 +48,7 @@ public class WarpCMD extends CommandListenerBase {
                     if (args.length == 1) {
                         String name = args[0];
                         new LocationsManager().setLocation("warps." + name.toLowerCase(), player.getLocation());
-                        String message = plugin.getCustomMessagesConfig().getString("Warp.Created");
+                        String message = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".Created");
                         if (message.contains("&"))
                             message = message.replace('&', '§');
                         if (message.contains("WarpName"))
@@ -57,13 +58,13 @@ public class WarpCMD extends CommandListenerBase {
                         String name = args[0];
                         double cost = Double.parseDouble(args[1]);
                         new LocationsManager().setWarp(name.toLowerCase(), player.getLocation(), cost);
-                        String message = plugin.getCustomMessagesConfig().getString("Warp.Created");
+                        String message = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".Created");
                         if (message.contains("&"))
                             message = message.replace('&', '§');
                         if (message.contains("WarpName"))
                             message = message.replace("%WarpName%", name);
                         player.sendMessage(plugin.getPrefix() + message);
-                        String costMsg = plugin.getCustomMessagesConfig().getString("Warp.Cost");
+                        String costMsg = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".Cost");
                         costMsg = new TextUtils().replaceAndToParagraph(costMsg);
                         costMsg = new TextUtils().replaceObject(costMsg, "%Cost%", cost + plugin.getCurrencySymbol());
                         player.sendMessage(plugin.getPrefix() + costMsg);
@@ -93,14 +94,14 @@ public class WarpCMD extends CommandListenerBase {
                                         return true;
                                     }
                             player.teleport(new LocationsManager().getLocation("warps." + name.toLowerCase()));
-                            String message = plugin.getCustomMessagesConfig().getString("Warp.Teleport");
+                            String message = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".Teleport");
                             if (message.contains("&"))
                                 message = message.replace('&', '§');
                             if (message.contains("%WarpName%"))
                                 message = message.replace("%WarpName%", name);
                             player.sendMessage(plugin.getPrefix() + message);
                         } catch (Exception ex) {
-                            String message = plugin.getCustomMessagesConfig().getString("Warp.NotExist");
+                            String message = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".NotExist");
                             if (message.contains("&"))
                                 message = message.replace('&', '§');
                             player.sendMessage(plugin.getPrefix() + message);
@@ -164,7 +165,7 @@ public class WarpCMD extends CommandListenerBase {
                             }
                         }
                     } else {
-                        String message = plugin.getCustomMessagesConfig().getString("Warp.NotExist");
+                        String message = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".NotExist");
                         if (message.contains("&"))
                             message = message.replace('&', '§');
                         sender.sendMessage(plugin.getPrefix() + message);
@@ -191,7 +192,7 @@ public class WarpCMD extends CommandListenerBase {
                 if (args.length == 1) {
                     String warp = args[0].toLowerCase();
                     new LocationsManager().removeLocation("warps." + warp);
-                    String message = plugin.getCustomMessagesConfig().getString("Warp.Delete");
+                    String message = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".Delete");
                     if (message.contains("&"))
                         message = message.replace('&', '§');
                     if (message.contains("%WarpName%"))
@@ -278,7 +279,7 @@ public class WarpCMD extends CommandListenerBase {
                                 return;
                             }
                     player.teleport(new LocationsManager().getLocation("warps." + s.toLowerCase()));
-                    String message = plugin.getCustomMessagesConfig().getString("Warp.Teleport");
+                    String message = plugin.getCustomMessagesConfig().getString(Variables.WARPMESSAGE + ".Teleport");
                     if (message.contains("&"))
                         message = message.replace('&', '§');
                     if (message.contains("%WarpName%"))

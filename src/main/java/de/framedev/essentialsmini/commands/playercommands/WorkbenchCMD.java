@@ -22,7 +22,6 @@ public class WorkbenchCMD extends CommandBase {
     public WorkbenchCMD(Main plugin) {
         super(plugin, "workbench");
         this.plugin = plugin;
-        setup(this);
     }
 
     @Override
@@ -31,6 +30,7 @@ public class WorkbenchCMD extends CommandBase {
             if (args.length == 0) {
                 if (sender.hasPermission(plugin.getPermissionName() + "workbench")) {
                     ((Player) sender).openWorkbench(((Player) sender).getLocation(), true);
+                    sender.sendMessage(getPrefix() + "§aWorkbench opend");
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }

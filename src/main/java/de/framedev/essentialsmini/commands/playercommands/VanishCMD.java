@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
  * ===================================================
@@ -48,8 +49,10 @@ public class VanishCMD extends CommandListenerBase {
                             player.sendMessage(plugin.getPrefix() + message);
                             if (plugin.getConfig().getBoolean("Vanish.Message")) {
                                 String joinMessage = plugin.getConfig().getString("JoinMessage");
-                                joinMessage = joinMessage.replace('&', '§');
-                                joinMessage = joinMessage.replace("%Player%", player.getName());
+                                if (joinMessage.contains("&"))
+                                    joinMessage = joinMessage.replace('&', '§');
+                                if (joinMessage.contains("%Player%"))
+                                    joinMessage = joinMessage.replace("%Player%", player.getName());
                                 Bukkit.broadcastMessage(joinMessage);
                             }
                             return true;
@@ -66,10 +69,10 @@ public class VanishCMD extends CommandListenerBase {
                             player.sendMessage(plugin.getPrefix() + message);
                             if (plugin.getConfig().getBoolean("Vanish.Message")) {
                                 String leaveMessage = plugin.getConfig().getString("LeaveMessage");
-                                if (leaveMessage.contains("&")) {
+                                if (leaveMessage.contains("&"))
                                     leaveMessage = leaveMessage.replace('&', '§');
+                                if (leaveMessage.contains("%Player%"))
                                     leaveMessage = leaveMessage.replace("%Player%", player.getName());
-                                }
                                 Bukkit.broadcastMessage(leaveMessage);
                             }
                             return true;
@@ -133,7 +136,7 @@ public class VanishCMD extends CommandListenerBase {
     public void onPlayerJoin(PlayerJoinEvent event) {
         for (String vanish : hided) {
             if (!event.getPlayer().hasPermission("essentialsmini.vanish.see")) {
-                event.getPlayer().hidePlayer(plugin, Bukkit.getPlayer(vanish));
+                event.getPlayer().hidePlayer(plugin, Objects.requireNonNull(Bukkit.getPlayer(vanish)));
             }
         }
     }

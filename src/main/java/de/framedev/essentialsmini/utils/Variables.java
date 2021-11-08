@@ -112,22 +112,8 @@ public class Variables {
         return players;
     }
 
-    @Override
-    public String toString() {
-        return "Variables{" +
-                "prefix='" + prefix + '\'' +
-                ", onlyPlayer='" + onlyPlayer + '\'' +
-                ", noPermission='" + noPermission + '\'' +
-                ", permissionBase='" + permissionBase + '\'' +
-                ", authors=" + authors +
-                ", version='" + version + '\'' +
-                ", apiVersion='" + apiVersion + '\'' +
-                ", onlineMode=" + onlineMode +
-                ", jsonFormat=" + jsonFormat +
-                ", playerNameNotOnline='" + playerNameNotOnline + '\'' +
-                ", playerNotOnline='" + playerNotOnline + '\'' +
-                ", offlinePlayers=" + offlinePlayers +
-                '}';
+    public ArrayList<String> getOfflinePlayers() {
+        return offlinePlayers;
     }
 }
 
