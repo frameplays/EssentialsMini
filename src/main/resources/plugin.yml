@@ -171,7 +171,6 @@ commands:
       - god
   spawnmob:
     description: Spawn a Custom Mob
-  getlocationfromstring:
   speed:
     description: Change your Walk Speed
   chatclear:
@@ -199,8 +198,6 @@ commands:
     description: This will allow or deny Teleports from other players
   mysql:
     description: Check if MySQL is Enabled
-  infoeconomy:
-    description: Infos About Economy
   balancetop:
     description: Who has the Most Money
     aliases:
@@ -324,6 +321,8 @@ permissions:
       essentialsmini.balancetop: true
       essentialsmini.xp: true
       essentialsmini.checkupdates: true
+      essentialsmini.globalmute: true
+      essentialsmini.globalmute.bypass: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -518,3 +517,9 @@ permissions:
     default: op
   essentialsmini.checkupdates:
     default: op
+  essentialsmini.globalmute:
+    default: op
+  essentialsmini.globalmute.bypass:
+    default: op
+    children:
+      essentialsmini.globalmute: true

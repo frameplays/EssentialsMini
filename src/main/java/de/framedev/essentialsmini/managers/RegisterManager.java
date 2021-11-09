@@ -110,7 +110,6 @@ public class RegisterManager {
         //new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
-        new EconomyCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate")) {
             new PayCMD(plugin);
             new BankCMD(plugin);

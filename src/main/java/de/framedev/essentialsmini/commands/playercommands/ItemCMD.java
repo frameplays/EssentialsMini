@@ -10,14 +10,13 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.MaterialManager;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
@@ -27,14 +26,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ItemCMD implements CommandExecutor, TabCompleter {
+public class ItemCMD extends CommandBase {
 
     private final Main plugin;
 
     public ItemCMD(Main plugin) {
+        super(plugin, "item");
         this.plugin = plugin;
-        plugin.getCommands().put("item", this);
-        plugin.getTabCompleters().put("item", this);
     }
 
     @Override

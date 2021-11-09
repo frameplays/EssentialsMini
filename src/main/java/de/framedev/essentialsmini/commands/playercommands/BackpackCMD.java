@@ -134,11 +134,18 @@ public class BackpackCMD extends CommandListenerBase {
                                 locale.equalsIgnoreCase("en_gb") || locale.equalsIgnoreCase("en_nz") ||
                                 locale.equalsIgnoreCase("en_za") || locale.equalsIgnoreCase("en_pt");
                         if (file.exists()) {
-                            file.delete();
-                            if (b) {
-                                player.sendMessage(plugin.getPrefix() + "§6Backpacks deleted!");
+                            if (file.delete()) {
+                                if (b) {
+                                    player.sendMessage(plugin.getPrefix() + "§6Backpacks deleted!");
+                                } else {
+                                    player.sendMessage(plugin.getPrefix() + "§6BackPacks gelöscht!");
+                                }
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§6BackPacks gelöscht!");
+                                if (b) {
+                                    player.sendMessage(plugin.getPrefix() + "§cError while Deleting BackPacks!");
+                                } else {
+                                    player.sendMessage(plugin.getPrefix() + "§cError beim Löschen der Backpacks");
+                                }
                             }
                         } else {
                             if (b) {
@@ -163,7 +170,8 @@ public class BackpackCMD extends CommandListenerBase {
         ArrayList<OfflinePlayer> players = new ArrayList<>(Arrays.asList(Bukkit.getOfflinePlayers()));
         ArrayList<String> playerNames = new ArrayList<>();
         for (OfflinePlayer player : players) {
-            playerNames.add(player.getName());
+            if (player != null)
+                playerNames.add(player.getName());
         }
         ArrayList<String> cmds = new ArrayList<>(playerNames);
         cmds.add("delete");

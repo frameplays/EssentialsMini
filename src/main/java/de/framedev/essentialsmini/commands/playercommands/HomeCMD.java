@@ -48,7 +48,6 @@ public class HomeCMD extends CommandListenerBase {
             setup("home", this);
             setup("sethome", this);
             setup("delhome", this);
-            setup("getlocationfromstring", this);
             setup("delotherhome", this);
             setup("homegui", this);
             plugin.getTabCompleters().put("home", this);
@@ -544,19 +543,6 @@ public class HomeCMD extends CommandListenerBase {
                             homeExist = ReplaceCharConfig.replaceParagraph(homeExist);
                             sender.sendMessage(plugin.getPrefix() + homeExist);
                         }
-                    }
-                } else {
-                    sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
-                }
-            }
-            if (command.getName().equalsIgnoreCase("getlocationfromstring")) {
-                if (sender instanceof Player) {
-                    if (sender.hasPermission("essentialsmini.getlocation")) {
-                        String loc = args[0];
-                        new LocationsManager();
-                        ((Player) sender).teleport(LocationsManager.locationFromString(loc));
-                    } else {
-                        sender.sendMessage(plugin.getPrefix() + "§cKeine Permissions!");
                     }
                 } else {
                     sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
