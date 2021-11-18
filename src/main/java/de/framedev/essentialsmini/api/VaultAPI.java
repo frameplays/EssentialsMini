@@ -26,7 +26,7 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public boolean isEnabled() {
-        return Main.getInstance() != null;
+        return Main.getInstance().isEnabled();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public String format(double amount) {
-        return String.format("%.2f", amount);
+        return String.format("%.4f", amount);
     }
 
     public double formatToDouble(double amount) {

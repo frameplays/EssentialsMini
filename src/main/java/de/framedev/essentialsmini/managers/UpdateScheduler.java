@@ -26,7 +26,7 @@ public class UpdateScheduler implements Runnable {
                 public void run() {
                     if (Main.getInstance().getConfig().getBoolean("LocationsBackup")) {
                         new LocationsManager().saveBackup();
-                        //Main.getInstance().savePlayerHomes();
+                        // Main.getInstance().savePlayerHomes();
                         if (Main.getInstance().getConfig().getBoolean("LocationsBackupMessage")) {
                             Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§a" + new LocationsManager().getFileBackup().getName() + " §6LocationBackup gespeichert!");
                             Bukkit.getConsoleSender().sendMessage(Main.getInstance().getPrefix() + "§aDas Backup befindet sich in §6" + new LocationsManager().getFileBackup().getPath());

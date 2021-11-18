@@ -17,8 +17,6 @@ public class GenerateKeyCMD implements CommandExecutor, TabCompleter {
 
     private final Main plugin;
 
-    private String collection = "essentialsmini_data";
-
     public GenerateKeyCMD(Main plugin) {
         this.plugin = plugin;
         plugin.getCommands().put("key",this);
@@ -28,6 +26,7 @@ public class GenerateKeyCMD implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length == 2) {
+            String collection = "essentialsmini_data";
             if(args[0].equalsIgnoreCase("generate")) {
                 if(sender.hasPermission(plugin.getPermissionName() + "key")) {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);

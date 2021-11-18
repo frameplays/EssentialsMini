@@ -501,7 +501,7 @@ public class HomeCMD extends CommandListenerBase {
                         sender.sendMessage(plugin.getPrefix() + homeButton);
                         BaseComponent baseComponent = new TextComponent();
                         baseComponent.addExtra("§6[Yes]");
-                        baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sethome"));
+                        baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sethome " + name));
                         String showText = plugin.getCustomMessagesConfig().getString("ShowTextHoverOther");
                         showText = new TextUtils().replaceAndToParagraph(showText);
                         showText = new TextUtils().replaceObject(showText, "%Home%", name);

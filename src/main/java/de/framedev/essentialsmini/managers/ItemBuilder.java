@@ -78,18 +78,18 @@ public class ItemBuilder {
         return itemStack.getAmount();
     }
 
-    public ItemBuilder addLore(String str) {
+    public ItemBuilder addLore(String stringLore) {
         if (this.itemMeta == null) return null;
         if (!this.itemMeta.hasLore()) {
             List<String> lore = new ArrayList<>();
-            lore.add(str);
+            lore.add(stringLore);
             this.itemMeta.setLore(lore);
         } else {
             List<String> lore = this.itemMeta.getLore();
             if (lore == null) {
                 lore = new ArrayList<>();
             }
-            lore.add(str);
+            lore.add(stringLore);
             this.itemMeta.setLore(lore);
         }
         return this;

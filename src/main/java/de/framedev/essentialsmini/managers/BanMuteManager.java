@@ -44,7 +44,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempMute", "TempMuteReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempMute", "TempMuteReason");
         }
     }
@@ -58,7 +58,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempMute", "TempMuteReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempMute", "TempMuteReason");
         }
     }
@@ -122,7 +122,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempBan", "TempBanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempBan", "TempBanReason");
         }
     }
@@ -135,7 +135,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempBan", "TempBanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempBan", "TempBanReason");
         }
     }
@@ -210,7 +210,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason.getReason() + "'", "Player", "Ban", "BanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason.getReason() + "'", "Player", "Ban", "BanReason");
         }
     }
@@ -224,7 +224,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason + "'", "Player", "Ban", "BanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason + "'", "Player", "Ban", "BanReason");
         }
     }

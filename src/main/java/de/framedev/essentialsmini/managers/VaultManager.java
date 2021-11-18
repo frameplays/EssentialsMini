@@ -22,34 +22,34 @@ public class VaultManager {
     private final Economy eco;
 
     public VaultManager(Main plugin) {
-        File filedata = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
-        FileConfiguration cfgdata = YamlConfiguration.loadConfiguration(filedata);
-        if (!filedata.exists()) {
-            filedata.getParentFile().mkdirs();
+        File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
             try {
-                filedata.createNewFile();
+                file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         if (Bukkit.getServer().getOnlineMode()) {
-            if (!cfgdata.contains("accounts")) {
+            if (!cfg.contains("accounts")) {
                 ArrayList<String> accounts = new ArrayList<>();
                 accounts.add("14555508-6819-4434-aa6a-e5ce1509ea35");
-                cfgdata.set("accounts", accounts);
+                cfg.set("accounts", accounts);
                 try {
-                    cfgdata.save(filedata);
+                    cfg.save(file);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         } else {
-            if (!cfgdata.contains("accounts")) {
+            if (!cfg.contains("accounts")) {
                 ArrayList<String> accounts = new ArrayList<>();
                 accounts.add("sambakuchen");
-                cfgdata.set("accounts", accounts);
+                cfg.set("accounts", accounts);
                 try {
-                    cfgdata.save(filedata);
+                    cfg.save(file);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -57,9 +57,9 @@ public class VaultManager {
         }
         plugin.getServer().getServicesManager().register(Economy.class, new VaultAPI(), plugin, ServicePriority.High);
         eco = new VaultAPI();
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!eco.hasAccount(p))
-                eco.createPlayerAccount(p);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (!eco.hasAccount(player))
+                eco.createPlayerAccount(player);
         }
     }
 

@@ -1,6 +1,7 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandListenerBase;
 import de.framedev.essentialsmini.utils.TextUtils;
 import lombok.NonNull;
 import org.bukkit.Location;
@@ -21,7 +22,7 @@ import java.util.HashMap;
  * ===================================================
  * This Class was created at 14.07.2020 16:47
  */
-public class BackCMD implements Listener, CommandExecutor {
+public class BackCMD extends CommandListenerBase {
 
     // This Plugin
     private final Main plugin;
@@ -30,9 +31,8 @@ public class BackCMD implements Listener, CommandExecutor {
     private final HashMap<Player, Location> deaths = new HashMap<>();
 
     public BackCMD(Main plugin) {
+        super(plugin, "back");
         this.plugin = plugin;
-        plugin.getCommands().put("back",this);
-        plugin.getListeners().add(this);
     }
 
     //Test
