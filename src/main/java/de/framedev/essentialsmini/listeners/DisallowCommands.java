@@ -28,7 +28,6 @@ public class DisallowCommands extends ListenerBase {
     public DisallowCommands(Main plugin) {
         super(plugin);
         this.plugin = getPlugin();
-        setupListener(this);
     }
 
     @EventHandler

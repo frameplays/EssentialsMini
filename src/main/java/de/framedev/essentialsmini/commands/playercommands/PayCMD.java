@@ -404,6 +404,7 @@ public class PayCMD extends CommandBase {
                 List<String> commands = new ArrayList<>();
                 commands.add("add");
                 commands.add("remove");
+                commands.add("set");
                 List<String> empty = new ArrayList<>();
                 for(String s : commands) {
                     if(s.toLowerCase().startsWith(args[0].toLowerCase()))

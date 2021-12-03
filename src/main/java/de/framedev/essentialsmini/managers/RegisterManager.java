@@ -3,8 +3,8 @@ package de.framedev.essentialsmini.managers;
 import de.framedev.essentialsmini.commands.playercommands.*;
 import de.framedev.essentialsmini.commands.servercommands.*;
 import de.framedev.essentialsmini.commands.worldcommands.DayNightCMD;
+import de.framedev.essentialsmini.commands.worldcommands.LightningStrikeCMD;
 import de.framedev.essentialsmini.commands.worldcommands.SunRainThunderCMD;
-import de.framedev.essentialsmini.commands.worldcommands.ThunderCMD;
 import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmini.listeners.*;
 import de.framedev.essentialsmini.main.Main;
@@ -106,7 +106,7 @@ public class RegisterManager {
         new SummonCMD(plugin);
         // new SetHealthCMD(plugin);
         new SpeedCMD(plugin);
-        new ThunderCMD(plugin);
+        new LightningStrikeCMD(plugin);
         //new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);

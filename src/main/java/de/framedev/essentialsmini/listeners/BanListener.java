@@ -19,7 +19,6 @@ public class BanListener extends ListenerBase {
 
     public BanListener(Main plugin) {
         super(plugin);
-        setupListener(this);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

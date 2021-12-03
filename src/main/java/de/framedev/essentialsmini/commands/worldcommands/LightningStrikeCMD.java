@@ -20,11 +20,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-public class ThunderCMD extends CommandBase implements CommandExecutor {
+public class LightningStrikeCMD extends CommandBase implements CommandExecutor {
 
     private final Main plugin;
 
-    public ThunderCMD(Main plugin) {
+    public LightningStrikeCMD(Main plugin) {
         super(plugin);
         this.plugin = plugin;
         setup("lightningstrike",this);
