@@ -51,6 +51,28 @@ public class BankCMD extends CommandBase {
                 }
             }
         } else if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("info")) {
+                if (!sender.hasPermission(plugin.getPermissionName() + "bank.info")) {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
+                    return true;
+                }
+                String name = args[1];
+                if (plugin.getVaultManager().getEconomy().getBanks().contains(name)) {
+                    OfflinePlayer owner = null;
+                    for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+                        if (plugin.getVaultManager().getEconomy().isBankOwner(name, player).transactionSuccess()) {
+                            owner = player;
+                        }
+                    }
+                    sender.sendMessage("BankName : " + name);
+                    sender.sendMessage("Balance : " + plugin.getVaultManager().getEconomy().bankBalance(name).balance);
+                    if (owner != null)
+                        sender.sendMessage("Owner : " + owner.getName());
+                    sender.sendMessage("Members : " + plugin.getVaultManager().getBankMembers(name));
+                } else {
+                    sender.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                }
+            }
             if (args[0].equalsIgnoreCase("create")) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
@@ -235,7 +257,7 @@ public class BankCMD extends CommandBase {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            List<String> cmds = new ArrayList<String>(Arrays.asList("remove", "create", "balance", "withdraw", "deposit", "addmember", "removemember", "listmembers", "list"));
+            List<String> cmds = new ArrayList<String>(Arrays.asList("remove", "create", "balance", "withdraw", "deposit", "addmember", "removemember", "listmembers", "list", "info"));
             List<String> empty = new ArrayList<>();
             for (String s : cmds) {
                 if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
@@ -246,6 +268,7 @@ public class BankCMD extends CommandBase {
             return empty;
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("list")) return new ArrayList<>();
+            if (args[0].equalsIgnoreCase("info")) return new ArrayList<>();
             if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("remove"))
                 return new ArrayList<>(Collections.singletonList("<BANKNAME>"));
             List<String> banksList = new ArrayList<>();

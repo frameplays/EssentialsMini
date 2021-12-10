@@ -170,6 +170,7 @@ public class MessageCMD extends CommandBase {
                                     target.sendMessage("§a" + player.getName() + " §r-> §cme  §f» " + message);
                                     message = "";
                                     reply.remove(player);
+                                    reply.put(player, target);
                                 }
                             } else {
                                 player.sendMessage(plugin.getPrefix() + "§cDir wurde vor kurzem keine Nachricht geschrieben!");
