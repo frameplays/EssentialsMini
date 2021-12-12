@@ -754,6 +754,7 @@ public class Main extends JavaPlugin {
                     } else {
                         Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
                     }
+                    br.close();
                     return true;
                 } else {
                     Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cThis Plugin is a Pre-Release | §6There could still be errors");
@@ -762,6 +763,7 @@ public class Main extends JavaPlugin {
             } else {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");
@@ -843,6 +845,7 @@ public class Main extends JavaPlugin {
                             player.spigot().sendMessage(base);
                         }
                     }
+                    br.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                     player.sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");

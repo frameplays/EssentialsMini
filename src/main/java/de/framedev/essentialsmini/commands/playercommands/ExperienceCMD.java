@@ -50,10 +50,10 @@ public class ExperienceCMD extends CommandBase {
                     sender.sendMessage(getPlugin().getPrefix() + getPlugin().getVariables().getPlayerNameNotOnline(args[1]));
                     return true;
                 }
-                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".XP");
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Self.XP");
                 xpMessage = textUtils.replaceAndToParagraph(xpMessage);
                 xpMessage = textUtils.replaceObject(xpMessage, "%XP%", amount + "");
-                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".Level");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Self.Level");
                 levelMessage = textUtils.replaceAndToParagraph(levelMessage);
                 levelMessage = textUtils.replaceObject(levelMessage, "%Level%", amount + "");
                 if (args[3].equalsIgnoreCase("level")) {
@@ -75,10 +75,10 @@ public class ExperienceCMD extends CommandBase {
                 }
                 int level = player.getLevel();
                 level += amount;
-                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".XP");
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Self.XP");
                 xpMessage = textUtils.replaceAndToParagraph(xpMessage);
                 xpMessage = textUtils.replaceObject(xpMessage, "%XP%", player.getTotalExperience() + amount + "");
-                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".Level");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Self.Level");
                 levelMessage = textUtils.replaceAndToParagraph(levelMessage);
                 levelMessage = textUtils.replaceObject(levelMessage, "%Level%", level + "");
                 if (args[3].equalsIgnoreCase("level")) {
@@ -100,10 +100,10 @@ public class ExperienceCMD extends CommandBase {
                 level -= amount;
                 int xp = player.getTotalExperience();
                 xp -= amount;
-                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".XP");
+                String xpMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Self.XP");
                 xpMessage = textUtils.replaceAndToParagraph(xpMessage);
                 xpMessage = textUtils.replaceObject(xpMessage, "%XP%", xp + "");
-                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + ".Level");
+                String levelMessage = getPlugin().getCustomMessagesConfig().getString(Variables.EXPERIENCE + "Self.Level");
                 levelMessage = textUtils.replaceAndToParagraph(levelMessage);
                 levelMessage = textUtils.replaceObject(levelMessage, "%Level%", level + "");
                 if (args[3].equalsIgnoreCase("level")) {

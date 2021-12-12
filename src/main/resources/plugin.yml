@@ -234,8 +234,9 @@ commands:
       - offlineplayers
       - offplayers
   xp:
-  nick:
-  nicklist:
+    aliases:
+      - exp
+      - experience
 permissions:
   essentialsmini.*:
     children:
