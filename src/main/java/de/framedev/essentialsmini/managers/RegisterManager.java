@@ -111,7 +111,7 @@ public class RegisterManager {
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate")) {
-            new PayCMD(plugin);
+            new EcoCMDs(plugin);
             new BankCMD(plugin);
             new MoneySignListeners(plugin);
         }

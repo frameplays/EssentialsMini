@@ -417,6 +417,8 @@ public class Main extends JavaPlugin {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cConfig Replaced! Please edit your Config Sections!");
             }
         }.runTaskLater(this, 60);
+        Config.saveDefaultConfigValues("messages_en-EN.yml");
+        Config.saveDefaultConfigValues("messages_example_de-DE.yml");
     }
 
     @Override

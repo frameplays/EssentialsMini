@@ -19,11 +19,11 @@ import java.util.*;
  * Project: EssentialsMini
  * Copyrighted by FrameDev
  */
-public class PayCMD extends CommandBase {
+public class EcoCMDs extends CommandBase {
 
     private final Main plugin;
 
-    public PayCMD(Main plugin) {
+    public EcoCMDs(Main plugin) {
         super(plugin);
         this.plugin = plugin;
         setup("pay", this);

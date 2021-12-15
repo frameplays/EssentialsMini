@@ -35,7 +35,7 @@ public class SleepListener implements Listener {
 
     @EventHandler
     public void onPlayerSleep(PlayerBedEnterEvent event) {
-        if(!plugin.getConfig().getBoolean("OnlyEssentialsFeatures")) {
+        if (!plugin.getConfig().getBoolean("OnlyEssentialsFeatures")) {
             if (plugin.isMongoDB()) {
                 String collection = "essentialsmini_data";
                 int sleepTimes = (int) plugin.getBackendManager().get(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), collection);
@@ -54,7 +54,7 @@ public class SleepListener implements Listener {
         }
         if (plugin.getConfig().getBoolean("SkipNight")) {
             if (event.getPlayer().getWorld().getTime() >= 12542 && event.getPlayer().getWorld().getTime() <= 23460 || event.getPlayer().getWorld().isThundering()) {
-                if(!sleep) {
+                if (!sleep) {
                     sleep = true;
                     new BukkitRunnable() {
                         @Override
@@ -72,7 +72,7 @@ public class SleepListener implements Listener {
                                 public void run() {
                                     sleep = false;
                                 }
-                            }.runTaskLater(plugin,320);
+                            }.runTaskLater(plugin, 320);
                         }
                     }.runTaskLater(plugin, 120);
                 } else {
