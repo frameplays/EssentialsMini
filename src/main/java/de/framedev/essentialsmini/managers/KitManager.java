@@ -47,6 +47,9 @@ public class KitManager {
         }
     }
 
+    public boolean existsKit(String name) {
+        return getCustomConfig().contains("Items." + name);
+    }
 
     public void loadKits(String name, Player player) {
         try {
@@ -147,10 +150,18 @@ public class KitManager {
         return getCustomConfig().getInt("Items." + name + ".Cost");
     }
 
+    public boolean hasCost(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cost") != 0;
+    }
+
+    public boolean hasCooldown(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cooldown") != 0;
+    }
+
     public Inventory getKit(String name) {
         try {
             for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
-                if(s.contains(",")) {
+                if (s.contains(",")) {
                     String[] x = s.split(",");
                     ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
                     this.kitname.addItem(item);
@@ -173,7 +184,7 @@ public class KitManager {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
             if (s != null) {
-                if(s.contains(",")) {
+                if (s.contains(",")) {
                     String[] x = s.split(",");
                     ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()));
                     item.setAmount(Integer.parseInt(x[1]));

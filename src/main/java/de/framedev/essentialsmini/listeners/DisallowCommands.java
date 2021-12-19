@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.help.HelpTopic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.bukkit.Bukkit.getServer;
@@ -264,12 +265,20 @@ public class DisallowCommands extends ListenerBase {
         // Disable TabCompleter
         if (plugin.getSettingsCfg().getBoolean("DisableTabComplete"))
             if (!event.getPlayer().hasPermission("essentialsmini.tabcomplete")) {
-                event.getCommands().clear();
+                blockedCommands.addAll(event.getCommands());
             }
 
-        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "xp"))
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + "xp")) {
             blockedCommands.add("xp");
+            blockedCommands.add("exp");
+            blockedCommands.add("experience");
+        }
 
+        if (!event.getPlayer().hasPermission(plugin.getPermissionName() + ".globalmute")) {
+            blockedCommands.add("globalmute");
+            blockedCommands.add("glmute");
+            blockedCommands.add("gmute");
+        }
         if (!event.getCommands().isEmpty()) {
             event.getCommands().removeAll(blockedCommands);
             event.getCommands().removeIf(string -> string.contains(":"));

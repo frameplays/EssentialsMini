@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,7 +101,7 @@ public class ItemBuilder {
         return this.itemStack.getType();
     }
 
-    public String getLore(int index) {
+    public @Nullable String getLore(int index) {
         if (this.itemMeta == null) return null;
         if (this.itemMeta.hasLore() && this.itemMeta.getLore() != null) {
             return this.itemMeta.getLore().get(index);
@@ -108,9 +109,16 @@ public class ItemBuilder {
         return null;
     }
 
-    public ItemBuilder addEnchantment(Enchantment enchantment, int level, boolean ignore) {
+    public @Nullable ItemBuilder addEnchantment(Enchantment enchantment, int level, boolean ignore) {
         if (this.itemMeta == null) return null;
         itemMeta.addEnchant(enchantment, level, ignore);
+        return this;
+    }
+
+    public @Nullable ItemBuilder removeEnchantment(Enchantment enchantment) {
+        if (this.itemMeta == null) return null;
+        if (itemMeta.hasEnchant(enchantment))
+            itemMeta.removeEnchant(enchantment);
         return this;
     }
 

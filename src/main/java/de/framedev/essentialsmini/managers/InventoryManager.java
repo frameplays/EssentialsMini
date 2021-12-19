@@ -13,34 +13,38 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class InventoryManager {
 
-    private String title;
+    private @NotNull String title;
     private int size = 0;
     private Inventory inventory;
 
     public InventoryManager() {
+        title = "";
     }
 
-    public InventoryManager(String title) {
+    public InventoryManager(@NotNull String title) {
         this.title = title;
+        this.size = 1;
     }
 
-    public InventoryManager(String title, int size) {
+    public InventoryManager(@NotNull String title, int size) {
         this.title = title;
         this.size = size;
     }
 
     public InventoryManager(Inventory inventory) {
         this.inventory = inventory;
+        title = "";
     }
 
-    public String getTitle() {
+    public @NotNull String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NotNull String title) {
         this.title = title;
     }
 
@@ -85,7 +89,6 @@ public class InventoryManager {
     }
 
     public InventoryManager create() {
-        if (title == null) title = "Inventory";
         if (size == 0) size = 1;
         this.inventory = Bukkit.createInventory(null, getSize(), getTitle());
         return this;

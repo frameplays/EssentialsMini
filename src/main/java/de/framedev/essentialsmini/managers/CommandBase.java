@@ -35,7 +35,7 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
     }
 
     /**
-     * Register an TabCompleter
+     * Register a TabCompleter
      *
      * @param cmdName      the CommandName for registering
      * @param tabCompleter the TabCompleter who used for the Command

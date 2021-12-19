@@ -420,7 +420,7 @@ public class EssentialsMiniAPI {
      * Create a new Kit for the Plugin
      *
      * @param kitName the KitName for the new Created Kit
-     * @param items   a Array of Items with all Items witch are contained in the Kit
+     * @param items   an Array of Items with all Items witch are contained in the Kit
      */
     public void createKit(String kitName, ItemStack[] items) {
         new KitManager().createKit(kitName, items);
@@ -555,7 +555,7 @@ public class EssentialsMiniAPI {
     /**
      * Return all Player accounts
      *
-     * @return return a List of all Registerd Player Accounts
+     * @return return a List of all Registered Player Accounts
      */
     public List<String> getAccounts() {
         if (economy)

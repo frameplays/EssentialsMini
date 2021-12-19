@@ -18,7 +18,8 @@ public abstract class ListenerBase implements Listener {
     private final Main plugin;
 
     /**
-     * Register an Listener
+     * Register a Listener
+     *
      * @param listener the Listener for registering
      */
     public void setupListener(Listener listener) {
