@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SleepCMD extends CommandBase {
@@ -87,5 +88,10 @@ public class SleepCMD extends CommandBase {
             }));
             start = start.getRelative(facing.getOppositeFace());
         }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return super.onTabComplete(sender, command, label, args);
     }
 }

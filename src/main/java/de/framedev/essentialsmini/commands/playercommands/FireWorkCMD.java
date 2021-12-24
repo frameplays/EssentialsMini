@@ -33,6 +33,7 @@ public class FireWorkCMD extends CommandBase {
 
     public FireWorkCMD(Main plugin) {
         super(plugin, "firework");
+        setupTabCompleter(this);
     }
 
     @Override

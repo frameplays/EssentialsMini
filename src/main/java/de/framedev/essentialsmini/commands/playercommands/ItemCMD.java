@@ -32,6 +32,7 @@ public class ItemCMD extends CommandBase {
 
     public ItemCMD(Main plugin) {
         super(plugin, "item");
+        setupTabCompleter(this);
         this.plugin = plugin;
     }
 

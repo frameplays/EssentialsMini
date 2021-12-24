@@ -29,12 +29,12 @@ public abstract class CommandListenerBase extends CommandBase implements Listene
     }
 
     public CommandListenerBase(Main plugin, @NonNull String cmdName, CommandExecutor executor) {
-        super(plugin, cmdName, executor);
+        super(plugin, executor, cmdName);
         setupListener(this);
     }
 
     public CommandListenerBase(Main plugin, @NotNull @NonNull String... cmdNames) {
-        super(plugin, cmdNames);
+        super(plugin,  cmdNames);
         setupListener(this);
     }
 

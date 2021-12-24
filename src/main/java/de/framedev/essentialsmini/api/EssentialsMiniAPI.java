@@ -1,5 +1,6 @@
 package de.framedev.essentialsmini.api;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmini.commands.playercommands.*;
 import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
@@ -11,13 +12,9 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.MerchantRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
@@ -396,10 +393,15 @@ public class EssentialsMiniAPI {
         return GameModeCMD.getGameModeById(id);
     }
 
-    public String toJson(Object obj) {
+    public String toPrettyJson(Object obj) {
         return new GsonBuilder().setPrettyPrinting().create().toJson(obj);
     }
+    
+    public String toJson(Object obj) {
+        return new Gson().toJson(obj);
+    }
 
+    /*
     protected Villager villagerCreate(Player player) {
         Villager villager = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
         ArrayList<MerchantRecipe> recipes = new ArrayList<>();
@@ -415,6 +417,7 @@ public class EssentialsMiniAPI {
         villager.setVillagerType(Villager.Type.DESERT);
         return villager;
     }
+     */
 
     /**
      * Create a new Kit for the Plugin

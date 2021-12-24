@@ -9,6 +9,7 @@ import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmini.listeners.*;
 import de.framedev.essentialsmini.main.Main;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabCompleter;
 
 import java.util.Map;
 import java.util.Objects;
@@ -40,7 +41,9 @@ public class RegisterManager {
      * Register all TabCompleters
      */
     private void registerTabCompleters() {
-        plugin.getTabCompleters().forEach((key, value) -> Objects.requireNonNull(plugin.getCommand(key)).setTabCompleter(value));
+        for(Map.Entry<String, TabCompleter> completer : plugin.getTabCompleters().entrySet()) {
+            Objects.requireNonNull(plugin.getCommand(completer.getKey())).setTabCompleter(completer.getValue());
+        }
     }
 
     /**

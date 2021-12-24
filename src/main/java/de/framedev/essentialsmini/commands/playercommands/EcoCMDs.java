@@ -31,6 +31,7 @@ public class EcoCMDs extends CommandBase {
         setup("eco", this);
         setup("balancetop", this);
         setupTabCompleter("pay", this);
+        setupTabCompleter("eco", this);
     }
 
     @Override
@@ -399,15 +400,15 @@ public class EcoCMDs extends CommandBase {
                 return empty;
             }
         }
-        if(command.getName().equalsIgnoreCase("eco")) {
-            if(args.length == 1) {
+        if (command.getName().equalsIgnoreCase("eco")) {
+            if (args.length == 1) {
                 List<String> commands = new ArrayList<>();
                 commands.add("add");
                 commands.add("remove");
                 commands.add("set");
                 List<String> empty = new ArrayList<>();
-                for(String s : commands) {
-                    if(s.toLowerCase().startsWith(args[0].toLowerCase()))
+                for (String s : commands) {
+                    if (s.toLowerCase().startsWith(args[0].toLowerCase()))
                         empty.add(s);
                 }
                 Collections.sort(empty);

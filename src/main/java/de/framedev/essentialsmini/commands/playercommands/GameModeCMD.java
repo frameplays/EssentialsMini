@@ -26,6 +26,7 @@ public class GameModeCMD extends CommandBase {
 
     public GameModeCMD(Main plugin) {
         super(plugin, "gamemode");
+        setupTabCompleter(this);
         this.plugin = plugin;
     }
 

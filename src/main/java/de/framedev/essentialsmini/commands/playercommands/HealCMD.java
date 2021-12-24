@@ -26,6 +26,7 @@ public class HealCMD extends CommandBase {
 
     public HealCMD(Main plugin) {
         super(plugin, "heal");
+        setupTabCompleter(this);
         this.plugin = plugin;
     }
 
