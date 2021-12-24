@@ -55,7 +55,7 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter {
         this.cmdNames = cmdNames;
         for (String cmd : cmdNames) {
             setup(cmd, this);
-            setupTabCompleter(this);
+            setupTabCompleter(cmd, this);
         }
     }
 
