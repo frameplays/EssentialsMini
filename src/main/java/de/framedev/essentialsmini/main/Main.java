@@ -359,7 +359,7 @@ public class Main extends JavaPlugin {
             }
         }
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cSome Settings have been changed to the settings.yml in §6'plugins/EssentialsMini/settings.yml'§4§l!");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cSome Settings have been moved to the settings.yml in §6'plugins/EssentialsMini/settings.yml'§4§l!");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aEnabled!");
 

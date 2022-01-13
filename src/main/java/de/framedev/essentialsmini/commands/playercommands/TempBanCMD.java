@@ -96,63 +96,85 @@ public class TempBanCMD extends CommandBase {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 1) {
-            List<String> reasons = new ArrayList<>();
-            reasons.add("type");
-            reasons.add("own");
-            ArrayList<String> empty = new ArrayList<>();
-            for (String s : reasons) {
-                if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
-                    empty.add(s);
-                }
-            }
-            Collections.sort(empty);
-            return empty;
-        }
-        if (args.length == 2) {
-            ArrayList<String> reason = new ArrayList<>();
-            for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-                reason.add(offlinePlayer.getName());
-            }
-            ArrayList<String> empty = new ArrayList<>();
-            for (String s : reason) {
-                if (s.toLowerCase().startsWith(args[1].toLowerCase()))
-                    empty.add(s);
-            }
-            Collections.sort(empty);
-            return empty;
-        }
-        if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("type")) {
+        if (command.getName().equalsIgnoreCase("tempban")) {
+            if (args.length == 1) {
                 List<String> reasons = new ArrayList<>();
-                Arrays.asList(Ban.values()).forEach(ban -> reasons.add(ban.name()));
+                reasons.add("type");
+                reasons.add("own");
                 ArrayList<String> empty = new ArrayList<>();
                 for (String s : reasons) {
-                    if (s.toLowerCase().startsWith(args[2].toLowerCase())) {
+                    if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
                         empty.add(s);
                     }
                 }
                 Collections.sort(empty);
                 return empty;
             }
-            if(args[0].equalsIgnoreCase("own")) {
-                return new ArrayList<String>(Collections.singleton("your_Message"));
+            if (args.length == 2) {
+                ArrayList<String> reason = new ArrayList<>();
+                for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+                    reason.add(offlinePlayer.getName());
+                }
+                ArrayList<String> empty = new ArrayList<>();
+                for (String s : reason) {
+                    if (s.toLowerCase().startsWith(args[1].toLowerCase()))
+                        empty.add(s);
+                }
+                Collections.sort(empty);
+                return empty;
             }
-        }
-        if (args.length == 4) {
-            return new ArrayList<String>(Collections.singletonList("Time"));
-        }
-        if (args.length == 5) {
-            ArrayList<String> dateFormat = new ArrayList<>();
-            Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
-            ArrayList<String> empty = new ArrayList<>();
-            for (String s : dateFormat) {
-                if (s.toLowerCase().startsWith(args[4].toLowerCase())) {
-                    empty.add(s);
+            if (args.length == 3) {
+                if (args[0].equalsIgnoreCase("type")) {
+                    List<String> reasons = new ArrayList<>();
+                    Arrays.asList(Ban.values()).forEach(ban -> reasons.add(ban.name()));
+                    ArrayList<String> empty = new ArrayList<>();
+                    for (String s : reasons) {
+                        if (s.toLowerCase().startsWith(args[2].toLowerCase())) {
+                            empty.add(s);
+                        }
+                    }
+                    Collections.sort(empty);
+                    return empty;
+                }
+                if (args[0].equalsIgnoreCase("own")) {
+                    return new ArrayList<String>(Collections.singleton("your_Message"));
                 }
             }
-            Collections.sort(empty);
-            return empty;
+            if (args.length == 4) {
+                return new ArrayList<>(Collections.singletonList("Time"));
+            }
+            if (args.length == 5) {
+                ArrayList<String> dateFormat = new ArrayList<>();
+                Arrays.asList(DateUnit.values()).forEach(dateUnit -> dateFormat.add(dateUnit.name()));
+                ArrayList<String> empty = new ArrayList<>();
+                for (String s : dateFormat) {
+                    if (s.toLowerCase().startsWith(args[4].toLowerCase())) {
+                        empty.add(s);
+                    }
+                }
+                Collections.sort(empty);
+                return empty;
+            }
+        }
+        if (command.getName().equalsIgnoreCase("removetempban")) {
+            if (args.length == 1) {
+                List<String> playerNames = new ArrayList<>();
+                List<String> empty = new ArrayList<>();
+                if (getPlugin().isMysql() || getPlugin().isSQL()) {
+                    playerNames = new BanMuteManager().getAllTempBannedPlayers();
+                } else {
+                    List<OfflinePlayer> players = (List<OfflinePlayer>) getPlugin().getServer().getBannedPlayers();
+                    for (OfflinePlayer player : players) {
+                        playerNames.add(player.getName());
+                    }
+                }
+                for (String s : playerNames) {
+                    if (s.toLowerCase().startsWith(args[0].toLowerCase()))
+                        empty.add(s);
+                }
+                Collections.sort(empty);
+                return empty;
+            }
         }
         return super.onTabComplete(sender, command, label, args);
     }

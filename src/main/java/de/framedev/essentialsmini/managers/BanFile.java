@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class BanFile {
 
@@ -22,22 +23,22 @@ public class BanFile {
     }
 
     public static boolean isBanned(String playername) {
-        return cfg.getBoolean(playername + ".isBanned");
+        return cfg.getBoolean("Ban." + playername + ".isBanned");
     }
 
     public static String getBannedReason(String playername) {
-        if (cfg.getBoolean(playername + ".isBanned")) {
-            return cfg.getString(playername + ".reason");
+        if (cfg.getBoolean("Ban." + playername + ".isBanned")) {
+            return cfg.getString("Ban." + playername + ".reason");
         }
         return "";
     }
 
     public static void banPlayer(String playername, String reason) {
-        if (cfg.getBoolean(playername + ".isBanned")) {
+        if (cfg.getBoolean("Ban." + playername + ".isBanned")) {
             Bukkit.getConsoleSender().sendMessage(playername + " ist schon gebannt!");
         } else {
-            cfg.set(playername + ".isBanned", true);
-            cfg.set(playername + ".reason", reason);
+            cfg.set("Ban." + playername + ".isBanned", true);
+            cfg.set("Ban." + playername + ".reason", reason);
             saveCFG();
             if (!file.exists()) {
                 try {
@@ -50,12 +51,16 @@ public class BanFile {
     }
 
     public static void unBanPlayer(String playername) {
-        if (!cfg.getBoolean(playername + ".isBanned")) {
-            Bukkit.getConsoleSender().sendMessage(playername + " ist nicht gebannt!");
+        if (!cfg.getBoolean("Ban." + playername + ".isBanned")) {
+            Bukkit.getConsoleSender().sendMessage("Ban." + playername + " ist nicht gebannt!");
         } else {
-            cfg.set(playername + ".isBanned", false);
+            cfg.set("Ban." + playername + ".isBanned", false);
             saveCFG();
         }
+    }
+
+    public List<String> getAllBannedPlayers() {
+        return cfg.getStringList("Ban");
     }
 
 }
