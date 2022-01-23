@@ -302,7 +302,11 @@ public class BankCMD extends CommandBase {
                 return empty;
             }
             List<String> empty = new ArrayList<>();
-            empty.add(plugin.getVaultManager().getEconomy().getBalance((OfflinePlayer) sender) + "");
+            if(args[0].equalsIgnoreCase("deposit")) {
+                empty.add(plugin.getVaultManager().getEconomy().getBalance((OfflinePlayer) sender) + "");
+            } else if(args[0].equalsIgnoreCase("withdraw")) {
+                empty.add(String.valueOf(plugin.getVaultManager().getEconomy().bankBalance(args[1]).balance));
+            }
             return empty;
         }
         return super.onTabComplete(sender, command, label, args);
