@@ -28,6 +28,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -74,7 +75,7 @@ public class Main extends JavaPlugin {
 
     public ArrayList<String> players;
 
-    /* Singelton */
+    /* Singleton */
     private static Main instance;
 
     // RegisterManager
@@ -105,7 +106,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Singelton initializing
+        // Singleton initializing
         instance = this;
 
         // Info FileConfiguration
@@ -360,6 +361,10 @@ public class Main extends JavaPlugin {
         }
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cSome Settings have been moved to the settings.yml in §6'plugins/EssentialsMini/settings.yml'§4§l!");
+
+        // Write permissions.txt File
+        writePermissions();
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aPermissions can be viewed in the File §6'plugins/EssentialsMini/permissions.txt'");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aEnabled!");
 
@@ -689,6 +694,7 @@ public class Main extends JavaPlugin {
 
     public String getOnlyPlayer() {
         String onlyPlayer = getCustomMessagesConfig().getString("OnlyPlayer");
+        if (onlyPlayer == null) return "";
         onlyPlayer = onlyPlayer.replace('&', '§');
         return onlyPlayer;
     }
@@ -703,6 +709,7 @@ public class Main extends JavaPlugin {
 
     public String getWrongArgs(String cmdName) {
         String wrongArgs = getCustomMessagesConfig().getString("WrongArgs");
+        if (wrongArgs == null) return "";
         wrongArgs = wrongArgs.replace("%cmdUsage%", cmdName);
         wrongArgs = wrongArgs.replace('&', '§');
         return wrongArgs;
@@ -727,6 +734,7 @@ public class Main extends JavaPlugin {
      */
     public String getNOPERMS() {
         String NOPERMS = getCustomMessagesConfig().getString("NoPermissions");
+        if (NOPERMS == null) return "";
         NOPERMS = NOPERMS.replace('&', '§');
         return NOPERMS;
     }
@@ -821,7 +829,7 @@ public class Main extends JavaPlugin {
     public String getPrefix() {
         String prefix = getConfig().getString("Prefix");
         if (prefix == null) {
-            throw new NullPointerException("Perfix cannot be Found in Config.yml");
+            throw new NullPointerException("Prefix cannot be Found in Config.yml");
         }
         if (prefix.contains("&"))
             prefix = prefix.replace('&', '§');
@@ -909,6 +917,20 @@ public class Main extends JavaPlugin {
             this.settingsCfg.save(settingsFile);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    protected void writePermissions() {
+        File file = new File(getDataFolder(), "permissions.txt");
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (Permission permission : getDescription().getPermissions()) {
+                writer.append(permission.getName() + "\n");
+            }
+            writer.flush();
+            writer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

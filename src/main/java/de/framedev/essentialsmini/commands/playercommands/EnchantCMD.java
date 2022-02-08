@@ -52,7 +52,11 @@ public class EnchantCMD extends CommandBase {
                             meta.addEnchant(Enchantments.getByName(args[0]), Integer.parseInt(args[1]), true);
                             player.getInventory().getItemInMainHand().setItemMeta(meta);
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cDieses Enchantment existiert nicht!");
+                            String message = plugin.getCustomMessagesConfig().getString("EnchantNotExist");
+                            if (message != null) {
+                                message = new TextUtils().replaceAndToParagraph(message);
+                            }
+                            sender.sendMessage(plugin.getPrefix() + message);
                         }
                     } else {
                         String noItemInHand = plugin.getCustomMessagesConfig().getString("NoItemFoundInHand");

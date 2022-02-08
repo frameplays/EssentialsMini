@@ -2,6 +2,8 @@ package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.utils.TextUtils;
+import de.framedev.essentialsmini.utils.Variables;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -70,7 +72,9 @@ public class BankCMD extends CommandBase {
                         sender.sendMessage("Owner : " + owner.getName());
                     sender.sendMessage("Members : " + plugin.getVaultManager().getBankMembers(name));
                 } else {
-                    sender.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                    String bankNotFound = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotFound");
+                    bankNotFound = new TextUtils().replaceAndToParagraph(bankNotFound);
+                    sender.sendMessage(plugin.getPrefix() + bankNotFound);
                 }
             }
             if (args[0].equalsIgnoreCase("create")) {
@@ -79,12 +83,18 @@ public class BankCMD extends CommandBase {
                     if (player.hasPermission("essentialsmini.bank.create")) {
                         EconomyResponse economyResponse = plugin.getVaultManager().getEconomy().createBank(args[1], player);
                         if (economyResponse.transactionSuccess()) {
-                            player.sendMessage(plugin.getPrefix() + "§aBank Successfully Created!");
+                            String created = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Created");
+                            created = new TextUtils().replaceAndToParagraph(created);
+                            player.sendMessage(plugin.getPrefix() + created);
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cError while Creating Bank! §6" + economyResponse.errorMessage);
+                            String error = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Error");
+                            error = new TextUtils().replaceAndToParagraph(error);
+                            error = new TextUtils().replaceObject(error, "%Reason%", "Creating Bank!");
+                            error = new TextUtils().replaceObject(error, "%Error%", economyResponse.errorMessage);
+                            player.sendMessage(plugin.getPrefix() + error);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             }
@@ -95,15 +105,22 @@ public class BankCMD extends CommandBase {
                     if (player.hasPermission("essentialsmini.bank.balance")) {
                         if (plugin.getVaultManager().getEconomy().getBanks().contains(bankName)) {
                             if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess() || plugin.getVaultManager().getEconomy().isBankMember(bankName, player).transactionSuccess()) {
-                                player.sendMessage(plugin.getPrefix() + "§aThe Balance from the Bank is §6" + plugin.getVaultManager().getEconomy().bankBalance(bankName).balance);
+                                String balance = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Balance");
+                                balance = new TextUtils().replaceAndToParagraph(balance);
+                                balance = new TextUtils().replaceObject(balance, "%Balance%", plugin.getVaultManager().getEconomy().bankBalance(bankName).balance + "");
+                                player.sendMessage(plugin.getPrefix() + balance);
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§cYou are not a BankMember or the Owner!");
+                                String message = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotOwnerOrMember");
+                                message = new TextUtils().replaceAndToParagraph(message);
+                                player.sendMessage(plugin.getPrefix() + message);
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                            String bankNotFound = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotFound");
+                            bankNotFound = new TextUtils().replaceAndToParagraph(bankNotFound);
+                            player.sendMessage(plugin.getPrefix() + bankNotFound);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             }
@@ -115,18 +132,28 @@ public class BankCMD extends CommandBase {
                         if (plugin.getVaultManager().getEconomy().getBanks().contains(bankName)) {
                             if (plugin.getVaultManager().getEconomy().isBankOwner(bankName, player).transactionSuccess()) {
                                 if (plugin.getVaultManager().getEconomy().deleteBank(bankName).transactionSuccess()) {
-                                    player.sendMessage(plugin.getPrefix() + "§cBank successfully deleted!");
+                                    String deleted = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Deleted");
+                                    deleted = new TextUtils().replaceAndToParagraph(deleted);
+                                    player.sendMessage(plugin.getPrefix() + deleted);
                                 } else {
-                                    player.sendMessage(plugin.getPrefix() + "§cError while deleting Bank!");
+                                    String error = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Error");
+                                    error = new TextUtils().replaceAndToParagraph(error);
+                                    error = new TextUtils().replaceObject(error, "%Reason%", "deleting Bank!");
+                                    error = new TextUtils().replaceObject(error, "%Error%", "Error : None");
+                                    player.sendMessage(plugin.getPrefix() + error);
                                 }
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§cYou are not the Owner!");
+                                String message = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotOwner");
+                                message = new TextUtils().replaceAndToParagraph(message);
+                                player.sendMessage(plugin.getPrefix() + message);
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                            String bankNotFound = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotFound");
+                            bankNotFound = new TextUtils().replaceAndToParagraph(bankNotFound);
+                            player.sendMessage(plugin.getPrefix() + bankNotFound);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             }
@@ -166,18 +193,27 @@ public class BankCMD extends CommandBase {
                             if (plugin.getVaultManager().getEconomy().has(player, amount)) {
                                 plugin.getVaultManager().getEconomy().withdrawPlayer(player, amount);
                                 if (plugin.getVaultManager().getEconomy().bankDeposit(bankName, amount).transactionSuccess()) {
-                                    player.sendMessage(plugin.getPrefix() + "§6" + amount + " §awas successfully transferred to the bank!");
+                                    String deposit = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Deposit");
+                                    deposit = new TextUtils().replaceAndToParagraph(deposit);
+                                    deposit = new TextUtils().replaceObject(deposit, "%Amount%", amount + "");
+                                    player.sendMessage(plugin.getPrefix() + deposit);
                                 } else {
-                                    player.sendMessage(plugin.getPrefix() + "§cError while Deposit to the Bank!");
+                                    String error = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Error");
+                                    error = new TextUtils().replaceAndToParagraph(error);
+                                    error = new TextUtils().replaceObject(error, "%Reason%", "Deposit to the Bank!");
+                                    error = new TextUtils().replaceObject(error, "%Error%", "Error : None");
+                                    player.sendMessage(plugin.getPrefix() + error);
                                 }
                             } else {
                                 player.sendMessage(plugin.getPrefix() + "§cNot enougt Money!");
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                            String bankNotFound = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotFound");
+                            bankNotFound = new TextUtils().replaceAndToParagraph(bankNotFound);
+                            player.sendMessage(plugin.getPrefix() + bankNotFound);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             } else if (args[0].equalsIgnoreCase("withdraw")) {
@@ -191,18 +227,25 @@ public class BankCMD extends CommandBase {
                                 if (plugin.getVaultManager().getEconomy().bankHas(bankName, amount).transactionSuccess()) {
                                     plugin.getVaultManager().getEconomy().depositPlayer(player, amount);
                                     plugin.getVaultManager().getEconomy().bankWithdraw(bankName, amount);
-                                    player.sendMessage(plugin.getPrefix() + "§aYou successfully withdrew §6" + amount + " §afrom the bank!");
+                                    String withdraw = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".Withdraw");
+                                    withdraw = new TextUtils().replaceAndToParagraph(withdraw);
+                                    withdraw = new TextUtils().replaceObject(withdraw, "%Amount%", amount + "");
+                                    player.sendMessage(plugin.getPrefix() + withdraw);
                                 } else {
                                     player.sendMessage(plugin.getPrefix() + "§cThe Bank has not enought Money!");
                                 }
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§cYou are not a BankMember or the Owner!");
+                                String message = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotOwnerOrMember");
+                                message = new TextUtils().replaceAndToParagraph(message);
+                                player.sendMessage(plugin.getPrefix() + message);
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                            String bankNotFound = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotFound");
+                            bankNotFound = new TextUtils().replaceAndToParagraph(bankNotFound);
+                            player.sendMessage(plugin.getPrefix() + bankNotFound);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             } else if (args[0].equalsIgnoreCase("addmember")) {
@@ -218,13 +261,17 @@ public class BankCMD extends CommandBase {
                                 if (offline.isOnline())
                                     ((Player) offline).sendMessage(plugin.getPrefix() + "§aYou are now a Member of §6" + player.getName() + "'s §aBank!");
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§cYou are not the Bank Owner!");
+                                String message = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotOwner");
+                                message = new TextUtils().replaceAndToParagraph(message);
+                                player.sendMessage(plugin.getPrefix() + message);
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                            String bankNotFound = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotFound");
+                            bankNotFound = new TextUtils().replaceAndToParagraph(bankNotFound);
+                            player.sendMessage(plugin.getPrefix() + bankNotFound);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             } else if (args[0].equalsIgnoreCase("removemember")) {
@@ -240,13 +287,17 @@ public class BankCMD extends CommandBase {
                                 if (offline.isOnline())
                                     ((Player) offline).sendMessage(plugin.getPrefix() + "§cYou are no longer a Member of §6" + player.getName() + "'s §cBank!");
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§cYou are not the Bank Owner!");
+                                String message = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotOwner");
+                                message = new TextUtils().replaceAndToParagraph(message);
+                                player.sendMessage(plugin.getPrefix() + message);
                             }
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cThis Bank doesn't exist!");
+                            String bankNotFound = plugin.getCustomMessagesConfig().getString(Variables.BANK + ".NotFound");
+                            bankNotFound = new TextUtils().replaceAndToParagraph(bankNotFound);
+                            player.sendMessage(plugin.getPrefix() + bankNotFound);
                         }
                     } else {
-                        player.sendMessage(plugin.getPrefix() + "§cNo Permissions!");
+                        player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                     }
                 }
             }
@@ -302,9 +353,9 @@ public class BankCMD extends CommandBase {
                 return empty;
             }
             List<String> empty = new ArrayList<>();
-            if(args[0].equalsIgnoreCase("deposit")) {
+            if (args[0].equalsIgnoreCase("deposit")) {
                 empty.add(plugin.getVaultManager().getEconomy().getBalance((OfflinePlayer) sender) + "");
-            } else if(args[0].equalsIgnoreCase("withdraw")) {
+            } else if (args[0].equalsIgnoreCase("withdraw")) {
                 empty.add(String.valueOf(plugin.getVaultManager().getEconomy().bankBalance(args[1]).balance));
             }
             return empty;

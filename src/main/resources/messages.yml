@@ -146,3 +146,14 @@ Experience:
   Other:
     Level: '&aYour Level is now &6%Level%'
     XP: '&aYou have now &6%XP% &aExperience'
+
+Bank:
+  NotFound: "&cThis Bank doesn't exist!"
+  Created: '&aBank Successfully Created!'
+  Deleted: '&cBank successfully Deleted!'
+  Error: '&cError while &6%Reason% %Error%'
+  Deposit: '&6%Amount% &awas successfully transferred to the Bank!'
+  Withdraw: '&aYou successfully withdrew &6%Amount% &afrom the Bank!'
+  Balance: '&aThe Bank balance is &6%Balance%!'
+  NotOwnerOrMember: '&cYou are not a BankMember or the Owner!'
+  NotOwner: '&cYou are not the Owner!'
