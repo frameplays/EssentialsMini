@@ -18,7 +18,8 @@ public abstract class ListenerBase implements Listener {
     private final Main plugin;
 
     /**
-     * Register an Listener
+     * Register a Listener
+     *
      * @param listener the Listener for registering
      */
     public void setupListener(Listener listener) {
@@ -27,9 +28,14 @@ public abstract class ListenerBase implements Listener {
 
     public ListenerBase(Main plugin) {
         this.plugin = plugin;
+        setupListener(this);
     }
 
     public Main getPlugin() {
         return plugin;
+    }
+
+    public String getPrefix() {
+        return plugin.getPrefix();
     }
 }

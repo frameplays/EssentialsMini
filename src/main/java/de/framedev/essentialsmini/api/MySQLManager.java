@@ -42,13 +42,13 @@ public class MySQLManager {
         if (isOnlineMode()) {
             if (SQL.isTableExists(tableName)) {
                 if (SQL.exists(tableName, "Player", player.getUniqueId().toString())) {
-                    SQL.updateData(tableName, "Money", "'" + amount + "'", "Player = '" + player.getUniqueId().toString() + "'");
+                    SQL.updateData(tableName, "Money", "'" + amount + "'", "Player = '" + player.getUniqueId() + "'");
                 } else {
-                    SQL.insertData(tableName, "'" + player.getUniqueId().toString() + "','" + player.getName() + "','" + amount + "'", "Player", "Name", "Money");
+                    SQL.insertData(tableName, "'" + player.getUniqueId() + "','" + player.getName() + "','" + amount + "'", "Player", "Name", "Money");
                 }
             } else {
                 SQL.createTable(tableName, "Player TEXT(256)", "Name TEXT(255)", "Money DOUBLE", "BankBalance DOUBLE", "BankName TEXT", "BankOwner TEXT", "BankMembers TEXT");
-                SQL.insertData(tableName, "'" + player.getUniqueId().toString() + "','" + player.getName() + "','" + amount + "'", "Player", "Name", "Money");
+                SQL.insertData(tableName, "'" + player.getUniqueId() + "','" + player.getName() + "','" + amount + "'", "Player", "Name", "Money");
             }
         } else {
             if (SQL.isTableExists(tableName)) {
@@ -117,12 +117,12 @@ public class MySQLManager {
                     if (SQL.get(tableName, "BankName", "Player", player.getUniqueId().toString()) != null) {
                         return false;
                     } else {
-                        SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getUniqueId().toString() + "'");
-                        SQL.updateData(tableName, "BankOwner", "'" + player.getUniqueId().toString() + "'", "Player = '" + player.getUniqueId().toString() + "'");
+                        SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getUniqueId() + "'");
+                        SQL.updateData(tableName, "BankOwner", "'" + player.getUniqueId() + "'", "Player = '" + player.getUniqueId() + "'");
                         return true;
                     }
                 } else {
-                    SQL.insertData(tableName, "'" + player.getUniqueId().toString() + "','" + bankName + "','" + player.getUniqueId().toString() + "'", "Player", "BankName", "BankOwner");
+                    SQL.insertData(tableName, "'" + player.getUniqueId() + "','" + bankName + "','" + player.getUniqueId() + "'", "Player", "BankName", "BankOwner");
                     return true;
                 }
             } else {
@@ -142,7 +142,7 @@ public class MySQLManager {
         } else {
             SQL.createTable(tableName, "Player TEXT(256)", "Name TEXT(255)", "Money DOUBLE", "BankBalance DOUBLE", "BankName TEXT", "BankOwner TEXT", "BankMembers TEXT");
             if (isOnlineMode()) {
-                SQL.insertData(tableName, "'" + player.getUniqueId().toString() + "','" + bankName + "','" + player.getUniqueId().toString() + "'", "Player", "BankName", "BankOwner");
+                SQL.insertData(tableName, "'" + player.getUniqueId() + "','" + bankName + "','" + player.getUniqueId() + "'", "Player", "BankName", "BankOwner");
             } else {
                 SQL.insertData(tableName, "'" + player.getName() + "','" + bankName + "','" + player.getName() + "'", "Player", "BankName", "BankOwner");
             }
@@ -242,7 +242,7 @@ public class MySQLManager {
                 Statement statement = MySQL.getConnection().createStatement();
                 ResultSet resultSet = null;
                 if (isOnlineMode()) {
-                    resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE Player = '" + player.getUniqueId().toString() + "';");
+                    resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE Player = '" + player.getUniqueId() + "';");
                     if (resultSet.next())
                         if (resultSet.getString("BankName").equalsIgnoreCase(name) && resultSet.getString("BankOwner").equalsIgnoreCase(player.getUniqueId().toString()))
                             return true;
@@ -256,7 +256,7 @@ public class MySQLManager {
                 Statement statement = SQLite.connect().createStatement();
                 ResultSet resultSet = null;
                 if (isOnlineMode()) {
-                    resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE Player = '" + player.getUniqueId().toString() + "';");
+                    resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE Player = '" + player.getUniqueId() + "';");
                     if (resultSet.next()) {
                         if (resultSet.getString("BankName").equalsIgnoreCase(name) && resultSet.getString("BankOwner").equalsIgnoreCase(player.getUniqueId().toString())) {
                             return true;
@@ -297,8 +297,8 @@ public class MySQLManager {
                     if (!players.contains(player.getName()))
                         players.add(player.getName());
                     if (isOnlineMode()) {
-                        SQL.updateData(tableName, "BankOwner", "'" + SQL.get(tableName, "BankOwner", "BankName", bankName) + "'", "Player = '" + player.getUniqueId().toString() + "'");
-                        SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getUniqueId().toString() + "'");
+                        SQL.updateData(tableName, "BankOwner", "'" + SQL.get(tableName, "BankOwner", "BankName", bankName) + "'", "Player = '" + player.getUniqueId() + "'");
+                        SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getUniqueId() + "'");
                     } else {
                         SQL.updateData(tableName, "BankOwner", "'" + SQL.get(tableName, "BankOwner", "BankName", bankName) + "'", "Player = '" + player.getName() + "'");
                         SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getName() + "'");
@@ -308,8 +308,8 @@ public class MySQLManager {
                     List<String> players = new ArrayList<>();
                     players.add(player.getName());
                     if (isOnlineMode()) {
-                        SQL.updateData(tableName, "BankOwner", "'" + SQL.get(tableName, "BankOwner", "BankName", bankName) + "'", "Player = '" + player.getUniqueId().toString() + "'");
-                        SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getUniqueId().toString() + "'");
+                        SQL.updateData(tableName, "BankOwner", "'" + SQL.get(tableName, "BankOwner", "BankName", bankName) + "'", "Player = '" + player.getUniqueId() + "'");
+                        SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getUniqueId() + "'");
                     } else {
                         SQL.updateData(tableName, "BankOwner", "'" + SQL.get(tableName, "BankOwner", "BankName", bankName) + "'", "Player = '" + player.getName() + "'");
                         SQL.updateData(tableName, "BankName", "'" + bankName + "'", "Player = '" + player.getName() + "'");
@@ -354,10 +354,10 @@ public class MySQLManager {
                     List<String> players = new Gson().fromJson((String) SQL.get(tableName, "BankMembers", "BankName", bankName), type);
                     players.remove(player.getName());
                     if (isOnlineMode()) {
-                        SQL.updateData(tableName, "BankOwner", "'" + null + "'", "Player = '" + player.getUniqueId().toString() + "'");
-                        SQL.updateData(tableName, "BankName", "'" + null + "'", "Player = '" + player.getUniqueId().toString() + "'");
-                        SQL.updateData(tableName, "BankBalance", "'" + null + "'", "Player = '" + player.getUniqueId().toString() + "'");
-                        SQL.updateData(tableName, "BankMembers", "'" + null + "'", "Player = '" + player.getUniqueId().toString() + "'");
+                        SQL.updateData(tableName, "BankOwner", "'" + null + "'", "Player = '" + player.getUniqueId() + "'");
+                        SQL.updateData(tableName, "BankName", "'" + null + "'", "Player = '" + player.getUniqueId() + "'");
+                        SQL.updateData(tableName, "BankBalance", "'" + null + "'", "Player = '" + player.getUniqueId() + "'");
+                        SQL.updateData(tableName, "BankMembers", "'" + null + "'", "Player = '" + player.getUniqueId() + "'");
                     } else {
                         SQL.updateData(tableName, "BankOwner", "'" + null + "'", "Player = '" + player.getName() + "'");
                         SQL.updateData(tableName, "BankName", "'" + null + "'", "Player = '" + player.getName() + "'");
@@ -499,11 +499,11 @@ public class MySQLManager {
                         for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
                             if (isBankOwner(bankName, player))
                                 if (Bukkit.getOnlineMode()) {
-                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankName", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + player.getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + player.getUniqueId() + "'");
                                 } else {
                                     SQL.updateData(tableName, "BankName", null, "player = '" + player.getName() + "'");
                                     SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getName() + "'");
@@ -516,10 +516,10 @@ public class MySQLManager {
                             members.forEach(member -> {
                                 removeBankMember(bankName, Bukkit.getOfflinePlayer(member));
                                 if (Bukkit.getOnlineMode()) {
-                                    SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
                                 } else {
                                     SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");
                                     SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");
@@ -533,11 +533,11 @@ public class MySQLManager {
                         for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
                             if (isBankOwner(bankName, player))
                                 if (Bukkit.getOnlineMode()) {
-                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankName", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + player.getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + player.getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + player.getUniqueId() + "'");
                                 } else {
                                     SQL.updateData(tableName, "BankName", null, "player = '" + player.getName() + "'");
                                     SQL.updateData(tableName, "BankBalance", null, "player = '" + player.getName() + "'");
@@ -550,10 +550,10 @@ public class MySQLManager {
                             members.forEach(member -> {
                                 removeBankMember(bankName, Bukkit.getOfflinePlayer(member));
                                 if (Bukkit.getOnlineMode()) {
-                                    SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
-                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId().toString() + "'");
+                                    SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankOwner", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
+                                    SQL.updateData(tableName, "BankMembers", null, "player = '" + Bukkit.getOfflinePlayer(member).getUniqueId() + "'");
                                 } else {
                                     SQL.updateData(tableName, "BankName", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");
                                     SQL.updateData(tableName, "BankBalance", null, "player = '" + Bukkit.getOfflinePlayer(member).getName() + "'");

@@ -36,7 +36,7 @@ public class ExperienceCMD extends CommandBase {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 4) {
             if (!sender.hasPermission(getPlugin().getPermissionName() + "xp")) {
-                sender.sendMessage(getPlugin().getPrefix() + getPlugin().getNoPermissions());
+                sender.sendMessage(getPlugin().getPrefix() + getPlugin().getNOPERMS());
                 return true;
             }
             if (args[0].equalsIgnoreCase("set")) {

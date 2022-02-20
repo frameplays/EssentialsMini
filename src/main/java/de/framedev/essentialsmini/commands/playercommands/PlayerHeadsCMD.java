@@ -10,24 +10,24 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.managers.SkullBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-public class PlayerHeadsCMD implements CommandExecutor {
+public class PlayerHeadsCMD extends CommandBase {
 
     private final Main plugin;
 
     public PlayerHeadsCMD(Main plugin) {
+        super(plugin, "playerheads");
         this.plugin = plugin;
-        plugin.getCommands().put("playerheads",this);
     }
 
     @Deprecated
@@ -45,10 +45,10 @@ public class PlayerHeadsCMD implements CommandExecutor {
     @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player) {
-            if(sender.hasPermission(plugin.getPermissionName() + "playerhead")) {
-                if(args.length == 1) {
-                    if(((Player) sender).getInventory().getItemInMainHand().getType() == Material.PLAYER_HEAD) {
+        if (sender instanceof Player) {
+            if (sender.hasPermission(plugin.getPermissionName() + "playerhead")) {
+                if (args.length == 1) {
+                    if (((Player) sender).getInventory().getItemInMainHand().getType() == Material.PLAYER_HEAD) {
                         ItemStack skull = ((Player) sender).getInventory().getItemInMainHand();
                         SkullMeta meta = (SkullMeta) skull.getItemMeta();
                         meta.setOwningPlayer(Bukkit.getOfflinePlayer(args[0]));
@@ -56,10 +56,10 @@ public class PlayerHeadsCMD implements CommandExecutor {
                         skull.setItemMeta(meta);
                         sender.sendMessage(plugin.getPrefix() + "§aDu hast den Player Head von §6" + args[0] + " §abekommen!");
                     } else {
-                        sender.sendMessage(plugin.getPrefix()+ "§cKein Player Head in der Hand gefunden!");
+                        sender.sendMessage(plugin.getPrefix() + "§cKein Player Head in der Hand gefunden!");
                     }
-                } else if(args.length == 2) {
-                    if(Bukkit.getPlayer(args[1]) != null) {
+                } else if (args.length == 2) {
+                    if (Bukkit.getPlayer(args[1]) != null) {
                         Bukkit.getPlayer(args[1]).getInventory().addItem(new SkullBuilder(args[0]).setDisplayName(args[0]).create());
                         sender.sendMessage(plugin.getPrefix() + "§6" + Bukkit.getPlayer(args[1]).getName() + " §ahat den Player Head von §6" + args[0] + " §abekommen!");
                     } else {

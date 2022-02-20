@@ -1,6 +1,7 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,17 +22,14 @@ import java.util.List;
  * ===================================================
  * This Class was created at 18.07.2020 13:32
  */
-public class KillCMD implements CommandExecutor, TabCompleter {
+public class KillCMD extends CommandBase {
 
     private final Main plugin;
     public static boolean suicid = false;
 
     public KillCMD(Main plugin) {
+        super(plugin, "killall", "suicid");
         this.plugin = plugin;
-        plugin.getCommands().put("killall", this);
-        plugin.getTabCompleters().put("killall", this);
-
-        plugin.getCommands().put("suicid", this);
     }
 
     @Override

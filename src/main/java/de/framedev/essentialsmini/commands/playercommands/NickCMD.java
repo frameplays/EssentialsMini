@@ -40,7 +40,7 @@ public class NickCMD extends CommandBase {
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("nick")) {
             if (!player.hasPermission(getPlugin().getPermissionName() + "nick")) {
-                player.sendMessage(getPlugin().getPrefix() + getPlugin().getNoPermissions());
+                player.sendMessage(getPlugin().getPrefix() + getPlugin().getNOPERMS());
                 return true;
             }
             if (args.length == 0) {

@@ -10,11 +10,12 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -22,16 +23,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MessageCMD implements CommandExecutor {
+public class MessageCMD extends CommandBase {
 
     private final Main plugin;
 
     public MessageCMD(Main plugin) {
+        super(plugin, "msg", "r", "spy", "msgtoggle");
         this.plugin = plugin;
-        plugin.getCommands().put("msg", this);
-        plugin.getCommands().put("r", this);
-        plugin.getCommands().put("spy", this);
-        plugin.getCommands().put("msgtoggle", this);
     }
 
     HashMap<Player, Player> reply = new HashMap<>();
@@ -128,6 +126,17 @@ public class MessageCMD implements CommandExecutor {
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
                 }
+            } else if (sender instanceof BlockCommandSender) {
+                BlockCommandSender commandBlock = (BlockCommandSender) sender;
+                Player target = Bukkit.getPlayer(args[0]);
+                String message = "";
+                for (int i = 1; i < args.length; i++) {
+                    message = message + args[i] + " ";
+                }
+                if (target == null) {
+                    return true;
+                }
+                target.sendMessage("§a" + commandBlock.getName() + " §r-> §cme  §f» " + message);
             } else {
                 sender.sendMessage(plugin.getPrefix() + plugin.getOnlyPlayer());
             }
@@ -161,6 +170,7 @@ public class MessageCMD implements CommandExecutor {
                                     target.sendMessage("§a" + player.getName() + " §r-> §cme  §f» " + message);
                                     message = "";
                                     reply.remove(player);
+                                    reply.put(target, player);
                                 }
                             } else {
                                 player.sendMessage(plugin.getPrefix() + "§cDir wurde vor kurzem keine Nachricht geschrieben!");

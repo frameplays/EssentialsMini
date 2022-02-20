@@ -10,19 +10,17 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandListenerBase;
 import de.framedev.essentialsmini.utils.InventoryStringDeSerializer;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
@@ -30,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
+public class BackpackCMD extends CommandListenerBase {
 
     static File file;
     static FileConfiguration cfg;
@@ -38,11 +36,12 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
     private final Main plugin;
 
     public BackpackCMD(Main plugin) {
+        super(plugin);
         this.plugin = plugin;
         if (plugin.getConfig().getBoolean("Backpack")) {
-            plugin.getCommands().put("backpack", this);
-            plugin.getTabCompleters().put("backpack", this);
-            plugin.getListeners().add(this);
+            setup("backpack", this);
+            setupTabCompleter("backpack", this);
+            setupListener(this);
         }
         file = new File(Main.getInstance().getDataFolder(), "backpack.yml");
         cfg = YamlConfiguration.loadConfiguration(file);
@@ -135,11 +134,18 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
                                 locale.equalsIgnoreCase("en_gb") || locale.equalsIgnoreCase("en_nz") ||
                                 locale.equalsIgnoreCase("en_za") || locale.equalsIgnoreCase("en_pt");
                         if (file.exists()) {
-                            file.delete();
-                            if (b) {
-                                player.sendMessage(plugin.getPrefix() + "§6Backpacks deleted!");
+                            if (file.delete()) {
+                                if (b) {
+                                    player.sendMessage(plugin.getPrefix() + "§6Backpacks deleted!");
+                                } else {
+                                    player.sendMessage(plugin.getPrefix() + "§6BackPacks gelöscht!");
+                                }
                             } else {
-                                player.sendMessage(plugin.getPrefix() + "§6BackPacks gelöscht!");
+                                if (b) {
+                                    player.sendMessage(plugin.getPrefix() + "§cError while Deleting BackPacks!");
+                                } else {
+                                    player.sendMessage(plugin.getPrefix() + "§cError beim Löschen der Backpacks");
+                                }
                             }
                         } else {
                             if (b) {
@@ -164,7 +170,8 @@ public class BackpackCMD implements CommandExecutor, TabCompleter, Listener {
         ArrayList<OfflinePlayer> players = new ArrayList<>(Arrays.asList(Bukkit.getOfflinePlayers()));
         ArrayList<String> playerNames = new ArrayList<>();
         for (OfflinePlayer player : players) {
-            playerNames.add(player.getName());
+            if (player != null)
+                playerNames.add(player.getName());
         }
         ArrayList<String> cmds = new ArrayList<>(playerNames);
         cmds.add("delete");

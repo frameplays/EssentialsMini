@@ -22,10 +22,8 @@ public class EssentialsMiniCMD extends CommandBase {
     private final Main plugin;
 
     public EssentialsMiniCMD(Main plugin) {
-        super(plugin);
+        super(plugin, "essentialsmini");
         this.plugin = plugin;
-        setup("essentialsmini", this);
-        setupTabCompleter("essentialsmini", this);
     }
 
     @Override
@@ -34,8 +32,9 @@ public class EssentialsMiniCMD extends CommandBase {
             if (sender.hasPermission("essentialsmini.utils")) {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("reload")) {
-                        sender.sendMessage(plugin.getPrefix() + "§cNot yeet Implemented!");
-                        throw new IllegalStateException("Not Implemented!");
+                        plugin.saveConfig();
+                        plugin.reloadConfig();
+                        sender.sendMessage(plugin.getPrefix() + "§cIf something doesn't work. Please Reload the Server!");
                     }
                     if (args[0].equalsIgnoreCase("info")) {
                         boolean jsonFormat = plugin.getConfig().getBoolean("JsonFormat");

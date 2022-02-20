@@ -17,8 +17,7 @@ import org.bukkit.command.CommandSender;
 public class SilentCMD extends CommandBase {
 
     public SilentCMD(Main plugin) {
-        super(plugin);
-        setup("silent",this);
+        super(plugin, "silent");
     }
 
     @Override

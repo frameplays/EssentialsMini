@@ -3,12 +3,13 @@ package de.framedev.essentialsmini.managers;
 import de.framedev.essentialsmini.commands.playercommands.*;
 import de.framedev.essentialsmini.commands.servercommands.*;
 import de.framedev.essentialsmini.commands.worldcommands.DayNightCMD;
+import de.framedev.essentialsmini.commands.worldcommands.LightningStrikeCMD;
 import de.framedev.essentialsmini.commands.worldcommands.SunRainThunderCMD;
-import de.framedev.essentialsmini.commands.worldcommands.ThunderCMD;
 import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
 import de.framedev.essentialsmini.listeners.*;
 import de.framedev.essentialsmini.main.Main;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabCompleter;
 
 import java.util.Map;
 import java.util.Objects;
@@ -40,7 +41,10 @@ public class RegisterManager {
      * Register all TabCompleters
      */
     private void registerTabCompleters() {
-        plugin.getTabCompleters().forEach((key, value) -> Objects.requireNonNull(plugin.getCommand(key)).setTabCompleter(value));
+        for(Map.Entry<String, TabCompleter> completer : plugin.getTabCompleters().entrySet()) {
+            if(plugin.getCommand(completer.getKey()) == null) continue;
+            Objects.requireNonNull(plugin.getCommand(completer.getKey())).setTabCompleter(completer.getValue());
+        }
     }
 
     /**
@@ -52,6 +56,7 @@ public class RegisterManager {
         new PlayerListeners(plugin);
         new BanListener(plugin);
         new WarpSigns(plugin);
+        plugin.getListeners().add(new SkinChanger());
         plugin.getListeners().forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
     }
 
@@ -105,13 +110,12 @@ public class RegisterManager {
         new SummonCMD(plugin);
         // new SetHealthCMD(plugin);
         new SpeedCMD(plugin);
-        new ThunderCMD(plugin);
-        new RegisterCMD(plugin);
+        new LightningStrikeCMD(plugin);
+        //new RegisterCMD(plugin);
         new ClearChatCMD(plugin);
         this.backup = new BackUpCMD(plugin);
-        new EconomyCMD(plugin);
         if (plugin.getConfig().getBoolean("Economy.Activate")) {
-            new PayCMD(plugin);
+            new EcoCMDs(plugin);
             new BankCMD(plugin);
             new MoneySignListeners(plugin);
         }
@@ -125,6 +129,9 @@ public class RegisterManager {
         new UnBanCMD(plugin);
         new BookCMD(plugin);
         new FireWorkCMD(plugin);
+        new GlobalMuteCMD(plugin);
+        new ExperienceCMD(plugin);
+        new NickCMD(plugin);
         for (Map.Entry<String, CommandExecutor> commands : plugin.getCommands().entrySet()) {
             if (commands.getKey() == null) continue;
             if (commands.getValue() == null) continue;

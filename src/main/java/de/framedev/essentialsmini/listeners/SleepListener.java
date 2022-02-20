@@ -13,6 +13,7 @@ import de.framedev.essentialsmini.main.Main;
 import de.framedev.essentialsmini.managers.BackendManager;
 import de.framedev.essentialsmini.managers.PlayerManager;
 import de.framedev.essentialsmini.managers.PlayerManagerCfgLoss;
+import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -34,7 +35,7 @@ public class SleepListener implements Listener {
 
     @EventHandler
     public void onPlayerSleep(PlayerBedEnterEvent event) {
-        if(!plugin.getConfig().getBoolean("OnlyEssentialsFeatures")) {
+        if (!plugin.getConfig().getBoolean("OnlyEssentialsFeatures")) {
             if (plugin.isMongoDB()) {
                 String collection = "essentialsmini_data";
                 int sleepTimes = (int) plugin.getBackendManager().get(event.getPlayer(), BackendManager.DATA.SLEEPTIMES.getName(), collection);
@@ -53,12 +54,15 @@ public class SleepListener implements Listener {
         }
         if (plugin.getConfig().getBoolean("SkipNight")) {
             if (event.getPlayer().getWorld().getTime() >= 12542 && event.getPlayer().getWorld().getTime() <= 23460 || event.getPlayer().getWorld().isThundering()) {
-                if(!sleep) {
+                if (!sleep) {
                     sleep = true;
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            Bukkit.broadcastMessage("§6" + event.getPlayer().getName() + " §ahat die Nacht übersprungen!");
+                            String message = plugin.getCustomMessagesConfig().getString("SkipNight");
+                            message = new TextUtils().replaceAndToParagraph(message);
+                            message = new TextUtils().replaceObject(message, "%Player%", event.getPlayer().getName());
+                            Bukkit.broadcastMessage(message);
                             event.getPlayer().getWorld().setTime(0);
                             event.getPlayer().getWorld().setThundering(false);
                             event.getPlayer().getWorld().setStorm(false);
@@ -68,7 +72,7 @@ public class SleepListener implements Listener {
                                 public void run() {
                                     sleep = false;
                                 }
-                            }.runTaskLater(plugin,320);
+                            }.runTaskLater(plugin, 320);
                         }
                     }.runTaskLater(plugin, 120);
                 } else {

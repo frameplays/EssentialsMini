@@ -1,5 +1,6 @@
 package de.framedev.essentialsmini.api;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.framedev.essentialsmini.commands.playercommands.*;
 import de.framedev.essentialsmini.commands.worldcommands.WorldTPCMD;
@@ -11,13 +12,9 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.MerchantRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
@@ -25,6 +22,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * This is the API for this Plugin
+ */
 public class EssentialsMiniAPI {
 
     private final Main plugin;
@@ -136,7 +136,7 @@ public class EssentialsMiniAPI {
     }
 
     /**
-     * This Method saves an Location to the Location File
+     * This Method saves a Location to the Location File
      *
      * @param locationName the LocationName to save
      * @param location     the Location to save
@@ -351,6 +351,14 @@ public class EssentialsMiniAPI {
         return new InventoryManager();
     }
 
+    public InventoryManager createNewInventoryManager(String title) {
+        return new InventoryManager(title);
+    }
+
+    public InventoryManager createNewInventoryManager(String title, int size) {
+        return new InventoryManager(title, size);
+    }
+
     public ItemBuilder createNewItemBuilder(ItemStack itemStack) {
         return new ItemBuilder(itemStack);
     }
@@ -385,10 +393,15 @@ public class EssentialsMiniAPI {
         return GameModeCMD.getGameModeById(id);
     }
 
-    public String toJson(Object obj) {
+    public String toPrettyJson(Object obj) {
         return new GsonBuilder().setPrettyPrinting().create().toJson(obj);
     }
+    
+    public String toJson(Object obj) {
+        return new Gson().toJson(obj);
+    }
 
+    /*
     protected Villager villagerCreate(Player player) {
         Villager villager = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
         ArrayList<MerchantRecipe> recipes = new ArrayList<>();
@@ -404,32 +417,33 @@ public class EssentialsMiniAPI {
         villager.setVillagerType(Villager.Type.DESERT);
         return villager;
     }
+     */
 
     /**
      * Create a new Kit for the Plugin
      *
      * @param kitName the KitName for the new Created Kit
-     * @param items   a Array of Items with all Items witch are contained in the Kit
+     * @param items   an Array of Items with all Items witch are contained in the Kit
      */
     public void createKit(String kitName, ItemStack[] items) {
         new KitManager().createKit(kitName, items);
     }
 
     /**
-     * return is the Player Tempmuted or not
+     * return is the Player TempMuted or not
      *
      * @param player the selected Player
-     * @return if Player is tempmuted or not
+     * @return if Player is tempMuted or not
      */
     public boolean isPlayerTempMuted(OfflinePlayer player) {
         return !plugin.getRegisterManager().getMuteCMD().isExpired((Player) player);
     }
 
     /**
-     * return is the Player Tempbanned or not
+     * return is the Player TempBanned or not
      *
      * @param player the selected Player
-     * @return return is the Player is Tempbanned or not
+     * @return return is the Player is TempBanned or not
      */
     public boolean isPlayerTempBanned(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
@@ -440,12 +454,12 @@ public class EssentialsMiniAPI {
     }
 
     /**
-     * return is the Player Permabanned or not
+     * return is the Player PermBanned or not
      *
      * @param player the selected Player
-     * @return return is the Player is permaban or not
+     * @return return is the Player is PermBan or not
      */
-    public boolean isPlayerPermaBanned(OfflinePlayer player) {
+    public boolean isPlayerPermBanned(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             return new BanMuteManager().isPermaBan(player);
         }
@@ -453,10 +467,10 @@ public class EssentialsMiniAPI {
     }
 
     /**
-     * get the Tempmute Reason and the Expire Date
+     * get the TempMute Reason and to Expire Date
      *
      * @param player the selected Player
-     * @return return the Tempmute Reason and Expire Date
+     * @return return the TempMute Reason and Expire Date
      */
     public HashMap<String, String> getTempMuteReasonAndExpireDateFromPlayer(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
@@ -468,7 +482,7 @@ public class EssentialsMiniAPI {
     }
 
     /**
-     * get the Tempban Reason and the Expire Date
+     * get the TempBan Reason and to Expire Date
      *
      * @param player the selected Player
      * @return return the Tempban Reason and Expire Date
@@ -485,12 +499,12 @@ public class EssentialsMiniAPI {
     }
 
     /**
-     * Get the Perma ban Reason from the selected Player
+     * Get the Perm ban Reason from the selected Player
      *
      * @param player the selected Player
-     * @return return the Perma ban Reason from the selected Player
+     * @return return the Perm ban Reason from the selected Player
      */
-    public String getPermaBanReason(OfflinePlayer player) {
+    public String getPermBanReason(OfflinePlayer player) {
         if (plugin.isMysql() || plugin.isSQL()) {
             return new BanMuteManager().getPermaBanReason(player);
         }
@@ -515,5 +529,40 @@ public class EssentialsMiniAPI {
 
     public void setPlayerGodMode(Player player, boolean godMode) {
         player.setInvulnerable(godMode);
+    }
+
+    /**
+     * Get a List of all Bankmembers in the Bank
+     *
+     * @param bankName the Bank Name
+     * @return A list of all Bankmembers
+     */
+    public List<String> getBankMembers(String bankName) {
+        if (economy) {
+            return plugin.getVaultManager().getBankMembers(bankName);
+        }
+        return null;
+    }
+
+    /**
+     * Return all Banks in String
+     *
+     * @return returns a List of String from all Bank Names
+     */
+    public List<String> getBanks() {
+        if (economy)
+            return plugin.getVaultManager().getEco().getBanks();
+        return null;
+    }
+
+    /**
+     * Return all Player accounts
+     *
+     * @return return a List of all Registered Player Accounts
+     */
+    public List<String> getAccounts() {
+        if (economy)
+            plugin.getVaultManager().getAccounts();
+        return null;
     }
 }

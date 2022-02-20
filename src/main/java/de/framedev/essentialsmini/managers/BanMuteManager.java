@@ -4,15 +4,20 @@ import de.framedev.essentialsmini.commands.playercommands.BanCMD;
 import de.framedev.essentialsmini.commands.playercommands.MuteCMD;
 import de.framedev.essentialsmini.commands.playercommands.TempBanCMD;
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.mysqlapi.api.MySQL;
 import de.framedev.mysqlapi.api.SQL;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * / This Plugin was Created by FrameDev
@@ -44,11 +49,18 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempMute", "TempMuteReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempMute", "TempMuteReason");
         }
     }
 
+    /**
+     * Set TempMute to Database for Syncing
+     *
+     * @param player the Player
+     * @param reason the Reason as String
+     * @param date   the actual date
+     */
     public void setTempMute(OfflinePlayer player, String reason, String date) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
@@ -58,7 +70,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempMute", "TempMuteReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempMute", "TempMuteReason");
         }
     }
@@ -122,10 +134,11 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempBan", "TempBanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason.getReason() + "'", "Player", "TempBan", "TempBanReason");
         }
     }
+
     public void setTempBan(OfflinePlayer player, String reason, String date) {
         if (SQL.isTableExists(table)) {
             if (SQL.exists(table, "Player", player.getName())) {
@@ -135,7 +148,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempBan", "TempBanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + date + "','" + reason + "'", "Player", "TempBan", "TempBanReason");
         }
     }
@@ -210,7 +223,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason.getReason() + "'", "Player", "Ban", "BanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason.getReason() + "'", "Player", "Ban", "BanReason");
         }
     }
@@ -224,7 +237,7 @@ public class BanMuteManager {
                 SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason + "'", "Player", "Ban", "BanReason");
             }
         } else {
-            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban BOOLEAN", "BanReason TEXT");
+            SQL.createTable(table, "Player VARCHAR(1255)", "TempMute TEXT", "TempMuteReason TEXT", "TempBan TEXT", "TempBanReason TEXT", "Ban TEXT", "BanReason TEXT");
             SQL.insertData(table, "'" + player.getName() + "','" + permaBan + "','" + reason + "'", "Player", "Ban", "BanReason");
         }
     }
@@ -247,5 +260,39 @@ public class BanMuteManager {
             }
         }
         return "";
+    }
+
+    public List<String> getAllBannedPlayers() {
+        List<String> playerNames = new ArrayList<>();
+        if (SQL.isTableExists(table)) {
+            try {
+                Statement statement = MySQL.getConnection().createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM " + table);
+                while (resultSet.next()) {
+                    if (resultSet.getString("Player") != null && isPermaBan(Bukkit.getOfflinePlayer(resultSet.getString("Player"))))
+                        playerNames.add(resultSet.getString("Player"));
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+        return playerNames;
+    }
+
+    public List<String> getAllTempBannedPlayers() {
+        List<String> playerNames = new ArrayList<>();
+        if (SQL.isTableExists(table)) {
+            try {
+                Statement statement = MySQL.getConnection().createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM " + table);
+                while (resultSet.next()) {
+                    if (resultSet.getString("Player") != null && isTempBan(Bukkit.getOfflinePlayer(resultSet.getString("Player"))) && !isExpiredTempBan(Bukkit.getOfflinePlayer(resultSet.getString("Player"))))
+                        playerNames.add(resultSet.getString("Player"));
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+        return playerNames;
     }
 }

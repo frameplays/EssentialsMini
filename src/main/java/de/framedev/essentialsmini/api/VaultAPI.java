@@ -26,7 +26,7 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public boolean isEnabled() {
-        return Main.getInstance() != null;
+        return Main.getInstance().isEnabled();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class VaultAPI extends AbstractEconomy {
 
     @Override
     public String format(double amount) {
-        return String.format("%.2f", amount);
+        return String.format("%.4f", amount);
     }
 
     public double formatToDouble(double amount) {
@@ -162,6 +162,7 @@ public class VaultAPI extends AbstractEconomy {
             if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
                 new MySQLManager().removeMoney(Bukkit.getOfflinePlayer(playerName), amount);
             } else if (Main.getInstance().isMongoDB()) {
+                //noinspection deprecation
                 if (Main.getInstance().getBackendManager().exists(Bukkit.getOfflinePlayer(playerName), "money", "essentialsmini_data"))
                     Main.getInstance().getBackendManager().updateUser(Bukkit.getOfflinePlayer(playerName), "money", balance, "essentialsmini_data");
             } else {

@@ -15,10 +15,7 @@ import java.util.*;
 public class BanCMD extends CommandBase {
 
     public BanCMD(Main plugin) {
-        super(plugin);
-        setup("eban", this);
-        setupTabCompleter("eban", this);
-        setup(this);
+        super(plugin, "eban");
     }
 
     @Override
@@ -29,7 +26,7 @@ public class BanCMD extends CommandBase {
                     BanType type = BanType.valueOf(args[2].toUpperCase());
                     if (getPlugin().isMysql() || getPlugin().isSQL()) {
                         if (Bukkit.getPlayer(args[1]) != null)
-                            Objects.requireNonNull(Bukkit.getPlayer(args[0])).kickPlayer(ChatColor.RED + "You are Banned while " + ChatColor.GOLD + type.getReason());
+                            Objects.requireNonNull(Bukkit.getPlayer(args[1])).kickPlayer(ChatColor.RED + "You are Banned while " + ChatColor.GOLD + type.getReason());
                         new BanMuteManager().setPermaBan(Bukkit.getOfflinePlayer(args[1]), type, true);
                     } else {
                         BanFile.banPlayer(args[1], type.getReason());
@@ -103,7 +100,7 @@ public class BanCMD extends CommandBase {
                 Collections.sort(empty);
                 return empty;
             }
-            if(args[0].equalsIgnoreCase("own")) {
+            if (args[0].equalsIgnoreCase("own")) {
                 return new ArrayList<String>(Collections.singleton("your_Message"));
             }
         }

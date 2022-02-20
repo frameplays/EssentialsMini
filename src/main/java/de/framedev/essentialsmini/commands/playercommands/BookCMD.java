@@ -23,9 +23,7 @@ import java.util.List;
 public class BookCMD extends CommandBase {
 
     public BookCMD(Main plugin) {
-        super(plugin);
-        setup("copybook", this);
-        setup("book", this);
+        super(plugin, "copybook", "book");
     }
 
     @Override

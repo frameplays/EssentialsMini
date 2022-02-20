@@ -76,18 +76,8 @@ public class Config {
         if (defConfigStream != null) {
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
             cfg.setDefaults(defConfig);
-            //Copy default values
             cfg.options().copyDefaults(true);
-            cfg.options().header("MySQL and SQLite uses MySQLAPI[https://framedev.stream/sites/downloads/mysqlapi] \n" +
-                    "Position activates /position Command \n" +
-                    "SkipNight activates skipnight \n" +
-                    "LocationsBackup Activates creating Backup from all Homes \n" +
-                    "OnlyEssentialsFeatures activates the PlayerData saving \n" +
-                    "Economy.Activate activates the integration of the Vault API use for Economy");
-            cfg.options().copyHeader(true);
-            Main.getInstance().saveConfig();
-            //OR use this to copy default values
-            //this.saveDefaultConfig();
+            Main.getInstance().saveDefaultConfig();
         }
     }
 }

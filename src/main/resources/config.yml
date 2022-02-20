@@ -1,4 +1,4 @@
-Config-Version: "1.0.0"
+Config-Version: '1.0.1'
 
 Prefix: '&6[&aEssentials&bMini&6] &c>> &f'
 Back: true
@@ -11,6 +11,7 @@ SaveInventory: false
 Backpack: false
 SpawnTP: false
 SkipNight: false
+BedColor: 'BLUE'
 
 LocationsBackup: false
 
@@ -86,13 +87,15 @@ AFK:
   Boolean: false
   IsAFK: '&7[Player] is now AFK'
   IsNotAFK: '&7[Player] is no longer AFK'
+
 NotAllowCommand: '&cNope'
 AutoDownload: false
 
 ColoredChat: true
-
 ColoredSigns: true
 
 PlayerShop: true
 
 PlayerEvents: false
+
+TeleportDelay: 3

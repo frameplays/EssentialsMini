@@ -20,22 +20,47 @@ public abstract class CommandListenerBase extends CommandBase implements Listene
 
     public CommandListenerBase(Main plugin) {
         super(plugin);
+        setupListener(this);
     }
 
     public CommandListenerBase(Main plugin, @NonNull String cmdName) {
         super(plugin, cmdName);
+        setupListener(this);
     }
 
     public CommandListenerBase(Main plugin, @NonNull String cmdName, CommandExecutor executor) {
-        super(plugin, cmdName, executor);
+        super(plugin, executor, cmdName);
+        setupListener(this);
     }
 
-    public CommandListenerBase(Main plugin, CommandExecutor executor, @NotNull @NonNull String... cmdNames) {
-        super(plugin, executor, cmdNames);
+    public CommandListenerBase(Main plugin, @NotNull @NonNull String... cmdNames) {
+        super(plugin,  cmdNames);
+        setupListener(this);
     }
 
     public CommandListenerBase(Main plugin, CommandExecutor executor, TabCompleter completer, @NotNull @NonNull String... cmdNames) {
         super(plugin, executor, completer, cmdNames);
+        setupListener(this);
+    }
+
+    public CommandListenerBase(Main plugin, CommandExecutor executor, TabCompleter completer, @NotNull String cmdName, Listener listener) {
+        super(plugin, executor, completer, cmdName);
+        setupListener(listener);
+    }
+
+    public CommandListenerBase(Main plugin, CommandExecutor executor, TabCompleter completer, Listener listener, @NotNull String... cmdNames) {
+        super(plugin, executor, completer, cmdNames);
+        setupListener(listener);
+    }
+
+    public CommandListenerBase(Main plugin, CommandExecutor executor, Listener listener, @NotNull String... cmdNames) {
+        super(plugin, executor, cmdNames);
+        setupListener(listener);
+    }
+
+    public CommandListenerBase(Main plugin, CommandExecutor executor, Listener listener, @NotNull String cmdName) {
+        super(plugin, executor, cmdName);
+        setupListener(listener);
     }
 
     public void setupListener(Listener listener) {

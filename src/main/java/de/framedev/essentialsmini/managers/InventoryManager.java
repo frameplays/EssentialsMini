@@ -13,29 +13,43 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class InventoryManager {
 
-    private String title;
+    private @NotNull String title;
     private int size = 0;
     private Inventory inventory;
 
     public InventoryManager() {
+        title = "";
+    }
+
+    public InventoryManager(@NotNull String title) {
+        this.title = title;
+        this.size = 1;
+    }
+
+    public InventoryManager(@NotNull String title, int size) {
+        this.title = title;
+        this.size = size;
     }
 
     public InventoryManager(Inventory inventory) {
         this.inventory = inventory;
+        title = "";
     }
 
-    public String getTitle() {
+    public @NotNull String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NotNull String title) {
         this.title = title;
     }
 
     public int getSize() {
+        if (size == 0) size = 1;
         return size * 9;
     }
 
@@ -59,6 +73,11 @@ public class InventoryManager {
         return inventory.getItem(index);
     }
 
+    public void addItem(ItemStack... items) {
+        if (inventory == null) return;
+        this.inventory.addItem(items);
+    }
+
     public void addItem(ItemStack itemStack) {
         if (inventory == null) return;
         this.inventory.addItem(itemStack);
@@ -70,14 +89,13 @@ public class InventoryManager {
     }
 
     public InventoryManager create() {
-        if (title == null) title = "Inventory";
         if (size == 0) size = 1;
         this.inventory = Bukkit.createInventory(null, getSize(), getTitle());
         return this;
     }
 
     public void fillNull() {
-        int inventorySize = size * 9;
+        int inventorySize = getSize();
         for (int i = 0; i < inventorySize; i++) {
             if (inventory.getItem(i) == null) {
                 inventory.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName(" ").build());
@@ -91,5 +109,14 @@ public class InventoryManager {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getFirstEmptySlot() {
+        if (inventory == null) return -0;
+        for (int i = 0; i < getSize(); i++) {
+            if (inventory.getItem(i) == null)
+                return i;
+        }
+        return -1;
     }
 }

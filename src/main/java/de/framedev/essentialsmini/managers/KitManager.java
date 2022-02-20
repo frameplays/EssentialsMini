@@ -47,10 +47,13 @@ public class KitManager {
         }
     }
 
+    public boolean existsKit(String name) {
+        return getCustomConfig().contains("Items." + name);
+    }
 
     public void loadKits(String name, Player player) {
         try {
-            for (String s : getCustomConfig().getStringList("Items." + name)) {
+            for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
                 if (s == null) return;
                 if (s.contains(",")) {
                     String[] x = s.split(",");
@@ -97,7 +100,9 @@ public class KitManager {
             if (itemStack == null) continue;
             kit.add(itemStack.getType() + "," + itemStack.getAmount());
         }
-        customConfig.set("Items." + kitName, kit);
+        customConfig.set("Items." + kitName + ".Content", kit);
+        customConfig.set("Items." + kitName + ".Cost", 0);
+        customConfig.set("Items." + kitName + ".Cooldown", 0);
         try {
             customConfig.save(customConfigFile);
         } catch (IOException e) {
@@ -105,12 +110,64 @@ public class KitManager {
         }
     }
 
+    public void createKit(String kitName, ItemStack[] items, int cooldown) {
+        ArrayList<String> kit = new ArrayList<>();
+        for (ItemStack itemStack : items) {
+            if (itemStack == null) continue;
+            kit.add(itemStack.getType() + "," + itemStack.getAmount());
+        }
+        customConfig.set("Items." + kitName + ".Content", kit);
+        customConfig.set("Items." + kitName + ".Cooldown", cooldown);
+        customConfig.set("Items." + kitName + ".Cost", 0);
+        try {
+            customConfig.save(customConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createKit(String kitName, ItemStack[] items, int cooldown, int cost) {
+        ArrayList<String> kit = new ArrayList<>();
+        for (ItemStack itemStack : items) {
+            if (itemStack == null) continue;
+            kit.add(itemStack.getType() + "," + itemStack.getAmount());
+        }
+        customConfig.set("Items." + kitName + ".Content", kit);
+        customConfig.set("Items." + kitName + ".Cooldown", cooldown);
+        customConfig.set("Items." + kitName + ".Cost", cost);
+        try {
+            customConfig.save(customConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getCooldown(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cooldown");
+    }
+
+    public int getCost(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cost");
+    }
+
+    public boolean hasCost(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cost") != 0;
+    }
+
+    public boolean hasCooldown(String name) {
+        return getCustomConfig().getInt("Items." + name + ".Cooldown") != 0;
+    }
+
     public Inventory getKit(String name) {
         try {
-            for (String s : getCustomConfig().getStringList("Items." + name)) {
-                String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
-                this.kitname.addItem(item);
+            for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
+                if (s.contains(",")) {
+                    String[] x = s.split(",");
+                    ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()), Integer.parseInt(x[1]));
+                    this.kitname.addItem(item);
+                } else {
+                    this.kitname.addItem(new ItemStack(Material.getMaterial(s.toUpperCase())));
+                }
             }
         } catch (Exception ex) {
             Bukkit.getConsoleSender().sendMessage("§cError while Creating Kit §f" + ex.getMessage());
@@ -125,12 +182,16 @@ public class KitManager {
 
     public List<ItemStack> loadKit(String name) {
         ArrayList<ItemStack> items = new ArrayList<>();
-        for (String s : getCustomConfig().getStringList("Items." + name)) {
+        for (String s : getCustomConfig().getStringList("Items." + name + ".Content")) {
             if (s != null) {
-                String[] x = s.split(",");
-                ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()));
-                item.setAmount(Integer.parseInt(x[1]));
-                items.add(item);
+                if (s.contains(",")) {
+                    String[] x = s.split(",");
+                    ItemStack item = new ItemStack(Material.getMaterial(x[0].toUpperCase()));
+                    item.setAmount(Integer.parseInt(x[1]));
+                    items.add(item);
+                } else {
+                    items.add(new ItemStack(Material.getMaterial(s.toUpperCase())));
+                }
             }
         }
         return items;

@@ -25,7 +25,6 @@ public class SpeedCMD extends CommandBase {
     public SpeedCMD(Main plugin) {
         super(plugin, "speed");
         this.plugin = plugin;
-        setup(this);
     }
 
     @Override

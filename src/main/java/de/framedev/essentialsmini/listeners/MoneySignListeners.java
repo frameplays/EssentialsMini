@@ -38,7 +38,6 @@ public class MoneySignListeners extends ListenerBase implements CommandExecutor 
 
     public MoneySignListeners(Main plugin) {
         super(plugin);
-        setupListener(this);
         plugin.getCommand("signremove").setExecutor(this);
         if (plugin.getConfig().getBoolean("Economy.Activate")) {
             eco = plugin.getVaultManager().getEco();

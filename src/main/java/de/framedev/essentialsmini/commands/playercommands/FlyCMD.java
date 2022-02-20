@@ -5,22 +5,22 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
  * @author DHZoc
  */
-public class FlyCMD implements CommandExecutor {
+public class FlyCMD extends CommandBase {
 
     private final Main plugin;
 
     public FlyCMD(Main plugin) {
+        super(plugin, "fly");
         this.plugin = plugin;
-        plugin.getCommands().put("fly", this);
     }
 
     @Override
@@ -33,14 +33,14 @@ public class FlyCMD implements CommandExecutor {
                         player.setAllowFlight(true);
                         player.setFlying(true);
                         String flySelfOn = plugin.getCustomMessagesConfig().getString("FlySelfOn");
-                        if(flySelfOn.contains("&"))
+                        if (flySelfOn.contains("&"))
                             flySelfOn = flySelfOn.replace('&', '§');
                         player.sendMessage(plugin.getPrefix() + flySelfOn);
                     } else {
                         player.setAllowFlight(false);
                         player.setFlying(false);
                         String flySelfOff = plugin.getCustomMessagesConfig().getString("FlySelfOff");
-                        if(flySelfOff.contains("&"))
+                        if (flySelfOff.contains("&"))
                             flySelfOff = flySelfOff.replace('&', '§');
                         player.sendMessage(plugin.getPrefix() + flySelfOff);
                     }
@@ -64,9 +64,9 @@ public class FlyCMD implements CommandExecutor {
                             target.sendMessage(plugin.getPrefix() + flySelfOn);
                         }
                         String flyOtherOn = plugin.getCustomMessagesConfig().getString("FlyOtherOn");
-                        if(flyOtherOn.contains("&"))
+                        if (flyOtherOn.contains("&"))
                             flyOtherOn = flyOtherOn.replace('&', '§');
-                        if(flyOtherOn.contains("%Player%"))
+                        if (flyOtherOn.contains("%Player%"))
                             flyOtherOn = flyOtherOn.replace("%Player%", target.getName());
                         sender.sendMessage(plugin.getPrefix() + flyOtherOn);
                     } else {
@@ -80,9 +80,9 @@ public class FlyCMD implements CommandExecutor {
                             target.sendMessage(plugin.getPrefix() + "§cDu kannst nun nicht mehr Fliegen!");
                         }
                         String flyOtherOff = plugin.getCustomMessagesConfig().getString("FlyOtherOff");
-                        if(flyOtherOff.contains("&"))
+                        if (flyOtherOff.contains("&"))
                             flyOtherOff = flyOtherOff.replace('&', '§');
-                        if(flyOtherOff.contains("%Player%"))
+                        if (flyOtherOff.contains("%Player%"))
                             flyOtherOff = flyOtherOff.replace("%Player%", target.getName());
                         sender.sendMessage(plugin.getPrefix() + flyOtherOff);
                     }

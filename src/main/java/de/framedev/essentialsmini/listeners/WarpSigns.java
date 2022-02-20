@@ -24,14 +24,13 @@ import org.bukkit.inventory.EquipmentSlot;
 public class WarpSigns extends ListenerBase {
     public WarpSigns(Main plugin) {
         super(plugin);
-        setupListener(this);
     }
 
     @EventHandler
     public void onSignChange(SignChangeEvent event) {
-        if(event.getLine(0) == null) return;
-        if(event.getLine(1) == null) return;
-        if(event.getLine(0).equalsIgnoreCase("warp")) {
+        if (event.getLine(0) == null) return;
+        if (event.getLine(1) == null) return;
+        if (event.getLine(0).equalsIgnoreCase("warp")) {
             if (event.getPlayer().hasPermission("essentialsmini.signs.create")) {
                 boolean success = false;
                 for (String location : new LocationsManager().getWarpNames()) {
@@ -60,7 +59,7 @@ public class WarpSigns extends ListenerBase {
                     event.getClickedBlock().getState() instanceof Sign) {
                 Sign s = (Sign) event.getClickedBlock().getState();
                 String[] lines = s.getLines();
-                if(lines[0].equalsIgnoreCase("§6[§bWARP§6]")) {
+                if (lines[0].equalsIgnoreCase("§6[§bWARP§6]")) {
                     if (event.getPlayer().hasPermission("essentialsmini.signs.use")) {
                         String warpName = lines[1].replace("§a", "");
                         Location location = new LocationsManager().getLocation("warps." + warpName);

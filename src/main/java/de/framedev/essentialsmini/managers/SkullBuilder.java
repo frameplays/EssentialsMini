@@ -28,7 +28,12 @@ public class SkullBuilder {
     public SkullBuilder(String skullOwner) {
         itemStack = new ItemStack(Material.PLAYER_HEAD);
         this.skullOwner = skullOwner;
-        this.player = Bukkit.getOfflinePlayer(UUIDFetcher.getUUID(skullOwner));
+        if(Bukkit.getServer().getOnlineMode()) {
+            this.player = Bukkit.getOfflinePlayer(UUIDFetcher.getUUID(skullOwner));
+        } else {
+            //noinspection deprecation
+            this.player = Bukkit.getOfflinePlayer(skullOwner);
+        }
     }
 
     public SkullBuilder(UUID uuid) {

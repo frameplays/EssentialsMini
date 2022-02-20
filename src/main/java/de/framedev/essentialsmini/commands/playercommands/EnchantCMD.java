@@ -10,13 +10,12 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import de.framedev.essentialsmini.utils.ReplaceCharConfig;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,14 +24,13 @@ import java.util.*;
 
 import static org.bukkit.Material.AIR;
 
-public class EnchantCMD implements CommandExecutor, TabCompleter {
+public class EnchantCMD extends CommandBase {
 
     private final Main plugin;
 
     public EnchantCMD(Main plugin) {
+        super(plugin, "enchant");
         this.plugin = plugin;
-        plugin.getCommands().put("enchant", this);
-        plugin.getTabCompleters().put("enchant", this);
     }
 
     @Override
@@ -54,7 +52,11 @@ public class EnchantCMD implements CommandExecutor, TabCompleter {
                             meta.addEnchant(Enchantments.getByName(args[0]), Integer.parseInt(args[1]), true);
                             player.getInventory().getItemInMainHand().setItemMeta(meta);
                         } else {
-                            player.sendMessage(plugin.getPrefix() + "§cDieses Enchantment existiert nicht!");
+                            String message = plugin.getCustomMessagesConfig().getString("EnchantNotExist");
+                            if (message != null) {
+                                message = new TextUtils().replaceAndToParagraph(message);
+                            }
+                            sender.sendMessage(plugin.getPrefix() + message);
                         }
                     } else {
                         String noItemInHand = plugin.getCustomMessagesConfig().getString("NoItemFoundInHand");

@@ -23,10 +23,9 @@ commands:
     description: Custom restart feature
   tpaheredeny:
   home:
-    permission: essentialsmini.home
     description: teleport you to our home Location
+  homegui:
   sethome:
-    permission: essentialsmini.sethome
     description: set your home location
   setspawn:
     permission: essentialsmini.setspawn
@@ -172,9 +171,6 @@ commands:
       - god
   spawnmob:
     description: Spawn a Custom Mob
-  getlocationfromstring:
-  register:
-  login:
   speed:
     description: Change your Walk Speed
   chatclear:
@@ -202,8 +198,6 @@ commands:
     description: This will allow or deny Teleports from other players
   mysql:
     description: Check if MySQL is Enabled
-  infoeconomy:
-    description: Infos About Economy
   balancetop:
     description: Who has the Most Money
     aliases:
@@ -231,6 +225,18 @@ commands:
   firework:
   createkit:
     description: Create a new Kit, Place all your Items in your Inventory.This Command will delete your Inventory after execute
+  globalmute:
+    aliases:
+      - gmute
+      - glmute
+  offline:
+    aliases:
+      - offlineplayers
+      - offplayers
+  xp:
+    aliases:
+      - exp
+      - experience
 permissions:
   essentialsmini.*:
     children:
@@ -305,6 +311,19 @@ permissions:
       essentialsmini.tempmute: true
       essentialsmini.muteinfo: true
       essentialsmini.removetempmute: true
+      essentialsmini.bank.create: true
+      essentialsmini.bank.balance: true
+      essentialsmini.bank.remove: true
+      essentialsmini.bank.deposit: true
+      essentialsmini.bank.withdraw: true
+      essentialsmini.bank.addmember: true
+      essentialsmini.bank.removemember: true
+      essentialsmini.workbench: true
+      essentialsmini.balancetop: true
+      essentialsmini.xp: true
+      essentialsmini.checkupdates: true
+      essentialsmini.globalmute: true
+      essentialsmini.globalmute.bypass: true
   essentialsmini.sethome:
     default: op
   essentialsmini.worldutils:
@@ -477,3 +496,31 @@ permissions:
     default: op
   essentialsmini.signs.update:
     default: op
+  essentialsmini.bank.create:
+    default: op
+  essentialsmini.bank.balance:
+    default: op
+  essentialsmini.bank.remove:
+    default: op
+  essentialsmini.bank.deposit:
+    default: op
+  essentialsmini.bank.withdraw:
+    default: op
+  essentialsmini.bank.addmember:
+    default: op
+  essentialsmini.bank.removemember:
+    default: op
+  essentialsmini.workbench:
+    default: op
+  essentialsmini.balancetop:
+    default: op
+  essentialsmini.xp:
+    default: op
+  essentialsmini.checkupdates:
+    default: op
+  essentialsmini.globalmute:
+    default: op
+  essentialsmini.globalmute.bypass:
+    default: op
+    children:
+      essentialsmini.globalmute: true

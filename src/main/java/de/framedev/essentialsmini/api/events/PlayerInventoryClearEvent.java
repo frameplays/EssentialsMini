@@ -1,7 +1,6 @@
 package de.framedev.essentialsmini.api.events;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  * / Copyrighted by FrameDev
  */
 
-public class PlayerInventoryClearEvent extends Event implements Cancellable {
+public class PlayerInventoryClearEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
 
     private final Player player;
@@ -44,15 +43,5 @@ public class PlayerInventoryClearEvent extends Event implements Cancellable {
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    @Override
-    public boolean isCancelled() {
-        return isCancelled;
-    }
-
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.isCancelled = cancel;
     }
 }

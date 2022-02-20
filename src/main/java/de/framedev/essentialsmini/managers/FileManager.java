@@ -28,7 +28,7 @@ public class FileManager {
         this.cfg = YamlConfiguration.loadConfiguration(file);
     }
 
-    private void save() {
+    private void saveFile() {
         try {
             cfg.save(file);
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class FileManager {
         } else {
             cfg.set(player.getName(), amount);
         }
-        save();
+        saveFile();
     }
 
     public double getMoney(OfflinePlayer player) {

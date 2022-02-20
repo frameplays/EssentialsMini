@@ -1,19 +1,18 @@
 package de.framedev.essentialsmini.commands.playercommands;
 
 import de.framedev.essentialsmini.main.Main;
-import de.framedev.essentialsmini.managers.CommandBase;
+import de.framedev.essentialsmini.managers.CommandListenerBase;
 import de.framedev.essentialsmini.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
  * ===================================================
@@ -22,7 +21,7 @@ import java.util.ArrayList;
  * ===================================================
  * This Class was created at 15.07.2020 11:59
  */
-public class VanishCMD extends CommandBase implements Listener {
+public class VanishCMD extends CommandListenerBase {
 
     private final Main plugin;
     public static ArrayList<String> hided = new ArrayList<>();
@@ -30,8 +29,6 @@ public class VanishCMD extends CommandBase implements Listener {
     public VanishCMD(Main plugin) {
         super(plugin, "vanish");
         this.plugin = plugin;
-        setup(this);
-        plugin.getListeners().add(this);
     }
 
     @Override
@@ -50,10 +47,12 @@ public class VanishCMD extends CommandBase implements Listener {
                             if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             player.sendMessage(plugin.getPrefix() + message);
-                            if(plugin.getConfig().getBoolean("Vanish.Message")) {
+                            if (plugin.getConfig().getBoolean("Vanish.Message")) {
                                 String joinMessage = plugin.getConfig().getString("JoinMessage");
-                                joinMessage = joinMessage.replace('&', '§');
-                                joinMessage = joinMessage.replace("%Player%", player.getName());
+                                if (joinMessage.contains("&"))
+                                    joinMessage = joinMessage.replace('&', '§');
+                                if (joinMessage.contains("%Player%"))
+                                    joinMessage = joinMessage.replace("%Player%", player.getName());
                                 Bukkit.broadcastMessage(joinMessage);
                             }
                             return true;
@@ -68,12 +67,12 @@ public class VanishCMD extends CommandBase implements Listener {
                             if (message.contains("&"))
                                 message = new TextUtils().replaceAndToParagraph(message);
                             player.sendMessage(plugin.getPrefix() + message);
-                            if(plugin.getConfig().getBoolean("Vanish.Message")) {
+                            if (plugin.getConfig().getBoolean("Vanish.Message")) {
                                 String leaveMessage = plugin.getConfig().getString("LeaveMessage");
-                                if (leaveMessage.contains("&")) {
+                                if (leaveMessage.contains("&"))
                                     leaveMessage = leaveMessage.replace('&', '§');
+                                if (leaveMessage.contains("%Player%"))
                                     leaveMessage = leaveMessage.replace("%Player%", player.getName());
-                                }
                                 Bukkit.broadcastMessage(leaveMessage);
                             }
                             return true;
@@ -137,7 +136,7 @@ public class VanishCMD extends CommandBase implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         for (String vanish : hided) {
             if (!event.getPlayer().hasPermission("essentialsmini.vanish.see")) {
-                event.getPlayer().hidePlayer(plugin, Bukkit.getPlayer(vanish));
+                event.getPlayer().hidePlayer(plugin, Objects.requireNonNull(Bukkit.getPlayer(vanish)));
             }
         }
     }

@@ -18,6 +18,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandExecutor;
@@ -28,7 +29,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.*;
 import java.net.URL;
@@ -73,7 +76,7 @@ public class Main extends JavaPlugin {
 
     public ArrayList<String> players;
 
-    /* Instance */
+    /* Singleton */
     private static Main instance;
 
     // RegisterManager
@@ -99,10 +102,12 @@ public class Main extends JavaPlugin {
 
     private MongoDBUtils mongoDbUtils;
     private String configVersion;
+    private File settingsFile;
+    private FileConfiguration settingsCfg;
 
     @Override
     public void onEnable() {
-        // instance initializing
+        // Singleton initializing
         instance = this;
 
         // Info FileConfiguration
@@ -124,13 +129,22 @@ public class Main extends JavaPlugin {
                 "Economy.Activate activates the integration of the Vault API use for Economy \n" +
                 "PlayerShop is that Players can create their own Shop \n" +
                 "PlayerEvents also named as PlayerData events \n" +
-                "Only 3 Limited Homes Group can be created. Please do not rename the Groups or add a new One!");
+                "Only 3 Limited Homes Group can be created. Please do not rename the Groups! \n" +
+                "TeleportDelay is the Time you have to wait befor you got Teleported");
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
         Config.updateConfig();
         Config.loadConfig();
         Config.saveDefaultConfigValues();
+        Config.saveDefaultConfigValues("settings");
+        this.settingsFile = new File(getDataFolder(), "settings.yml");
+        this.settingsCfg = YamlConfiguration.loadConfiguration(settingsFile);
+        try {
+            this.settingsCfg.save(settingsFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         this.configVersion = getConfig().getString("Config-Version");
 
@@ -208,11 +222,17 @@ public class Main extends JavaPlugin {
         if (getConfig().getBoolean("LocationsBackup")) {
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aLocation Backups enabled!");
         }
+        UpdateScheduler updateScheduler = new UpdateScheduler();
         /* Thread for the Schedulers for save restart and .... */
         if (!getConfig().getBoolean("OnlyEssentialsFeatures")) {
-            thread = new Thread(new UpdateScheduler());
-            if (thread != null && !thread.isAlive())
+            thread = new Thread(updateScheduler);
+            if (!thread.isAlive()) {
                 thread.start();
+            } else {
+                if (updateScheduler.started) {
+                    Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aSchedulers Started!");
+                }
+            }
         }
 
         // LimitedHomes Init
@@ -341,6 +361,12 @@ public class Main extends JavaPlugin {
             }
         }
 
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cSome Settings have been moved to the settings.yml in §6'plugins/EssentialsMini/settings.yml'§4§l!");
+
+        // Write permissions.txt File
+        writePermissions();
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aPermissions can be viewed in the File §6'plugins/EssentialsMini/permissions.txt'");
+
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§aEnabled!");
 
         //Checking for Update and when enabled Download the Latest Version automatically
@@ -356,31 +382,49 @@ public class Main extends JavaPlugin {
         infoCfg.set("isOnlineMode", getVariables().isOnlineMode());
         infoCfg.set("PlayerDataSave", getConfig().getBoolean("PlayerInfoSave"));
         infoCfg.set("Economy", getConfig().getBoolean("Economy.Activate"));
+        infoCfg.set("Updates", updateScheduler.started);
         try {
             infoCfg.save(infoFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        if (!configVersion.equalsIgnoreCase("1.0.0")) {
-            new File(getDataFolder(), "config.yml").delete();
-            getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
-                    "Position activates /position <LocationName> or /pos <LocationName> Command\n" +
-                    "SkipNight activates skipnight. This means that only one Player need to lay in bed!\n" +
-                    "LocationsBackup Activates creating Backup from all Homes \n" +
-                    "OnlyEssentialsFeatures if its deactivated only Commands and Economy can be used when is activated the PlayerData will be saved \n" +
-                    "Economy.Activate activates the integration of the Vault API use for Economy \n" +
-                    "PlayerShop is that Players can create their own Shop \n" +
-                    "PlayerEvents also named as PlayerData events \n" +
-                    "Only 3 Limited Homes Group can be created. Please do not rename the Groups!");
-            getConfig().options().copyHeader(true);
-            getConfig().options().copyDefaults(true);
-            saveDefaultConfig();
-            Config.updateConfig();
-            Config.loadConfig();
-            Config.saveDefaultConfigValues();
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cConfig Replaced! Please edit your Config Sections!");
+        if (!configVersion.equalsIgnoreCase("1.0.1")) {
+            configUpdater();
         }
+    }
+
+    public void configUpdater() {
+        try {
+            FileUtils.moveFile(new File(getDataFolder(), "config.yml"), new File(getDataFolder(), "config_old.yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                getConfig().options().header("MySQL and SQLite uses MySQLAPI[https://framedev.ch/sites/downloads/mysqlapi] \n" +
+                        "Position activates /position <LocationName> or /pos <LocationName> Command\n" +
+                        "SkipNight activates skipnight. This means that only one Player need to lay in bed!\n" +
+                        "LocationsBackup Activates creating Backup from all Homes \n" +
+                        "OnlyEssentialsFeatures if its deactivated only Commands and Economy can be used when is activated the PlayerData will be saved \n" +
+                        "Economy.Activate activates the integration of the Vault API use for Economy \n" +
+                        "PlayerShop is that Players can create their own Shop \n" +
+                        "PlayerEvents also named as PlayerData events \n" +
+                        "Only 3 Limited Homes Group can be created. Please do not rename the Groups! \n" +
+                        "TeleportDelay is the Time you have to wait befor you got Teleported!");
+                getConfig().options().copyHeader(true);
+                getConfig().options().copyDefaults(true);
+                saveDefaultConfig();
+                Config.updateConfig();
+                Config.loadConfig();
+                Config.saveDefaultConfigValues();
+                Bukkit.getServer().reload();
+                Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cConfig Replaced! Please edit your Config Sections!");
+            }
+        }.runTaskLater(this, 60);
+        Config.saveDefaultConfigValues("messages_en-EN.yml");
+        Config.saveDefaultConfigValues("messages_example_de-DE.yml");
     }
 
     @Override
@@ -651,6 +695,7 @@ public class Main extends JavaPlugin {
 
     public String getOnlyPlayer() {
         String onlyPlayer = getCustomMessagesConfig().getString("OnlyPlayer");
+        if (onlyPlayer == null) return "";
         onlyPlayer = onlyPlayer.replace('&', '§');
         return onlyPlayer;
     }
@@ -665,6 +710,7 @@ public class Main extends JavaPlugin {
 
     public String getWrongArgs(String cmdName) {
         String wrongArgs = getCustomMessagesConfig().getString("WrongArgs");
+        if (wrongArgs == null) return "";
         wrongArgs = wrongArgs.replace("%cmdUsage%", cmdName);
         wrongArgs = wrongArgs.replace('&', '§');
         return wrongArgs;
@@ -689,6 +735,7 @@ public class Main extends JavaPlugin {
      */
     public String getNOPERMS() {
         String NOPERMS = getCustomMessagesConfig().getString("NoPermissions");
+        if (NOPERMS == null) return "";
         NOPERMS = NOPERMS.replace('&', '§');
         return NOPERMS;
     }
@@ -718,6 +765,7 @@ public class Main extends JavaPlugin {
                     } else {
                         Bukkit.getConsoleSender().sendMessage(getPrefix() + "A new update is available: version " + newVersion);
                     }
+                    br.close();
                     return true;
                 } else {
                     Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cThis Plugin is a Pre-Release | §6There could still be errors");
@@ -726,6 +774,7 @@ public class Main extends JavaPlugin {
             } else {
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "You're running the newest plugin version!");
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");
@@ -781,7 +830,7 @@ public class Main extends JavaPlugin {
     public String getPrefix() {
         String prefix = getConfig().getString("Prefix");
         if (prefix == null) {
-            throw new NullPointerException("Perfix cannot be Found in Config.yml");
+            throw new NullPointerException("Prefix cannot be Found in Config.yml");
         }
         if (prefix.contains("&"))
             prefix = prefix.replace('&', '§');
@@ -807,6 +856,7 @@ public class Main extends JavaPlugin {
                             player.spigot().sendMessage(base);
                         }
                     }
+                    br.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                     player.sendMessage(getPrefix() + "Failed to check for updates on framedev.ch");
@@ -816,7 +866,7 @@ public class Main extends JavaPlugin {
     }
 
     /**
-     * @return the instance (this Plugin)
+     * @return the Singleton of this Class (this Plugin)
      */
     public static Main getInstance() {
         return instance;
@@ -857,5 +907,31 @@ public class Main extends JavaPlugin {
 
     public String getConfigVersion() {
         return configVersion;
+    }
+
+    public FileConfiguration getSettingsCfg() {
+        return settingsCfg;
+    }
+
+    public void saveSettings() {
+        try {
+            this.settingsCfg.save(settingsFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void writePermissions() {
+        File file = new File(getDataFolder(), "permissions.txt");
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (Permission permission : getDescription().getPermissions()) {
+                writer.append(permission.getName() + "\n");
+            }
+            writer.flush();
+            writer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

@@ -10,9 +10,9 @@ package de.framedev.essentialsmini.commands.playercommands;
  */
 
 import de.framedev.essentialsmini.main.Main;
+import de.framedev.essentialsmini.managers.CommandBase;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -26,7 +26,7 @@ import java.util.List;
 
 import static org.bukkit.Material.AIR;
 
-public class SignItemCMD implements CommandExecutor {
+public class SignItemCMD extends CommandBase {
 
     private final Main plugin;
 
@@ -34,8 +34,8 @@ public class SignItemCMD implements CommandExecutor {
     FileConfiguration cfg;
 
     public SignItemCMD(Main plugin) {
+        super(plugin, "signitem");
         this.plugin = plugin;
-        plugin.getCommands().put("signitem", this);
         file = new File(plugin.getDataFolder(), "signditems.yml");
         cfg = YamlConfiguration.loadConfiguration(file);
     }

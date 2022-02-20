@@ -303,15 +303,15 @@ public class BackendManager {
     }
 
     public List<Object> getList(String where, Object data, String selected, String collection) {
-        ArrayList<Object> players = new ArrayList<>();
+        ArrayList<Object> list = new ArrayList<>();
         if (existsCollection(collection)) {
             MongoCollection<Document> collections = this.plugin.getMongoManager().getDatabase().getCollection(collection);
             collections.find(new Document(where, data)).forEach((Consumer<? super Document>) document -> {
                 if (document != null) {
-                    players.add(document.get(selected));
+                    list.add(document.get(selected));
                 }
             });
-            return players;
+            return list;
         }
         return null;
     }

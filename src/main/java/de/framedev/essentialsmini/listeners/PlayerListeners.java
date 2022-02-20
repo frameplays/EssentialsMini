@@ -48,11 +48,10 @@ import static org.bukkit.Bukkit.getServer;
 public class PlayerListeners implements Listener {
 
     private final Main plugin;
-    PlayerManagerCfgLoss cfgLoss;
-    private boolean jsonFormat;
+    private final boolean jsonFormat;
     private final String collection = "essentialsmini_data";
 
-    private boolean onlyEssentialsFeatures;
+    private final boolean onlyEssentialsFeatures;
 
     public PlayerListeners(Main plugin) {
         this.plugin = plugin;
@@ -106,14 +105,20 @@ public class PlayerListeners implements Listener {
                         event.setJoinMessage(null);
                     } else {
                         String joinMessage = plugin.getConfig().getString("JoinMessage");
-                        joinMessage = joinMessage.replace('&', '§');
-                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                        if (joinMessage == null) return;
+                        if (joinMessage.contains("&"))
+                            joinMessage = joinMessage.replace('&', '§');
+                        if (joinMessage.contains("%Player%"))
+                            joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                         event.setJoinMessage(joinMessage);
                     }
                 } else {
                     String joinMessage = plugin.getConfig().getString("JoinMessage");
-                    joinMessage = joinMessage.replace('&', '§');
-                    joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                    if (joinMessage == null) return;
+                    if (joinMessage.contains("&"))
+                        joinMessage = joinMessage.replace('&', '§');
+                    if (joinMessage.contains("%Player%"))
+                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setJoinMessage(joinMessage);
                 }
             }
@@ -275,16 +280,20 @@ public class PlayerListeners implements Listener {
                         event.setQuitMessage(null);
                     } else {
                         String joinMessage = plugin.getConfig().getString("LeaveMessage");
-                        if (joinMessage.contains("&")) {
+                        if (joinMessage == null) return;
+                        if (joinMessage.contains("&"))
                             joinMessage = joinMessage.replace('&', '§');
-                        }
-                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                        if (joinMessage.contains("%Player%"))
+                            joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                         event.setQuitMessage(joinMessage);
                     }
                 } else {
                     String joinMessage = plugin.getConfig().getString("LeaveMessage");
-                    joinMessage = joinMessage.replace('&', '§');
-                    joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
+                    if (joinMessage == null) return;
+                    if (joinMessage.contains("&"))
+                        joinMessage = joinMessage.replace('&', '§');
+                    if (joinMessage.contains("%Player%"))
+                        joinMessage = joinMessage.replace("%Player%", event.getPlayer().getName());
                     event.setQuitMessage(joinMessage);
                 }
             }

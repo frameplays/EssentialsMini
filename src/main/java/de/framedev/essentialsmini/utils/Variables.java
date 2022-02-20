@@ -31,6 +31,13 @@ public class Variables {
     private String playerNameNotOnline;
     private String playerNotOnline;
 
+    public static final String TPMESSAGES = "TpaMessages";
+    public static final String MONEYMESSAGE = "Money";
+    public static final String WARPMESSAGE = "Warp";
+    public static final String EXPERIENCE = "Experience";
+    public static final String ADMINBROADCAST = "AdminCommandBroadCast";
+    public static final String BANK = "Bank";
+
     private final ArrayList<OfflinePlayer> players = new ArrayList<>();
     private final ArrayList<String> offlinePlayers;
 
@@ -103,26 +110,12 @@ public class Variables {
         return noPermission;
     }
 
-    @Override
-    public String toString() {
-        return "Variables{" +
-                "prefix='" + prefix + '\'' +
-                ", onlyPlayer='" + onlyPlayer + '\'' +
-                ", noPermission='" + noPermission + '\'' +
-                ", permissionBase='" + permissionBase + '\'' +
-                ", authors=" + authors +
-                ", version='" + version + '\'' +
-                ", apiVersion='" + apiVersion + '\'' +
-                ", onlineMode=" + onlineMode +
-                ", jsonFormat=" + jsonFormat +
-                ", playerNameNotOnline='" + playerNameNotOnline + '\'' +
-                ", playerNotOnline='" + playerNotOnline + '\'' +
-                ", offlinePlayers=" + offlinePlayers +
-                '}';
-    }
-
     public ArrayList<OfflinePlayer> getPlayers() {
         return players;
+    }
+
+    public ArrayList<String> getOfflinePlayers() {
+        return offlinePlayers;
     }
 }
 
