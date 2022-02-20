@@ -9,6 +9,7 @@ import de.framedev.essentialsmini.commands.playercommands.SaveInventoryCMD;
 import de.framedev.essentialsmini.commands.playercommands.VanishCMD;
 import de.framedev.essentialsmini.commands.servercommands.LagCMD;
 import de.framedev.essentialsmini.managers.*;
+import de.framedev.essentialsmini.managers.VaultManager;
 import de.framedev.essentialsmini.utils.*;
 import de.framedev.mongodbconnections.main.MongoManager;
 import de.framedev.mysqlapi.api.SQL;
