@@ -22,8 +22,6 @@ import java.util.List;
  */
 public class KeyGenerator {
 
-    private static final Main plugin = Main.getInstance();
-
     private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
     private static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
     private static final String NUMBER = "0123456789";

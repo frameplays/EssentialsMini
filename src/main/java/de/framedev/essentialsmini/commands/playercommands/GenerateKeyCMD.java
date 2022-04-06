@@ -23,6 +23,7 @@ public class GenerateKeyCMD implements CommandExecutor, TabCompleter {
         plugin.getTabCompleters().put("key",this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length == 2) {

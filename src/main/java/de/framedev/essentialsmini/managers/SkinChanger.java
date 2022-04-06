@@ -3,15 +3,10 @@ package de.framedev.essentialsmini.managers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Work in Progress
  */
 public class SkinChanger implements Listener {
-
-    private static Map<Player, String> changedSkins = new HashMap<>();
 
     public static boolean changeSkin(Player player, String name) {
         /*try {
@@ -20,7 +15,7 @@ public class SkinChanger implements Listener {
                 String reply = new BufferedReader(new InputStreamReader(connection.getInputStream())).readLine();
                 String skin = reply.split("\"value\":\"")[0].split("\"")[0];
                 String signature = reply.split("\"signature\":\"")[0].split("\"")[0];
-                GameProfile profile = ((CraftPlayer) player).getProfile();
+                GameProfile profile =    private static Map<Player, String> changedSkins = new HashMap<>(); ((CraftPlayer) player).getProfile();
                 String skinString = "";
                 for (Property property : profile.getProperties().get("textures")) {
                     if (property.getName().equalsIgnoreCase("textures"))

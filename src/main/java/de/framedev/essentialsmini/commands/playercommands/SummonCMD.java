@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class SummonCMD extends CommandBase {
 
@@ -50,7 +51,7 @@ public class SummonCMD extends CommandBase {
                         player.getWorld().spawnEntity(bl, type);
                         player.sendMessage(plugin.getPrefix() + "§6" + type.name() + " §awurde erfolgreich gespawnt!");
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + "§cDieses Entity existiert nicht! §6" + type.name());
+                        sender.sendMessage(plugin.getPrefix() + "§cDieses Entity existiert nicht! §6" + Objects.requireNonNull(type).name());
                     }
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());
@@ -77,7 +78,7 @@ public class SummonCMD extends CommandBase {
                             player.sendMessage(plugin.getPrefix() + "§6" + args[1] + "§c ist keine Nummer!");
                         }
                     } else {
-                        sender.sendMessage(plugin.getPrefix() + "§cDieses Entity existiert nicht! §6" + type.name());
+                        sender.sendMessage(plugin.getPrefix() + "§cDieses Entity existiert nicht! §6" + Objects.requireNonNull(type).name());
                     }
                 } else {
                     player.sendMessage(plugin.getPrefix() + plugin.getNOPERMS());

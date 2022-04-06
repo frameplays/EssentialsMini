@@ -25,6 +25,7 @@ public class SkullBuilder {
     private final OfflinePlayer player;
     private final ItemStack itemStack;
 
+    @SuppressWarnings("deprecation")
     public SkullBuilder(String skullOwner) {
         itemStack = new ItemStack(Material.PLAYER_HEAD);
         this.skullOwner = skullOwner;

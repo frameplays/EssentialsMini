@@ -39,6 +39,7 @@ public class WarpCMD extends CommandListenerBase {
         this.plugin = plugin;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("setwarp")) {

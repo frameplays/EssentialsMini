@@ -31,6 +31,7 @@ public class TempBanCMD extends CommandBase {
         setupTabCompleter(this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("tempban")) {
@@ -93,7 +94,8 @@ public class TempBanCMD extends CommandBase {
         }
         return super.onCommand(sender, cmd, label, args);
     }
-
+    
+    @SuppressWarnings("unchecked")
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("tempban")) {

@@ -40,6 +40,7 @@ public class PlayerDataCMD extends CommandBase {
         return jsonFormat;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission(new Permission("essentialsmini.playerdata", PermissionDefault.OP))) {

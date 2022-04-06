@@ -56,7 +56,6 @@ public class PlayerListeners implements Listener {
     public PlayerListeners(Main plugin) {
         this.plugin = plugin;
         plugin.getListeners().add(this);
-        String permissionBase = plugin.getPermissionName();
         jsonFormat = plugin.getConfig().getBoolean("JsonFormat");
         this.onlyEssentialsFeatures = plugin.getConfig().getBoolean("OnlyEssentialsFeatures");
     }
@@ -416,6 +415,7 @@ public class PlayerListeners implements Listener {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @EventHandler
     public void onEntityKill(EntityDeathEvent event) {
         if (event.getEntity().getKiller() != null) {
@@ -564,6 +564,7 @@ public class PlayerListeners implements Listener {
         }
     }
 
+    @SuppressWarnings("unckecked")
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if (plugin.getConfig().getBoolean("PlayerEvents")) {

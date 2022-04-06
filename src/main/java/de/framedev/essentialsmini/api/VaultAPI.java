@@ -88,6 +88,7 @@ public class VaultAPI extends AbstractEconomy {
         return has(player.getName(), amount);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean hasAccount(String s) {
         File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
@@ -110,10 +111,9 @@ public class VaultAPI extends AbstractEconomy {
         return hasAccount(s);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public double getBalance(String playerName) {
-        File file = new File(Main.getInstance().getDataFolder() + "/money", "eco.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
             return new MySQLManager().getMoney(Bukkit.getOfflinePlayer(playerName));
         } else if (Main.getInstance().isMongoDB()) {
@@ -150,6 +150,7 @@ public class VaultAPI extends AbstractEconomy {
         return has(s, v);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
         if (!hasAccount(playerName))
@@ -178,6 +179,7 @@ public class VaultAPI extends AbstractEconomy {
         return withdrawPlayer(s, v);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
         if (!hasAccount(playerName))
@@ -210,6 +212,7 @@ public class VaultAPI extends AbstractEconomy {
         return createBank(name, player.getName());
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EconomyResponse createBank(String name, String player) {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
@@ -330,6 +333,7 @@ public class VaultAPI extends AbstractEconomy {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EconomyResponse isBankOwner(String name, String player) {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
@@ -349,6 +353,7 @@ public class VaultAPI extends AbstractEconomy {
         return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.SUCCESS, "");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EconomyResponse isBankMember(String name, String player) {
         if (Main.getInstance().isMysql() || Main.getInstance().isSQL()) {
@@ -396,6 +401,7 @@ public class VaultAPI extends AbstractEconomy {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean createPlayerAccount(String playerName) {
         if (!hasAccount(playerName)) {

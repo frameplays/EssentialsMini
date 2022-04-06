@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.lang.reflect.Type;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -490,6 +489,7 @@ public class MySQLManager {
         return banks;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean removeBank(String bankName) {
         if (SQL.isTableExists(tableName)) {
             if (getBanks().contains(bankName)) {

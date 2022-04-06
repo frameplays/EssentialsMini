@@ -135,6 +135,7 @@ public class EnchantCMD extends CommandBase {
         return null;
     }
 
+    @SuppressWarnings("deprecation")
     public static class Enchantments {
         private static final Map<String, Enchantment> ENCHANTMENTS = new HashMap<String, Enchantment>();
         private static final Map<String, Enchantment> ALIASENCHANTMENTS = new HashMap<String, Enchantment>();

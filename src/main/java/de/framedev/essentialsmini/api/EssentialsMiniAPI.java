@@ -198,7 +198,8 @@ public class EssentialsMiniAPI {
 
     public void printAllHomesFromPlayers() {
         for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-            getPlayerHomes(offlinePlayer).forEach((s, location) -> Bukkit.getConsoleSender().sendMessage(plugin.getPrefix() + "§7" + offlinePlayer.getName() + " Homes : " + s + " = " + new LocationsManager().locationToString(location)));
+            new LocationsManager();
+            getPlayerHomes(offlinePlayer).forEach((s, location) -> Bukkit.getConsoleSender().sendMessage(plugin.getPrefix() + "§7" + offlinePlayer.getName() + " Homes : " + s + " = " + LocationsManager.locationToString(location)));
         }
     }
 

@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.spi.LocaleServiceProvider;
 
 /*
  * ===================================================
@@ -38,7 +37,6 @@ public class LocationsManager {
     private final FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
     private final FileConfiguration cfgBackup = YamlConfiguration.loadConfiguration(fileBackup);
 
-    private final Main instance = Main.getInstance();
     private final boolean jsonFormat;
 
     public void setJsonLocation(String name, Location location) {
@@ -454,6 +452,7 @@ public class LocationsManager {
             FileWriter fileWriter = new FileWriter(fileBackupJson);
             fileWriter.write(new GsonBuilder().setPrettyPrinting().serializeNulls().create().toJson(backups));
             fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

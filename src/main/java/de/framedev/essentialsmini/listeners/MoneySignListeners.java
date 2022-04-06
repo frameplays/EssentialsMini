@@ -66,6 +66,7 @@ public class MoneySignListeners extends ListenerBase implements CommandExecutor 
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onClickBalance(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {

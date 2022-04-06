@@ -127,6 +127,7 @@ public class MaterialManager {
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(toJSON());
             fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

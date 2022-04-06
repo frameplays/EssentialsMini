@@ -197,6 +197,7 @@ public class KitManager {
         return items;
     }
 
+    @SuppressWarnings("unused")
     private String toPrettyJson() {
         return new GsonBuilder().setPrettyPrinting().create().toJson(kitname, Inventory.class);
     }

@@ -432,6 +432,7 @@ public class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§aEssentialsMini §cloading...");
     }
 
+    @SuppressWarnings("unckecked")
     @Override
     public void onDisable() {
         if (this.getConfig().getBoolean("SaveInventory")) {
@@ -466,9 +467,10 @@ public class Main extends JavaPlugin {
                 Objects.requireNonNull(Bukkit.getPlayer(players)).sendMessage(getPrefix() + "§cNach dem Reload wirst du nicht mehr im Vanish sein!");
             }
         });
+
         savePlayers();
         if (thread != null && thread.isAlive())
-            thread.getThreadGroup().destroy();
+            thread.interrupt();
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cDisabled! Bye");
     }
 

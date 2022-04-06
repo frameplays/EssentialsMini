@@ -551,6 +551,7 @@ public class HomeCMD extends CommandListenerBase {
         } else if (args.length == 2) {
             if (command.getName().equalsIgnoreCase("delotherhome")) {
                 if (sender.hasPermission(new Permission("essentialsmini.deletehome.others", PermissionDefault.OP))) {
+                    @SuppressWarnings("deprecation")
                     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
                     String name = args[0];
                     if (plugin.getConfig().getBoolean("JsonFormat")) {

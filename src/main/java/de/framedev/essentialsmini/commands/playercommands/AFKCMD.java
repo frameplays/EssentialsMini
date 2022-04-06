@@ -100,6 +100,7 @@ public class AFKCMD implements CommandExecutor {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     public void afk(Player player, boolean afk, String reason) {
         String isAfkMessage = this.plugin.getConfig().getString("AFK.IsAFK");
         String notAfkMessage = this.plugin.getConfig().getString("AFK.IsNotAFK");

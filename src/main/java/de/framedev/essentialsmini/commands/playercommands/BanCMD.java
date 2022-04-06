@@ -18,6 +18,7 @@ public class BanCMD extends CommandBase {
         super(plugin, "eban");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender.hasPermission(getPlugin().getPermissionName() + "ban")) {

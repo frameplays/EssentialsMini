@@ -34,6 +34,7 @@ public class EcoCMDs extends CommandBase {
         setupTabCompleter("eco", this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("pay")) {

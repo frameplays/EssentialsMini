@@ -54,6 +54,7 @@ public class MuteCMD extends CommandBase implements Listener {
         cfg = YamlConfiguration.loadConfiguration(file);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("mute")) {

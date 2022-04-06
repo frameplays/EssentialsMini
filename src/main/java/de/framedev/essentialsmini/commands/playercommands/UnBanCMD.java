@@ -14,6 +14,7 @@ public class UnBanCMD extends CommandBase {
 		super(plugin, "eunban");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.hasPermission(getPlugin().getPermissionName() + "unban")) {

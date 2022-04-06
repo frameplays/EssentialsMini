@@ -20,7 +20,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-
+@SuppressWarnings("deprecation")
 public class PlayerHeadsCMD extends CommandBase {
 
     private final Main plugin;
@@ -42,7 +42,6 @@ public class PlayerHeadsCMD extends CommandBase {
         return skull;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {

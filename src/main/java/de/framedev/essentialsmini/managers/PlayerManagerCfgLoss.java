@@ -363,6 +363,7 @@ public class PlayerManagerCfgLoss implements Serializable {
             String json = gson.toJson(this, PlayerManagerCfgLoss.class);
             fileWriter.write(json);
             fileWriter.flush();
+            fileWriter.close();
         } catch (IOException ignore) {
         }
     }

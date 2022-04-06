@@ -135,7 +135,6 @@ public class FireWorkCMD extends CommandBase {
                 player.sendMessage(getPlugin().getPrefix() + "§cKein Feuerwerksrackete in der Hand gefunden!");
                 return true;
             }
-            boolean direction = false;
             int amount = Integer.parseInt(args[1]);
             for (int i = 0; i < amount; i++) {
                 final Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);

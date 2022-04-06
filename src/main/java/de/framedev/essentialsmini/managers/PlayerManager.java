@@ -167,6 +167,7 @@ public class PlayerManager implements Serializable {
         saveConfig();
     }
 
+    @SuppressWarnings("deprecation")
     public ArrayList<EntityType> getEntityTypes() {
         if (cfg.contains("EntityTypesKilled")) {
             List<String> typeNames = cfg.getStringList("EntityTypesKilled");

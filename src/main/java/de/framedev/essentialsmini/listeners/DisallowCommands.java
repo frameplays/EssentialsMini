@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.help.HelpTopic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.bukkit.Bukkit.getServer;

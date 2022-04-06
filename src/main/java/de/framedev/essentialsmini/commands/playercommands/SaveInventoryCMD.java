@@ -73,6 +73,7 @@ public class SaveInventoryCMD implements CommandExecutor, Listener {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void restore() {
         if(cfg.contains("Inventory")) {
             cfg.getConfigurationSection("Inventory").getKeys(false).forEach(key -> {

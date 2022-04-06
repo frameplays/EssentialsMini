@@ -262,6 +262,7 @@ public class BanMuteManager {
         return "";
     }
 
+    @SuppressWarnings("deprecation")
     public List<String> getAllBannedPlayers() {
         List<String> playerNames = new ArrayList<>();
         if (SQL.isTableExists(table)) {
@@ -279,6 +280,7 @@ public class BanMuteManager {
         return playerNames;
     }
 
+    @SuppressWarnings("deprecation")
     public List<String> getAllTempBannedPlayers() {
         List<String> playerNames = new ArrayList<>();
         if (SQL.isTableExists(table)) {
