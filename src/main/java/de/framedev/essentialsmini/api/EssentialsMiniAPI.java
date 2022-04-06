@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
+ * (API)
  * This is the API for this Plugin
  */
 public class EssentialsMiniAPI {
